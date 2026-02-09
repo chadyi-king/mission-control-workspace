@@ -1,0 +1,55 @@
+{
+  "agents": {
+    "6811": {
+      "pid": 6811,
+      "name": "openclaw-gateway",
+      "cmdline": "openclaw-gateway                                                                                    ",
+      "create_time": "2026-02-05T00:03:35.160000",
+      "cpu_percent": 9.7,
+      "memory_mb": 395.9609375,
+      "session_id": "pid_6811",
+      "agent_id": "unknown"
+    },
+    "7545": {
+      "pid": 7545,
+      "name": "bash",
+      "cmdline": "/bin/bash -c cd mission-control-frontend/build && python3 -m http.server 8080 &\necho \"Dashboard running at http://localhost:8080\"\necho \"To view on phone, use the machine's IP: http://$(hostname -I | a",
+      "create_time": "2026-02-05T00:19:51.510000",
+      "cpu_percent": 0.0,
+      "memory_mb": 1.76953125,
+      "session_id": "pid_7545",
+      "agent_id": "unknown"
+    },
+    "7547": {
+      "pid": 7547,
+      "name": "python3",
+      "cmdline": "python3 -m http.server 8080",
+      "create_time": "2026-02-05T00:19:51.510000",
+      "cpu_percent": 0.0,
+      "memory_mb": 17.875,
+      "session_id": "pid_7547",
+      "agent_id": "unknown"
+    },
+    "8157": {
+      "pid": 8157,
+      "name": "bash",
+      "cmdline": "/bin/bash -c cd /home/chad-yi/.openclaw/workspace/diagnostics && python3 agent-health.py --check 2>&1 | head -30",
+      "create_time": "2026-02-05T00:41:41.370000",
+      "cpu_percent": 0.0,
+      "memory_mb": 3.25,
+      "session_id": "pid_8157",
+      "agent_id": "unknown"
+    },
+    "8158": {
+      "pid": 8158,
+      "name": "python3",
+      "cmdline": "python3 agent-health.py --check",
+      "create_time": "2026-02-05T00:41:41.370000",
+      "cpu_percent": 0.0,
+      "memory_mb": 15.25,
+      "session_id": "pid_8158",
+      "agent_id": "unknown"
+    }
+  },
+  "last_updated": "2026-02-05T00:41:43.228217"
+}

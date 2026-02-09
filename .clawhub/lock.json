@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "taskr": {
+      "version": "1.0.2",
+      "installedAt": 1770150267072
+    },
+    "agent-orchestrator": {
+      "version": "0.1.0",
+      "installedAt": 1770150275966
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1770156455231
+    },
+    "mission-control": {
+      "version": "2.0.0",
+      "installedAt": 1770150295696
+    },
+    "linux-service-triage": {
+      "version": "1.0.0",
+      "installedAt": 1770156426860
+    },
+    "clawlist": {
+      "version": "0.0.1",
+      "installedAt": 1770157040143
+    },
+    "task-decomposer": {
+      "version": "1.0.0",
+      "installedAt": 1770157057393
+    },
+    "web-search": {
+      "version": "1.0.0",
+      "installedAt": 1770157613589
+    },
+    "agent-browser-stagehand": {
+      "version": "1.0.0",
+      "installedAt": 1770346080795
+    }
+  }
+}

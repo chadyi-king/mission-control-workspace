@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-02-05T00:41:43.278461",
+  "patterns": {
+    "daily": {
+      "avg_cost": 0.0075,
+      "avg_tokens": 1500,
+      "avg_calls": 1,
+      "trend": "insufficient_data",
+      "confidence": 0.01
+    },
+    "weekly": {
+      "avg_cost": 0.0525,
+      "avg_tokens": 10500,
+      "avg_calls": 7,
+      "trend": "insufficient_data",
+      "confidence": 0.01
+    },
+    "monthly": {
+      "avg_cost": 0.225,
+      "avg_tokens": 45000,
+      "avg_calls": 30,
+      "trend": "insufficient_data",
+      "confidence": 0.01
+    }
+  },
+  "projections": {
+    "daily": {
+      "period": "daily",
+      "budget": 5.0,
+      "current_cost": 0.0075,
+      "current_tokens": 1500,
+      "current_calls": 1,
+      "progress_percent": 2.9,
+      "projected_total": 0.2589,
+      "projected_remaining": 0.2514,
+      "remaining_budget": 4.9925,
+      "days_remaining": 1.0,
+      "daily_rate": 0.2589,
+      "status": "ok",
+      "confidence": 0.01,
+      "trend": "insufficient_data"
+    },
+    "weekly": {
+      "period": "weekly",
+      "budget": 25.0,
+      "current_cost": 0.0075,
+      "current_tokens": 1500,
+      "current_calls": 1,
+      "progress_percent": 43.3,
+      "projected_total": 0.0173,
+      "projected_remaining": 0.0098,
+      "remaining_budget": 24.9925,
+      "days_remaining": 4.0,
+      "daily_rate": 0.0025,
+      "status": "ok",
+      "confidence": 0.01,
+      "trend": "insufficient_data"
+    },
+    "monthly": {
+      "period": "monthly",
+      "budget": 100.0,
+      "current_cost": 0.0075,
+      "current_tokens": 1500,
+      "current_calls": 1,
+      "progress_percent": 14.4,
+      "projected_total": 0.0521,
+      "projected_remaining": 0.0446,
+      "remaining_budget": 99.9925,
+      "days_remaining": 24.0,
+      "daily_rate": 0.0019,
+      "status": "ok",
+      "confidence": 0.01,
+      "trend": "insufficient_data"
+    }
+  }
+}

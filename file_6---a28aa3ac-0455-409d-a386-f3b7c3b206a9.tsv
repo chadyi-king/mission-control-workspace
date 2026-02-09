@@ -1,0 +1,7 @@
+start	end	text
+880	8480	Okay, it seems that if I'm doing a 1 minute 30 seconds voice message,
+10320	18160	this takes quite long to transcribe. Can you help me understand? You say that I didn't need
+18160	23280	to prompt you, but I did prompt you, so I don't know how long. For example, if it's a 10 second
+23280	28560	one, it seems like you're fine with it, but if it's a longer one, then it seems that I need to,
+28560	36640	you know, kind of wait for how long usually will it take. Do I have to use the cron job C-R-O-N
+37520	40400	to modify all of this?

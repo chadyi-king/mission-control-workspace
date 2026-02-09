@@ -1,0 +1,147 @@
+{
+  "processed": {
+    "file_0---5aa29362-ae3a-46b3-89c3-f80bbec0f1c1.ogg": {
+      "file": "file_0---5aa29362-ae3a-46b3-89c3-f80bbec0f1c1.ogg",
+      "text": "I do want you to transcribe my audio files and then yeah this is the way I would speak to you. I would guess that the best is that if you can have a platform in mind and then you set this up yourself so that I can speak to you through Telegram and then you can quickly transcribe it and so basically the main thing is I will answer your questions through voice rather than through text.",
+      "language": "en",
+      "segments": 4,
+      "mean_avg_logprob": -0.21314155694210168,
+      "mean_no_speech": 0.04316846560686827,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138645
+    },
+    "file_0---a46a55ba-b0ea-43c4-a0af-b1140038f819.ogg": {
+      "file": "file_0---a46a55ba-b0ea-43c4-a0af-b1140038f819.ogg",
+      "text": "I do want you to transcribe my audio files and then yeah this is the way I would speak to you. I would guess that the best is that if you can have a platform in mind and then you set this up yourself so that I can speak to you through Telegram and then you can quickly transcribe it and so basically the main thing is I will answer your questions through voice rather than through text.",
+      "language": "en",
+      "segments": 4,
+      "mean_avg_logprob": -0.21314155694210168,
+      "mean_no_speech": 0.04316846560686827,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138691
+    },
+    "file_1---e1667849-2334-4682-bfa0-c4bcde67425e.ogg": {
+      "file": "file_1---e1667849-2334-4682-bfa0-c4bcde67425e.ogg",
+      "text": "Hello, can you hear this? If you can't hear this, I want you to just help me type a test. 1, 2, 3.",
+      "language": "en",
+      "segments": 1,
+      "mean_avg_logprob": -0.26079169441671934,
+      "mean_no_speech": 0.06875722110271454,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138724
+    },
+    "file_2---af7b8bcb-3dab-4555-801a-63dc02b3b9c1.ogg": {
+      "file": "file_2---af7b8bcb-3dab-4555-801a-63dc02b3b9c1.ogg",
+      "text": "Are you sure? Because literally your fix did not work. It entered something called log level and it just fucked up the whole thing and then now it's like I had to spend like half an hour to just try to repair it. What the hell?",
+      "language": "en",
+      "segments": 3,
+      "mean_avg_logprob": -0.20428407603296742,
+      "mean_no_speech": 0.16255201399326324,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138764
+    },
+    "file_3---5a329610-3f5a-42e2-8489-2e4eea64ad5f.ogg": {
+      "file": "file_3---5a329610-3f5a-42e2-8489-2e4eea64ad5f.ogg",
+      "text": "Hello, can you hear me? If you can, type test12345.",
+      "language": "en",
+      "segments": 1,
+      "mean_avg_logprob": -0.3490623474121094,
+      "mean_no_speech": 0.07178334146738052,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138802
+    },
+    "file_4---17418021-7fb3-4632-a908-683c334adfc1.ogg": {
+      "file": "file_4---17418021-7fb3-4632-a908-683c334adfc1.ogg",
+      "text": "Yes, finally, this is great. Okay, so not but the issue sometimes is that maybe I'm in a crowded place, maybe you can't hear me properly, maybe, um, like, uh, you are... Yeah, like I'll have these long pauses, someone else to say something, things could get mixed up, my words could be transcribed, um, incorrectly, right? How are you able to fix that first as well? Yeah.",
+      "language": "en",
+      "segments": 4,
+      "mean_avg_logprob": -0.2555346264598075,
+      "mean_no_speech": 0.243763018399477,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138834
+    },
+    "file_5---b8523344-ed0d-4cb0-bd15-0cfd98a984eb.ogg": {
+      "file": "file_5---b8523344-ed0d-4cb0-bd15-0cfd98a984eb.ogg",
+      "text": "I would say let's do this in three levels. So for example one, if this transcription is great, which is what I'm seeing right in front of me, you are saying that even though there's a huge fan in the background, there's a lot blowing and everything, you can still understand me and you are transcribing it correctly and the items and everything makes sense to you. That's level one. You can understand quite fast, it makes sense to you, go ahead with things. Level two will be things like if I mention names or products, services, things that seem to be easily mistranslated. For example, when I was talking about Claude Baud, which is you, usually it would be translated into Anthropic Cloud, or talk about OpenClaw, some people hear it as something else. So that's level two where sometimes the transcription could mix up. I want you to be able to figure out how to understand what I'm actually saying first and if it's a mistake, then you can ask for clarification. Level three is where I guess it just really doesn't make sense to you about what I'm asking for. Just let me know how I can help you to fix that.",
+      "language": "en",
+      "segments": 17,
+      "mean_avg_logprob": -0.23818367328856058,
+      "mean_no_speech": 0.16184546491679022,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138852
+    },
+    "file_6---a28aa3ac-0455-409d-a386-f3b7c3b206a9.ogg": {
+      "file": "file_6---a28aa3ac-0455-409d-a386-f3b7c3b206a9.ogg",
+      "text": "Okay, it seems that if I'm doing a 1 minute 30 seconds voice message, this takes quite long to transcribe. Can you help me understand? You say that I didn't need to prompt you, but I did prompt you, so I don't know how long. For example, if it's a 10 second one, it seems like you're fine with it, but if it's a longer one, then it seems that I need to wait for how long it usually will take. Do I have to use the cron job C-R-O-N to modify all of this?",
+      "language": "en",
+      "segments": 8,
+      "mean_avg_logprob": -0.21421782871087391,
+      "mean_no_speech": 0.26155403070151806,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138867
+    },
+    "file_7---3ed9949b-1e1a-466c-affc-1444337ab574.ogg": {
+      "file": "file_7---3ed9949b-1e1a-466c-affc-1444337ab574.ogg",
+      "text": "Yeah, but you see this is where the confusion comes in. If now the connection says it's idle, that means it's waiting for you, sorry, waiting for me to pump you back. I need to understand your pro-activeness so that I can understand how to utilize you properly. Is it due to heartbeat or whatever? Okay, so these are a lot of new terms I've never used before. I don't understand how to use you. So can you please help me walk me through as to how do I use you the best in order to achieve the goals that I want to have? Yeah, you can type it as lengthy as possible.",
+      "language": "en",
+      "segments": 10,
+      "mean_avg_logprob": -0.24356310104394888,
+      "mean_no_speech": 0.10609179548919201,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138911
+    },
+    "file_8---7e6fa653-43cd-4f3f-b6b3-cca7df01ab53.ogg": {
+      "file": "file_8---7e6fa653-43cd-4f3f-b6b3-cca7df01ab53.ogg",
+      "text": "Okay, so before even if I go into the daily routine problems and whatever, all these kinds of things, what I want specifically is to make sure that whatever I'm saying, you can understand and reply to me and automate that. But the problem is that what I'm seeing right now is that you say that you automatically transcribe and prompt me back. But so far, for the past few messages, you have transcribed it very fast after I prompt you. So the problem is that I need to prompt you. Is there a way that I could fix something like, once again, is that a cron job? Is that a heartbeat? Is it something that I need to install, a skill I need to install that can just double check with you or prompt you back after I send a voice message to transcribe or something?",
+      "language": "en",
+      "segments": 12,
+      "mean_avg_logprob": -0.20996735914789066,
+      "mean_no_speech": 0.19944917658964792,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770138966
+    },
+    "file_9---520dba42-d52f-4e8c-b4f0-51583177322b.ogg": {
+      "file": "file_9---520dba42-d52f-4e8c-b4f0-51583177322b.ogg",
+      "text": "Okay, so once again, you are saying that I don't need to manually do anything, but after I send a voice message, I have to say, okay, reply, because you're saying that you're transcribing the latest voice message. But the moment I say, okay, reply, you actually transcribe it very, very quickly, which is after you transcribe it, then you already prompt me back, right? So this is the conversation I'm having. So right now I'm seeing that the current issue is that I send a message, you say you're transcribing, but you don't automatically reply me. So I have to prompt you almost immediately and actually you do it quite fast. So then that's where my issue is. Can you create a way that after I send you the voice message, then you tell me or you're transcribing blah, blah, blah. But then you prompt yourself again to reply me because that's not happening and that's the issue.",
+      "language": "en",
+      "segments": 14,
+      "mean_avg_logprob": -0.20028931048009305,
+      "mean_no_speech": 0.23207117297819682,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770139010
+    },
+    "file_10---a916d74a-57f2-4220-991d-675bf2b9752f.ogg": {
+      "file": "file_10---a916d74a-57f2-4220-991d-675bf2b9752f.ogg",
+      "text": "Okay, so yeah, this would be a long message just to test it out. First thing you should send to me is test 12345. Second later, I want you to help me plan with you what are the things I should be getting. Actually I'll honestly say specifically on installing skills. Because that one is quite important to me as to how I can make sure you function well. I am going to go and give you a whole freaking desktop to go and use with internet connection. And I'll slowly add things bit by bit so that you yourself can start to touch and utilize in order to fix whatever it is.",
+      "language": "en",
+      "segments": 7,
+      "mean_avg_logprob": -0.2443704489392544,
+      "mean_no_speech": 0.09476069467408317,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770139055
+    },
+    "file_11---224e67af-d3c7-4aa1-b69a-6f57fbde402e.ogg": {
+      "file": "file_11---224e67af-d3c7-4aa1-b69a-6f57fbde402e.ogg",
+      "text": "Okay, the problem is, it's working as intended, but okay this is what maybe I think you should do. First things first is whenever I send a voice message, yes you're replying to me in terms of like, oh you know we're talking and I talked about this and whatever, put out the full transcript of what I said as well. Yeah, so that I can actually understand that you understand me very clearly. Because maybe sometimes I would misspeak. So with that, let's begin outlining skills and functions that you can just tell me to install on you, then I'll start doing that.",
+      "language": "en",
+      "segments": 9,
+      "mean_avg_logprob": -0.25215845007759563,
+      "mean_no_speech": 0.16594054798285165,
+      "compression_ratio": null,
+      "needs_clarification": false,
+      "ts": 1770139098
+    }
+  }
+}

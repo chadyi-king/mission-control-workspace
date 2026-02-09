@@ -1,0 +1,32 @@
+1
+00:00:00,000 --> 00:00:08,880
+Okay, the problem is, it's working as intended, but okay this is what maybe I think you should
+
+2
+00:00:08,880 --> 00:00:10,380
+do.
+
+3
+00:00:10,380 --> 00:00:15,440
+First things first is whenever I send a voice message, yes you're replying to me in terms
+
+4
+00:00:15,440 --> 00:00:20,960
+of like, oh you know, we're talking and I talked about this and whatever, put out the
+
+5
+00:00:20,960 --> 00:00:26,800
+full transcript of what I said as well, so that I can actually understand that you understand
+
+6
+00:00:26,800 --> 00:00:34,160
+me very clearly, because maybe sometimes I would misspeak.
+
+7
+00:00:34,160 --> 00:00:44,280
+So with that, let's begin outlining skills and functions that you can just tell me to
+
+8
+00:00:44,280 --> 00:00:47,280
+install on you, then I'll start doing that.
+

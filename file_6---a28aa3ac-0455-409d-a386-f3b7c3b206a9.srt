@@ -1,0 +1,24 @@
+1
+00:00:00,880 --> 00:00:08,480
+Okay, it seems that if I'm doing a 1 minute 30 seconds voice message,
+
+2
+00:00:10,320 --> 00:00:18,160
+this takes quite long to transcribe. Can you help me understand? You say that I didn't need
+
+3
+00:00:18,160 --> 00:00:23,280
+to prompt you, but I did prompt you, so I don't know how long. For example, if it's a 10 second
+
+4
+00:00:23,280 --> 00:00:28,560
+one, it seems like you're fine with it, but if it's a longer one, then it seems that I need to,
+
+5
+00:00:28,560 --> 00:00:36,640
+you know, kind of wait for how long usually will it take. Do I have to use the cron job C-R-O-N
+
+6
+00:00:37,520 --> 00:00:40,400
+to modify all of this?
+

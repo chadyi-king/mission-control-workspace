@@ -1,0 +1,1 @@
+{"timestamp": "2026-02-05T00:41:42.095390", "model": "gpt-4o", "input_tokens": 1000, "output_tokens": 500, "input_cost": 0.0025, "output_cost": 0.005, "total_cost": 0.0075, "session_id": "test-session", "agent_id": null, "operation": "test"}

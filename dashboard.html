@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Arial; background: #0a0a0f; color: white; margin: 0; }
+.topbar { background: #12121a; padding: 15px; display: flex; justify-content: space-between; }
+.logo { font-size: 24px; font-weight: bold; }
+.container { display: flex; }
+.sidebar { width: 250px; background: #12121a; padding: 20px; height: calc(100vh - 60px); }
+.nav-item { padding: 12px; margin: 5px 0; cursor: pointer; border-radius: 8px; }
+.nav-item:hover { background: rgba(220,20,60,0.2); }
+.main { flex: 1; padding: 30px; }
+.project-card { background: #1a1a24; padding: 20px; margin-bottom: 15px; border-radius: 10px; cursor: pointer; border: 1px solid #2a2a3a; }
+.project-card:hover { border-color: #dc143c; }
+.btn { background: #dc143c; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; }
+.tasks { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #2a2a3a; }
+.tasks.show { display: block; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">🎯 MISSION CONTROL</div>
+  <div>Token: 57k/262k | Agents: 3</div>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <div style="color:#888; font-size:12px; margin-bottom:10px;">PROJECTS</div>
+    <div class="nav-item">A2 RE: UNITE</div>
+    <div class="nav-item">B1 Team Elevate</div>
+    <div class="nav-item">B2 ETHEREAL</div>
+  </div>
+  <div class="main">
+    <h2>Active Projects</h2>
+    <div class="project-card" onclick="toggleTasks('reunite')">
+      <h3>📖 RE: UNITE</h3>
+      <p style="color:#888;">R21 Isekai AI Story</p>
+      <div class="tasks" id="reunite">
+        <p>Task: Upload Chapters 1-12</p>
+        <button class="btn" onclick="event.stopPropagation(); spawnAgent()">Spawn Agent</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function toggleTasks(id) {
+  document.getElementById(id).classList.toggle('show');
+}
+function spawnAgent() {
+  alert('Agent spawning for task...');
+}
+</script>
+</body>
+</html>

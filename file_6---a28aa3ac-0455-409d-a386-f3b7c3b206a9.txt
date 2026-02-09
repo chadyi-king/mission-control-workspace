@@ -1,0 +1,6 @@
+Okay, it seems that if I'm doing a 1 minute 30 seconds voice message,
+this takes quite long to transcribe. Can you help me understand? You say that I didn't need
+to prompt you, but I did prompt you, so I don't know how long. For example, if it's a 10 second
+one, it seems like you're fine with it, but if it's a longer one, then it seems that I need to,
+you know, kind of wait for how long usually will it take. Do I have to use the cron job C-R-O-N
+to modify all of this?

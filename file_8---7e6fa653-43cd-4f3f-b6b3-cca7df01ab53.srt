@@ -1,0 +1,48 @@
+1
+00:00:00,000 --> 00:00:06,360
+Okay, so before even if I go into the daily routine problems and whatever, all these kinds
+
+2
+00:00:06,360 --> 00:00:13,680
+of things, what I want specifically is to make sure that whatever I'm saying, you can
+
+3
+00:00:13,680 --> 00:00:17,640
+understand and reply to me and automate that, right?
+
+4
+00:00:17,640 --> 00:00:25,000
+But the problem is that what I'm seeing right now is that you say that you automatically
+
+5
+00:00:25,000 --> 00:00:27,800
+transcribe and prompt me back.
+
+6
+00:00:27,800 --> 00:00:36,400
+But so far, for the past few messages, you have transcribed it very fast, after I prompt
+
+7
+00:00:36,400 --> 00:00:37,920
+you.
+
+8
+00:00:37,920 --> 00:00:40,760
+So the problem is that I need to prompt you.
+
+9
+00:00:40,760 --> 00:00:45,720
+Is there a way that I could fix something like, once again, is that a cron job, is that
+
+10
+00:00:45,720 --> 00:00:52,760
+a heartbeat, is it something that I need to install, a skill I need to install that can
+
+11
+00:00:52,800 --> 00:00:58,920
+just double check with you or prompt you back after I send a voice message to transcribe
+
+12
+00:00:58,920 --> 00:00:59,440
+or something?
+
