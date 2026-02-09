@@ -1,0 +1,32 @@
+{
+  "agent": "escritor",
+  "telegram_bot": {
+    "enabled": true,
+    "bot_id": "8210989417",
+    "bot_username": "@EscritorBot",
+    "description": "Story Agent (A2) - Creative writing and narrative content",
+    "webhook_url": null,
+    "commands": [
+      {
+        "command": "start",
+        "description": "Initialize Escritor session"
+      },
+      {
+        "command": "story",
+        "description": "Start a new story project"
+      },
+      {
+        "command": "draft",
+        "description": "Create a draft"
+      },
+      {
+        "command": "status",
+        "description": "Check current story status"
+      }
+    ],
+    "parent_agent": "CHAD_YI",
+    "delegate_tasks_from": ["CHAD_YI", "Caleb E"]
+  },
+  "integration_mode": "parent_delegated",
+  "status": "configured_pending_activation"
+}

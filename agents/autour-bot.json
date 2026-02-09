@@ -1,0 +1,36 @@
+{
+  "agent": "autour",
+  "telegram_bot": {
+    "enabled": true,
+    "bot_id": "8330774575",
+    "bot_username": "@AutourBot", 
+    "description": "Script Agent (A3) - Screenplay and dialogue writing",
+    "webhook_url": null,
+    "commands": [
+      {
+        "command": "start",
+        "description": "Initialize Autour session"
+      },
+      {
+        "command": "script",
+        "description": "Start a new script project"
+      },
+      {
+        "command": "scene",
+        "description": "Write a scene"
+      },
+      {
+        "command": "dialogue",
+        "description": "Generate dialogue"
+      },
+      {
+        "command": "format",
+        "description": "Format screenplay"
+      }
+    ],
+    "parent_agent": "CHAD_YI",
+    "delegate_tasks_from": ["CHAD_YI", "Caleb E"]
+  },
+  "integration_mode": "parent_delegated",
+  "status": "configured_pending_activation"
+}
