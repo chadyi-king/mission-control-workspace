@@ -1,9 +1,10 @@
 {
   "agent": "escritor",
   "telegram_bot": {
-    "enabled": true,
+    "enabled": false,
     "bot_id": "8210989417",
-    "bot_username": "@EscritorBot",
+    "bot_username": "@escritor_umc_bot",
+    "bot_token": "8210989417:AAGFOcumz6mX0gP6h_qxuaos8gWtnoKj3wA",
     "description": "Story Agent (A2) - Creative writing and narrative content",
     "webhook_url": null,
     "commands": [
@@ -25,8 +26,10 @@
       }
     ],
     "parent_agent": "CHAD_YI",
-    "delegate_tasks_from": ["CHAD_YI", "Caleb E"]
+    "delegate_tasks_from": ["CHAD_YI", "Caleb E"],
+    "allow_from": ["512366713"]
   },
   "integration_mode": "parent_delegated",
-  "status": "configured_pending_activation"
+  "status": "configured_pending_activation",
+  "activation_date": null
 }

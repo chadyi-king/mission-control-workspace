@@ -1,0 +1,1 @@
+URGENT: Trading setup required. See TRADING_SETUP.md

@@ -1,0 +1,1 @@
+URGENT: Trading setup required. See ../quanta/TRADING_SETUP.md

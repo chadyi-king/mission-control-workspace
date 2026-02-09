@@ -1,0 +1,30 @@
+{
+  "id": "MSG-TEMPLATE",
+  "from": "sender-agent-id",
+  "to": "recipient-agent-id",
+  "timestamp": "2026-02-09T00:00:00Z",
+  "type": "request",
+  "priority": "normal",
+  "subject": "Brief description of message",
+  "body": "Full message content here...",
+  "attachments": [],
+  "reply_to": null,
+  "deadline": null
+}
+
+## Message Types
+- request: Asking for something
+- response: Replying to a request
+- update: Status update
+- alert: Urgent notification
+
+## Priority Levels
+- high: Urgent, respond immediately
+- normal: Standard workflow
+- low: Background task
+
+## Routing Instructions
+1. Save as: message-bus/pending/MSG-{DATE}-{NNN}-{FROM}-to-{TO}.json
+2. CHAD_YI will route to recipient's inbox/
+3. Recipient processes and responds
+4. Original sender gets response in their inbox/
