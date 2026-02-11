@@ -1,0 +1,110 @@
+{
+  "auditId": "helios-audit-2026-02-11T1706",
+  "timestamp": "2026-02-11T17:06:00+08:00",
+  "auditor": "Helios",
+  "auditCount": 12,
+  "findings": {
+    "totalIssues": 4,
+    "critical": 1,
+    "warnings": 3,
+    "info": 0
+  },
+  "dataFreshness": {
+    "dataJson": {
+      "lastUpdated": "2026-02-11T08:36:00Z",
+      "ageMinutes": 510,
+      "status": "STALE",
+      "recommendation": "Update timestamp to reflect actual data state"
+    },
+    "heliosLastActive": {
+      "stored": "2026-02-11T07:51:00Z",
+      "expected": "2026-02-11T09:06:00Z",
+      "status": "STALE",
+      "recommendation": "Sync with lastAudit timestamp"
+    }
+  },
+  "consistencyChecks": [
+    {
+      "check": "ACTIVE.md vs data.json workflow.active",
+      "status": "INCONSISTENT",
+      "details": "ACTIVE.md reports 'No active tasks' but data.json workflow.pending has 7 tasks with assignedAgent",
+      "recommendation": "ACTIVE.md should list pending tasks with assigned agents"
+    },
+    {
+      "check": "Escritor agent status",
+      "status": "CONSISTENT",
+      "details": "All sources agree: Escritor is NOT_INITIALIZED / not_spawned / awaiting spawn"
+    },
+    {
+      "check": "Agent lastActive timestamps",
+      "status": "INCONSISTENT",
+      "details": "Helios lastActive (07:51Z) doesn't match lastAudit (16:51 SGT)",
+      "recommendation": "Update Helios lastActive to match lastAudit"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 30,
+      "status": "pending",
+      "assignedAgent": "CHAD_YI",
+      "risk": "HIGH - Due tomorrow, no progress logged"
+    },
+    {
+      "taskId": "B6-1",
+      "title": "Find facilitator for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 126,
+      "status": "pending",
+      "assignedAgent": "CHAD_YI",
+      "risk": "MEDIUM - 6 days remaining, 120 facilitators needed"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 126,
+      "status": "pending",
+      "assignedAgent": "CHAD_YI",
+      "risk": "MEDIUM - 6 days remaining, equipment order pending"
+    }
+  ],
+  "agentStatus": {
+    "CHAD_YI": {
+      "status": "active",
+      "currentTask": "Coordinating",
+      "lastActive": "2026-02-11T15:20:00Z",
+      "health": "OK"
+    },
+    "Helios": {
+      "status": "active",
+      "currentTask": "15-min audits",
+      "lastActive": "2026-02-11T07:51:00Z",
+      "health": "NEEDS_SYNC - lastActive stale"
+    },
+    "Escritor": {
+      "status": "not_spawned",
+      "currentTask": "Awaiting spawn by CHAD_YI",
+      "lastActive": null,
+      "health": "IDLE - No action for 48+ hours"
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "fix": "Update lastAudit timestamp",
+      "applied": true,
+      "timestamp": "2026-02-11T17:06:00+08:00"
+    }
+  ],
+  "escalations": [
+    {
+      "type": "urgent_deadline",
+      "severity": "critical",
+      "taskId": "A1-1",
+      "message": "Task A1-1 (Taiwan flights) due in 30 hours with no visible progress"
+    }
+  ],
+  "summary": "Dashboard data is functionally correct but timestamps are stale. Critical deadline approaching for A1-1. CHAD_YI needs to act on Taiwan rebooking."
+}

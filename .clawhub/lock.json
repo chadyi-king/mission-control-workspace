@@ -36,6 +36,74 @@
     "agent-browser-stagehand": {
       "version": "1.0.0",
       "installedAt": 1770346080795
+    },
+    "trading-coach": {
+      "version": "1.0.0",
+      "installedAt": 1770783594740
+    },
+    "financial-market-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1770783596323
+    },
+    "predictme": {
+      "version": "1.2.0",
+      "installedAt": 1770783599077
+    },
+    "youtube-transcript": {
+      "version": "1.0.1",
+      "installedAt": 1770783600539
+    },
+    "youtube-watcher": {
+      "version": "1.0.0",
+      "installedAt": 1770783603642
+    },
+    "bottube": {
+      "version": "1.1.0",
+      "installedAt": 1770783607709
+    },
+    "seo-content-writer": {
+      "version": "0.1.1",
+      "installedAt": 1770783609543
+    },
+    "social-media-management": {
+      "version": "1.0.0",
+      "installedAt": 1770783611426
+    },
+    "google-drive": {
+      "version": "1.0.5",
+      "installedAt": 1770783612965
+    },
+    "writer": {
+      "version": "1.0.2",
+      "installedAt": 1770783614409
+    },
+    "copywriter": {
+      "version": "1.1.0",
+      "installedAt": 1770783618012
+    },
+    "calendar": {
+      "version": "1.0.0",
+      "installedAt": 1770783619546
+    },
+    "task-workflow": {
+      "version": "1.0.0",
+      "installedAt": 1770783620962
+    },
+    "gog": {
+      "version": "1.0.0",
+      "installedAt": 1770783622172
+    },
+    "google-workspace-mcp": {
+      "version": "1.0.0",
+      "installedAt": 1770783623777
+    },
+    "screenshot": {
+      "version": "1.0.0",
+      "installedAt": 1770790492894
+    },
+    "browserautomation-skill": {
+      "version": "1.0.2",
+      "installedAt": 1770790499175
     }
   }
 }

@@ -1,0 +1,107 @@
+{
+  "auditId": "helios-2026-02-11T092100Z",
+  "timestamp": "2026-02-11T09:21:00Z",
+  "agent": "Helios",
+  "auditNumber": 13,
+  "duration": {
+    "start": "2026-02-11T09:21:00Z",
+    "end": "2026-02-11T09:21:15Z"
+  },
+  "checks": {
+    "dataSources": {
+      "data.json": {
+        "status": "read",
+        "lastUpdated": "2026-02-11T08:36:00Z",
+        "staleMinutes": 45,
+        "stale": true
+      },
+      "escritor/current-task.md": {
+        "status": "read",
+        "agentStatus": "NOT_INITIALIZED"
+      },
+      "escritor/MEMORY.md": {
+        "status": "read",
+        "entries": 0
+      },
+      "ACTIVE.md": {
+        "status": "read",
+        "activeTasks": 0,
+        "inProgress": 0,
+        "blocked": 0
+      }
+    },
+    "consistency": {
+      "escritor": {
+        "data.json.status": "not_spawned",
+        "current-task.md.status": "NOT_INITIALIZED",
+        "memory.md.entries": 0,
+        "consistent": true
+      },
+      "workflow.active": {
+        "data.json.active": [],
+        "ACTIVE.md.active": [],
+        "consistent": true
+      }
+    }
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "type": "timestamp_corruption",
+      "description": "Timezone conversion error in agent timestamps",
+      "details": "CHAD_YI lastActive shows '2026-02-11T15:20:00Z' which equals 23:20 SGT (in the future). Agent activity log entries also show 15:20:00Z and 15:15:00Z which are SGT times incorrectly stored as UTC.",
+      "affected": ["CHAD_YI.lastActive", "agentActivityLog[0].time", "agentActivityLog[1].time"],
+      "fixRequired": "Convert 15:20 SGT → 07:20Z, 15:15 SGT → 07:15Z"
+    },
+    {
+      "severity": "warning",
+      "type": "stale_data",
+      "description": "Dashboard data.json is 45 minutes old",
+      "details": "lastUpdated is 08:36:00Z (16:36 SGT), current time is 09:21:00Z (17:21 SGT)",
+      "expected": "Updates within 15 minutes for active dashboard"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "daysRemaining": 2,
+      "priority": "high"
+    },
+    {
+      "taskId": "B6-1",
+      "title": "Find facilitator for ESU",
+      "deadline": "2026-02-17",
+      "daysRemaining": 6,
+      "priority": "high"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "daysRemaining": 6,
+      "priority": "high"
+    }
+  ],
+  "agentStatus": {
+    "CHAD_YI": {
+      "status": "active",
+      "lastActiveReported": "2026-02-11T15:20:00Z",
+      "lastActiveCorrected": "2026-02-11T07:20:00Z",
+      "issues": ["timestamp_format_error"]
+    },
+    "Helios": {
+      "status": "active",
+      "lastAudit": "2026-02-11T09:06:00Z",
+      "nextAudit": "2026-02-11T09:36:00Z"
+    },
+    "Escritor": {
+      "status": "not_spawned",
+      "consistent": true
+    }
+  },
+  "autoFixesApplied": [],
+  "escalations": ["timestamp_corruption"],
+  "summary": "1 critical issue (timezone corruption), 1 warning (stale data), 3 urgent deadlines within 6 days. Escritor status consistent across all sources."
+}

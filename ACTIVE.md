@@ -1,34 +1,26 @@
-# ACTIVE CONTEXT
+# ACTIVE.md - Current Active Tasks
 
-## Current Focus
-- Mission Control Dashboard implementation
-- Agent spawning preparation
-- Real-time data system
+## Currently Being Worked On
 
-## Active Projects (A)
-- A1: Personal Tasks (3 pending)
-- A2: Re:Unite (Story Bible created, Chapter 13 next)
-- A6: Mission Control (Dashboard development)
-- A7: Wedding Planning (Dec 12-13, 2026)
+### CHAD_YI
+- **A6-3**: Dashboard audit infrastructure setup (Helios cron job)
+  - Status: In Progress
+  - Started: Feb 11, 18:36
+  - ETA: 5 min
 
-## Critical Deadlines
-- **Feb 13:** Taiwan flights/hotel change
-- **Feb 17:** B6 Elluminate - 120 facilitators + SPH items
-- **Feb 28:** B6 Elluminate - gel guns/archery equipment
+### Helios
+- **Audit cycle**: 15-minute dashboard verification
+  - Status: Running
+  - Last run: Feb 11, 18:36
+  - Next run: Feb 11, 18:51
 
-## Agent Status
-- CHAD_YI: Active
-- Helios: Ready to spawn
-- 11 Workers: Configured, pending spawn
+## Waiting for Input
+- **Escritor**: Needs chapter outline for A2 RE:UNITE
+- **Quanta**: Needs OANDA credentials for A5 trading
+- **MensaMusa**: Needs Moomoo credentials for A5 options flow
 
-## Token Strategy
-- Kimi K2.5: Brain (me) + Helios
-- Ollama (local): 11 Worker agents
-- Hybrid architecture for cost savings
+## Blocked
+- None currently blocking active work
 
-## Immediate Next Actions
-1. ✅ Re:Unite Story Bible - DONE
-2. ✅ B/C Project Memories - DONE
-3. 🔄 Real-time data implementation - IN PROGRESS
-4. ⏳ Ollama connectivity fix
-5. ⏳ Agent spawning
+## Recently Completed
+- None in last 24h

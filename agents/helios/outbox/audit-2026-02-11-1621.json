@@ -1,0 +1,99 @@
+{
+  "auditId": "helios-2026-02-11-1621",
+  "timestamp": "2026-02-11T08:21:00Z",
+  "agent": "Helios",
+  "version": "1.0.0",
+  "status": "completed",
+  "findings": {
+    "dataSources": {
+      "dashboard": {
+        "path": "/mission-control-dashboard/data.json",
+        "status": "valid",
+        "lastUpdated": "2026-02-11T08:21:00Z",
+        "checks": {
+          "jsonValid": true,
+          "schemaValid": true,
+          "statsConsistent": true
+        }
+      },
+      "active": {
+        "path": "/ACTIVE.md",
+        "status": "stale",
+        "lastUpdated": "2026-02-11T07:51:00Z",
+        "driftMinutes": 30,
+        "notes": "Timestamp shows 15:51 SGT but audit time is 16:21 SGT"
+      },
+      "escritorTask": {
+        "path": "/agents/escritor/current-task.md",
+        "status": "valid",
+        "agentStatus": "NOT_INITIALIZED",
+        "consistency": "matches data.json configuredAgents"
+      },
+      "escritorMemory": {
+        "path": "/agents/escritor/MEMORY.md",
+        "status": "valid",
+        "initialized": false
+      }
+    },
+    "workflow": {
+      "pending": 7,
+      "active": 0,
+      "review": 0,
+      "done": 2,
+      "total": 73,
+      "urgentTasks": 4,
+      "tasksWithDeadline": 4
+    },
+    "agents": {
+      "total": 3,
+      "active": 2,
+      "idle": 0,
+      "notSpawned": 1,
+      "configured": 4
+    },
+    "consistencyChecks": {
+      "agentStatusMatch": true,
+      "taskCountsMatch": true,
+      "deadlinesValid": true,
+      "orphanedEntries": false
+    }
+  },
+  "issues": [
+    {
+      "severity": "low",
+      "type": "timestamp_drift",
+      "source": "ACTIVE.md",
+      "message": "ACTIVE.md timestamp (15:51 SGT) is 30 minutes behind data.json (16:21 SGT)",
+      "autoFix": false,
+      "reason": "Minor drift, will sync on next update"
+    }
+  ],
+  "autoFixesApplied": [],
+  "escalations": [],
+  "urgentDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 48
+    },
+    {
+      "taskId": "B6-1",
+      "title": "Find facilitator for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 144
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 144
+    }
+  ],
+  "summary": {
+    "health": "healthy",
+    "issuesCount": 1,
+    "urgentCount": 0,
+    "nextAudit": "2026-02-11T08:36:00Z"
+  }
+}

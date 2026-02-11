@@ -2,42 +2,36 @@
   "agentId": "helios",
   "role": "Mission Control Engineer",
   "status": "active",
-  "config": {
-    "auditIntervalMinutes": 15,
-    "autoFixEnabled": true,
-    "alertThresholds": {
-      "staleTaskHours": 24,
-      "unresponsiveAgentMinutes": 30
-    }
-  },
-  "dataSources": [
-    "mission-control-dashboard/data.json",
-    "agents/escritor/current-task.md",
-    "agents/escritor/MEMORY.md",
-    "ACTIVE.md"
-  ],
+  "lastAudit": "2026-02-11T18:36:00+08:00",
+  "lastAuditRun": "2026-02-11T18:36:00+08:00",
+  "totalAuditsRun": 1,
+  "auditIntervalMinutes": 15,
   "autoFixRules": [
     {
       "condition": "agent_status_mismatch",
-      "action": "sync_from_current_task",
+      "action": "sync_to_actual_work",
       "severity": "medium"
     },
     {
-      "condition": "stale_task_over_24h",
-      "action": "flag_for_review",
+      "condition": "stale_task_older_than_7_days",
+      "action": "mark_for_review",
+      "severity": "low"
+    },
+    {
+      "condition": "agent_idle_over_24h",
+      "action": "ping_agent",
       "severity": "high"
     },
     {
-      "condition": "orphaned_task_no_agent",
-      "action": "move_to_backlog",
-      "severity": "low"
+      "condition": "missing_agent_files",
+      "action": "flag_for_setup",
+      "severity": "medium"
     }
   ],
-  "lastAudit": "2026-02-11T14:06:00.000+08:00",
-  "auditCount": 14,
-  "issuesFound": 4,
-  "autoFixesApplied": 1,
-  "lastCoordination": "2026-02-11T14:06:00+08:00",
-  "coordinator": "CHAD_YI",
-  "lastAuditReport": "agents/helios/outbox/audit-2026-02-11T14-06-00.json"
+  "notificationRules": {
+    "urgent": ["agent_idle_over_24h", "deadline_within_24h", "data_corruption"],
+    "daily": ["stale_tasks", "agent_status_summary"]
+  },
+  "monitoredAgents": ["chad_yi", "escritor", "quanta", "mensamusa", "autour"],
+  "version": "1.0.0"
 }

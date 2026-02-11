@@ -33,21 +33,35 @@ Keep the Mission Control Dashboard accurate, consistent, and operational through
 
 ---
 
-### 2. AGENT COORDINATION CHECK
-**What:** Ensure agents are actually working
+### 2. AGENT COORDINATION CHECK (PING ALL AGENTS)
+**What:** Actively PING all agents to ensure they're working and report to CHAD_YI
 
-**Agents to Monitor:**
-| Agent | What to Check | Expected State |
-|-------|---------------|----------------|
-| Escritor | current-task.md, inbox, outbox | Should have active task or be idle |
-| Quanta | TRADING_SETUP.md progress | BLOCKED until trading accounts ready |
-| MensaMusa | current-task.md | BLOCKED until trading setup |
-| Autour | current-task.md | Idle until script tasks assigned |
+**Ping Process:**
+1. For each agent, check their status files
+2. Write ping to their inbox: "Helios ping - status check"
+3. Wait for response (in next audit cycle)
+4. If no response → Mark as non-responsive
+5. Report all findings to CHAD_YI
 
-**Action if Idle >24h:**
-1. Check if user assigned work
-2. If not → Mark status "waiting_for_tasks"
-3. Message CHAD_YI via bus
+**Agents to Ping:**
+| Agent | Ping Message | Expected Response |
+|-------|--------------|-------------------|
+| **CHAD_YI** | "Status check - current task and ETA?" | Current task + estimated completion |
+| Escritor | "A2-13 Chapter 13 edit - ready to start?" | Yes/No + when ready |
+| Quanta | "A5 trading bot - still blocked on OANDA?" | Status update |
+| MensaMusa | "A5 options monitoring - still blocked on Moomoo?" | Status update |
+| Autour | "A3 KOE scripts - waiting for assignment?" | Yes/No + ready status |
+
+**Report to CHAD_YI:**
+```
+Helios Agent Coordination Report:
+- CHAD_YI: [task] ETA [time]
+- Escritor: [status] - [response or no response]
+- Quanta: [status] - [response or no response]
+- MensaMusa: [status] - [response or no response]
+- Autour: [status] - [response or no response]
+- Actions needed: [list]
+```
 
 ---
 
