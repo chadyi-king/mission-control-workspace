@@ -3,10 +3,10 @@
 ## Project: Re:Unite (A2)
 
 ### Current Status
-- **Progress:** 12/12 chapters provided by user (100% content received)
+- **Progress:** 12/12 chapters provided by user (100% content received), Chapter 13 in progress
 - **Last Worked:** 2026-02-11
-- **Next Task:** Review Chapter 12, begin Chapter 13 draft
-- **Status:** User has provided complete manuscript through Chapter 12
+- **Next Task:** Edit Chapter 13 (active)
+- **Status:** Chapter 13 editing in progress
 
 ### Story Elements Learned
 
@@ -26,7 +26,7 @@
 - ✅ Project structure setup
 
 ### Pending Tasks
-- ⏳ Chapter 4 draft
+- ⏳ Chapter 13 edit (active)
 - ⏳ Character deep-dives
 - ⏳ World expansion
 
