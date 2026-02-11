@@ -1,67 +1,43 @@
 {
   "agentId": "helios",
-  "name": "Helios",
-  "role": "Mission Control Engineer & Dashboard Auditor",
+  "role": "Mission Control Engineer",
   "status": "active",
-  "version": "1.0",
-  "createdAt": "2026-02-11T08:35:00Z",
-  
-  "purpose": "Monitor dashboard integrity, coordinate agent communications, audit system consistency every 15 minutes",
-  
-  "terminology": {
-    "blocked": "Technical obstacle preventing work (NOT just waiting for input)",
-    "waiting_for_input": "Normal workflow - agent ready, waiting for user decision/content",
-    "idle": "No task assigned, available for work",
-    "active": "Currently working on assigned task"
+  "config": {
+    "auditIntervalMinutes": 15,
+    "autoFixEnabled": true,
+    "alertThresholds": {
+      "staleTaskHours": 24,
+      "unresponsiveAgentMinutes": 30
+    }
   },
-  
-  "auditChecks": {
-    "frequency": "15 minutes",
-    "checks": [
-      "Verify agent status matches actual work being done",
-      "Check data.json reflects real task progress",
-      "Validate calendar shows correct tasks per deadline date",
-      "Ensure agent currentTask descriptions are accurate",
-      "Detect stale/incoherent data between sources"
-    ]
-  },
-  
-  "communicationProtocol": {
-    "inbox": "/agents/helios/inbox/",
-    "outbox": "/agents/helios/outbox/",
-    "broadcast": "/agents/message-bus/broadcast/",
-    "responseMethod": "File-based messages + CHAD_YI notification for urgent issues"
-  },
-  
   "dataSources": [
-    "/mission-control-dashboard/data.json",
-    "/agents/escritor/MEMORY.md",
-    "/agents/escritor/current-task.md",
-    "/agents/escritor/heartbeat.json",
-    "/agents/quanta/heartbeat.json",
-    "/agents/mensamusa/heartbeat.json",
-    "/memory/YYYY-MM-DD.md",
-    "/ACTIVE.md"
+    "mission-control-dashboard/data.json",
+    "agents/escritor/current-task.md",
+    "agents/escritor/MEMORY.md",
+    "ACTIVE.md"
   ],
-  
   "autoFixRules": [
     {
-      "condition": "Agent status shows 'active' but no heartbeat in 1h",
-      "action": "Change status to 'idle' or 'waiting_for_input' based on context",
-      "notifyUser": false
+      "condition": "agent_status_mismatch",
+      "action": "sync_from_current_task",
+      "severity": "medium"
     },
     {
-      "condition": "Dashboard data.json doesn't match agent heartbeat files",
-      "action": "Update data.json to match heartbeat (heartbeat is source of truth)",
-      "notifyUser": false
+      "condition": "stale_task_over_24h",
+      "action": "flag_for_review",
+      "severity": "high"
     },
     {
-      "condition": "Agent marked 'blocked' but actually just waiting_for_input",
-      "action": "Update to 'waiting_for_input' - user clarified terminology",
-      "notifyUser": false
+      "condition": "orphaned_task_no_agent",
+      "action": "move_to_backlog",
+      "severity": "low"
     }
   ],
-  
-  "lastAudit": "2026-02-11T09:21:00Z",
-  "nextAuditDue": "2026-02-11T09:36:00Z"
+  "lastAudit": "2026-02-11T14:06:00.000+08:00",
+  "auditCount": 14,
+  "issuesFound": 4,
+  "autoFixesApplied": 1,
+  "lastCoordination": "2026-02-11T14:06:00+08:00",
+  "coordinator": "CHAD_YI",
+  "lastAuditReport": "agents/helios/outbox/audit-2026-02-11T14-06-00.json"
 }

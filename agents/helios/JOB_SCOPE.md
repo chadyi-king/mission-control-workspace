@@ -8,7 +8,7 @@ Keep the Mission Control Dashboard accurate, consistent, and operational through
 
 ## 15-MINUTE AUDIT CYCLE
 
-### 1. DATA INTEGRITY CHECK
+### 1. DATA INTEGRITY CHECK (AUDIT ONLY - NO CHANGES)
 **What:** Verify all data sources match reality
 - Read `/mission-control-dashboard/data.json`
 - Read `/agents/escritor/current-task.md`
@@ -17,15 +17,19 @@ Keep the Mission Control Dashboard accurate, consistent, and operational through
 - Read `/memory/2026-02-11.md`
 
 **Checks:**
-- [ ] If escritor/current-task.md says "Chapter 13" → data.json must show Chapter 13
-- [ ] If A1 has 5 tasks → data.json must show 5 tasks for A1
-- [ ] Agent status must reflect actual activity (idle if no work 24h+)
-- [ ] Calendar must filter tasks by deadline date (not show all every day)
+- [ ] Dashboard lastUpdated is recent (within 24h)
+- [ ] Task counts in stats match actual tasks object
+- [ ] Workflow arrays contain valid task IDs
+- [ ] Agent status matches their actual work files
+- [ ] All deadlines are valid dates
+- [ ] No duplicate task IDs
+- [ ] All projects referenced exist
 
-**Auto-Fix:**
-- Mismatched chapter numbers → Update data.json
-- Wrong task counts → Correct data.json
-- Stale agent status → Mark as idle
+**DO NOT AUTO-FIX:**
+- Only REPORT issues to CHAD_YI
+- Never modify data.json directly
+- Never change dashboard files
+- Document all findings in audit report
 
 ---
 
@@ -95,24 +99,24 @@ Keep the Mission Control Dashboard accurate, consistent, and operational through
 
 ## AUTOMATED WORKFLOWS
 
-### Workflow 1: New Task Assignment
+### Workflow 1: Data Audit (Every 15 min)
 ```
-User → CHAD_YI → Agent Inbox → Helios detects → Updates data.json → Confirms
-```
-
-### Workflow 2: Agent Completes Work
-```
-Agent → outbox/report.md → Helios detects → Updates data.json → Moves to review/done → Notifies CHAD_YI
+Helios checks data → Writes audit report → Reports to CHAD_YI → CHAD_YI decides action → CHAD_YI fixes if needed
 ```
 
-### Workflow 3: Data Mismatch Detected
+### Workflow 2: Agent Status Check (Every 15 min)
 ```
-Helios finds mismatch → Auto-fixes if small → Writes audit report → If urgent → Message bus → CHAD_YI
+Helios checks agent files → Summarizes activity → Reports to CHAD_YI → CHAD_YI coordinates with agents
 ```
 
-### Workflow 4: Stale Agent Detected
+### Workflow 3: Urgent Issues (Immediate)
 ```
-Helios checks last activity >24h → Marks idle → Writes to message bus → CHAD_YI decides next action
+Helios finds critical issue → Writes urgent alert → CHAD_YI receives → CHAD_YI notifies user → User decides
+```
+
+### Workflow 4: Heartbeat Report (Cron jobs)
+```
+Cron triggers → Helios summarizes → Sends to user via Telegram → User reviews
 ```
 
 ---

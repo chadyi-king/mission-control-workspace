@@ -1,0 +1,72 @@
+{
+  "auditId": "helios-2026-02-11T12-51-00",
+  "timestamp": "2026-02-11T12:51:00+08:00",
+  "agent": "helios",
+  "auditType": "15min_dashboard_audit",
+  "findings": {
+    "dataFreshness": {
+      "status": "WARNING",
+      "dataJsonLastUpdated": "2026-02-11T11:35:00Z",
+      "minutesSinceUpdate": 76,
+      "threshold": 60,
+      "message": "data.json is 76 minutes old, exceeds 60 min threshold"
+    },
+    "agentConsistency": {
+      "escritor": {
+        "status": "MISMATCH",
+        "dataJsonStatus": "waiting_for_input",
+        "dataJsonTask": "Awaiting spawn by CHAD_YI",
+        "currentTaskMdStatus": "NOT_INITIALIZED",
+        "currentTaskMdTask": "No active task assigned",
+        "recommendation": "Sync status labels - 'waiting_for_input' and 'NOT_INITIALIZED' should align"
+      }
+    },
+    "upcomingDeadlines": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "daysRemaining": 2,
+        "priority": "URGENT"
+      },
+      {
+        "taskId": "B6-1",
+        "title": "Find facilitator for ESU",
+        "deadline": "2026-02-17",
+        "daysRemaining": 6,
+        "priority": "HIGH"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "daysRemaining": 6,
+        "priority": "HIGH"
+      }
+    ],
+    "staleTasks": [],
+    "orphanedTasks": []
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "agent_status_mismatch",
+      "target": "escritor",
+      "action": "flagged_for_manual_review",
+      "reason": "Semantic mismatch between 'waiting_for_input' and 'NOT_INITIALIZED' - requires CHAD_YI decision"
+    }
+  ],
+  "requiresAttention": [
+    "Escritor status label inconsistency - CHAD_YI to standardize",
+    "A1-1 deadline in 2 days - Taiwan trip urgent",
+    "Consider refreshing data.json timestamp"
+  ],
+  "stats": {
+    "totalTasks": 47,
+    "activeTasks": 1,
+    "pendingTasks": 43,
+    "reviewTasks": 1,
+    "doneTasks": 2,
+    "activeAgents": 2,
+    "waitingAgents": 1
+  }
+}
