@@ -1,11 +1,12 @@
 {
   "agent": "escritor",
-  "timestamp": "2026-02-11T08:45:00Z",
-  "status": "working",
+  "timestamp": "2026-02-11T09:05:00Z",
+  "status": "waiting_for_input",
   "currentTask": "Edit Chapter 13",
-  "progress": "Just assigned - starting analysis",
-  "eta": "Unknown - awaiting user content",
-  "blockers": "Waiting for user to provide Chapter 13 content",
-  "lastOutput": "Task assigned, preparing analysis framework",
-  "nextHeartbeat": "2026-02-11T09:15:00Z"
+  "progress": "Ready - 0%",
+  "eta": "Waiting for user",
+  "waitingFor": "Chapter 13 content from user",
+  "lastOutput": "Task assigned, preparing analysis framework - ready when user provides content",
+  "nextHeartbeat": "2026-02-11T09:35:00Z",
+  "note": "NOT blocked - normal workflow, waiting for user content when ready"
 }

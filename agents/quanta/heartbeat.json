@@ -1,11 +1,12 @@
 {
   "agent": "quanta",
-  "timestamp": "2026-02-11T08:45:00Z",
-  "status": "blocked",
+  "timestamp": "2026-02-11T09:05:00Z",
+  "status": "waiting_for_input",
   "currentTask": "Setup Trading Bot: Forex/Commodities",
   "progress": "0%",
-  "eta": "Blocked indefinitely",
-  "blockers": "Need OANDA trading account credentials. Need Moomoo account for options flow.",
-  "lastOutput": "Waiting for user to provide trading account setup",
-  "nextHeartbeat": "2026-02-11T09:15:00Z"
+  "eta": "Waiting for user",
+  "waitingFor": "OANDA trading account credentials, Moomoo account for options flow",
+  "lastOutput": "Ready to begin - waiting for user to provide trading account credentials",
+  "nextHeartbeat": "2026-02-11T09:35:00Z",
+  "note": "NOT blocked - just waiting for user input when they're ready"
 }

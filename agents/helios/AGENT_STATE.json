@@ -8,6 +8,13 @@
   
   "purpose": "Monitor dashboard integrity, coordinate agent communications, audit system consistency every 15 minutes",
   
+  "terminology": {
+    "blocked": "Technical obstacle preventing work (NOT just waiting for input)",
+    "waiting_for_input": "Normal workflow - agent ready, waiting for user decision/content",
+    "idle": "No task assigned, available for work",
+    "active": "Currently working on assigned task"
+  },
+  
   "auditChecks": {
     "frequency": "15 minutes",
     "checks": [
@@ -30,28 +37,31 @@
     "/mission-control-dashboard/data.json",
     "/agents/escritor/MEMORY.md",
     "/agents/escritor/current-task.md",
+    "/agents/escritor/heartbeat.json",
+    "/agents/quanta/heartbeat.json",
+    "/agents/mensamusa/heartbeat.json",
     "/memory/YYYY-MM-DD.md",
     "/ACTIVE.md"
   ],
   
   "autoFixRules": [
     {
-      "condition": "Escritor current-task.md says 'Chapter 13' but data.json says 'Chapter 3'",
-      "action": "Update data.json to Chapter 13, mark Chapter 3-12 as done",
+      "condition": "Agent status shows 'active' but no heartbeat in 1h",
+      "action": "Change status to 'idle' or 'waiting_for_input' based on context",
       "notifyUser": false
     },
     {
-      "condition": "Agent status shows 'active' but no work in 24h",
-      "action": "Change status to 'idle', queue notification to CHAD_YI",
-      "notifyUser": true
+      "condition": "Dashboard data.json doesn't match agent heartbeat files",
+      "action": "Update data.json to match heartbeat (heartbeat is source of truth)",
+      "notifyUser": false
     },
     {
-      "condition": "Calendar shows same tasks every day",
-      "action": "Flag calendar filtering bug, notify CHAD_YI",
-      "notifyUser": true
+      "condition": "Agent marked 'blocked' but actually just waiting_for_input",
+      "action": "Update to 'waiting_for_input' - user clarified terminology",
+      "notifyUser": false
     }
   ],
   
-  "lastAudit": "2026-02-11T08:51:00Z",
-  "nextAuditDue": "2026-02-11T09:06:00Z"
+  "lastAudit": "2026-02-11T09:05:00Z",
+  "nextAuditDue": "2026-02-11T09:20:00Z"
 }
