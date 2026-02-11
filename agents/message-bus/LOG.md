@@ -32,7 +32,11 @@ escritor/inbox/RESPONSE-001.json
 ## Recent Messages
 | ID | From | To | Subject | Date |
 |----|------|-----|---------|------|
-| - | - | - | - | - |
+| RPT-0830 | CHAD_YI | Archive | Coordination Report 08:30 | 2026-02-11 |
+| RPT-0730 | CHAD_YI | Archive | Coordination Report 07:30 | 2026-02-11 |
+| RPT-0630 | CHAD_YI | Archive | Coordination Report 06:30 | 2026-02-11 |
+| RPT-0530 | CHAD_YI | Archive | Coordination Report 05:30 | 2026-02-11 |
+| RPT-0430 | CHAD_YI | Archive | Coordination Report 04:30 | 2026-02-11 |
 
 ## Routing Rules
 - Escritor ↔ Quanta: ALLOWED (research requests)

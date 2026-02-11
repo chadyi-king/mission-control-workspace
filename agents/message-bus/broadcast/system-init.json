@@ -1,0 +1,12 @@
+{
+  "id": "msg-202602110835-init",
+  "from": "CHAD_YI",
+  "to": "broadcast",
+  "timestamp": "2026-02-11T08:35:00Z",
+  "type": "system",
+  "priority": "medium",
+  "subject": "Helios Agent System Activated",
+  "content": "Helios is now running 15-minute dashboard audits. Message bus is active. Agents can now communicate through file-based messaging.",
+  "requiresAction": false,
+  "actionBy": null
+}

@@ -3,10 +3,17 @@
 ⚠️  WARNING: DO NOT COMMIT THIS FILE
 ⚠️  Contains sensitive API credentials
 
-## Telegram
-- Bot Token: [PENDING - Get from BotFather]
-- API ID: [PENDING - Get from my.telegram.org]
-- API Hash: [PENDING - Get from my.telegram.org]
+## Telegram (CFxSignals)
+- App Title: CallistoFX Trading Bot
+- Short Name: CFxTrader
+- API ID: 32485688
+- API Hash: f9ee9ff7b3b7c37bb3b213709eb3ad99
+- Phone Number: +6591593838
+- Session File: quanta_session.session (auto-generated)
+
+## Signal Channels to Monitor
+- Primary: 🚀 CallistoFx Premium Channel 🚀
+- [Add more channels as needed]
 
 ## OANDA (Forex)
 - Account ID: [PENDING]
@@ -22,18 +29,22 @@
 - Webhook URL: [PENDING - Will generate]
 - Alert Channel: [PENDING]
 
-## Signal Sources
-- Telegram Channels: [LIST PENDING]
-- Twitter Accounts: [LIST PENDING]
+## Setup Status
+- ✅ Telegram API: DONE (2026-02-09)
+- ✅ Phone Number: DONE (+6591593838)
+- ✅ Signal Channel: DONE (🚀 CallistoFx Premium Channel 🚀)
+- ⏳ OANDA: PENDING
+- ⏳ Moomoo: PENDING
+- ⏳ TradingView: PENDING
 
-## Encryption
-This file should be encrypted with:
-- User's private key
-- Or environment variables (recommended for deployment)
+## Next Steps
+1. Login to Telegram with API credentials (Quanta will handle this)
+2. Join/monitor 🚀 CallistoFx Premium Channel 🚀
+3. Parse signal format (entry, stop-loss, take-profit)
+4. Set up OANDA practice account
+5. Configure automated execution
 
-## Setup Instructions
-1. Create accounts on each platform
-2. Generate API keys
-3. Add keys above
-4. Never commit to git
-5. Use environment variables in production
+## Security Notes
+- Session will be saved locally (quanta_session.session)
+- Never share session file
+- Use 2FA on Telegram account

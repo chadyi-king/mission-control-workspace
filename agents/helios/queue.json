@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-02-11T08:30:00Z",
+  "status": "active",
+  "queue": [],
+  "agents": {
+    "CHAD_YI": {
+      "status": "active",
+      "currentTask": "Orchestrating user requests",
+      "lastHeartbeat": "2026-02-11T08:30:00Z"
+    },
+    "Escritor": {
+      "status": "idle",
+      "currentTask": null,
+      "lastHeartbeat": "2026-02-09T13:00:00Z",
+      "pendingWork": "Review Chapter 12, draft Chapter 13"
+    },
+    "Helios": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "note": "Needs to be spawned for real-time coordination"
+    }
+  },
+  "calendarSync": {
+    "lastSync": "2026-02-11T08:30:00Z",
+    "knownDeadlines": [
+      {"taskId": "A1-1", "date": "2026-02-13", "title": "Change Taiwan flights"},
+      {"taskId": "B6-1", "date": "2026-02-17", "title": "Find ESU facilitators"},
+      {"taskId": "B6-3", "date": "2026-02-17", "title": "SPH items to order"},
+      {"taskId": "B6-2", "date": "2026-02-28", "title": "MENDAKI equipment"}
+    ]
+  },
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "medium",
+      "description": "Calendar view not filtering tasks by deadline date",
+      "status": "reported",
+      "reportedAt": "2026-02-11T08:27:00Z"
+    },
+    {
+      "id": "ISSUE-002", 
+      "severity": "medium",
+      "description": "Story progress (Ch 1-12) not synced to dashboard",
+      "status": "fixed",
+      "fixedAt": "2026-02-11T08:30:00Z"
+    }
+  ]
+}
