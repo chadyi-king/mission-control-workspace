@@ -1,74 +1,78 @@
-# Escritor Current Task: A2-13
+# Escritor Current Task: A2-13 (STUDY PHASE)
 
 **Task ID:** A2-13  
-**Title:** Edit Chapter 13  
+**Title:** Study RE:UNITE Universe - Generate Understanding Questions  
 **Project:** RE:UNITE (A2)  
-**Assigned:** 2026-02-12  
-**Due:** TBD (weekly chapter schedule)  
+**Phase:** Study & Validation (NOT writing yet)  
 
 ---
 
-## Chapter Context
+## Objective
+Before writing Chapter 13, Escritor must **deeply understand** the RE:UNITE universe. Read all source materials and generate comprehensive questions to validate understanding.
 
-**Current Story State:**
-- **Ryfel**: CAPTURED in Runevia prison
-- **Location**: Prison/Slavery compound
-- **Mood**: Darker, survival/political intrigue
-- **Tone**: 70% serious, 30% warmth/comedy
+## Materials to Study
 
-**Previous Chapter Ending:**
-- Ryfel and Bram captured by Runevia forces
-- Separated from main party (Ryker, Elda, Kriscila)
-- Imprisoned, awaiting unknown fate
-- Chapter 12 was dark/survival focused
+**Required Reading:**
+1. `/projects/A2-reunite/STORY-BIBLE-COMPLETE.md` - World rules, magic system, history
+2. All previous chapters (1-12) - Story continuity, character voices
+3. Any character notes or world-building documents
 
----
+## Output Required
 
-## Writing Objectives
+Generate questions in these categories:
 
-**Primary Goal:** Write Chapter 13 - "Captivity"
+### 1. Character Questions (20-30 questions)
+- Ryfel's SEAL mindset - how does it manifest in dialogue vs internal monologue?
+- Ryker's relationship with Ryfel - specific phrases he uses?
+- Kriscila's 3-year promise - exact terms and emotional weight?
+- Elda's pregnancy - how does it affect her actions in current timeline?
+- Bram's role alongside Ryfel in prison?
 
-**Key Elements to Include:**
-1. **Ryfel's SEAL mindset** applied to prison survival
-2. **Earth magic innovation** - tactical use of limited magic
-3. **Bram's presence** - develop his character alongside Ryfel
-4. **Political intrigue** - who captured them and why?
-5. **At least 2 callbacks** to previous chapters
-6. **Chapter hook** - end with momentum toward escape or revelation
+### 2. Magic System Questions (15-20 questions)
+- Ether vs mana - terminology rules?
+- 5 elements - which can Ryfel currently use in prison?
+- Earth magic tactical applications - what IS possible while captured?
+- Casting mechanics - gestures + breath + thought?
+- Magic limitations in suppression/captivity?
 
-**Callbacks to Consider:**
-- [ ] 3-year promise with Kriscila (she's waiting)
-- [ ] Ryfel's revenge vow to Knight Commander
-- [ ] "Traps never fail" - blacksmith's philosophy
-- [ ] Ryker's training (what would big brother do?)
-- [ ] Elda's worry (she's pregnant, will stress affect her?)
+### 3. World/Setting Questions (15-20 questions)
+- Runevia prison system - how does it work?
+- Slavery/political structure - who captured them and why?
+- Geography - where exactly are they relative to previous locations?
+- Factions involved - Runevia vs who?
 
----
+### 4. Continuity/Callback Questions (15-20 questions)
+- 3-year promise - when exactly was it made, what was said?
+- Revenge vow to Knight Commander - specific wording?
+- "Traps never fail" philosophy - context and meaning?
+- Ryker's training influence on Ryfel?
+- Previous escape attempts or prison experiences?
 
-## Technical Requirements
-
-- **Word count:** 3,000-5,000 words
-- **Status targets:** Draft → Revision → Final
-- **Output:** Save to `/projects/A2-reunite/drafts/chapter-13-draft.md`
-- **Report:** Update `/agents/escritor/outbox/` when complete
-
----
-
-## Reference Materials
-
-**Must Read Before Writing:**
-1. `/projects/A2-reunite/STORY-BIBLE-COMPLETE.md` (magic system, world rules)
-2. `/projects/A2-reunite/drafts/chapter-12-draft.md` (continuity)
-3. Escritor skill: `/home/chad-yi/.openclaw/workspace/skills/escritor-novel/SKILL.md`
+### 5. Style/Tone Questions (10-15 questions)
+- 70/30 serious/comedy balance - examples from Chapter 12?
+- Internal monologue format - how tactical thoughts appear?
+- Dialogue style for different characters?
+- Chapter ending hooks - pattern from previous chapters?
 
 ---
 
-## Notes from CHAD_YI
+## Process
 
-This chapter should:
-- Show Ryfel's tactical mind even in captivity
-- Introduce prison/slavery system politics
-- Keep stakes high but hope alive
-- Set up Chapter 14 (escape attempt or rescue)
+1. **Read everything** - Story Bible first, then Chapters 11-12 (most recent), then earlier chapters as needed
+2. **Take notes** - Document your understanding of each element
+3. **Generate questions** - Where is your understanding uncertain? What needs clarification?
+4. **Format output** - Save questions to `/agents/escritor/outbox/study-questions.md`
+5. **Wait for Caleb's answers** - Do NOT proceed to writing until Caleb validates your understanding
 
-**Focus:** Earth magic as tool of survival and subtle rebellion.
+---
+
+## Success Criteria
+- 80+ total questions generated
+- Questions show deep engagement with source material
+- Questions reveal specific uncertainties (not generic)
+- Caleb can answer to validate Escritor's understanding
+
+---
+
+## Note
+**This is a TEST phase.** Caleb wants to verify Escritor understands the story correctly BEFORE writing. Generate questions that will expose any misunderstandings.
