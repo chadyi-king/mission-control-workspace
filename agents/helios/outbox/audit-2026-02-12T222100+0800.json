@@ -1,0 +1,177 @@
+{
+  "auditId": "helios-202602122221",
+  "timestamp": "2026-02-12T22:21:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "durationSeconds": 45,
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md",
+    "/agents/quanta/current-task.md",
+    "/agents/mensamusa/current-task.md"
+  ],
+  "summary": {
+    "totalTasks": 72,
+    "agentsChecked": 6,
+    "issuesFound": 4,
+    "autoFixesApplied": 2,
+    "criticalAlerts": 1,
+    "status": "issues_found"
+  },
+  "agentStatusVerification": {
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "actualStatus": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "consistency": "match",
+      "lastActive": "2026-02-12T15:51:00+08:00",
+      "idleHours": 6.5
+    },
+    "helios": {
+      "dataJsonStatus": "active",
+      "actualStatus": "active",
+      "currentTask": "15-minute audit cycle",
+      "consistency": "match",
+      "lastActive": "2026-02-12T22:06:00+08:00",
+      "idleHours": 0.25
+    },
+    "escritor": {
+      "dataJsonStatus": "active",
+      "actualStatus": "active",
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "fileEvidence": "/agents/escritor/current-task.md",
+      "consistency": "match",
+      "lastActive": "2026-02-12T18:51:00+08:00",
+      "idleHours": 3.5
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "currentTask": "A5-1: Trading signals",
+      "blocker": "OANDA credentials needed",
+      "consistency": "match",
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "idleHours": 102,
+      "alert": "blocked_over_threshold"
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "currentTask": "A5-2: Options flow",
+      "blocker": "Moomoo credentials needed",
+      "consistency": "match",
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "idleHours": 102,
+      "alert": "blocked_over_threshold"
+    },
+    "autour": {
+      "dataJsonStatus": "not_spawned",
+      "actualStatus": "not_spawned",
+      "currentTask": null,
+      "consistency": "match"
+    }
+  },
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "critical",
+      "type": "deadline_approaching",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 1.5,
+      "assignedAgent": "CHAD_YI",
+      "description": "Task due tomorrow with only ~1.5 hours remaining. Requires immediate user attention.",
+      "actionRequired": "user_action"
+    },
+    {
+      "id": "ISSUE-002",
+      "severity": "high",
+      "type": "data_inconsistency",
+      "description": "Stats vs workflow array mismatch",
+      "details": {
+        "statsReview": 2,
+        "statsDone": 2,
+        "workflowReviewCount": 0,
+        "workflowDoneCount": 0,
+        "impact": "Dashboard may display incorrect counts"
+      },
+      "autoFixable": false,
+      "reason": "Blocked by policy: change_task_status not allowed"
+    },
+    {
+      "id": "ISSUE-003",
+      "severity": "medium",
+      "type": "task_status_mismatch",
+      "description": "Tasks in workflow.active but marked 'backlog' status",
+      "affectedTasks": ["A2-13", "A5-1", "A5-2"],
+      "impact": "Dashboard workflow view inconsistent with task status"
+    },
+    {
+      "id": "ISSUE-004",
+      "severity": "medium",
+      "type": "agents_blocked",
+      "description": "Two trading agents blocked for >48 hours",
+      "agents": ["quanta", "mensamusa"],
+      "blockers": ["OANDA credentials", "Moomoo credentials"],
+      "idleHours": 102
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "type": "update_last_active_timestamp",
+      "agent": "helios",
+      "oldValue": "2026-02-12T22:06:00+08:00",
+      "newValue": "2026-02-12T22:21:00+08:00"
+    },
+    {
+      "type": "update_last_active_timestamp",
+      "agent": "escritor",
+      "oldValue": "2026-02-12T18:51:00+08:00",
+      "newValue": "2026-02-12T22:21:00+08:00",
+      "note": "Corrected based on task file timestamp"
+    }
+  ],
+  "autoFixesBlocked": [
+    {
+      "type": "update_task_counts",
+      "reason": "Would require changing task statuses which is blocked by policy"
+    },
+    {
+      "type": "flag_stale_tasks",
+      "reason": "A2-13 in study phase, not actually stale"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 1.5,
+      "severity": "critical"
+    },
+    {
+      "taskId": "B6-1",
+      "title": "Find facilitator for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    }
+  ],
+  "recommendations": [
+    "Fix data.json workflow arrays to match stats (review: 2, done: 2)",
+    "Update task statuses to match workflow arrays (A2-13, A5-1, A5-2)",
+    "Provide OANDA credentials to unblock Quanta",
+    "Provide Moomoo credentials to unblock MensaMusa",
+    "URGENT: Complete A1-1 (Taiwan flights) - due in 1.5 hours"
+  ]
+}
