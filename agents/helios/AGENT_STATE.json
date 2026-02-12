@@ -6,7 +6,7 @@
   "createdAt": "2026-02-12T15:51:00+08:00",
   "auditSchedule": {
     "intervalMinutes": 15,
-    "lastAudit": "2026-02-12T22:21:00+08:00",
+    "lastAudit": "2026-02-12T22:36:00+08:00",
     "nextAudit": "2026-02-12T22:36:00+08:00"
   },
   "autoFixRules": {

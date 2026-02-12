@@ -258,120 +258,115 @@ class SignalParser:
         return score
 
 class PositionManager:
-    """Manage position sizing and trade execution"""
+    """Manage position sizing and trade execution with CALEB'S EXACT RULES"""
     
     @staticmethod
-    def calculate_split_entries(signal, risk_amount):
+    def calculate_position_size(signal, risk_amount):
         """
-        3-tier split entry strategy:
-        - Entry 1 (high): 33%, conservative
-        - Entry 2 (mid): 33%, balanced
-        - Entry 3 (low): 34%, aggressive (best price)
+        CALEB'S RULE:
+        - Entry: Middle of range
+        - Risk: Entry - SL
+        - Size: $200 ÷ Risk = Lot size
+        
+        Example: XAUUSD BUY 2680-2685, SL 2665
+        - Entry: 2682.5 (mid)
+        - Risk: 2682.5 - 2665 = 17.5 pips
+        - Size: $200 ÷ 17.5 = 0.11 lots
         """
         symbol = signal['symbol']
         direction = signal['direction']
         sl = signal['sl']
         
-        entries = []
+        # Use middle of range as entry
+        entry_price = signal['entry_range']['mid']
         
-        # Calculate risk per pip for each entry
-        for tier, (price_key, size_pct) in enumerate([
-            ('high', 0.33),
-            ('mid', 0.33),
-            ('low', 0.34)
-        ], 1):
-            entry_price = signal['entry_range'][price_key]
-            
-            # Calculate lot size for this tier
-            if direction == 'BUY':
-                risk_pips = abs(entry_price - sl)
-            else:
-                risk_pips = abs(sl - entry_price)
-            
-            if risk_pips > 0:
-                # For XAUUSD: $0.01 per pip per unit
-                # Lot size = (Risk Amount × Size %) ÷ (Risk Pips × Pip Value)
-                tier_risk = risk_amount * size_pct
-                
-                if symbol in ['XAUUSD', 'XAGUSD']:
-                    pip_value = 0.01
-                    units = int(tier_risk / (risk_pips * pip_value))
-                    lots = units / 100  # Convert to lots
-                else:
-                    # Forex pairs
-                    pip_value = 0.0001
-                    units = int(tier_risk / (risk_pips * pip_value))
-                    lots = units / 100000
-                
-                # Minimum 0.01 lots
-                lots = max(0.01, round(lots, 2))
-                
-                entries.append({
-                    'tier': tier,
-                    'price': entry_price,
-                    'lots': lots,
-                    'units': int(lots * 100) if symbol in ['XAUUSD', 'XAGUSD'] else int(lots * 100000),
-                    'sl': sl,
-                    'tp1': signal['tps'][0],
-                    'risk': tier_risk
-                })
+        # Calculate risk in pips
+        if direction == 'BUY':
+            risk_pips = abs(entry_price - sl)
+        else:
+            risk_pips = abs(sl - entry_price)
         
-        return entries
+        if risk_pips <= 0:
+            return None
+        
+        # Calculate lot size
+        if symbol in ['XAUUSD', 'XAGUSD']:
+            pip_value = 0.01  # $0.01 per pip per unit
+            units = int(risk_amount / (risk_pips * pip_value))
+            lots = units / 100  # Convert to lots
+        else:
+            pip_value = 0.0001
+            units = int(risk_amount / (risk_pips * pip_value))
+            lots = units / 100000
+        
+        # Minimum 0.01 lots
+        lots = max(0.01, round(lots, 2))
+        
+        return {
+            'entry': entry_price,
+            'lots': lots,
+            'units': int(lots * 100) if symbol in ['XAUUSD', 'XAGUSD'] else int(lots * 100000),
+            'sl': sl,
+            'risk_pips': risk_pips,
+            'tps': signal['tps']  # All 5 TPs
+        }
     
     @staticmethod
-    def execute_paper_trade(signal, entries, state):
+    def execute_paper_trade(signal, position, state):
         """
-        Execute paper trade (simulation)
-        Returns trade info for tracking
+        CALEB'S EXIT STRATEGY:
+        - TP1 (10%): Close 10%, move SL to BE
+        - TP2 (10%): Close 10%
+        - TP3 (20%): Close 20%
+        - TP4 (30%): Close 30%
+        - TP5 (30%): Runner - trail SL at -50 pips
+        
+        After +50 pips: Move SL to +20 pips (lock profit)
+        After +100 pips: Trail SL at -50 pips from current
         """
         print(f"\n🧪 PAPER TRADE EXECUTED")
         print(f"   Symbol: {signal['symbol']}")
         print(f"   Direction: {signal['direction']}")
-        print(f"   Score: {signal['score']}/100")
-        print(f"   R:R: 1:{signal['rr']}")
-        print(f"   Entries:")
+        print(f"   Entry: {position['entry']}")
+        print(f"   Size: {position['lots']} lots ({position['units']} units)")
+        print(f"   SL: {position['sl']}")
+        print(f"   Risk: ${state.calculate_risk_amount():.2f}")
+        print()
+        print("   📊 EXIT STRATEGY:")
+        print("   TP1 (+10%): Close 10% → SL to BE")
+        print("   TP2 (+10%): Close 10%")
+        print("   TP3 (+20%): Close 20%")
+        print("   TP4 (+30%): Close 30%")
+        print("   TP5 (+30%): Runner with trailing SL")
+        print()
         
-        trades = []
-        for entry in entries:
-            print(f"      Tier {entry['tier']}: {entry['lots']} lots @ {entry['price']}")
-            print(f"         SL: {entry['sl']} | TP1: {entry['tp1']}")
-            print(f"         Risk: ${entry['risk']:.2f}")
-            
-            trades.append({
-                'tier': entry['tier'],
-                'entry_price': entry['price'],
-                'lots': entry['lots'],
-                'sl': entry['sl'],
-                'tp1': entry['tp1'],
-                'status': 'OPEN',
-                'opened_at': datetime.now().isoformat()
-            })
-        
-        trade_info = {
+        # Create trade with all TP levels
+        trade = {
             'id': f"PAPER_{datetime.now().strftime('%H%M%S')}",
             'symbol': signal['symbol'],
             'direction': signal['direction'],
-            'entries': trades,
-            'total_risk': sum(e['risk'] for e in entries),
-            'status': 'OPEN'
+            'entry': position['entry'],
+            'lots': position['lots'],
+            'units': position['units'],
+            'sl': position['sl'],
+            'tp_levels': [
+                {'tp': position['tps'][0], 'close_pct': 10, 'action': 'close_10_move_sl_be'},
+                {'tp': position['tps'][1], 'close_pct': 10, 'action': 'close_10'},
+                {'tp': position['tps'][2], 'close_pct': 20, 'action': 'close_20'},
+                {'tp': position['tps'][3], 'close_pct': 30, 'action': 'close_30'},
+                {'tp': position['tps'][4], 'close_pct': 30, 'action': 'runner_trail_50'}
+            ],
+            'status': 'OPEN',
+            'opened_at': datetime.now().isoformat()
         }
         
         # Record in state
-        state.record_trade(trade_info)
+        state.record_trade(trade)
         
-        # Alert
-        alert = {
-            'type': 'trade_executed',
-            'timestamp': datetime.now().isoformat(),
-            'trade': trade_info,
-            'balance': state.current_balance,
-            'daily_risk_used': state.daily_stats['risk_used_percent']
-        }
+        print(f"   ✅ Trade recorded: {trade['id']}")
+        print(f"   📊 Daily risk: {state.daily_stats['risk_used_percent']:.1f}%")
         
-        with open(f'{OUTBOX_DIR}/trade_alert.json', 'w') as f:
-            json.dump(alert, f, indent=2)
-        
-        return trade_info
+        return trade
 
 def rotate_logs():
     """Clean up old logs"""
@@ -465,15 +460,19 @@ async def main():
             print(f"   ❌ SKIPPED: Risk limits reached")
             return
         
-        # Calculate position sizing
+        # Calculate position sizing (CALEB'S METHOD)
         risk_amount = state.calculate_risk_amount()
-        entries = position_mgr.calculate_split_entries(signal, risk_amount)
+        position = position_mgr.calculate_position_size(signal, risk_amount)
+        
+        if not position:
+            print(f"   ❌ Could not calculate position size")
+            return
         
         print(f"   Risk Amount: ${risk_amount:.2f}")
-        print(f"   Entries: {len(entries)} tiers")
+        print(f"   Position: {position['lots']} lots @ {position['entry']}")
         
         # Execute paper trade
-        trade = position_mgr.execute_paper_trade(signal, entries, state)
+        trade = position_mgr.execute_paper_trade(signal, position, state)
         
         print(f"   ✅ Trade recorded: {trade['id']}")
         print(f"   📊 Daily risk now: {state.daily_stats['risk_used_percent']}%")
