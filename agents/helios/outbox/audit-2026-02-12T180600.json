@@ -1,0 +1,112 @@
+{
+  "auditId": "helios-2026-02-12T1806",
+  "timestamp": "2026-02-12T18:06:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "totalTasks": 72,
+    "dataIntegrity": "clean",
+    "agentConsistency": "verified",
+    "issuesCount": 3,
+    "criticalCount": 1,
+    "warningCount": 2
+  },
+  "dataSourcesChecked": [
+    {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "accessible",
+      "lastUpdated": "2026-02-12T16:30:00",
+      "checks": ["tasks_object", "stats", "workflow", "agents", "projects"],
+      "result": "valid"
+    },
+    {
+      "path": "/agents/escritor/current-task.md",
+      "status": "accessible",
+      "currentTask": "A2-13",
+      "result": "valid"
+    },
+    {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "accessible",
+      "agentState": "active",
+      "result": "valid"
+    },
+    {
+      "path": "/ACTIVE.md",
+      "status": "accessible",
+      "generatedAt": "2026-02-12T17:51:00",
+      "result": "valid"
+    }
+  ],
+  "consistencyChecks": {
+    "escritor": {
+      "dataJsonTask": "A2-13",
+      "currentTaskMd": "A2-13",
+      "memoryTask": "A2-13",
+      "status": "consistent",
+      "progress": "no_output_yet",
+      "notes": "Task started 16:00, no study-answers.md yet (expected)"
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102,
+      "threshold": 48,
+      "flagged": true
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102,
+      "threshold": 48,
+      "flagged": true
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 18,
+        "agent": "CHAD_YI",
+        "severity": "critical",
+        "requiresUserAction": true
+      }
+    ],
+    "urgent": [
+      {
+        "id": "B6-1",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98
+      },
+      {
+        "id": "B6-3",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "type": "flag_stale_tasks",
+      "targets": ["A5-1", "A5-2"],
+      "reason": "Blocked >48h threshold",
+      "timestamp": "2026-02-12T18:06:00+08:00"
+    },
+    {
+      "type": "update_last_active_timestamp",
+      "agent": "helios",
+      "timestamp": "2026-02-12T18:06:00+08:00"
+    }
+  ],
+  "notifications": {
+    "chad_yi": {
+      "criticalDeadline": true,
+      "staleAgents": true,
+      "message": "A1-1 due in 18 hours; Quanta/MensaMusa blocked 102h"
+    }
+  },
+  "nextAudit": "2026-02-12T18:21:00+08:00"
+}

@@ -1,0 +1,186 @@
+{
+  "auditId": "helios-audit-20260212-213600",
+  "timestamp": "2026-02-12T21:36:00+08:00",
+  "agentId": "helios",
+  "agentVersion": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "criticalIssues": 2,
+    "warnings": 2,
+    "autoFixesApplied": 0,
+    "dataConsistency": "consistent"
+  },
+  "dataSourceChecks": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "valid",
+      "lastUpdated": "2026-02-12T21:30:00+08:00",
+      "taskCount": 8,
+      "agentCount": 6,
+      "checks": {
+        "tasksStructure": "valid",
+        "agentsStructure": "valid",
+        "workflowArrays": "valid",
+        "statsMatch": true
+      }
+    },
+    "escritorCurrentTask": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "valid",
+      "taskId": "A2-13",
+      "taskTitle": "Study Phase: 90 questions",
+      "consistency": {
+        "matchesDataJson": true,
+        "agentStatus": "active",
+        "lastActiveWithinThreshold": true
+      }
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "valid",
+      "lastUpdated": "2026-02-12 17:30 SGT",
+      "consistency": {
+        "currentTaskMatches": true,
+        "projectContextValid": true
+      }
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "status": "valid",
+      "generatedBy": "Helios Audit",
+      "timestamp": "2026-02-12 19:51 SGT"
+    }
+  },
+  "consistencyChecks": {
+    "agentStatus": {
+      "chad_yi": {
+        "dataJsonStatus": "active",
+        "currentTask": "A6-3: Dashboard audit infrastructure",
+        "taskCount": 4,
+        "consistent": true
+      },
+      "escritor": {
+        "dataJsonStatus": "active",
+        "currentTask": "A2-13: Study Phase (90 questions)",
+        "taskCount": 1,
+        "memoryTaskMatch": true,
+        "currentTaskDocMatch": true,
+        "consistent": true
+      },
+      "quanta": {
+        "dataJsonStatus": "blocked",
+        "currentTask": "A5-1: Trading signals",
+        "blocker": "OANDA credentials needed",
+        "idleHours": 102,
+        "consistent": true
+      },
+      "mensamusa": {
+        "dataJsonStatus": "blocked",
+        "currentTask": "A5-2: Options flow",
+        "blocker": "Moomoo credentials needed",
+        "idleHours": 102,
+        "consistent": true
+      },
+      "autour": {
+        "dataJsonStatus": "not_spawned",
+        "currentTask": null,
+        "consistent": true
+      }
+    },
+    "taskStatusAlignment": {
+      "allTasksAligned": true,
+      "mismatches": []
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 17,
+        "agent": "CHAD_YI",
+        "severity": "critical"
+      },
+      {
+        "id": "B6-4",
+        "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 17,
+        "agent": "CHAD_YI",
+        "severity": "critical"
+      }
+    ],
+    "urgent": [
+      {
+        "id": "B6-1",
+        "title": "Elluminate urgent deliverable 1",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 97,
+        "agent": "CHAD_YI"
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate urgent deliverable 3",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 97,
+        "agent": "CHAD_YI"
+      }
+    ],
+    "staleTasks": []
+  },
+  "agentHealth": {
+    "idleAgents": [
+      {
+        "id": "quanta",
+        "idleHours": 102,
+        "reason": "Blocked - OANDA credentials needed"
+      },
+      {
+        "id": "mensamusa",
+        "idleHours": 102,
+        "reason": "Blocked - Moomoo credentials needed"
+      }
+    ],
+    "healthyAgents": ["chad_yi", "helios", "escritor"]
+  },
+  "issues": {
+    "critical": [
+      {
+        "type": "deadline_approaching",
+        "taskId": "A1-1",
+        "message": "Task due in 17 hours - Taiwan flight changes",
+        "actionRequired": "user_action"
+      },
+      {
+        "type": "deadline_approaching",
+        "taskId": "B6-4",
+        "message": "Task due in 17 hours - MENDAKI program flow",
+        "actionRequired": "user_action"
+      }
+    ],
+    "warnings": [
+      {
+        "type": "agent_blocked",
+        "agentId": "quanta",
+        "message": "Blocked for 102 hours - needs OANDA credentials",
+        "actionRequired": "provide_credentials"
+      },
+      {
+        "type": "agent_blocked",
+        "agentId": "mensamusa",
+        "message": "Blocked for 102 hours - needs Moomoo credentials",
+        "actionRequired": "provide_credentials"
+      }
+    ]
+  },
+  "autoFixes": {
+    "applied": [],
+    "skipped": [],
+    "blocked": []
+  },
+  "notifications": {
+    "chadYiNotified": true,
+    "reason": "2 critical deadlines within 24h, 2 blocked agents >100h"
+  }
+}

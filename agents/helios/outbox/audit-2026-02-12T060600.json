@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-02-12T06:06:00+08:00",
+  "agent": "helios",
+  "auditNumber": 8,
+  "duration": "15min",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "summary": {
+    "totalIssues": 1,
+    "autoFixesApplied": 1,
+    "criticalIssues": 0,
+    "warnings": 1,
+    "info": 0
+  },
+  "checks": {
+    "dataFreshness": {
+      "status": "warning",
+      "details": "data.json lastUpdated is 2026-02-12T04:51:00+08:00, 75 minutes stale"
+    },
+    "agentStatusConsistency": {
+      "chad_yi": {
+        "dataJson": "active",
+        "actual": "active (A6-3 in progress per ACTIVE.md)",
+        "match": true
+      },
+      "escritor": {
+        "dataJson": "waiting_for_input",
+        "actual": "waiting_for_input (current-task.md confirms)",
+        "match": true
+      },
+      "quanta": {
+        "dataJson": "blocked",
+        "actual": "blocked (OANDA credentials needed)",
+        "match": true
+      },
+      "mensamusa": {
+        "dataJson": "blocked",
+        "actual": "blocked (Moomoo credentials needed)",
+        "match": true
+      },
+      "autour": {
+        "dataJson": "not_spawned",
+        "actual": "not_spawned",
+        "match": true
+      }
+    },
+    "deadlineChecks": {
+      "A1-1": {
+        "hoursRemaining": 49,
+        "deadline": "2026-02-13",
+        "status": "approaching",
+        "action": "monitor"
+      },
+      "B6-1": {
+        "hoursRemaining": 121,
+        "deadline": "2026-02-17",
+        "status": "ok"
+      },
+      "B6-3": {
+        "hoursRemaining": 121,
+        "deadline": "2026-02-17",
+        "status": "ok"
+      }
+    },
+    "agentIdleCheck": {
+      "issues": []
+    }
+  },
+  "autoFixes": [
+    {
+      "rule": "agent_status mismatch actual_work",
+      "action": "update_status",
+      "applied": false,
+      "reason": "All agent statuses consistent - no fix needed"
+    },
+    {
+      "rule": "data_freshness",
+      "action": "update_data_json_timestamp",
+      "applied": true,
+      "timestamp": "2026-02-12T06:06:00+08:00"
+    }
+  ],
+  "requiresAttention": []
+}

@@ -1,0 +1,88 @@
+{
+  "auditId": "helios-2026-02-12T17-51-00",
+  "timestamp": "2026-02-12T17:51:00+08:00",
+  "agent": "helios",
+  "status": "completed_with_fixes",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "findings": {
+    "inconsistencies": [
+      {
+        "type": "stale_document",
+        "location": "ACTIVE.md",
+        "issue": "Still showed A2-12 (chapter outline) but Escritor is on A2-13 (study phase)",
+        "severity": "low",
+        "autoFixApplied": true
+      },
+      {
+        "type": "agent_status_mismatch",
+        "location": "data.json agentDetails.escritor",
+        "issue": "Showed 'Idle 3 days' but Escritor is actively working on 90 questions",
+        "severity": "low",
+        "autoFixApplied": true
+      }
+    ],
+    "warnings": [
+      {
+        "type": "critical_deadline",
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 18,
+        "owner": "CHAD_YI",
+        "severity": "critical"
+      },
+      {
+        "type": "blocked_agent",
+        "agent": "Quanta",
+        "taskId": "A5-1",
+        "blocker": "OANDA credentials needed",
+        "idleHours": 102,
+        "severity": "medium"
+      },
+      {
+        "type": "blocked_agent",
+        "agent": "MensaMusa",
+        "taskId": "A5-2",
+        "blocker": "Moomoo account credentials",
+        "idleHours": 102,
+        "severity": "medium"
+      }
+    ],
+    "stats": {
+      "totalTasks": 72,
+      "pending": 7,
+      "active": 8,
+      "review": 2,
+      "done": 2,
+      "backlog": 53,
+      "agentsActive": 2,
+      "agentsBlocked": 2,
+      "agentsNotSpawned": 1
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "file": "ACTIVE.md",
+      "action": "Updated to reflect Escritor on A2-13 (study phase), fixed agent status table"
+    },
+    {
+      "file": "data.json",
+      "action": "Fixed agentDetails.escritor to show 'Active' with correct activity description"
+    },
+    {
+      "file": "AGENT_STATE.json",
+      "action": "Updated lastAudit timestamp to 2026-02-12T17:51:00+08:00"
+    }
+  ],
+  "requiresChadYiAttention": true,
+  "notifications": [
+    "A1-1 has CRITICAL deadline tomorrow (Feb 13) - only 18 hours remaining",
+    "A5-1 and A5-2 have been blocked for 102 hours waiting for API credentials"
+  ]
+}

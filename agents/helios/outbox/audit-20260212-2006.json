@@ -1,0 +1,167 @@
+{
+  "auditId": "helios-2026-02-12T2006",
+  "timestamp": "2026-02-12T20:06:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "PASSED_WITH_NOTES",
+    "dataSourcesChecked": 5,
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "urgentItems": 1
+  },
+  "dataSourceStatus": {
+    "heliosAgentState": {
+      "path": "/agents/helios/AGENT_STATE.json",
+      "exists": true,
+      "readable": true,
+      "lastModified": "2026-02-12T19:52:00+08:00"
+    },
+    "dashboardData": {
+      "path": "/mission-control-dashboard/data.json",
+      "exists": true,
+      "readable": true,
+      "lastModified": "2026-02-12T20:06:09",
+      "taskCount": 8,
+      "agentCount": 6
+    },
+    "escritorCurrentTask": {
+      "path": "/agents/escritor/current-task.md",
+      "exists": true,
+      "readable": true,
+      "taskId": "A2-13",
+      "status": "In progress"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "exists": true,
+      "readable": true,
+      "lastUpdated": "2026-02-12T17:30:00+08:00"
+    },
+    "activeTasks": {
+      "path": "/ACTIVE.md",
+      "exists": true,
+      "readable": true,
+      "lastGenerated": "2026-02-12T19:51:00+08:00"
+    }
+  },
+  "consistencyChecks": [
+    {
+      "check": "Escritor task consistency",
+      "status": "PASS",
+      "details": "A2-13 Study Phase matches across data.json, current-task.md, and MEMORY.md",
+      "agentStatus": "active",
+      "idleHours": 0
+    },
+    {
+      "check": "Quanta status consistency",
+      "status": "PASS",
+      "details": "Blocked status consistent across all sources",
+      "agentStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102
+    },
+    {
+      "check": "MensaMusa status consistency",
+      "status": "PASS",
+      "details": "Blocked status consistent across all sources",
+      "agentStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102
+    },
+    {
+      "check": "CHAD_YI task load",
+      "status": "PASS",
+      "details": "3 active tasks (A1-1, A6-3, B6-1, B6-3)",
+      "agentStatus": "active"
+    },
+    {
+      "check": "Task structure validation",
+      "status": "WARNING",
+      "details": "B6-4 has non-standard structure (missing id/agent/description fields, has custom brief/whatINeed/why/steps/currentStatus)",
+      "taskId": "B6-4",
+      "severity": "low"
+    }
+  ],
+  "deadlineChecks": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "actionRequired": "USER_ACTION"
+    },
+    {
+      "taskId": "B6-1",
+      "title": "Elluminate urgent deliverable 1",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 98,
+      "severity": "high",
+      "actionRequired": "CONTINUE_WORK"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "Elluminate urgent deliverable 3",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 98,
+      "severity": "high",
+      "actionRequired": "CONTINUE_WORK"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "fixType": "update_last_audit_timestamp",
+      "target": "helios AGENT_STATE.json",
+      "previousValue": "2026-02-12T19:51:00+08:00",
+      "newValue": "2026-02-12T20:06:00+08:00",
+      "reason": "Regular audit cycle"
+    }
+  ],
+  "requiresChadYiAttention": [
+    {
+      "type": "malformed_task",
+      "taskId": "B6-4",
+      "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+      "issue": "Non-standard task structure - missing required fields (id, agent, description, createdAt, updatedAt)",
+      "recommendation": "Restructure B6-4 to match standard task format or migrate custom fields to description",
+      "priority": "low"
+    }
+  ],
+  "agentStatuses": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "lastActive": "2026-02-12T15:51:00+08:00"
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastActive": "2026-02-12T20:06:00+08:00"
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "lastActive": "2026-02-12T19:06:00+08:00",
+      "idleHours": 0
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1: Trading signals",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2: Options flow",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "notes": "Configured for A3 KOE but never spawned"
+    }
+  },
+  "nextAudit": "2026-02-12T20:21:00+08:00"
+}

@@ -1,0 +1,103 @@
+{
+  "auditId": "helios-audit-202602120021",
+  "timestamp": "2026-02-12T00:21:00+08:00",
+  "agentId": "helios",
+  "runNumber": 24,
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "overallStatus": "consistent",
+    "checks": [
+      {
+        "agent": "chad_yi",
+        "dataJsonStatus": "active",
+        "dataJsonTask": "A6-3: Dashboard audit infrastructure setup",
+        "activeMdStatus": "In Progress",
+        "activeMdTask": "A6-3 Dashboard audit infrastructure setup",
+        "match": true
+      },
+      {
+        "agent": "escritor",
+        "dataJsonStatus": "waiting_for_input",
+        "dataJsonTask": null,
+        "currentTaskMdStatus": "Waiting for input",
+        "activeMdStatus": "Waiting for input",
+        "memoryMdStatus": "No active work",
+        "match": true
+      },
+      {
+        "agent": "quanta",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "OANDA credentials needed",
+        "activeMdStatus": "Needs OANDA credentials",
+        "match": true
+      },
+      {
+        "agent": "mensamusa",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "Moomoo credentials needed",
+        "activeMdStatus": "Needs Moomoo credentials",
+        "match": true
+      },
+      {
+        "agent": "autour",
+        "dataJsonStatus": "not_spawned",
+        "folderExists": true,
+        "note": "Agent folder exists but agent never spawned"
+      }
+    ]
+  },
+  "autoFixesApplied": [],
+  "issuesFound": [
+    {
+      "severity": "high",
+      "ruleTriggered": "agent_idle_over_24h",
+      "agent": "escritor",
+      "details": "Agent idle for 61+ hours (lastActive: 2026-02-09T12:00:00+08:00)",
+      "recommendation": "Ping agent or check if task is still relevant"
+    },
+    {
+      "severity": "low",
+      "ruleTriggered": "agent_not_spawned_with_folder",
+      "agent": "autour",
+      "details": "Agent has folder but status is 'not_spawned'",
+      "recommendation": "Either spawn agent or remove folder if not needed"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 49,
+      "severity": "medium"
+    },
+    {
+      "id": "B6-1",
+      "title": "Elluminate proposal - School A",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "severity": "low"
+    },
+    {
+      "id": "B6-3",
+      "title": "Elluminate pitch deck",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "severity": "low"
+    }
+  ],
+  "stats": {
+    "totalTasks": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2
+  },
+  "nextAudit": "2026-02-12T00:36:00+08:00"
+}

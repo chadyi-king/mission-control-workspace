@@ -1,0 +1,97 @@
+{
+  "auditId": "audit-2026-02-12T082100",
+  "timestamp": "2026-02-12T08:21:00+08:00",
+  "auditor": "helios",
+  "auditNumber": 15,
+  "findings": {
+    "dataFreshness": {
+      "status": "WARNING",
+      "issue": "data.json is stale",
+      "lastUpdated": "2026-02-12T07:06:00+08:00",
+      "ageMinutes": 75,
+      "thresholdMinutes": 30
+    },
+    "agentConsistency": {
+      "status": "PASS",
+      "checks": [
+        {
+          "agent": "chad_yi",
+          "dataJsonStatus": "active",
+          "actualStatus": "active (running audit)",
+          "match": true
+        },
+        {
+          "agent": "escritor",
+          "dataJsonStatus": "waiting_for_input",
+          "actualStatus": "waiting_for_input",
+          "currentTaskMatch": true,
+          "lastActive": "2026-02-09T12:00:00+08:00",
+          "idleHours": 75
+        },
+        {
+          "agent": "quanta",
+          "dataJsonStatus": "blocked",
+          "blocker": "OANDA credentials needed",
+          "match": true
+        },
+        {
+          "agent": "mensamusa",
+          "dataJsonStatus": "blocked",
+          "blocker": "Moomoo credentials needed",
+          "match": true
+        },
+        {
+          "agent": "autour",
+          "dataJsonStatus": "not_spawned",
+          "match": true
+        }
+      ]
+    },
+    "deadlines": {
+      "status": "CRITICAL",
+      "urgentTasks": [
+        {
+          "id": "A1-1",
+          "title": "Change Taiwan flights and hotel",
+          "deadline": "2026-02-13",
+          "hoursRemaining": 30,
+          "severity": "high"
+        },
+        {
+          "id": "B6-1",
+          "title": "Elluminate proposal - School A",
+          "deadline": "2026-02-17",
+          "hoursRemaining": 121,
+          "severity": "medium"
+        },
+        {
+          "id": "B6-3",
+          "title": "Elluminate pitch deck",
+          "deadline": "2026-02-17",
+          "hoursRemaining": 121,
+          "severity": "medium"
+        }
+      ]
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "escalate_urgent",
+      "triggered": true,
+      "reason": "A1-1 deadline within 24h window (30h remaining, approaching threshold)",
+      "action": "Flagged for CHAD_YI attention"
+    }
+  ],
+  "requiresAttention": [
+    "A1-1: Taiwan flights/hotel change due in 30 hours - needs CHAD_YI action",
+    "data.json timestamp stale (75 min) - recommend update after this audit"
+  ],
+  "summary": {
+    "totalAgents": 5,
+    "consistentAgents": 5,
+    "issuesFound": 2,
+    "critical": 1,
+    "warnings": 1,
+    "info": 0
+  }
+}

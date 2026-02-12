@@ -1,0 +1,107 @@
+{
+  "auditId": "helios-audit-2026-02-12T083600",
+  "timestamp": "2026-02-12T08:36:00+08:00",
+  "agent": "helios",
+  "auditNumber": 16,
+  "findings": {
+    "summary": {
+      "status": "healthy",
+      "issuesFound": 2,
+      "autoFixesApplied": 0,
+      "escalationsRequired": 1
+    },
+    "dataFreshness": {
+      "dataJson": {
+        "lastUpdated": "2026-02-12T07:06:00+08:00",
+        "ageMinutes": 90,
+        "status": "stale"
+      },
+      "heliosLastAudit": "2026-02-12T08:21:00+08:00",
+      "heliosAuditAgeMinutes": 15
+    },
+    "agentStatusChecks": [
+      {
+        "agentId": "chad_yi",
+        "dataJsonStatus": "active",
+        "dataJsonTask": "A6-3: Dashboard audit infrastructure setup",
+        "actualStatus": "active",
+        "actualTask": "A6-3: Dashboard audit infrastructure setup",
+        "consistency": "match",
+        "lastActive": "2026-02-12T07:21:00+08:00",
+        "idleHours": 1.25
+      },
+      {
+        "agentId": "escritor",
+        "dataJsonStatus": "waiting_for_input",
+        "dataJsonTask": "A2: Awaiting chapter outline",
+        "actualStatus": "waiting_for_input",
+        "actualTask": "No active writing task assigned",
+        "consistency": "match",
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "idleHours": 68,
+        "ruleTriggered": "agent_idle > 48h AND task_assigned"
+      },
+      {
+        "agentId": "quanta",
+        "dataJsonStatus": "blocked",
+        "dataJsonTask": "A5-1: Trading signal automation",
+        "consistency": "verified",
+        "blocker": "OANDA credentials needed",
+        "lastActive": null
+      },
+      {
+        "agentId": "mensamusa",
+        "dataJsonStatus": "blocked",
+        "dataJsonTask": "A5-2: Options flow monitoring",
+        "consistency": "verified",
+        "blocker": "Moomoo credentials needed",
+        "lastActive": null
+      },
+      {
+        "agentId": "autour",
+        "dataJsonStatus": "not_spawned",
+        "dataJsonTask": null,
+        "consistency": "verified",
+        "lastActive": null
+      }
+    ],
+    "deadlineChecks": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 30,
+        "status": "pending",
+        "severity": "critical",
+        "ruleTriggered": "task_deadline < 24h AND status != done"
+      },
+      {
+        "taskId": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "pending",
+        "severity": "normal"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "pending",
+        "severity": "normal"
+      }
+    ],
+    "actionsTaken": [
+      {
+        "type": "info",
+        "message": "Escritor idle 68 hours - exceeds 48h threshold but no auto-fix configured for creative block"
+      },
+      {
+        "type": "escalation",
+        "message": "A1-1 deadline critical - 30 hours remaining, escalating to CHAD_YI"
+      }
+    ]
+  },
+  "nextAudit": "2026-02-12T08:51:00+08:00"
+}

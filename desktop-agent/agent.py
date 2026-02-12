@@ -29,10 +29,22 @@ from flask import Flask, request, jsonify, render_template_string
 from flask_socketio import SocketIO, emit
 
 # Configuration
-AGENT_VERSION = "1.0.0"
+AGENT_VERSION = "1.0.1"
 LOG_DIR = Path("C:/DesktopControlAgent/logs")
 SCREENSHOT_DIR = Path("C:/DesktopControlAgent/screenshots")
 LOG_FILE = LOG_DIR / "agent.log"
+MAX_SCREENSHOTS = 300  # Keep up to 300 screenshots (~150 MB max)
+
+def cleanup_old_screenshots():
+    """Keep only the most recent MAX_SCREENSHOTS screenshots"""
+    try:
+        screenshots = sorted(SCREENSHOT_DIR.glob("*.png"), key=lambda x: x.stat().st_mtime, reverse=True)
+        if len(screenshots) > MAX_SCREENSHOTS:
+            for old_screenshot in screenshots[MAX_SCREENSHOTS:]:
+                old_screenshot.unlink()
+                logger.info(f"Cleaned up old screenshot: {old_screenshot.name}")
+    except Exception as e:
+        logger.error(f"Cleanup error: {e}")
 
 # Ensure directories exist
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -103,7 +115,7 @@ HTML_INTERFACE = """
         <div>
             <h3>Live Screenshot</h3>
             <img id="screenshot" src="/api/screenshot" alt="Desktop Screenshot">
-            <p><small>Updates every 2 seconds automatically</small></p>
+            <p><small>Click "Take Screenshot" to update. Auto-refresh disabled to save storage.</small></p>
         </div>
         
         <div class="controls">
@@ -159,10 +171,11 @@ HTML_INTERFACE = """
             });
         };
         
-        // Auto-refresh screenshot
-        setInterval(() => {
-            document.getElementById('screenshot').src = '/api/screenshot?' + Date.now();
-        }, 2000);
+        // Auto-refresh screenshot - DISABLED to save storage
+        // Only refresh when user clicks "Take Screenshot" button
+        // setInterval(() => {
+        //     document.getElementById('screenshot').src = '/api/screenshot?' + Date.now();
+        // }, 2000);
         
         // Load logs
         setInterval(() => {
@@ -198,6 +211,9 @@ def screenshot():
         # Save to file for debugging
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         img.save(SCREENSHOT_DIR / f"screenshot_{timestamp}.png")
+        
+        # Clean up old screenshots (keep only MAX_SCREENSHOTS)
+        cleanup_old_screenshots()
         
         agent_state["last_action"] = f"screenshot at {timestamp}"
         agent_state["action_count"] += 1

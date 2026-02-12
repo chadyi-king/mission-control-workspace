@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-02-11T20:21:00+08:00",
+  "auditId": "audit-20260211202100",
+  "auditor": "helios",
+  "duration": "<1s",
+  "summary": {
+    "totalAgents": 5,
+    "statusMatch": 5,
+    "statusMismatch": 0,
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "urgentAlerts": 1
+  },
+  "agents": {
+    "chad_yi": {
+      "status": "active",
+      "dataJsonMatch": true,
+      "idleHours": 1.75,
+      "issue": null
+    },
+    "escritor": {
+      "status": "waiting_for_input",
+      "dataJsonMatch": true,
+      "idleHours": 56.0,
+      "issue": "AGENT_IDLE_OVER_24H",
+      "actionTaken": "ping_agent"
+    },
+    "quanta": {
+      "status": "blocked",
+      "dataJsonMatch": true,
+      "blocker": "OANDA credentials needed",
+      "issue": null
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "dataJsonMatch": true,
+      "blocker": "Moomoo credentials needed",
+      "issue": null
+    },
+    "autour": {
+      "status": "not_spawned",
+      "dataJsonMatch": true,
+      "issue": null
+    }
+  },
+  "deadlines": {
+    "urgent": [],
+    "upcoming": [
+      {"id": "A1-1", "title": "Travel booking - Japan trip", "deadline": "2026-02-13", "hoursLeft": 49},
+      {"id": "B6-1", "title": "Elluminate proposal - School A", "deadline": "2026-02-17", "hoursLeft": 121},
+      {"id": "B6-3", "title": "Elluminate pitch deck", "deadline": "2026-02-17", "hoursLeft": 121}
+    ]
+  },
+  "actionsTaken": [
+    {
+      "rule": "agent_idle_over_24h",
+      "target": "escritor",
+      "action": "ping_agent",
+      "severity": "high",
+      "messageSent": true
+    }
+  ]
+}

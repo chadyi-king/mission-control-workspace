@@ -1,0 +1,83 @@
+{
+  "auditId": "helios-2026-02-12T092100",
+  "timestamp": "2026-02-12T09:21:00+08:00",
+  "agent": "helios",
+  "auditCount": 19,
+  "findings": {
+    "critical": 1,
+    "warnings": 2,
+    "info": 0
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "type": "deadline_approaching",
+      "rule": "task_deadline < 24h AND status != done",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 30,
+      "action": "escalate_urgent",
+      "autoFixApplied": false,
+      "message": "CRITICAL: A1-1 due tomorrow. Requires CHAD_YI immediate attention."
+    },
+    {
+      "severity": "warning",
+      "type": "stale_data",
+      "source": "data.json",
+      "lastUpdated": "2026-02-12T07:06:00+08:00",
+      "staleMinutes": 135,
+      "action": "flag_for_update",
+      "autoFixApplied": false,
+      "message": "Dashboard data is 2h15m stale. Consider refresh."
+    },
+    {
+      "severity": "warning",
+      "type": "agent_idle",
+      "agent": "escritor",
+      "status": "waiting_for_input",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "idleDays": 3,
+      "assignedTask": "A2: Awaiting chapter outline",
+      "ruleTriggered": "agent_idle > 48h AND task_assigned",
+      "action": "ping_agent",
+      "autoFixApplied": true,
+      "message": "Escritor idle 3 days with assigned task. Ping sent."
+    }
+  ],
+  "agentStatusCheck": {
+    "chad_yi": {
+      "dataJson": "active",
+      "activeMd": "in_progress",
+      "consistent": true
+    },
+    "escritor": {
+      "dataJson": "waiting_for_input",
+      "currentTaskMd": "Waiting for input",
+      "memoryMd": "awaiting chapter outline",
+      "consistent": true,
+      "idle": true
+    },
+    "quanta": {
+      "dataJson": "blocked",
+      "blocker": "OANDA credentials",
+      "consistent": true
+    },
+    "mensamusa": {
+      "dataJson": "blocked",
+      "blocker": "Moomoo credentials",
+      "consistent": true
+    },
+    "autour": {
+      "dataJson": "not_spawned",
+      "consistent": true
+    }
+  },
+  "dataFreshness": {
+    "dataJson": "stale_135min",
+    "escritorCurrentTask": "fresh",
+    "escritorMemory": "fresh",
+    "activeMd": "fresh"
+  },
+  "nextAudit": "2026-02-12T09:36:00+08:00"
+}

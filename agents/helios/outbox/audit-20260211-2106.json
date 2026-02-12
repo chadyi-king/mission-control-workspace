@@ -1,0 +1,92 @@
+{
+  "auditId": "audit-20260211-2106",
+  "timestamp": "2026-02-11T21:06:00+08:00",
+  "agent": "helios",
+  "duration": "15min-cycle",
+  "summary": {
+    "status": "completed_with_issues",
+    "checksRun": 5,
+    "issuesFound": 1,
+    "autoFixesApplied": 0
+  },
+  "dataSourcesChecked": [
+    {
+      "source": "/mission-control-dashboard/data.json",
+      "status": "read_ok",
+      "lastUpdated": "2026-02-11T18:36:00+08:00",
+      "stalenessMinutes": 150
+    },
+    {
+      "source": "/agents/escritor/current-task.md",
+      "status": "read_ok",
+      "agentStatus": "waiting_for_input"
+    },
+    {
+      "source": "/agents/escritor/MEMORY.md",
+      "status": "read_ok"
+    },
+    {
+      "source": "/ACTIVE.md",
+      "status": "read_ok"
+    }
+  ],
+  "consistencyChecks": [
+    {
+      "check": "escritor_status_sync",
+      "result": "pass",
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "waiting_for_input",
+      "note": "Status matches - no chapter outline assigned"
+    },
+    {
+      "check": "quanta_mensamusa_blocked",
+      "result": "pass",
+      "note": "Blocked status accurate - credentials needed"
+    },
+    {
+      "check": "chad_yi_active",
+      "result": "pass",
+      "note": "Active status matches current work"
+    },
+    {
+      "check": "autour_not_spawned",
+      "result": "pass",
+      "note": "Status accurate - no work assigned"
+    }
+  ],
+  "ruleTriggers": [
+    {
+      "rule": "agent_idle_over_24h",
+      "triggered": true,
+      "severity": "high",
+      "agent": "escritor",
+      "idleHours": 57,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "action": "ping_agent",
+      "notificationSent": true
+    },
+    {
+      "rule": "deadline_within_24h",
+      "triggered": false,
+      "note": "A1-1 has 49h remaining (above threshold)"
+    },
+    {
+      "rule": "stale_task_older_than_7_days",
+      "triggered": false,
+      "note": "No stale tasks detected"
+    }
+  ],
+  "deadlines": {
+    "urgent": [],
+    "upcoming": [
+      {"id": "A1-1", "title": "Travel booking - Japan trip", "deadline": "2026-02-13", "hoursRemaining": 49},
+      {"id": "B6-1", "title": "Elluminate proposal - School A", "deadline": "2026-02-17", "hoursRemaining": 121},
+      {"id": "B6-3", "title": "Elluminate pitch deck", "deadline": "2026-02-17", "hoursRemaining": 121}
+    ]
+  },
+  "recommendations": [
+    "Provide chapter outline to Escritor or set A2 RE:UNITE on hold",
+    "Consider spawning Quanta/MensaMusa once credentials obtained",
+    "A1-1 deadline approaching (48h) - travel booking needed"
+  ]
+}

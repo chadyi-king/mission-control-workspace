@@ -1,0 +1,126 @@
+{
+  "auditId": "helios-audit-2026-02-12T19:21:00+08:00",
+  "timestamp": "2026-02-12T19:21:00+08:00",
+  "agentId": "helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "totalIssues": 3,
+    "criticalIssues": 1,
+    "dataInconsistencies": 1,
+    "staleTasks": 0,
+    "idleAgents": 2,
+    "autoFixesApplied": 0,
+    "requiresChadYiAttention": true
+  },
+  "dataSourceStatus": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "lastUpdated": "2026-02-12T19:05:31.907571",
+      "accessible": true,
+      "tasksCount": 73,
+      "agentsCount": 6
+    },
+    "escritorTask": {
+      "path": "/agents/escritor/current-task.md",
+      "accessible": true,
+      "currentTask": "A2-13 Study Phase (90 questions)"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "accessible": true,
+      "lastUpdated": "2026-02-12 17:30 SGT"
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "accessible": true,
+      "generatedBy": "Helios Audit",
+      "timestamp": "2026-02-12 17:51 SGT"
+    }
+  },
+  "consistencyChecks": [
+    {
+      "check": "Escritor task alignment",
+      "status": "PASS",
+      "details": "data.json shows A2-13, current-task.md shows A2-13 Study Phase - CONSISTENT"
+    },
+    {
+      "check": "Quanta status alignment",
+      "status": "PASS",
+      "details": "data.json shows blocked with OANDA blocker, matches task definition - CONSISTENT"
+    },
+    {
+      "check": "MensaMusa status alignment",
+      "status": "PASS",
+      "details": "data.json shows blocked with Moomoo blocker, matches task definition - CONSISTENT"
+    },
+    {
+      "check": "B6-4 data structure",
+      "status": "FAIL",
+      "details": "B6-4 has inconsistent structure - in urgentDeadlines array with partial fields (brief/whatINeed/why) instead of standard task object (id/category/status/agent)",
+      "severity": "medium"
+    },
+    {
+      "check": "Task counts alignment",
+      "status": "PASS",
+      "details": "73 total tasks matches workflow arrays (8+8+2+2+53=73) - CONSISTENT"
+    }
+  ],
+  "issuesFound": [
+    {
+      "id": "ISSUE-001",
+      "type": "critical_deadline",
+      "severity": "critical",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "agent": "CHAD_YI",
+      "description": "Task due tomorrow - requires immediate user attention",
+      "autoFixable": false,
+      "requiresUserAction": true
+    },
+    {
+      "id": "ISSUE-002",
+      "type": "data_inconsistency",
+      "severity": "medium",
+      "taskId": "B6-4",
+      "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+      "description": "Task has inconsistent data structure between urgentDeadlines array and tasks object",
+      "details": "In urgentDeadlines: full fields. In tasks object: only has brief/whatINeed/why/steps/currentStatus/deadline/priority/project - missing standard id/category/status/agent fields",
+      "autoFixable": false,
+      "requiresChadYi": true
+    },
+    {
+      "id": "ISSUE-003",
+      "type": "blocked_agent",
+      "severity": "low",
+      "agents": ["Quanta", "MensaMusa"],
+      "description": "Two agents blocked for 102+ hours waiting for credentials",
+      "blockers": [
+        {"agent": "Quanta", "task": "A5-1", "waitingFor": "OANDA API credentials", "idleHours": 102},
+        {"agent": "MensaMusa", "task": "A5-2", "waitingFor": "Moomoo account credentials", "idleHours": 102}
+      ],
+      "autoFixable": false,
+      "requiresUserAction": true
+    }
+  ],
+  "agentStatusSummary": [
+    {"agent": "CHAD_YI", "status": "active", "currentTask": "A6-3", "idleHours": 0},
+    {"agent": "Helios", "status": "active", "currentTask": "15-minute audit", "idleHours": 0},
+    {"agent": "Escritor", "status": "active", "currentTask": "A2-13", "idleHours": 0},
+    {"agent": "Quanta", "status": "blocked", "currentTask": "A5-1", "idleHours": 102},
+    {"agent": "MensaMusa", "status": "blocked", "currentTask": "A5-2", "idleHours": 102},
+    {"agent": "Autour", "status": "not_spawned", "currentTask": null, "idleHours": null}
+  ],
+  "urgentDeadlines": [
+    {"id": "A1-1", "title": "Change Taiwan flights and hotel", "deadline": "2026-02-13", "hoursRemaining": 18, "severity": "critical"},
+    {"id": "B6-4", "title": "MENDAKI Program Flow & Scavenger Hunt Brief", "deadline": "Feb 13", "hoursRemaining": 17, "severity": "high"},
+    {"id": "B6-1", "title": "Elluminate urgent deliverable 1", "deadline": "2026-02-17", "hoursRemaining": 98, "severity": "high"},
+    {"id": "B6-3", "title": "Elluminate urgent deliverable 3", "deadline": "2026-02-17", "hoursRemaining": 98, "severity": "high"}
+  ],
+  "nextAudit": {
+    "scheduled": "2026-02-12T19:36:00+08:00",
+    "intervalMinutes": 15
+  }
+}

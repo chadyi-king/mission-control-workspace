@@ -1,0 +1,81 @@
+{
+  "auditId": "helios-audit-2026-02-12T113600",
+  "timestamp": "2026-02-12T11:36:00+08:00",
+  "auditor": "helios",
+  "auditNumber": 27,
+  "results": {
+    "checksPerformed": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 0,
+    "escalations": 1
+  },
+  "consistencyReport": {
+    "dataJson": {
+      "status": "issues_found",
+      "statsMismatch": true,
+      "workflowActiveEmpty": true,
+      "workflowReviewEmpty": true,
+      "details": "stats.active=8 but workflow.active=[], stats.review=2 but workflow.review=[]"
+    },
+    "escritorState": {
+      "status": "consistent",
+      "dataJsonStatus": "waiting_for_input",
+      "actualFileStatus": "waiting_for_input",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "idleHours": 72
+    },
+    "chadYiState": {
+      "status": "stale_timestamp",
+      "dataJsonLastActive": "2026-02-12T07:21:00+08:00",
+      "actualActivity": "A6-3 Dashboard audit infrastructure",
+      "staleHours": 4.25
+    }
+  },
+  "criticalIssues": [
+    {
+      "type": "deadline_urgent",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 26,
+      "status": "pending",
+      "escalation": "URGENT: Deadline <24h threshold at 11:36 today"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "data_inconsistency",
+      "issue": "workflow.active empty but stats.active=8",
+      "severity": "high",
+      "recommendation": "Sync workflow.active with tasks where status='active'"
+    },
+    {
+      "type": "data_inconsistency",
+      "issue": "workflow.review empty but stats.review=2",
+      "severity": "high",
+      "recommendation": "Sync workflow.review with tasks where status='review'"
+    },
+    {
+      "type": "agent_idle",
+      "agent": "escritor",
+      "idleHours": 72,
+      "severity": "warning",
+      "recommendation": "Ping agent or assign new task"
+    }
+  ],
+  "agentStatusSummary": {
+    "chad_yi": { "status": "active", "task": "A6-3", "health": "ok" },
+    "helios": { "status": "active", "task": "audit cycle", "health": "ok" },
+    "escritor": { "status": "waiting_for_input", "task": null, "health": "idle_3days" },
+    "quanta": { "status": "blocked", "task": "A5-1", "health": "blocked_credentials" },
+    "mensamusa": { "status": "blocked", "task": "A5-2", "health": "blocked_credentials" },
+    "autour": { "status": "not_spawned", "task": null, "health": "inactive" }
+  },
+  "deadlinesNext7Days": [
+    { "taskId": "A1-1", "deadline": "2026-02-13", "hoursLeft": 26, "priority": "URGENT" },
+    { "taskId": "A5-3", "deadline": "2026-02-15", "hoursLeft": 74, "priority": "HIGH" },
+    { "taskId": "A6-19", "deadline": "2026-02-15", "hoursLeft": 74, "priority": "HIGH" },
+    { "taskId": "B6-1", "deadline": "2026-02-17", "hoursLeft": 121, "priority": "HIGH" },
+    { "taskId": "B6-3", "deadline": "2026-02-17", "hoursLeft": 121, "priority": "HIGH" }
+  ]
+}

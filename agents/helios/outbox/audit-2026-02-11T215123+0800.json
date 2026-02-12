@@ -1,0 +1,120 @@
+{
+  "auditId": "audit-2026-02-11T215123+0800",
+  "timestamp": "2026-02-11T21:51:23+08:00",
+  "auditor": "helios",
+  "auditRunNumber": 14,
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "overallStatus": "NEEDS_ATTENTION",
+    "checksPassed": 4,
+    "checksFailed": 2,
+    "details": [
+      {
+        "check": "escritor_status_sync",
+        "status": "PASS",
+        "message": "Escritor status 'waiting_for_input' consistent across data.json and current-task.md"
+      },
+      {
+        "check": "quanta_blocker",
+        "status": "PASS",
+        "message": "Quanta blocked status consistent - OANDA credentials needed"
+      },
+      {
+        "check": "mensamusa_blocker",
+        "status": "PASS",
+        "message": "MensaMusa blocked status consistent - Moomoo credentials needed"
+      },
+      {
+        "check": "autour_not_spawned",
+        "status": "PASS",
+        "message": "Autour not_spawned status consistent across sources"
+      },
+      {
+        "check": "escritor_idle_time",
+        "status": "FAIL",
+        "severity": "high",
+        "message": "Escritor idle for 57+ hours (lastActive: 2026-02-09T12:00:00+08:00)",
+        "autoFixApplied": false,
+        "requiresCoordinator": true
+      },
+      {
+        "check": "active_md_freshness",
+        "status": "FAIL",
+        "severity": "low",
+        "message": "ACTIVE.md timestamps outdated (shows 18:36, actual last audit 21:36)",
+        "autoFixApplied": false,
+        "note": "CHAD_YI should update ACTIVE.md after task completion"
+      }
+    ]
+  },
+  "deadlineAnalysis": {
+    "urgentCount": 1,
+    "upcomingCount": 2,
+    "deadlines": [
+      {
+        "id": "A1-1",
+        "title": "Travel booking - Japan trip",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49,
+        "status": "urgent",
+        "assignedAgent": "chad_yi"
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "upcoming"
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "upcoming"
+      }
+    ]
+  },
+  "agentStatusSummary": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure setup",
+      "lastActive": "2026-02-11T18:36:00+08:00",
+      "idleHours": 3.25
+    },
+    "escritor": {
+      "status": "waiting_for_input",
+      "currentTask": null,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "idleHours": 57.85,
+      "flagged": true,
+      "reason": "Idle over 24h threshold"
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials needed",
+      "currentTask": "A5-1: Trading signal automation"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "currentTask": "A5-2: Options flow monitoring"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "note": "A3 KOE agent not yet activated"
+    }
+  },
+  "actionsTaken": [],
+  "requiresCoordinatorAttention": true,
+  "coordinatorIssues": [
+    "escritor_idle_over_24h",
+    "a1_1_deadline_within_48h"
+  ]
+}

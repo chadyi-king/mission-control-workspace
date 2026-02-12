@@ -1,0 +1,119 @@
+{
+  "auditId": "audit-2026-02-12T013600+0800",
+  "timestamp": "2026-02-12T01:36:00+08:00",
+  "agent": "helios",
+  "runNumber": 28,
+  "findings": {
+    "summary": {
+      "status": "issues_found",
+      "totalIssues": 2,
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 1
+    },
+    "consistencyChecks": [
+      {
+        "check": "agent_status_vs_actual_work",
+        "agent": "escritor",
+        "dataJsonStatus": "waiting_for_input",
+        "actualStatus": "waiting_for_input",
+        "fileChecked": "/agents/escritor/current-task.md",
+        "result": "pass",
+        "note": "Status consistent - awaiting chapter outline"
+      },
+      {
+        "check": "agent_status_vs_actual_work",
+        "agent": "chad_yi",
+        "dataJsonStatus": "active",
+        "actualStatus": "active",
+        "fileChecked": "/ACTIVE.md",
+        "result": "pass",
+        "note": "A6-3 Dashboard audit infrastructure in progress"
+      },
+      {
+        "check": "agent_status_vs_actual_work",
+        "agent": "quanta",
+        "dataJsonStatus": "blocked",
+        "actualStatus": "blocked",
+        "result": "pass",
+        "note": "OANDA credentials blocker confirmed"
+      },
+      {
+        "check": "agent_status_vs_actual_work",
+        "agent": "mensamusa",
+        "dataJsonStatus": "blocked",
+        "actualStatus": "blocked",
+        "result": "pass",
+        "note": "Moomoo credentials blocker confirmed"
+      },
+      {
+        "check": "data_freshness",
+        "file": "/mission-control-dashboard/data.json",
+        "lastUpdated": "2026-02-11T22:51:00+08:00",
+        "ageHours": 2.75,
+        "result": "stale",
+        "severity": "low"
+      },
+      {
+        "check": "agent_idle_duration",
+        "agent": "escritor",
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "idleDays": 2.6,
+        "result": "idle_over_24h",
+        "severity": "high",
+        "triggeredRule": "agent_idle_over_24h"
+      }
+    ]
+  },
+  "deadlines": {
+    "urgent": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 47.4,
+        "within24h": false
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 119.4,
+        "within24h": false
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 119.4,
+        "within24h": false
+      }
+    ],
+    "alerts": []
+  },
+  "actionsTaken": {
+    "autoFixes": [],
+    "manualReviewRequired": [
+      "Escritor idle >24h - consider pinging for status update",
+      "data.json stale (>2h since last update)"
+    ],
+    "notificationsSent": [
+      "Urgent: Escritor idle >24h flagged to CHAD_YI"
+    ]
+  },
+  "dataSnapshot": {
+    "totalTasks": 47,
+    "activeTasks": 8,
+    "reviewTasks": 2,
+    "doneTasks": 2,
+    "pendingTasks": 35,
+    "agentStatus": {
+      "chad_yi": "active",
+      "escritor": "waiting_for_input",
+      "quanta": "blocked",
+      "mensamusa": "blocked",
+      "autour": "not_spawned"
+    }
+  }
+}

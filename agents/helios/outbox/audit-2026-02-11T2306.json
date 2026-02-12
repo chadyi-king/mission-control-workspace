@@ -1,0 +1,99 @@
+{
+  "auditId": "helios-2026-02-11T2306",
+  "timestamp": "2026-02-11T23:06:00+08:00",
+  "agent": "helios",
+  "runNumber": 19,
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyResults": {
+    "escritor": {
+      "status": "consistent",
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "Waiting for input",
+      "currentTask": null,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "idleHours": 59,
+      "issue": "Agent idle over 24h - last activity Feb 9"
+    },
+    "chad_yi": {
+      "status": "consistent",
+      "dataJsonStatus": "active",
+      "actualStatus": "In Progress",
+      "currentTask": "A6-3: Dashboard audit infrastructure setup",
+      "lastActive": "2026-02-11T22:06:00+08:00"
+    },
+    "quanta": {
+      "status": "consistent",
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "currentTask": "A5-1: Trading signal automation"
+    },
+    "mensamusa": {
+      "status": "consistent",
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "currentTask": "A5-2: Options flow monitoring"
+    },
+    "autour": {
+      "status": "consistent",
+      "dataJsonStatus": "not_spawned",
+      "currentTask": null
+    }
+  },
+  "deadlinesChecked": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 49,
+      "urgency": "high"
+    },
+    {
+      "id": "B6-1",
+      "title": "Elluminate proposal - School A",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "urgency": "medium"
+    },
+    {
+      "id": "B6-3",
+      "title": "Elluminate pitch deck",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "urgency": "medium"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle_over_24h",
+      "target": "escritor",
+      "action": "ping_agent",
+      "severity": "high",
+      "applied": true,
+      "note": "Agent idle 59 hours - urgent broadcast sent to CHAD_YI"
+    }
+  ],
+  "issuesFound": 1,
+  "issues": [
+    {
+      "severity": "high",
+      "type": "agent_idle",
+      "agent": "escritor",
+      "description": "Escritor has been idle for 59 hours (since Feb 9). Waiting for chapter outline input.",
+      "actionRequired": "CHAD_YI to provide direction or reassign"
+    }
+  ],
+  "stats": {
+    "totalTasks": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2
+  },
+  "nextAudit": "2026-02-11T23:21:00+08:00"
+}

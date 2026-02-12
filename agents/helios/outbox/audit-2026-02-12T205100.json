@@ -1,0 +1,168 @@
+{
+  "auditId": "helios-audit-2026-02-12T205100",
+  "timestamp": "2026-02-12T20:51:00+08:00",
+  "auditor": "Helios",
+  "durationMs": 2450,
+  "summary": {
+    "totalIssues": 4,
+    "criticalIssues": 1,
+    "warnings": 2,
+    "infoNotes": 1,
+    "autoFixesApplied": 2,
+    "needsChadYiAttention": true
+  },
+  "dataIntegrity": {
+    "status": "NEEDS_ATTENTION",
+    "checks": {
+      "dataJsonReadable": true,
+      "agentStateReadable": true,
+      "escritorTaskReadable": true,
+      "escritorMemoryReadable": true,
+      "activeMdReadable": true
+    }
+  },
+  "agentConsistencyCheck": {
+    "chad_yi": {
+      "status": "CONSISTENT",
+      "dataJsonTask": "A6-3: Dashboard audit infrastructure",
+      "activeMdTask": "A6-3 Dashboard audit",
+      "taskCount": 4,
+      "issue": null
+    },
+    "helios": {
+      "status": "CONSISTENT",
+      "dataJsonTask": "15-minute audit cycle",
+      "activeMdTask": "15-min audit cycle",
+      "taskCount": 0,
+      "issue": null
+    },
+    "escritor": {
+      "status": "CONSISTENT",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "currentTaskMd": "A2-13 Study Phase",
+      "memoryTask": "A2-13 Study Phase (90 questions)",
+      "taskCount": 1,
+      "issue": null
+    },
+    "quanta": {
+      "status": "STALE",
+      "dataJsonTask": "A5-1: Trading signals",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102,
+      "thresholdHours": 48,
+      "issue": "Agent idle for 102 hours, exceeds 48h stale threshold"
+    },
+    "mensamusa": {
+      "status": "STALE",
+      "dataJsonTask": "A5-2: Options flow",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102,
+      "thresholdHours": 48,
+      "issue": "Agent idle for 102 hours, exceeds 48h stale threshold"
+    },
+    "autour": {
+      "status": "NOT_SPAWNED",
+      "dataJsonTask": null,
+      "issue": "Agent configured but never spawned"
+    }
+  },
+  "taskConsistencyCheck": {
+    "totalTasks": 8,
+    "pending": 1,
+    "active": 7,
+    "review": 0,
+    "done": 0,
+    "issues": [
+      {
+        "type": "DISCREPANCY",
+        "taskId": "B6-4",
+        "issue": "ACTIVE.md shows 'UNASSIGNED' but data.json assigns to CHAD_YI",
+        "severity": "warning"
+      },
+      {
+        "type": "MISSING_STRUCTURE",
+        "taskId": "B6-4",
+        "issue": "Previous audit flagged as malformed structure, needs verification",
+        "severity": "info"
+      }
+    ]
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 18,
+        "agent": "CHAD_YI",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "B6-4",
+        "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 17,
+        "agent": "CHAD_YI",
+        "severity": "CRITICAL"
+      }
+    ],
+    "urgent": [
+      {
+        "id": "B6-1",
+        "title": "Elluminate urgent deliverable 1",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98,
+        "agent": "CHAD_YI"
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate urgent deliverable 3",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98,
+        "agent": "CHAD_YI"
+      }
+    ]
+  },
+  "inputsNeededCheck": {
+    "count": 2,
+    "items": [
+      {
+        "taskId": "A5-1",
+        "agent": "Quanta",
+        "waitingFor": "OANDA API credentials",
+        "idleHours": 102,
+        "priority": "MEDIUM"
+      },
+      {
+        "taskId": "A5-2",
+        "agent": "MensaMusa",
+        "waitingFor": "Moomoo account credentials",
+        "idleHours": 102,
+        "priority": "MEDIUM"
+      }
+    ],
+    "staleInputs": ["A5-1", "A5-2"]
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "update_last_active_timestamp",
+      "target": "helios",
+      "value": "2026-02-12T20:51:00+08:00",
+      "reason": "Audit cycle completion"
+    },
+    {
+      "rule": "flag_stale_tasks",
+      "target": ["A5-1", "A5-2"],
+      "value": "102_hours_idle",
+      "reason": "Exceeded 48h stale threshold"
+    }
+  ],
+  "requiresChadYi": {
+    "needed": true,
+    "reasons": [
+      "2 critical deadlines within 24 hours (A1-1, B6-4)",
+      "2 agents blocked for 102+ hours waiting for credentials",
+      "Data discrepancy: B6-4 assignment mismatch between ACTIVE.md and data.json"
+    ]
+  }
+}

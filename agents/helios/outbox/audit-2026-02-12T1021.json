@@ -1,0 +1,155 @@
+{
+  "auditId": "helios-audit-2026-02-12T1021",
+  "timestamp": "2026-02-12T10:21:00+08:00",
+  "auditor": "helios",
+  "duration": "3.2s",
+  "summary": {
+    "status": "ISSUES_FOUND",
+    "tasksTotal": 72,
+    "agentsChecked": 5,
+    "issuesFound": 3,
+    "autoFixesApplied": 1,
+    "urgentAlerts": 1
+  },
+  "dataSources": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "lastUpdated": "2026-02-12T10:00:00+08:00",
+      "status": "healthy",
+      "tasksCount": 72,
+      "statsMatch": true
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "status": "healthy",
+      "syncedWithDataJson": true
+    },
+    "escritorTask": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "healthy",
+      "agentState": "waiting_for_input"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "healthy",
+      "contentFresh": true
+    }
+  },
+  "consistencyChecks": [
+    {
+      "check": "agent_status_matches_work",
+      "agent": "escritor",
+      "expected": "waiting_for_input",
+      "actual": "waiting_for_input",
+      "result": "PASS",
+      "note": "Escritor has no active writing task, correctly waiting for outline"
+    },
+    {
+      "check": "agent_status_matches_work",
+      "agent": "quanta",
+      "expected": "blocked",
+      "actual": "blocked",
+      "result": "PASS",
+      "note": "Quanta correctly blocked - OANDA credentials needed"
+    },
+    {
+      "check": "agent_status_matches_work",
+      "agent": "mensamusa",
+      "expected": "blocked",
+      "actual": "blocked",
+      "result": "PASS",
+      "note": "MensaMusa correctly blocked - Moomoo credentials needed"
+    },
+    {
+      "check": "agent_status_matches_work",
+      "agent": "autour",
+      "expected": "not_spawned",
+      "actual": "not_spawned",
+      "result": "PASS",
+      "note": "Autour correctly marked as not spawned"
+    },
+    {
+      "check": "data_json_freshness",
+      "lastUpdated": "2026-02-12T10:00:00+08:00",
+      "minutesAgo": 21,
+      "result": "PASS",
+      "threshold": 60
+    }
+  ],
+  "issues": [
+    {
+      "id": "ISS-001",
+      "severity": "warning",
+      "type": "agent_idle",
+      "agent": "escritor",
+      "description": "Escritor idle for 71 hours (last active Feb 9, 12:00)",
+      "ruleTriggered": "agent_idle > 48h AND task_assigned",
+      "autoFixApplied": true,
+      "fixAction": "ping_agent",
+      "note": "Escritor has A2 tasks in backlog but no active work. Status correctly shows 'waiting_for_input'."
+    },
+    {
+      "id": "ISS-002",
+      "severity": "critical",
+      "type": "urgent_deadline",
+      "taskId": "A1-1",
+      "description": "Task A1-1 due in 26 hours (Feb 13)",
+      "ruleTriggered": "task_deadline < 24h AND status != done",
+      "autoFixApplied": false,
+      "escalationRequired": true,
+      "note": "CHAD_YI assigned but last active 3 hours ago. Requires immediate attention."
+    },
+    {
+      "id": "ISS-003",
+      "severity": "info",
+      "type": "task_status_inconsistency",
+      "agent": "escritor",
+      "description": "A2 tasks show high priority but remain in backlog",
+      "details": {
+        "A2-4": "high priority, backlog",
+        "A2-12": "high priority, backlog", 
+        "A2-13": "medium priority, backlog"
+      },
+      "autoFixApplied": false,
+      "note": "Escritor waiting for input prevents progress. Not a data inconsistency."
+    }
+  ],
+  "agentHealth": {
+    "chad_yi": {
+      "status": "healthy",
+      "currentTask": "A6-3",
+      "lastActive": "2026-02-12T07:21:00+08:00",
+      "minutesSinceActive": 180
+    },
+    "escritor": {
+      "status": "idle_long",
+      "currentTask": null,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "hoursSinceActive": 71,
+      "action": "pinged"
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials",
+      "currentTask": "A5-1"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials", 
+      "currentTask": "A5-2"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null
+    }
+  },
+  "deadlines": {
+    "urgent": [
+      {"id": "A1-1", "deadline": "2026-02-13", "hoursRemaining": 26, "assigned": "CHAD_YI"}
+    ],
+    "upcoming": [
+      {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 121, "assigned": "CHAD_YI"},
+      {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 121, "assigned": "CHAD_YI"}
+    ]
+  }
+}

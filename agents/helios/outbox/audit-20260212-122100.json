@@ -1,0 +1,152 @@
+{
+  "auditId": "helios-audit-20260212-122100",
+  "timestamp": "2026-02-12T12:21:00+08:00",
+  "agent": "helios",
+  "auditType": "15min-dashboard",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "status": "passed_with_warnings",
+    "checksRun": 6,
+    "mismatchesFound": 1,
+    "details": [
+      {
+        "agent": "chad_yi",
+        "dataJsonStatus": "active",
+        "dataJsonTask": "A6-3: Dashboard audit infrastructure setup",
+        "actualStatus": "active",
+        "actualTask": "A6-3: Dashboard audit infrastructure setup",
+        "match": true
+      },
+      {
+        "agent": "helios",
+        "dataJsonStatus": "active",
+        "dataJsonTask": "Proactive visual audits every 15 min",
+        "actualStatus": "spawned_and_active",
+        "actualTask": "Monitoring dashboard integrity",
+        "match": true
+      },
+      {
+        "agent": "escritor",
+        "dataJsonStatus": "waiting_for_input",
+        "dataJsonTask": "A2: Awaiting chapter outline",
+        "actualStatus": "waiting_for_input",
+        "actualTask": "No active writing task assigned",
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "hoursIdle": 78,
+        "match": true,
+        "warning": "Idle for 78 hours"
+      },
+      {
+        "agent": "quanta",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "OANDA credentials needed",
+        "actualStatus": "blocked",
+        "match": true
+      },
+      {
+        "agent": "mensamusa",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "Moomoo credentials needed",
+        "actualStatus": "blocked",
+        "match": true
+      },
+      {
+        "agent": "autour",
+        "dataJsonStatus": "not_spawned",
+        "actualStatus": "not_spawned",
+        "match": true
+      }
+    ]
+  },
+  "issuesFound": [
+    {
+      "type": "data_inconsistency",
+      "severity": "warning",
+      "description": "workflow.active array is empty but agents show active status",
+      "details": "CHAD_YI and Helios are marked as active in agents section, but workflow.active contains no task IDs. This may cause dashboard display issues.",
+      "suggestedFix": "Add active task IDs (A6-3 for CHAD_YI) to workflow.active array"
+    },
+    {
+      "type": "agent_idle",
+      "severity": "warning",
+      "agent": "escritor",
+      "hoursIdle": 78,
+      "description": "Escritor has been idle for 78 hours with A2 task assigned"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle > 48h AND status == waiting_for_input",
+      "agent": "escritor",
+      "action": "log_warning",
+      "severity": "warning",
+      "details": "Escritor idle since Feb 9 (78h), has A2 task assigned but waiting for user input",
+      "applied": true,
+      "note": "No automatic fix applied - requires user action to spawn agent or provide input"
+    }
+  ],
+  "escalations": [
+    {
+      "rule": "task_deadline < 24h AND status != done",
+      "taskId": "A1-1",
+      "taskTitle": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "assignedAgent": "CHAD_YI",
+      "action": "escalate_urgent",
+      "messageBusFile": "urgent-20260212-122100.md"
+    },
+    {
+      "rule": "task_deadline < 24h AND status != done",
+      "taskId": "A6-20",
+      "taskTitle": "Document Telegram CLI for Caleb",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "assignedAgent": "CHAD_YI",
+      "action": "escalate_urgent",
+      "messageBusFile": "urgent-20260212-122100.md"
+    },
+    {
+      "rule": "task_deadline < 24h AND status != done",
+      "taskId": "A6-21",
+      "taskTitle": "Fix Week at a Glance segregation",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "assignedAgent": "CHAD_YI",
+      "action": "escalate_urgent",
+      "messageBusFile": "urgent-20260212-122100.md"
+    }
+  ],
+  "stats": {
+    "dataJsonLastUpdated": "2026-02-12T12:15:00+08:00",
+    "dataFreshnessMinutes": 6,
+    "totalTasks": 78,
+    "pendingTasks": 13,
+    "activeTasks": 0,
+    "reviewTasks": 0,
+    "doneTasks": 2,
+    "backlogTasks": 63,
+    "urgentDeadlines": 3,
+    "agentsActive": 2,
+    "agentsBlocked": 2,
+    "agentsWaiting": 1,
+    "agentsNotSpawned": 1
+  },
+  "summary": {
+    "status": "attention_required",
+    "issuesFound": 2,
+    "autoFixesApplied": 1,
+    "escalationsRequired": 3,
+    "criticalDeadlines": 3,
+    "nextAudit": "2026-02-12T12:36:00+08:00"
+  }
+}

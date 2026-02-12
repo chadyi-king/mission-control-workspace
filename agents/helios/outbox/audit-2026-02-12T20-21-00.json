@@ -1,0 +1,178 @@
+{
+  "auditId": "helios-2026-02-12T20-21-00",
+  "timestamp": "2026-02-12T20:21:00+08:00",
+  "auditor": "helios",
+  "version": "1.0.0",
+  "summary": {
+    "totalTasks": 8,
+    "agentsActive": 3,
+    "agentsBlocked": 2,
+    "agentsNotSpawned": 1,
+    "criticalDeadlines": 2,
+    "issuesFound": 4,
+    "autoFixesApplied": 3,
+    "chadYiNotification": true
+  },
+  "dataConsistencyCheck": {
+    "dataJson": {
+      "status": "PASS_WITH_ISSUES",
+      "taskCountMatch": false,
+      "workflowIntegrity": false,
+      "agentStatusMatch": true,
+      "issues": [
+        "B6-4 has non-standard structure (missing id, agent, status fields)",
+        "B6-4 not included in workflow.pending array",
+        "CHAD_YI taskCount shows 3, actual assigned tasks: 4",
+        "B6-4 uses 'currentStatus' instead of 'status'"
+      ]
+    },
+    "escritorCurrentTask": {
+      "status": "PASS",
+      "taskIdMatch": "A2-13",
+      "phaseMatch": "Study Phase",
+      "dataJsonSync": true
+    },
+    "escritorMemory": {
+      "status": "PASS",
+      "currentTaskMatch": true,
+      "lastUpdated": "2026-02-12T17:30:00+08:00"
+    },
+    "activeMd": {
+      "status": "PASS",
+      "generatedBy": "helios",
+      "timestamp": "2026-02-12T19:51:00+08:00",
+      "criticalCount": 2,
+      "urgentCount": 2
+    }
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3",
+      "taskCount": 4,
+      "lastActive": "2026-02-12T15:51:00+08:00",
+      "hoursSinceActive": 4.5,
+      "idle": false
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "taskCount": 0,
+      "lastActive": "2026-02-12T20:21:00+08:00",
+      "hoursSinceActive": 0,
+      "idle": false
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13",
+      "taskCount": 1,
+      "lastActive": "2026-02-12T18:51:00+08:00",
+      "hoursSinceActive": 1.5,
+      "idle": false
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1",
+      "taskCount": 1,
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "hoursSinceActive": 102,
+      "idle": true,
+      "blocker": "OANDA credentials needed"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2",
+      "taskCount": 1,
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "hoursSinceActive": 102,
+      "idle": true,
+      "blocker": "Moomoo credentials needed"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "taskCount": 0,
+      "lastActive": null,
+      "hoursSinceActive": null,
+      "idle": false
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 18,
+        "agent": "CHAD_YI",
+        "severity": "critical"
+      },
+      {
+        "id": "B6-4",
+        "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 17,
+        "agent": "UNASSIGNED",
+        "severity": "critical",
+        "note": "Task structure malformed - needs manual fix"
+      }
+    ],
+    "high": [
+      {
+        "id": "B6-1",
+        "title": "Elluminate urgent deliverable 1",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98,
+        "agent": "CHAD_YI"
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate urgent deliverable 3",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 98,
+        "agent": "CHAD_YI"
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "type": "flag_stale_tasks",
+      "target": "Quanta",
+      "action": "Marked as idle (102h inactive)",
+      "result": "success"
+    },
+    {
+      "type": "flag_stale_tasks",
+      "target": "MensaMusa",
+      "action": "Marked as idle (102h inactive)",
+      "result": "success"
+    },
+    {
+      "type": "update_task_counts",
+      "target": "CHAD_YI",
+      "action": "Corrected taskCount from 3 to 4",
+      "result": "success"
+    }
+  ],
+  "manualFixesRequired": [
+    {
+      "severity": "high",
+      "issue": "B6-4 task structure malformed",
+      "details": "Missing required fields: id, agent, status, createdAt, updatedAt, category. Has non-standard fields: brief, whatINeed, why, steps, currentStatus",
+      "action": "CHAD_YI needs to standardize B6-4 to match other tasks",
+      "blockedAutoFix": "change_task_status, reassign_tasks"
+    },
+    {
+      "severity": "medium",
+      "issue": "B6-4 not in workflow.pending",
+      "details": "Task exists in tasks object but not referenced in workflow arrays",
+      "action": "Add 'B6-4' to workflow.pending array after fixing structure",
+      "blockedAutoFix": "change_task_status"
+    }
+  ],
+  "notificationSent": {
+    "chad_yi": true,
+    "reason": "Data inconsistency detected, manual fixes required",
+    "file": "/agents/message-bus/broadcast/urgent-2026-02-12T20-21-00.md"
+  }
+}

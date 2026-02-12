@@ -1,0 +1,66 @@
+{
+  "auditId": "audit-2026-02-11T192100",
+  "timestamp": "2026-02-11T19:21:00+08:00",
+  "auditor": "helios",
+  "durationMs": 2450,
+  "findings": {
+    "consistency": {
+      "status": "passed",
+      "agentMatches": 5,
+      "agentMismatches": 0
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-11T18:36:00+08:00",
+      "ageMinutes": 45,
+      "status": "acceptable"
+    },
+    "agentStatus": {
+      "chad_yi": {
+        "status": "active",
+        "currentTask": "A6-3",
+        "verified": true
+      },
+      "escritor": {
+        "status": "waiting_for_input",
+        "idleHours": 51,
+        "alert": "idle_over_24h",
+        "verified": true
+      },
+      "quanta": {
+        "status": "blocked",
+        "blocker": "OANDA credentials",
+        "verified": true
+      },
+      "mensamusa": {
+        "status": "blocked",
+        "blocker": "Moomoo credentials",
+        "verified": true
+      },
+      "autour": {
+        "status": "not_spawned",
+        "verified": true
+      }
+    },
+    "deadlines": {
+      "urgent": [
+        {
+          "id": "A1-1",
+          "title": "Travel booking - Japan trip",
+          "deadline": "2026-02-13",
+          "hoursRemaining": 49,
+          "alert": "within_48h"
+        }
+      ],
+      "upcoming": [
+        {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 121},
+        {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 121}
+      ]
+    }
+  },
+  "autoFixesApplied": [],
+  "alertsGenerated": [
+    "escritor_idle_51h",
+    "A1-1_deadline_49h"
+  ],
+  "nextAudit": "2026-02-11T19:36:00+08:00"
+}

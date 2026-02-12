@@ -42,29 +42,45 @@ Example:
 
 ### ☀️ DAYTIME HEARTBEATS (Every 30 min, 08:30-23:30)
 **Checks:**
-- [ ] Helios data audit complete (dashboard data correct)
+- [ ] Helios data audit complete
 - [ ] Helios pinged agents about their tasks
-- [ ] Agents reported status back to Helios
-- [ ] Helios reported summary to CHAD_YI
+- [ ] Agents reported status back
 - [ ] Any urgent deadlines (<24h)?
 
-**Format:** Multi-line for readability.
+**Format:** Clean, readable, agents on separate lines.
 
 Example:
 ```
-Heartbeat - 16:00 SGT
-Dashboard: Data audit passed
-CHAD_YI: System/Resources fixes, ETA 5 min, on track
-Escritor: Idle 48h, no response
-Quanta: Blocked (OANDA), confirmed
-MensaMusa: Blocked (Moomoo), confirmed  
-Autour: Idle, no response
-Urgent: A1-1 due in 34h
-```
+Heartbeat - 23:30 SGT
 
-Or if brief:
-```
-Heartbeat - 16:00 SGT: All systems operational. No action needed.
+Helios has pinged these agents:
+
+CHAD_YI
+  Task: Dashboard infrastructure
+  Status: Verifying agent audit logs
+  State: Active
+
+Escritor
+  Task: A2-12 Chapter outline
+  Status: Waiting for Caleb's input
+  State: Idle 2 days
+
+Quanta
+  Task: A5-1 OANDA trading bot
+  Status: Needs API credentials
+  State: Blocked
+
+MensaMusa
+  Task: A5-2 Options monitoring
+  Status: Needs Moomoo account
+  State: Blocked
+
+Autour
+  Task: A3 KOE scripts
+  Status: Not yet spawned
+  State: Not spawned
+
+Urgent: A1-1 due tomorrow
 ```
 
 ### 🌙 MIDNIGHT HEARTBEAT (00:00)

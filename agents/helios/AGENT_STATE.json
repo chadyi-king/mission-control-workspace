@@ -1,50 +1,45 @@
 {
   "agentId": "helios",
-  "role": "Autonomous Mission Control Auditor",
-  "status": "spawned_and_active",
-  "mode": "autonomous_proactive",
-  "heartbeat": {
-    "intervalSeconds": 900,
-    "lastHeartbeat": "2026-02-12T11:58:00+08:00",
-    "nextHeartbeat": "2026-02-12T12:13:00+08:00"
+  "agentName": "Helios",
+  "role": "mission_control_engineer",
+  "version": "1.0.0",
+  "createdAt": "2026-02-12T15:51:00+08:00",
+  "auditSchedule": {
+    "intervalMinutes": 15,
+    "lastAudit": "2026-02-12T22:06:00+08:00",
+    "nextAudit": "2026-02-12T22:21:00+08:00"
   },
-  "triggers": [
-    {
-      "type": "heartbeat",
-      "interval": "15 minutes",
-      "action": "full_dashboard_audit"
-    },
-    {
-      "type": "file_watch",
-      "watch": "/mission-control-dashboard/data.json",
-      "action": "verify_data_integrity"
-    },
-    {
-      "type": "event",
-      "on": "git_push",
-      "action": "verify_deployment"
-    },
-    {
-      "type": "scheduled",
-      "at": "00:00",
-      "action": "daily_summary_report"
-    }
+  "autoFixRules": {
+    "staleTaskThresholdHours": 48,
+    "idleAgentThresholdHours": 24,
+    "urgentDeadlineHours": 48,
+    "criticalDeadlineHours": 24,
+    "autoFixesEnabled": true,
+    "allowedAutoFixes": [
+      "mark_agent_idle",
+      "update_last_active_timestamp",
+      "flag_stale_tasks",
+      "update_task_counts"
+    ],
+    "blockedAutoFixes": [
+      "delete_tasks",
+      "change_task_status",
+      "reassign_tasks"
+    ]
+  },
+  "dataSources": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md",
+    "/AGENT_STATE.json"
   ],
-  "currentActivity": {
-    "task": "Monitoring dashboard integrity",
-    "startedAt": "2026-02-12T11:45:00+08:00",
-    "collaboratingWith": "CHAD_YI",
-    "canAutoFix": true
-  },
-  "collaborationMode": {
-    "with": "CHAD_YI",
-    "protocol": "find_issues_together_fix_together",
-    "escalateToCaleb": "only_when_CHAD_YI_blocked"
-  },
-  "stats": {
-    "auditsCompleted": 28,
-    "issuesFound": 52,
-    "autoFixesApplied": 20,
-    "collaborationsWithCHAD_YI": 15
+  "notificationRules": {
+    "chad_yi": {
+      "onCritical": true,
+      "onDataInconsistency": true,
+      "onAgentBlocked": true,
+      "onStaleTask": false
+    }
   }
 }

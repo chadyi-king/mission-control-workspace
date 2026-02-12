@@ -1,0 +1,79 @@
+{
+  "auditId": "helios-audit-2026-02-12T0906",
+  "timestamp": "2026-02-12T09:06:00+08:00",
+  "agentId": "helios",
+  "auditNumber": 18,
+  "issuesFound": 3,
+  "autoFixesApplied": 2,
+  "findings": [
+    {
+      "severity": "critical",
+      "type": "urgent_deadline",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 30,
+      "status": "pending",
+      "action": "escalate_urgent",
+      "message": "Task A1-1 due tomorrow (Feb 13). Only 30 hours remaining."
+    },
+    {
+      "severity": "warning",
+      "type": "agent_idle",
+      "agentId": "escritor",
+      "idleHours": 72,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "currentTask": "A2: Awaiting chapter outline",
+      "action": "ping_agent",
+      "message": "Escritor idle 72+ hours with assigned task. Awaiting chapter outline from CHAD_YI."
+    },
+    {
+      "severity": "info",
+      "type": "stale_data",
+      "file": "data.json",
+      "lastUpdated": "2026-02-12T07:06:00+08:00",
+      "hoursBehind": 2,
+      "action": "update_status",
+      "message": "data.json is 2 hours stale. Consider refresh."
+    }
+  ],
+  "dataConsistency": {
+    "escritor": {
+      "dataJsonStatus": "waiting_for_input",
+      "currentTaskMdStatus": "Waiting for input",
+      "memoryMdStatus": "agent not activated",
+      "consistent": true
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "consistent": true
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "consistent": true
+    }
+  },
+  "agentStatuses": {
+    "chad_yi": "active - A6-3 Dashboard audit infrastructure",
+    "escritor": "waiting_for_input - Awaiting chapter outline (72h idle)",
+    "quanta": "blocked - OANDA credentials needed",
+    "mensamusa": "blocked - Moomoo credentials needed",
+    "autour": "not_spawned"
+  },
+  "taskStats": {
+    "total": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "deadline": "2026-02-13",
+      "hoursLeft": 30
+    }
+  ]
+}
