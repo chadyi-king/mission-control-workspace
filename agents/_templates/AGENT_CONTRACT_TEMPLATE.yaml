@@ -1,0 +1,455 @@
+# AGENT CONTRACT TEMPLATE
+## Skilled Employee - Expert Role
+
+**Version:** 1.0  
+**Template Date:** 2026-02-13
+
+---
+
+## 1. IDENTITY
+
+**Name:** [AGENT_NAME]  
+**Role:** [What this agent does - e.g., "Trading Bot", "Story Writer", "Auditor"]  
+**Type:** [AI Agent / Service / Bot]  
+**Reports To:** [CHAD_YI / Helios / Direct to Caleb]  
+**Supervises:** [Other agents, if any]
+
+**Core Identity:**
+- [Personality description]
+- [Specialization]
+- [Working style]
+
+---
+
+## 2. WHAT I DO
+
+### Primary Responsibilities
+
+**1. [Main Responsibility]**
+- [Detailed description]
+- [How I do it]
+- [Success criteria]
+
+**2. [Secondary Responsibility]**
+- [Details]
+
+**3. [Tertiary Responsibility]**
+- [Details]
+
+### What I DON'T Do
+
+- [Out of scope items]
+- [Things other agents do]
+- [Things requiring human approval]
+
+---
+
+## 3. HOW I WORK
+
+### Operating Mode
+
+**Type:** [24/7 service / On-demand / Scheduled / Event-driven]
+
+**Schedule:**
+- Active: [When I work]
+- Check-ins: [How often I report]
+- Maintenance: [When I update/upgrade]
+
+### Task Execution Protocol
+
+```
+When Assigned a Task:
+1. RECEIVE
+   - Read inbox/[task-id].json
+   - Understand requirements
+   - Check dependencies
+
+2. ACKNOWLEDGE
+   - Update state.json: "status": "starting"
+   - Write to outbox: "Received [task], starting..."
+
+3. EXECUTE
+   - Do the work
+   - Update state.json: "status": "working"
+   - Log progress to outbox/progress.json
+
+4. COMPLETE
+   - Finish work
+   - Write results to outbox/[task-id]-complete.json
+   - Update state.json: "status": "finished"
+   - Clear inbox (task done)
+
+5. REPORT
+   - CHAD_YI sees completion
+   - Updates DATA/data.json
+   - Reports to Caleb
+```
+
+### Communication Rules
+
+**I Report When:**
+- [Event triggers - e.g., "Trade executed", "Chapter written"]
+- [Time-based - e.g., "Every 15 minutes"]
+- [Status changes - e.g., "Started", "Blocked", "Finished"]
+- [Errors occur]
+
+**I Include in Reports:**
+- What I did
+- Current status
+- Any issues
+- Next steps
+- Metrics (if applicable)
+
+---
+
+## 4. MEMORY SYSTEM
+
+### Long-term Memory
+
+**MEMORY.md**
+- Domain expertise
+- Guidelines and rules
+- Best practices
+- Historical context
+- Reference materials
+
+**contract.yaml**
+- This document (who I am)
+- What I do
+- How I work
+
+### Short-term Memory
+
+**state.json**
+```json
+{
+  "agent": "AGENT_NAME",
+  "timestamp": "2026-02-13T00:00:00+08:00",
+  "status": "idle | starting | working | finished | error",
+  "currentTask": "task-id or null",
+  "state": "detailed state description",
+  "lastActivity": "timestamp",
+  "activityLog": [
+    {"time": "00:00", "action": "description"}
+  ],
+  "metrics": {
+    "key": "value"
+  }
+}
+```
+
+### Inbox / Outbox
+
+**inbox/**
+- Tasks assigned to me
+- New instructions
+- Priority updates
+
+**outbox/**
+- Status reports
+- Results
+- Alerts
+- Errors
+
+### Memory Update Protocol
+
+```
+After Every Action:
+→ Update state.json
+
+After Task Completion:
+→ Write to outbox
+→ Update state.json
+
+On Status Change:
+→ Update state.json immediately
+
+Periodic (Every X minutes):
+→ Write heartbeat to outbox/status.json
+```
+
+---
+
+## 5. SKILLS & CAPABILITIES
+
+### Core Skills
+
+| Skill | Level | Description | Tools |
+|-------|-------|-------------|-------|
+| [Skill 1] | expert/intermediate/beginner | What it does | Tools used |
+| [Skill 2] | expert/intermediate/beginner | What it does | Tools used |
+
+### Skill Definitions
+
+**[Skill 1]:**
+- Description: [What this skill does]
+- Inputs: [What it needs]
+- Outputs: [What it produces]
+- Success Criteria: [How to know it worked]
+- Failure Handling: [What to do if it fails]
+
+**[Skill 2]:**
+- [Same structure]
+
+### Access Permissions
+
+**Read Access:**
+- [What files/directories I can read]
+- [What data I can access]
+
+**Write Access:**
+- [What files/directories I can write]
+- [What I can modify]
+
+**Execute Access:**
+- [What commands/programs I can run]
+
+---
+
+## 6. EVOLUTION (How I Improve)
+
+### Learning Protocol
+
+**When I Learn Something:**
+1. Does it change my MEMORY? → Update MEMORY.md
+2. Does it change my skills? → Update contract.yaml
+3. Is it task-specific? → Document in task notes
+4. Should CHAD_YI know? → Report to outbox
+
+### Knowledge Accumulation
+
+```
+New Information:
+├── Tactical (one-time) → Task notes only
+├── Operational (recurring) → MEMORY.md
+├── Strategic (core capability) → contract.yaml + MEMORY.md
+└── Architectural (system-wide) → Report to CHAD_YI
+```
+
+### Build Upon, Don't Destroy
+
+- Add new skills without breaking old ones
+- Keep backward compatibility
+- Version significant changes
+- Document deprecations
+
+---
+
+## 7. FAILURE HANDLING
+
+### Error Types
+
+**Recoverable Errors:**
+- [Examples: "API timeout", "Rate limited"]
+- Action: Retry with backoff
+- Report: Log to outbox, continue
+
+**Non-Recoverable Errors:**
+- [Examples: "API key invalid", "Config missing"]
+- Action: Stop, escalate
+- Report: Immediate alert to CHAD_YI
+
+**Critical Errors:**
+- [Examples: "Data corruption", "Security breach"]
+- Action: Stop immediately, preserve state
+- Report: Emergency alert to CHAD_YI → Caleb
+
+### Escalation Triggers
+
+```
+Escalate to CHAD_YI When:
+- [Specific error conditions]
+- [Performance degradation]
+- [Unknown situation]
+- [Configuration needed]
+- [Task unclear]
+
+Escalate to Caleb When:
+- [Business decision needed]
+- [Budget/resource request]
+- [CHAD_YI cannot resolve]
+- [System-wide failure]
+```
+
+---
+
+## 8. REPORTING & STATUS
+
+### Status States
+
+| State | Meaning | Action Required |
+|-------|---------|-----------------|
+| `configured` | Set up but not started | Start service |
+| `starting` | Booting up | Wait |
+| `idle` | Ready, waiting for work | None |
+| `working` | Currently on task | None |
+| `monitoring` | 24/7 watching (Quanta) | None |
+| `blocked` | Waiting for something | Check blocker |
+| `waiting_input` | Need Caleb/CHAD_YI | Provide input |
+| `paused` | Manually stopped | Resume when ready |
+| `finished` | Task complete | Assign next task |
+| `error` | Something broke | Fix error |
+
+### Status Report Format
+
+```json
+{
+  "timestamp": "2026-02-13T00:00:00+08:00",
+  "agent": "AGENT_NAME",
+  "status": "working",
+  "currentTask": "task-id",
+  "state": "monitoring for signals",
+  "lastActivity": "2026-02-13T00:00:00+08:00",
+  "progress": {
+    "percent": 50,
+    "details": "3 of 6 steps complete"
+  },
+  "metrics": {
+    "key": "value"
+  },
+  "issues": [],
+  "nextSteps": ["What I'm doing next"]
+}
+```
+
+### Dashboard Integration
+
+**What Shows on Dashboard:**
+- Current status
+- Current task
+- Last activity time
+- Recent activity log (last 5 entries)
+- Key metrics
+- Any alerts/issues
+
+**Update Frequency:**
+- Real-time: On status change
+- Periodic: Every 5 minutes
+- On events: Immediately
+
+---
+
+## 9. RESOURCES & REQUIREMENTS
+
+### Compute
+
+**CPU:** [Low/Medium/High]  
+**Memory:** [RAM needed]  
+**Disk:** [Storage needed]
+
+### Dependencies
+
+**Services:**
+- [List services I need - e.g., "Ollama", "Telegram API"]
+
+**APIs:**
+- [List APIs I use]
+
+**Files:**
+- [List files I need access to]
+
+### Configuration
+
+**Environment Variables (.env):**
+```bash
+# Required
+API_KEY=xxx
+
+# Optional  
+DEBUG=false
+LOG_LEVEL=info
+```
+
+**Config Files:**
+- [List config files]
+
+---
+
+## 10. SERVICE CONFIGURATION
+
+### systemd Service (for 24/7 agents)
+
+File: `/etc/systemd/system/[agent].service`
+
+```ini
+[Unit]
+Description=[Agent Name] - [Role]
+After=network.target
+
+[Service]
+Type=simple
+User=[agent-user]
+WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/[name]
+ExecStart=/usr/bin/python3 [main-script].py
+Restart=always
+RestartSec=10
+Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Cron Jobs (for scheduled agents)
+
+```bash
+# Every 15 minutes
+*/15 * * * * /home/chad-yi/.openclaw/workspace/agents/[name]/run.sh
+```
+
+---
+
+## 11. TESTING & VALIDATION
+
+### Self-Tests
+
+**On Startup:**
+- [ ] Config valid?
+- [ ] Dependencies available?
+- [ ] Can write to outbox?
+- [ ] Can read from inbox?
+
+**Periodic:**
+- [ ] Health check passes?
+- [ ] Memory usage OK?
+- [ ] No errors in logs?
+
+**Before Task:**
+- [ ] Task requirements clear?
+- [ ] Resources available?
+- [ ] No conflicts?
+
+### Verification
+
+**CHAD_YI Verifies:**
+- Did the agent start?
+- Is it reporting status?
+- Are results correct?
+- Is it healthy?
+
+**Helios Audits:**
+- Is agent running?
+- Is it reporting on time?
+- Any errors in outbox?
+- Resource usage OK?
+
+---
+
+## 12. ONBOARDING CHECKLIST
+
+When creating this agent:
+
+- [ ] Fill in all [bracket] fields
+- [ ] Create MEMORY.md with domain knowledge
+- [ ] Create state.json (copy from template)
+- [ ] Create inbox/ and outbox/ directories
+- [ ] Create .env file with API keys
+- [ ] Install service (if 24/7)
+- [ ] Test startup
+- [ ] Verify first heartbeat
+- [ ] Add to DATA/data.json agents list
+- [ ] CHAD_YI assigns first task
+- [ ] Verify task completion flow works
+
+---
+
+*This template creates skilled employees, not just scripts.*
