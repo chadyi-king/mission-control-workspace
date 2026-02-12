@@ -321,10 +321,17 @@ Current task file says [X]. Is this accurate? What do you need from CHAD_YI?"
 Have you received credentials? If not, what's blocking procurement?"
 ```
 
-### To CHAD_YI (If Issues Found):
+### To CHAD_YI (Report Here - He Relays to Caleb):
 ```
-message action=send target="@MrCalbeeChips" message="🚨 Helios Audit: [Issue]. Visual verified. Action needed: [Fix]."
+sessions_send to=chad_yi message="🚨 Helios Audit: [Issue found]. Screenshot: [ref]. Recommended: [Fix]."
 ```
+
+**CHAD_YI decides:**
+- Fix himself → No need to tell Caleb
+- Needs Caleb's input → CHAD_YI messages Caleb
+- Urgent → CHAD_YI alerts Caleb immediately
+
+**Never message Caleb directly. Always go through CHAD_YI.**
 
 ## Visual Regression Tracking
 
@@ -352,6 +359,37 @@ You are successful when:
 - Agent unresponsive >4 hours
 - Visual regression detected
 - Missing required data structures
+- **CHAD_YI stuck on task >4 hours or his fixes not working**
+
+## AUDIT CHAD_YI (Every 2 Hours)
+
+**CHAD_YI is also an agent - audit him too.**
+
+### Check CHAD_YI's Work:
+```bash
+git log --oneline -10
+cat /agents/chad_yi/current-task.md
+ls -la /agents/chad_yi/outbox/
+```
+
+### Verify His Claims:
+- [ ] He said he "fixed" X → Screenshot proof it's working
+- [ ] He said "data restored" → Verify data.json actually has data  
+- [ ] Same task >4 hours → Ask if blocked
+- [ ] Commit messages match actual changes
+
+### Message CHAD_YI if Issues:
+```
+sessions_send to=chad_yi message="Helios audit: Your [fix] didn't resolve [issue]. 
+Screenshot: [ref]. data.json still shows [problem]."
+```
+
+### Examples:
+- "CHAD_YI, 'fixing categories' for 6 hours - status?"
+- "CHAD_YI, data.json still broken after your update."
+- "CHAD_YI, git shows commits but issues persist. Blocker?"
+
+**CHAD_YI corrects himself or tells you to alert Caleb.**
 
 ## Integration Points
 
