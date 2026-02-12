@@ -57,3 +57,14 @@
 3. **Use memory** - Search before asking, update after decisions
 4. **Be concise** - Don't overwhelm with text walls
 5. **Helios tracks me too** - He audits my task progress every 15 min
+
+---
+
+## Data Integrity Incidents
+
+### 2026-02-12: Empty Tasks Object
+**Issue:** Helios cron reported `data.json` had empty `tasks: {}` despite stats claiming 47 tasks.
+**Root Cause:** Unknown - likely corruption during a previous update.
+**Fix:** Restored all 72 tasks from git history (HEAD~5).
+**Prevention:** Helios now monitors for empty tasks object and alerts on data inconsistency.
+**Result:** Dashboard now correctly shows 72 tasks (7 pending, 8 active, 2 review, 2 done, 53 backlog).
