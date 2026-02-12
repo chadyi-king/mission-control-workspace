@@ -1,6 +1,9 @@
 ---
 name: doing-tasks
-description: "Use when executing any task. Work through plans systematically, tracking progress, handling blockers, and coordinating with other skills. The central execution skill."
+description: |
+  Use when: Executing any task - whether from a plan or ad-hoc work. Systematic task execution with progress tracking.
+  Don't use when: Planning is needed (use write-plan first), verification is the goal (use verify-task), or delegating parallel work (use dispatch-multiple-agents).
+  Outputs: Completed tasks, progress updates, blocker reports.
 ---
 
 # Doing Tasks - Execution Core
@@ -8,6 +11,22 @@ description: "Use when executing any task. Work through plans systematically, tr
 ## The Rule
 
 **If a task exists, you MUST use the appropriate skill before acting.**
+
+## When to Use
+
+**Use when:**
+- Executing tasks from a written plan
+- Ad-hoc work that doesn't need formal planning
+- Working through checkpoints sequentially
+- Handling blockers and reporting progress
+- Coordinating with other skills
+
+**Don't use when:**
+- Planning is still needed (use write-plan first)
+- Verification is the primary goal (use verify-task)
+- Delegating parallel independent work (use dispatch-multiple-agents)
+- Design decisions are unclear (use brainstorming)
+- You haven't checked for more specific skills
 
 ```
 User message received

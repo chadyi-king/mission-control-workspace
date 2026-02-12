@@ -1,6 +1,9 @@
 ---
 name: write-plan
-description: "MUST use after brainstorming and before executing. Creates detailed implementation plans with checkpoints, verification criteria, and execution options."
+description: |
+  Use when: After design/brainstorming is complete and before execution. Creating detailed implementation plans with checkpoints.
+  Don't use when: Design is unclear (use brainstorming first), simple tasks with obvious steps, or when following an existing plan.
+  Outputs: Markdown plan with checkpoints, tasks, verification criteria, time estimates.
 ---
 
 # Write Plan
@@ -9,13 +12,31 @@ description: "MUST use after brainstorming and before executing. Creates detaile
 
 Transform validated designs into detailed, actionable implementation plans with checkpoints.
 
+## When to Use
+
+**Use when:**
+- Design/brainstorming phase is complete
+- Before starting implementation
+- Breaking down complex work into steps
+- Creating checkpoints for verification
+- Estimating time and resources
+
+**Don't use when:**
+- Design is unclear (use brainstorming first)
+- Simple tasks with obvious steps (<5 tasks)
+- Following an existing plan
+- Emergency fixes that need immediate action
+- Exploratory work without clear end state
+
 Every plan includes:
 - Bite-sized tasks (2-5 minutes each)
 - Checkpoints with verification criteria
 - Estimated time for each section
 - Execution options at the end
 
-## Plan Structure
+## Plan Structure Template
+
+Use this exact structure for all plans:
 
 ```markdown
 # [Project Name] - Implementation Plan
@@ -23,13 +44,18 @@ Every plan includes:
 **Goal:** One sentence describing success
 **Approach:** Brief summary of the chosen approach
 **Estimated Total Time:** X minutes
+**Created:** YYYY-MM-DD
 
 ## Checkpoint 1: [Milestone Name]
+**Time:** ~X minutes
+
 - [ ] Task 1: [Description] (~X min)
-  - **Action:** [Specific action]
-  - **Verify:** [How to confirm done]
+  - **Action:** [Specific action to take]
+  - **Verify:** [How to confirm it's done correctly]
+  
 - [ ] Task 2: [Description] (~X min)
-  ...
+  - **Action:** [Specific action to take]
+  - **Verify:** [How to confirm it's done correctly]
 
 ## Checkpoint 2: [Milestone Name]
 ...
@@ -38,6 +64,16 @@ Every plan includes:
 - [ ] All checkpoints complete
 - [ ] Quality standards met
 - [ ] User approval obtained
+- [ ] Documentation updated (if applicable)
+
+## Risk & Blockers
+| Risk | Likelihood | Mitigation |
+|------|------------|------------|
+| [Potential issue] | High/Med/Low | [How to handle] |
+
+## Execution Options
+1. **Single-Agent** - Execute sequentially in this session
+2. **Parallel Agents** - Dispatch multiple agents for independent tasks
 ```
 
 ## Task Granularity

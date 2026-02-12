@@ -1,6 +1,9 @@
 ---
 name: clawlist
-description: "MUST use for any multi-step project, long-running task, or infinite monitoring workflow. Plan, execute, track, and verify tasks with checkpoint validation. For projects, automation, and ongoing operations."
+description: |
+  Use when: Multi-step projects, long-running tasks, or infinite monitoring workflows requiring systematic planning and tracking.
+  Don't use when: Simple one-off tasks (<10 min), quick lookups, or conversational questions without work products.
+  Outputs: Task plans with checkpoints, execution tracking, completion verification.
 ---
 
 # Clawlist - Task Mastery
@@ -9,12 +12,19 @@ A systematic workflow for planning, executing, and tracking any task — from on
 
 ## When to Use This Skill
 
-**ALWAYS use clawlist when:**
+**Use when:**
 - Starting any new project or initiative
 - Setting up long-running monitoring
 - Breaking down complex goals
 - You need to track progress across sessions
 - Managing infinite tasks (research, monitoring, engagement)
+
+**Don't use when:**
+- Simple one-off tasks that take <10 minutes
+- Quick lookups or information retrieval
+- Conversational questions without work products
+- Tasks with no deliverables or outputs
+- Pure research without implementation
 
 ## Long-Running & Infinite Task Examples
 

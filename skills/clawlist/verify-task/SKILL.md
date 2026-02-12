@@ -1,6 +1,9 @@
 ---
 name: verify-task
-description: "MUST use after completing any multi-step task or project. Verifies completion against the original plan, checks quality criteria, and documents outcomes."
+description: |
+  Use when: After completing multi-step tasks or projects. Verifying against original plans and documenting outcomes.
+  Don't use when: Work is still in progress, no plan exists to verify against, or doing quick single-step tasks.
+  Outputs: Completion report, quality verification, lessons learned documentation.
 ---
 
 # Verify Task
@@ -9,12 +12,21 @@ description: "MUST use after completing any multi-step task or project. Verifies
 
 Confirm successful completion and document outcomes against the original plan.
 
-## When to Verify
+## When to Use
 
-- All tasks from plan are marked complete
+**Use when:**
+- All tasks from a plan are marked complete
 - User asks "is it done?" or "did it work?"
 - Before declaring a project finished
 - After each checkpoint in long-running tasks
+- Quality assurance is needed
+
+**Don't use when:**
+- Work is still in progress
+- No plan exists to verify against
+- Quick single-step tasks
+- Emergency situations needing immediate response
+- You're unsure what the original requirements were
 
 ## Verification Process
 
@@ -53,9 +65,9 @@ Does this meet your expectations? Any adjustments needed?"
 
 ### Step 5: Document Completion
 
-Save completion report to: `memory/plans/YYYY-MM-DD-<project>-complete.md`
+Save completion report to: `memory/plans/YYYY-MM-DD-[project]-complete.md`
 
-Template:
+**Template:**
 ```markdown
 # [Project] - Completion Report
 
@@ -90,6 +102,14 @@ Template:
 - [What worked well]
 - [What to do differently next time]
 ```
+
+## When NOT to Verify
+
+- Work is still in progress
+- No plan exists to verify against
+- Quick single-step tasks
+- Emergency situations needing immediate response
+- You're unsure what the original requirements were
 
 ## Handling Issues
 

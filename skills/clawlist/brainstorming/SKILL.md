@@ -1,6 +1,9 @@
 ---
 name: brainstorming
-description: "MUST use before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: |
+  Use when: Creative work, new features, building components, adding functionality, modifying existing behavior, or designing systems before implementation.
+  Don't use when: Executing known tasks (use doing-tasks), fixing bugs with clear solutions, or following existing plans (use write-plan/doing-tasks).
+  Outputs: Validated design decisions, approach selection, clarified requirements.
 ---
 
 # Brainstorming Ideas Into Designs
@@ -9,7 +12,22 @@ description: "MUST use before any creative work - creating features, building co
 
 Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
 
-Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+## When to Use
+
+**Use when:**
+- Creating new features or functionality
+- Building components or systems
+- Adding capabilities to existing code
+- Modifying existing behavior
+- Designing before implementation
+- Exploring multiple approaches
+
+**Don't use when:**
+- Executing known tasks (use doing-tasks)
+- Following an existing plan (use doing-tasks)
+- Fixing bugs with clear, obvious solutions
+- Simple configuration changes
+- Tasks where the approach is already decided
 
 ## The Process
 

@@ -1,6 +1,9 @@
 ---
 name: dispatch-multiple-agents
-description: "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies. Dispatch subagents to work concurrently."
+description: |
+  Use when: 2+ independent tasks with no shared state or dependencies that can be worked on in parallel.
+  Don't use when: Tasks are related/sequential, share files/resources, require full system context, or need human coordination between steps.
+  Outputs: Spawned subagents, parallel execution, integrated results.
 ---
 
 # Dispatch Multiple Agents
@@ -13,13 +16,16 @@ When you have multiple independent tasks, don't do them sequentially. Dispatch a
 - 3+ independent tasks need attention
 - Tasks don't share state or resources
 - No dependencies between tasks
-- Speed matters
+- Speed matters more than coordination
+- Tasks can be worked on in isolation
 
 **Don't use when:**
 - Tasks are related (fixing one might fix others)
 - Tasks share files/resources (would conflict)
 - You need full system context for all tasks
 - Tasks must happen in specific order
+- Human coordination needed between steps
+- Fewer than 2 independent tasks
 
 ## The Pattern
 
