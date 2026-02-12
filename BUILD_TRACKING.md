@@ -1,162 +1,123 @@
-# BUILD TRACKING - Mission Control v4.0
-## Self-Audit and Progress System
+# PHASE 2 BUILD PLAN
+## Helios COO + Dashboard Integration
 
-**Start Time:** 2026-02-12 23:51 SGT  
-**Status:** BUILDING - Phase 1A  
-**Target Completion:** 8-10 hours total
-
----
-
-## PHASE 1A: FOUNDATION (In Progress)
-
-### Step 1: Create Directory Structure
-**Status:** ⬜ NOT STARTED  
-**ETA:** 15 min  
-**Deliverable:** All folders created
-
-```
-To Create:
-├── DATA/
-│   ├── backups/
-│   │   ├── auto/
-│   │   └── manual/
-│   └── schema.json
-├── agents/_templates/new-agent/
-│   ├── contract.yaml
-│   ├── MEMORY.md
-│   ├── inbox/
-│   ├── outbox/
-│   └── state.json
-└── scripts/
-    ├── backup-before-change.sh
-    ├── list-backups.sh
-    ├── restore.sh
-    └── verify-data.sh
-```
-
-### Step 2: Test Backup Scripts
-**Status:** ⬜ NOT STARTED  
-**ETA:** 30 min  
-**Deliverable:** Working backup/restore/verify
-
-### Step 3: Move Data Safely
-**Status:** ⬜ NOT STARTED  
-**ETA:** 30 min  
-**Deliverable:** DATA/data.json exists, symlink works, dashboard OK
-
-### Step 4: Git Commit
-**Status:** ⬜ NOT STARTED  
-**ETA:** 5 min  
-**Deliverable:** "Phase 1A: Foundation complete"
+**Start Time:** 2026-02-13 00:43 SGT  
+**ETA:** 4 hours  
+**Status:** STARTING
 
 ---
 
-## PHASE 1B: DATA MIGRATION
+## TASK BREAKDOWN
 
-### Step 1: Create Symlink
-**Status:** ⬜ NOT STARTED  
-**ETA:** 10 min
+### Task 1: Install Ollama Models (15 min)
+**Status:** 🔴 BLOCKED - Needs Caleb
+**Steps:**
+1. Pull qwen2.5:7b (~5GB)
+2. Pull llava:13b (~8GB)
+3. Verify models load
 
-### Step 2: Test Dashboard
-**Status:** ⬜ NOT STARTED  
-**ETA:** 20 min
+**Deliverable:** Both models available in Ollama
 
-### Step 3: Remove Original
-**Status:** ⬜ NOT STARTED  
-**ETA:** 5 min
-
----
-
-## PROGRESS UPDATES TO CALEB
-
-### Automatic Updates:
-- **Every hour:** Progress report
-- **Phase complete:** Immediate notification
-- **Blocker encountered:** Immediate alert with options
-- **ETA changes:** Notify if running late
-
-### Update Format:
-```
-BUILD UPDATE - [Time] SGT
-
-Phase: [X] - [Name]
-Progress: [X] of [Y] steps complete
-Status: [On Track / Delayed / Blocked]
-ETA: [X] hours remaining
-
-Completed:
-• [Step 1]
-• [Step 2]
-
-Current:
-→ [Step 3] - [Description]
-
-Next:
-• [Step 4]
-
-Issues:
-[None / Description of blocker]
+**Your Action Required:**
+```bash
+ollama pull qwen2.5:7b
+ollama pull llava:13b
 ```
 
 ---
 
-## SELF-AUDIT CHECKLIST
-
-### Before Each Phase:
-- [ ] Read BUILD_TRACKING.md
-- [ ] Check previous phase complete
-- [ ] Verify no uncommitted changes
-- [ ] Create backup before starting
-
-### During Each Step:
-- [ ] Follow ARCHITECTURE.md exactly
-- [ ] Test before moving to next step
-- [ ] Document any deviations
-- [ ] Git commit after each major step
-
-### After Each Phase:
-- [ ] Verify all deliverables met
-- [ ] Test end-to-end functionality
-- [ ] Update BUILD_TRACKING.md
-- [ ] Report to Caleb
-- [ ] Git commit with phase summary
+### Task 2: Create Helios Audit Script (45 min)
+**Status:** ✅ COMPLETE
+**Completed:** 00:47
+**Deliverable:** agents/helios/helios-audit.py
+**Test Result:** Works, 72 tasks verified, 2 warnings (expected)
 
 ---
 
-## BUILD LOG
+### Task 3: Install Helios Service (30 min)
+**Status:** 🔴 BLOCKED - Needs sudo
+**Steps:**
+1. Copy helios.service to /etc/systemd/system/
+2. Run systemctl daemon-reload
+3. Enable service
+4. Start service
+5. Verify running
 
-### 2026-02-12 23:51 - START
-- Approved by Caleb
-- Starting Phase 1A: Foundation
-- Creating directory structure
+**Your Action Required:**
+```bash
+cd /home/chad-yi/.openclaw/workspace
+sudo cp agents/helios/helios.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable helios
+sudo systemctl start helios
+sudo systemctl status helios
+```
 
-### 2026-02-12 23:53 - STEP 1 COMPLETE
-- Created DATA/ directory structure
-- Created agents/_templates/
-- Created scripts/
+**Deliverable:** systemctl status shows "active (running)"
 
-### 2026-02-12 23:55 - STEP 2 COMPLETE
-- Created backup-before-change.sh
-- Created list-backups.sh
-- Created restore.sh
-- Created verify-data.py
-- All scripts tested and working
+---
 
-### 2026-02-12 23:56 - STEP 3 COMPLETE
-- Created agent template files
-- contract.yaml, MEMORY.md, state.json
+### Task 4: Test Audit Cycle (30 min)
+**Status:** ⏸️ PENDING
+**Steps:**
+1. Wait for first audit (15 min)
+2. Check agents/helios/outbox/ for report
+3. Verify all agents audited
+4. Check data integrity verified
 
-### 2026-02-12 23:57 - STEP 4 COMPLETE
-- Tested backup: 72 tasks preserved
-- Verified data integrity: All checks passed
-- Created symlink: dashboard/data.json → DATA/data.json
-- Dashboard reads correctly through symlink
-- Git committed and pushed
-- Render updating (30s)
+**Deliverable:** Audit report generated
 
-### 2026-02-12 23:58 - PHASE 1A COMPLETE
-- Data protection in place
-- 72 tasks safe
-- Backup system working
-- Ready for Phase 1B
+---
+
+### Task 5: Dashboard System Health Section (1 hour)
+**Status:** ⏸️ PENDING
+**Steps:**
+1. Update mission-control-dashboard/index.html
+2. Add System Health section
+3. Add agent compliance display
+4. Add overall health indicator
+5. Style with CSS
+
+**Deliverable:** Dashboard shows health status
+
+---
+
+### Task 6: Dashboard Activity Feed (45 min)
+**Status:** ⏸️ PENDING
+**Steps:**
+1. Read DATA/data.json activity field
+2. Display recent events
+3. Style as feed/list
+4. Auto-refresh with page
+
+**Deliverable:** Activity feed visible
+
+---
+
+### Task 7: Integration Testing (45 min)
+**Status:** ⏸️ PENDING
+**Steps:**
+1. Verify Helios updates DATA/data.json
+2. Verify dashboard displays updates
+3. Test blocked item workflow
+4. Full end-to-end test
+
+**Deliverable:** System working end-to-end
+
+---
+
+## CURRENT STATUS
+
+**Completed:** 0 of 7 tasks (0%)  
+**Blocked:** Task 1 (waiting for Ollama models)  
+**Next Action:** You run ollama pull commands
+
+---
+
+## PROGRESS LOG
+
+### 00:43 - START
+- Plan created
+- Ready to execute
+- Waiting on Ollama models
 
