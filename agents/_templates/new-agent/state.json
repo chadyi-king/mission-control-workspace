@@ -1,0 +1,10 @@
+{
+  "agent": "AGENT_NAME",
+  "timestamp": "2026-02-12T00:00:00+08:00",
+  "status": "configured",
+  "currentTask": null,
+  "state": "idle",
+  "lastActivity": null,
+  "activityLog": [],
+  "metrics": {}
+}

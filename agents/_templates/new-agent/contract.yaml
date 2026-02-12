@@ -1,0 +1,43 @@
+agent:
+  name: "AGENT_NAME"
+  role: "Describe what this agent does"
+  status: "configured"
+  
+  employment:
+    type: "24/7 service"
+    start_date: "YYYY-MM-DD"
+    supervisor: "CHAD_YI"
+    reports_to: "Helios (audits) -> CHAD_YI -> Caleb"
+    
+  skills:
+    - name: "skill_name"
+      description: "What this skill does"
+      enabled: true
+      
+  access:
+    read:
+      - "agents/AGENT_NAME/inbox/"
+      - "agents/AGENT_NAME/memory/"
+    write:
+      - "agents/AGENT_NAME/outbox/"
+      - "agents/AGENT_NAME/state.json"
+    execute:
+      - "python3"
+      
+  resources:
+    model: "N/A or specify"
+    compute: "Low/Medium/High"
+    memory: "RAM usage"
+    disk: "Storage needed"
+    
+  communication:
+    inbox: "agents/AGENT_NAME/inbox/"
+    outbox: "agents/AGENT_NAME/outbox/"
+    heartbeat_interval: "5 minutes"
+    status_report: "On events + periodic"
+    
+  failure:
+    on_crash: "Auto-restart (systemd)"
+    on_error: "Log to outbox/error.json"
+    max_restarts: "5 per hour"
+    escalation: "Alert CHAD_YI if persistent"
