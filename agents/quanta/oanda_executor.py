@@ -1,259 +1,206 @@
-#!/usr/bin/env python3
 """
-Quanta OANDA Trade Execution Module
-Handles position sizing, multiple TPs, risk management
+OANDA Executor Module
+Execute trades via OANDA API
 """
 
+import os
 import json
+import requests
 from datetime import datetime
-import oandapyV20
-from oandapyV20 import endpoints
-from oandapyV20.contrib.requests import MarketOrderRequest, TakeProfitDetails, StopLossDetails
-import logging
 
-from trading_config import (
-    MAX_RISK_PER_TRADE, ACCOUNT_BALANCE, OANDA_ACCOUNT_ID,
-    OANDA_ACCESS_TOKEN, OANDA_ENVIRONMENT, PAPER_TRADING_MODE,
-    SPLIT_POSITIONS, PARTIAL_CLOSE_AT_TP1
-)
+# Load credentials manually
+def load_env():
+    env_path = '/home/chad-yi/.openclaw/workspace/agents/quanta/.env'
+    if os.path.exists(env_path):
+        with open(env_path) as f:
+            for line in f:
+                if '=' in line and not line.startswith('#'):
+                    key, value = line.strip().split('=', 1)
+                    os.environ[key] = value
 
-# OANDA API Setup
-if PAPER_TRADING_MODE:
-    OANDA_ENV = "practice"
-else:
-    OANDA_ENV = "live"
+load_env()
 
-# Initialize OANDA API
-api = oandapyV20.API(
-    access_token=OANDA_ACCESS_TOKEN,
-    environment=OANDA_ENV
-)
+ACCOUNT_ID = os.getenv('OANDA_ACCOUNT_ID')
+API_KEY = os.getenv('OANDA_API_KEY')
 
-# Pip values for different pairs
-PIP_VALUES = {
-    'XAUUSD': 0.01,   # Gold - 1 pip = $0.01
-    'XAGUSD': 0.001,  # Silver
-    'EURUSD': 0.0001,
-    'GBPUSD': 0.0001,
-    'USDJPY': 0.01,
-}
+# OANDA API endpoint (practice account)
+BASE_URL = 'https://api-fxpractice.oanda.com/v3'
 
-def calculate_position_size(signal):
-    """
-    Calculate position size based on $20 max risk
+class OandaExecutor:
+    """Execute trades via OANDA API"""
     
-    Formula: Position Size = Risk Amount / (Stop Loss Distance in pips * Pip Value)
-    """
-    pair = signal.get('pair', 'XAUUSD')
-    entry = signal.get('entry')
-    stop_loss = signal.get('stop_loss')
+    def __init__(self):
+        self.account_id = ACCOUNT_ID
+        self.api_key = API_KEY
+        self.headers = {
+            'Authorization': f'Bearer {self.api_key}',
+            'Content-Type': 'application/json'
+        }
     
-    if not entry or not stop_loss:
-        print(f"❌ Cannot calculate position size - missing entry or SL")
-        return None
+    def test_connection(self):
+        """Test API connection"""
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}'
+            response = requests.get(url, headers=self.headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                return {
+                    'success': True,
+                    'account': data['account']['id'],
+                    'balance': data['account']['balance'],
+                    'currency': data['account']['currency']
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'Status {response.status_code}: {response.text}'
+                }
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    # Calculate risk in pips
-    if signal['action'] == 'BUY':
-        risk_pips = abs(entry - stop_loss)
-    else:  # SELL
-        risk_pips = abs(stop_loss - entry)
+    def get_price(self, instrument='XAU_USD'):
+        """Get current price for instrument"""
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}/pricing'
+            params = {'instruments': instrument}
+            response = requests.get(url, headers=self.headers, params=params)
+            
+            if response.status_code == 200:
+                data = response.json()
+                price_data = data['prices'][0]
+                return {
+                    'success': True,
+                    'bid': float(price_data['bids'][0]['price']),
+                    'ask': float(price_data['asks'][0]['price']),
+                    'spread': float(price_data['asks'][0]['price']) - float(price_data['bids'][0]['price'])
+                }
+            else:
+                return {'success': False, 'error': response.text}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    # Get pip value for pair
-    pip_value = PIP_VALUES.get(pair, 0.01)  # Default to gold
-    
-    # Calculate position size
-    # For XAUUSD: $20 risk / (5 pips * $0.01/pip) = 0.04 lots = 400 units
-    risk_amount = MAX_RISK_PER_TRADE
-    
-    if pair in ['XAUUSD', 'XAGUSD']:
-        # For gold/silver: position size in units
-        # 1 unit = $0.01 per pip for XAUUSD
-        position_size_units = risk_amount / (risk_pips * pip_value)
-        position_size_lots = position_size_units / 100  # Convert to lots (1 lot = 100 units for gold)
-    else:
-        # For forex
-        position_size_units = risk_amount / (risk_pips * pip_value)
-        position_size_lots = position_size_units / 100000  # 1 standard lot = 100,000 units
-    
-    # Round to 2 decimal places for micro lots
-    position_size_lots = round(position_size_lots, 2)
-    
-    # Minimum 0.01 lots (micro lot)
-    if position_size_lots < 0.01:
-        position_size_lots = 0.01
-    
-    print(f"📊 Position Sizing:")
-    print(f"   Risk: ${risk_amount}")
-    print(f"   SL Distance: {risk_pips} pips")
-    print(f"   Position Size: {position_size_lots} lots ({int(position_size_lots * 100)} units)")
-    
-    return {
-        'lots': position_size_lots,
-        'units': int(position_size_lots * 100) if pair in ['XAUUSD', 'XAGUSD'] else int(position_size_lots * 100000),
-        'risk_pips': risk_pips,
-        'pip_value': pip_value
-    }
-
-def split_position_for_multiple_tps(signal, position_size):
-    """
-    Split position into 3 parts for 3 TPs:
-    - Position 1: 1/3 size, TP at TP1
-    - Position 2: 1/3 size, TP at TP2
-    - Position 3: 1/3 size, TP at TP3 (runner)
-    """
-    take_profits = signal.get('take_profits', [])
-    
-    if len(take_profits) < 2:
-        # Single TP - don't split
-        return [{
-            'size': position_size['units'],
-            'tp': take_profits[0] if take_profits else signal.get('take_profit'),
-            'label': 'Full Position'
-        }]
-    
-    positions = []
-    base_size = position_size['units'] // 3
-    
-    # Position 1 - Close at TP1
-    positions.append({
-        'size': base_size,
-        'tp': take_profits[0],
-        'label': 'TP1 (1/3)',
-        'partial_close': True
-    })
-    
-    # Position 2 - Close at TP2
-    if len(take_profits) >= 2:
-        positions.append({
-            'size': base_size,
-            'tp': take_profits[1],
-            'label': 'TP2 (1/3)',
-            'partial_close': True
-        })
-    
-    # Position 3 - Runner to TP3 (or keep running)
-    remaining = position_size['units'] - (base_size * 2)
-    tp3 = take_profits[2] if len(take_profits) >= 3 else take_profits[-1]
-    positions.append({
-        'size': remaining,
-        'tp': tp3,
-        'label': 'TP3 Runner',
-        'trailing_stop': True
-    })
-    
-    print(f"📦 Split into {len(positions)} positions:")
-    for i, pos in enumerate(positions, 1):
-        print(f"   Position {i}: {pos['size']} units, TP: {pos['tp']}, {pos['label']}")
-    
-    return positions
-
-def execute_trade(signal):
-    """
-    Execute trade on OANDA with proper risk management
-    """
-    if PAPER_TRADING_MODE:
-        print(f"\n🧪 PAPER TRADING MODE - Simulating trade execution:")
-    else:
-        print(f"\n💰 LIVE TRADING - Executing real trade:")
-    
-    # Calculate position size
-    position_size = calculate_position_size(signal)
-    if not position_size:
-        return None
-    
-    # Split for multiple TPs
-    positions = split_position_for_multiple_tps(signal, position_size)
-    
-    results = []
-    
-    for i, pos in enumerate(positions, 1):
-        print(f"\n📤 Executing Position {i}/{len(positions)}...")
+    def create_order(self, instrument, direction, units, stop_loss=None, take_profit=None):
+        """
+        Create market order
         
-        if PAPER_TRADING_MODE:
-            # Simulate the trade
-            result = simulate_trade(signal, pos, i)
-            results.append(result)
-        else:
-            # Real OANDA execution
-            try:
-                result = execute_oanda_order(signal, pos, i)
-                results.append(result)
-            except Exception as e:
-                print(f"❌ Trade execution failed: {e}")
-                return None
+        Args:
+            instrument: e.g., 'XAU_USD'
+            direction: 'BUY' or 'SELL'
+            units: Number of units (not lots)
+            stop_loss: Stop loss price
+            take_profit: Take profit price
+        """
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}/orders'
+            
+            # Convert direction
+            if direction == 'SELL':
+                units = -abs(units)
+            
+            order_data = {
+                'order': {
+                    'type': 'MARKET',
+                    'instrument': instrument,
+                    'units': str(units),
+                    'timeInForce': 'FOK'  # Fill or Kill
+                }
+            }
+            
+            # Add stop loss
+            if stop_loss:
+                order_data['order']['stopLossOnFill'] = {
+                    'price': str(stop_loss)
+                }
+            
+            # Add take profit
+            if take_profit:
+                order_data['order']['takeProfitOnFill'] = {
+                    'price': str(take_profit)
+                }
+            
+            response = requests.post(url, headers=self.headers, json=order_data)
+            
+            if response.status_code in [200, 201]:
+                data = response.json()
+                return {
+                    'success': True,
+                    'order_id': data.get('orderFillTransaction', {}).get('id'),
+                    'instrument': instrument,
+                    'units': units,
+                    'price': data.get('orderFillTransaction', {}).get('price')
+                }
+            else:
+                return {'success': False, 'error': response.text}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    # Save trade record
-    trade_record = {
-        'timestamp': datetime.now().isoformat(),
-        'signal': signal,
-        'positions': positions,
-        'results': results,
-        'total_units': sum(p['units'] for p in positions),
-        'risk_usd': MAX_RISK_PER_TRADE,
-        'mode': 'paper' if PAPER_TRADING_MODE else 'live'
-    }
+    def modify_sl(self, trade_id, new_sl):
+        """Modify stop loss on open trade"""
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}/trades/{trade_id}/orders'
+            
+            order_data = {
+                'stopLoss': {
+                    'price': str(new_sl),
+                    'timeInForce': 'GTC'
+                }
+            }
+            
+            response = requests.put(url, headers=self.headers, json=order_data)
+            
+            if response.status_code == 200:
+                return {'success': True, 'trade_id': trade_id, 'new_sl': new_sl}
+            else:
+                return {'success': False, 'error': response.text}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    with open('/home/chad-yi/.openclaw/workspace/agents/quanta/inbox/executed_trades.jsonl', 'a') as f:
-        f.write(json.dumps(trade_record) + '\n')
+    def close_partial(self, trade_id, units):
+        """Close partial position"""
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}/trades/{trade_id}/close'
+            
+            data = {'units': str(units)}
+            response = requests.put(url, headers=self.headers, json=data)
+            
+            if response.status_code == 200:
+                return {'success': True, 'trade_id': trade_id, 'units_closed': units}
+            else:
+                return {'success': False, 'error': response.text}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
     
-    print(f"\n✅ Trade execution complete!")
-    print(f"   Total positions: {len(positions)}")
-    print(f"   Total units: {trade_record['total_units']}")
-    print(f"   Risk: ${MAX_RISK_PER_TRADE}")
-    
-    return trade_record
+    def get_open_trades(self):
+        """Get all open trades"""
+        try:
+            url = f'{BASE_URL}/accounts/{self.account_id}/openTrades'
+            response = requests.get(url, headers=self.headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                return {
+                    'success': True,
+                    'trades': data.get('trades', [])
+                }
+            else:
+                return {'success': False, 'error': response.text}
+        except Exception as e:
+            return {'success': False, 'error': str(e)}
 
-def simulate_trade(signal, position, index):
-    """Simulate a trade for paper trading"""
-    result = {
-        'position_id': f"PAPER_{datetime.now().strftime('%H%M%S')}_{index}",
-        'units': position['size'],
-        'entry': signal['entry'],
-        'stop_loss': signal.get('stop_loss'),
-        'take_profit': position['tp'],
-        'status': 'OPEN',
-        'label': position['label']
-    }
-    
-    print(f"   🧪 SIMULATED: {position['size']} units @ {signal['entry']}")
-    print(f"      SL: {signal.get('stop_loss')} | TP: {position['tp']}")
-    
-    return result
 
-def execute_oanda_order(signal, position, index):
-    """Execute real order on OANDA"""
-    # This would use actual OANDA API
-    # For now, return placeholder
-    print(f"   💰 REAL ORDER would be placed here")
-    print(f"      Pair: {signal['pair']}")
-    print(f"      Units: {position['size']}")
-    print(f"      Entry: {signal['entry']}")
-    print(f"      SL: {signal.get('stop_loss')}")
-    print(f"      TP: {position['tp']}")
+# Test if run directly
+if __name__ == "__main__":
+    executor = OandaExecutor()
     
-    # TODO: Implement actual OANDA API call
-    # order = MarketOrderRequest(...)
-    # rv = api.request(order)
+    print("Testing OANDA Connection...")
+    result = executor.test_connection()
+    print(json.dumps(result, indent=2))
     
-    return {
-        'position_id': f"PENDING_IMPLEMENTATION",
-        'status': 'NOT_IMPLEMENTED'
-    }
-
-if __name__ == '__main__':
-    # Test with sample signal
-    test_signal = {
-        'action': 'BUY',
-        'pair': 'XAUUSD',
-        'entry': 2030.50,
-        'stop_loss': 2025.50,
-        'take_profit': 2040.50,
-        'take_profits': [2035.00, 2040.50, 2045.00],
-        'rr_ratio': 2.0
-    }
-    
-    print("=" * 50)
-    print("TESTING TRADE EXECUTION")
-    print("=" * 50)
-    result = execute_trade(test_signal)
-    print("\nResult:", json.dumps(result, indent=2, default=str))
+    if result['success']:
+        print("\n✅ OANDA connection successful")
+        print(f"Account: {result['account']}")
+        print(f"Balance: {result['balance']} {result['currency']}")
+    else:
+        print("\n❌ OANDA connection failed")
+        print(f"Error: {result.get('error')}")
