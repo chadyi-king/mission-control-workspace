@@ -1,0 +1,162 @@
+{
+  "auditId": "helios-audit-2026-02-13T0106",
+  "timestamp": "2026-02-13T01:06:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md",
+    "/agents/helios/AGENT_STATE.json"
+  ],
+  "summary": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 7,
+    "review": 1,
+    "done": 3,
+    "backlog": 53,
+    "agentsChecked": 6,
+    "consistencyIssues": 4,
+    "autoFixesApplied": 0,
+    "requiresChadYi": true
+  },
+  "consistencyChecks": {
+    "dataFreshness": {
+      "lastUpdated": "2026-02-13T00:51:00+08:00",
+      "minutesSinceUpdate": 15,
+      "status": "fresh"
+    },
+    "escritorConsistency": {
+      "dataJsonStatus": "active",
+      "currentTaskMatch": true,
+      "memoryMatch": true,
+      "taskDetailsMatch": true,
+      "result": "PASS"
+    },
+    "quantaConsistency": {
+      "dataJsonStatus": "blocked",
+      "blockerMatch": true,
+      "idleHours": 102,
+      "result": "PASS"
+    },
+    "mensamusaConsistency": {
+      "dataJsonStatus": "blocked",
+      "blockerMatch": true,
+      "idleHours": 102,
+      "result": "PASS"
+    }
+  },
+  "issuesFound": [
+    {
+      "severity": "high",
+      "type": "data_inconsistency",
+      "location": "data.json > urgentTaskDetails.A1-1",
+      "issue": "Title mismatch between urgentTaskDetails and tasks object",
+      "urgentTaskDetailsTitle": "Change Taiwan flights and hotel",
+      "tasksObjectTitle": "Plan weekly schedule",
+      "tasksObjectDeadline": null,
+      "urgentTaskDetailsDeadline": "2026-02-13",
+      "impact": "Dashboard shows incorrect urgent task info"
+    },
+    {
+      "severity": "medium",
+      "type": "data_inconsistency",
+      "location": "data.json > urgentTaskDetails.B6-1",
+      "issue": "B6-1 marked as urgent but task status is 'done'",
+      "urgentTaskDetailsTitle": "Elluminate proposal - School A",
+      "tasksObjectTitle": "Elluminate website (Lovable)",
+      "tasksObjectStatus": "done",
+      "impact": "Completed task appearing in urgent list"
+    },
+    {
+      "severity": "medium",
+      "type": "missing_data",
+      "location": "data.json > urgentTaskDetails",
+      "issue": "B6-6 missing from urgentTaskDetails despite having deadline 2026-02-17",
+      "taskId": "B6-6",
+      "taskTitle": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "impact": "Urgent task not appearing in urgent list"
+    },
+    {
+      "severity": "medium",
+      "type": "data_inconsistency",
+      "location": "data.json > urgentTaskDetails.B6-3",
+      "issue": "Title mismatch for B6-3",
+      "urgentTaskDetailsTitle": "Elluminate pitch deck",
+      "tasksObjectTitle": "SPH items to order",
+      "impact": "Incorrect task description in urgent list"
+    }
+  ],
+  "agentStatus": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "lastActive": "2026-02-12T15:51:00+08:00",
+      "idleHours": 9.25
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastActive": "2026-02-12T18:51:00+08:00"
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "lastActive": "2026-02-12T18:51:00+08:00",
+      "idleHours": 0,
+      "notes": "Study phase in progress - 90 question knowledge check"
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1: Trading signals",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2: Options flow",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "notes": "A3 KOE scripts - not yet configured"
+    }
+  },
+  "criticalDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Plan weekly schedule",
+      "deadline": null,
+      "agent": "CHAD_YI",
+      "notes": "UrgentTaskDetails shows different title/deadline - needs correction"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "taskId": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "agent": "CHAD_YI"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "agent": "CHAD_YI"
+    }
+  ],
+  "recommendations": [
+    "Fix urgentTaskDetails.A1-1 - correct title and deadline mismatch",
+    "Remove B6-1 from urgentTaskDetails (task is done)",
+    "Add B6-6 to urgentTaskDetails",
+    "Fix urgentTaskDetails.B6-3 title to match tasks object",
+    "Regenerate ACTIVE.md to reflect current state"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "auditId": "helios-audit-2026-02-13T005100",
+  "timestamp": "2026-02-13T00:51:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "findings": {
+    "totalIssues": 7,
+    "critical": 1,
+    "warnings": 4,
+    "info": 2
+  },
+  "consistencyChecks": {
+    "dataJsonWorkflow": {
+      "status": "FAILED",
+      "issues": [
+        {
+          "type": "status_mismatch",
+          "taskId": "A5-1",
+          "workflow": "active",
+          "taskStatus": "pending",
+          "severity": "warning"
+        },
+        {
+          "type": "status_mismatch",
+          "taskId": "A5-2",
+          "workflow": "active",
+          "taskStatus": "pending",
+          "severity": "warning"
+        },
+        {
+          "type": "status_mismatch",
+          "taskId": "A6-3",
+          "workflow": "active",
+          "taskStatus": "pending",
+          "severity": "warning"
+        },
+        {
+          "type": "status_mismatch",
+          "taskId": "B6-3",
+          "workflow": "active",
+          "taskStatus": "pending",
+          "severity": "warning"
+        }
+      ]
+    },
+    "urgentTasks": {
+      "status": "FAILED",
+      "issues": [
+        {
+          "type": "phantom_task",
+          "taskId": "B6-4",
+          "location": "urgentTaskDetails",
+          "severity": "critical",
+          "note": "Task B6-4 does not exist in tasks object but appears in urgentTaskDetails"
+        },
+        {
+          "type": "id_mismatch",
+          "expected": "B6-6",
+          "found": "B6-1",
+          "location": "urgentDeadlines",
+          "severity": "warning",
+          "note": "urgentDeadlines references B6-1 but actual urgent task is B6-6 (Find facilitators for ESU)"
+        }
+      ]
+    },
+    "agentStatus": {
+      "status": "WARNING",
+      "issues": [
+        {
+          "type": "stale_blocked_agent",
+          "agent": "Quanta",
+          "blockedHours": 102,
+          "lastActive": "2026-02-08T10:00:00+08:00",
+          "severity": "info"
+        },
+        {
+          "type": "stale_blocked_agent",
+          "agent": "MensaMusa",
+          "blockedHours": 102,
+          "lastActive": "2026-02-08T10:00:00+08:00",
+          "severity": "info"
+        }
+      ]
+    },
+    "escritorProgress": {
+      "status": "WARNING",
+      "issues": [
+        {
+          "type": "no_progress_file",
+          "taskId": "A2-13",
+          "expectedFile": "/agents/escritor/outbox/study-answers.md",
+          "severity": "warning",
+          "note": "Escritor assigned to A2-13 Study Phase but no answers file exists. Task shows 'active' but work hasn't started."
+        }
+      ]
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "fixType": "flag_stale_agents",
+      "agents": ["Quanta", "MensaMusa"],
+      "reason": "Blocked for 102+ hours (>24h threshold)",
+      "status": "applied"
+    }
+  ],
+  "stats": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 7,
+    "review": 1,
+    "done": 3,
+    "backlog": 53,
+    "agentsActive": 3,
+    "agentsBlocked": 2,
+    "agentsNotSpawned": 1
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 23,
+      "severity": "critical"
+    },
+    {
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    }
+  ],
+  "nextAudit": "2026-02-13T01:06:00+08:00"
+}

@@ -1,0 +1,143 @@
+{
+  "auditId": "helios-audit-2026-02-13T0121",
+  "timestamp": "2026-02-13T01:21:00+08:00",
+  "auditor": "Helios",
+  "type": "15-minute-dashboard-audit",
+  "status": "issues-found",
+  "summary": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 7,
+    "review": 1,
+    "done": 3,
+    "agents": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 0,
+    "urgentNotifications": 1
+  },
+  "dataIntegrity": {
+    "sourcesChecked": [
+      "/agents/helios/AGENT_STATE.json",
+      "/DATA/data.json",
+      "/agents/escritor/current-task.md",
+      "/agents/escritor/MEMORY.md",
+      "/ACTIVE.md"
+    ],
+    "consistencyStatus": "partial",
+    "inconsistencies": [
+      {
+        "type": "agent-status-mismatch",
+        "agent": "quanta",
+        "issue": "AGENT_STATE shows 'blocked' but data.json shows 'active'",
+        "details": "Quanta blocked for 102+ hours waiting for OANDA credentials"
+      },
+      {
+        "type": "agent-status-mismatch",
+        "agent": "mensamusa",
+        "issue": "AGENT_STATE shows 'blocked' but data.json shows 'active'",
+        "details": "MensaMusa blocked for 102+ hours waiting for Moomoo credentials"
+      },
+      {
+        "type": "task-title-mismatch",
+        "taskId": "A1-1",
+        "issue": "data.json shows 'Plan weekly schedule' but urgentTaskDetails shows 'Change Taiwan flights and hotel'",
+        "details": "Critical deadline today (2026-02-13)"
+      }
+    ]
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "idleHours": 0,
+      "consistency": "verified"
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastAudit": "2026-02-13T01:06:00+08:00",
+      "consistency": "verified"
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "idleHours": 0,
+      "consistency": "verified",
+      "notes": "Study phase confirmed in current-task.md and MEMORY.md"
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102,
+      "consistency": "needs-fix"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 102,
+      "consistency": "needs-fix"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "consistency": "verified"
+    }
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 22,
+      "severity": "critical",
+      "userActionRequired": true
+    },
+    {
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    }
+  ],
+  "inputsNeeded": [
+    {
+      "taskId": "A5-1",
+      "agent": "Quanta",
+      "waitingFor": "OANDA API credentials",
+      "idleHours": 102,
+      "priority": "medium"
+    },
+    {
+      "taskId": "A5-2",
+      "agent": "MensaMusa",
+      "waitingFor": "Moomoo account credentials",
+      "idleHours": 102,
+      "priority": "medium"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "critical",
+      "action": "Update data.json task A1-1 title to match urgentTaskDetails",
+      "reason": "Title mismatch causing confusion - actual task is Taiwan flight changes"
+    },
+    {
+      "priority": "high",
+      "action": "Fix Quanta and MensaMusa status in data.json to 'blocked'",
+      "reason": "AGENT_STATE is source of truth for agent status"
+    },
+    {
+      "priority": "medium",
+      "action": "Consider spawning Autour for A3 KOE work",
+      "reason": "Agent configured but never activated"
+    }
+  ]
+}
