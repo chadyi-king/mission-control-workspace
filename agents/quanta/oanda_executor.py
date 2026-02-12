@@ -23,8 +23,8 @@ load_env()
 ACCOUNT_ID = os.getenv('OANDA_ACCOUNT_ID')
 API_KEY = os.getenv('OANDA_API_KEY')
 
-# OANDA API endpoint (practice account)
-BASE_URL = 'https://api-fxpractice.oanda.com/v3'
+# OANDA API endpoint (LIVE account)
+BASE_URL = 'https://api-fxtrade.oanda.com/v3'
 
 class OandaExecutor:
     """Execute trades via OANDA API"""

@@ -242,3 +242,6 @@ Until SL hit or fully closed
 *This is THE strategy. Do not deviate without approval.*
 *Last updated: 2026-02-13 01:42 SGT*
 *Status: FINAL AND COMMITTED*
+OANDA_LIVE_ACCOUNT=001-003-8520002-001
+OANDA_BALANCE=2004.57 SGD
+RISK_PER_TRADE=20 (first 20 trades)
