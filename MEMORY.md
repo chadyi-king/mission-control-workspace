@@ -68,3 +68,16 @@
 **Fix:** Restored all 72 tasks from git history (HEAD~5).
 **Prevention:** Helios now monitors for empty tasks object and alerts on data inconsistency.
 **Result:** Dashboard now correctly shows 72 tasks (7 pending, 8 active, 2 review, 2 done, 53 backlog).
+
+### 2026-02-12: Missing Dashboard Data Structures
+**Issue:** Dashboard showing 0 projects, 0 urgent tasks, empty agent details despite data existing.
+**Root Cause:** Dashboard JS expects specific data structures (inputsNeeded, agentDetails, urgentTaskDetails, workflow, projects, projectDetails) that were missing from data.json.
+**Fix:** Added all missing structures with real data:
+- workflow: pending/active/review/done arrays
+- projects: A/B/C categories with 19 projects
+- projectDetails: Names/descriptions for all projects
+- inputsNeeded/inputDetails: 3 blocked items
+- urgentTaskDetails: Expanded info for urgent tasks
+- agentDetails: Activity details for all 5 agents
+**Prevention:** Updated helios-audit skill to verify ALL required structures exist and use browser screenshots to verify rendering.
+**Result:** Dashboard now renders correctly with 4 urgent tasks, 5 agents, 3 inputs needed, 19 projects.
