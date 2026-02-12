@@ -1,78 +1,73 @@
-# Escritor Current Task: A2-13 (STUDY PHASE)
+# Escritor Current Task: A2-13 Study Phase
 
 **Task ID:** A2-13  
-**Title:** Study RE:UNITE Universe - Generate Understanding Questions  
-**Project:** RE:UNITE (A2)  
-**Phase:** Study & Validation (NOT writing yet)  
+**Phase:** Study and Answer Questions  
+**Objective:** Demonstrate deep understanding of RE:UNITE universe before writing Chapter 13
 
 ---
 
-## Objective
-Before writing Chapter 13, Escritor must **deeply understand** the RE:UNITE universe. Read all source materials and generate comprehensive questions to validate understanding.
+## Your Assignment
 
-## Materials to Study
+**Read these materials:**
+1. `/projects/A2-reunite/STORY-BIBLE-COMPLETE.md` - World rules, magic system, characters
+2. All chapters 1-12 (in `/temp-reunite/` folder as .docx files)
 
-**Required Reading:**
-1. `/projects/A2-reunite/STORY-BIBLE-COMPLETE.md` - World rules, magic system, history
-2. All previous chapters (1-12) - Story continuity, character voices
-3. Any character notes or world-building documents
+**Study the questions:**
+- Read `/agents/escritor/inbox/study-questions.md` (90 questions)
 
-## Output Required
-
-Generate questions in these categories:
-
-### 1. Character Questions (20-30 questions)
-- Ryfel's SEAL mindset - how does it manifest in dialogue vs internal monologue?
-- Ryker's relationship with Ryfel - specific phrases he uses?
-- Kriscila's 3-year promise - exact terms and emotional weight?
-- Elda's pregnancy - how does it affect her actions in current timeline?
-- Bram's role alongside Ryfel in prison?
-
-### 2. Magic System Questions (15-20 questions)
-- Ether vs mana - terminology rules?
-- 5 elements - which can Ryfel currently use in prison?
-- Earth magic tactical applications - what IS possible while captured?
-- Casting mechanics - gestures + breath + thought?
-- Magic limitations in suppression/captivity?
-
-### 3. World/Setting Questions (15-20 questions)
-- Runevia prison system - how does it work?
-- Slavery/political structure - who captured them and why?
-- Geography - where exactly are they relative to previous locations?
-- Factions involved - Runevia vs who?
-
-### 4. Continuity/Callback Questions (15-20 questions)
-- 3-year promise - when exactly was it made, what was said?
-- Revenge vow to Knight Commander - specific wording?
-- "Traps never fail" philosophy - context and meaning?
-- Ryker's training influence on Ryfel?
-- Previous escape attempts or prison experiences?
-
-### 5. Style/Tone Questions (10-15 questions)
-- 70/30 serious/comedy balance - examples from Chapter 12?
-- Internal monologue format - how tactical thoughts appear?
-- Dialogue style for different characters?
-- Chapter ending hooks - pattern from previous chapters?
+**Answer all 90 questions:**
+- Save your answers to: `/agents/escritor/outbox/study-answers.md`
+- Answer based ONLY on the source materials
+- If uncertain, note it clearly
+- Be specific - use quotes and chapter references where possible
 
 ---
 
-## Process
+## Question Categories
 
-1. **Read everything** - Story Bible first, then Chapters 11-12 (most recent), then earlier chapters as needed
-2. **Take notes** - Document your understanding of each element
-3. **Generate questions** - Where is your understanding uncertain? What needs clarification?
-4. **Format output** - Save questions to `/agents/escritor/outbox/study-questions.md`
-5. **Wait for Caleb's answers** - Do NOT proceed to writing until Caleb validates your understanding
+**Section 1: Characters (25 questions)**
+- Ryfel's SEAL mindset application
+- Kriscila's 3-year promise details
+- Relationships and voice distinctions
+
+**Section 2: Magic System (20 questions)**
+- Ether vs mana mechanics
+- Earth magic tactical applications
+- Prison limitations on magic
+
+**Section 3: World/Setting (20 questions)**
+- Runevia prison system
+- Politics and factions
+- Geography
+
+**Section 4: Continuity (15 questions)**
+- Capture event details
+- Callbacks (traps never fail, revenge vow)
+- Unresolved plot threads
+
+**Section 5: Style (10 questions)**
+- Tone and formatting
+- Chapter structure
 
 ---
 
 ## Success Criteria
-- 80+ total questions generated
-- Questions show deep engagement with source material
-- Questions reveal specific uncertainties (not generic)
-- Caleb can answer to validate Escritor's understanding
+
+- **90 answers completed**
+- **Demonstrates deep engagement** with source material
+- **Specific references** to chapters and dialogue
+- **Honest about uncertainties** (don't make up answers)
 
 ---
 
-## Note
-**This is a TEST phase.** Caleb wants to verify Escritor understands the story correctly BEFORE writing. Generate questions that will expose any misunderstandings.
+## After Completion
+
+Caleb will review your answers and correct any misunderstandings. 
+
+**Only after approval** will you proceed to write Chapter 13.
+
+**Model to use:** `ollama/qwen2.5:14b` (local, already installed)
+
+---
+
+**Start by reading the Story Bible, then chapters 11-12 (most recent), then answer questions.**
