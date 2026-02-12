@@ -264,6 +264,21 @@ class QuantaTrader:
                 
                 print(f"   ✅ Trade executed: {trade_file}")
                 print(f"   📊 Total units: {result['total_units_filled']}")
+                
+                # Create immediate alert for CHAD_YI
+                alert = {
+                    'timestamp': datetime.now().isoformat(),
+                    'type': 'TRADE_EXECUTED',
+                    'urgency': 'HIGH',
+                    'agent': 'quanta',
+                    'message': f"🚨 QUANTA LIVE TRADE: {signal['symbol']} {signal['direction']} - ${RISK_PER_TRADE} risk",
+                    'trade_id': result.get('trade_id', 'unknown'),
+                    'details': result
+                }
+                alert_file = f"{OUTBOX_DIR}/ALERT-URGENT-{datetime.now().strftime('%H%M%S')}.json"
+                with open(alert_file, 'w') as f:
+                    json.dump(alert, f, indent=2)
+                print(f"   🔔 URGENT ALERT sent to CHAD_YI")
             else:
                 print(f"   ❌ Execution failed")
     
