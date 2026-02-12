@@ -14,7 +14,7 @@ import os
 from telegram_config import TELEGRAM_API_ID, TELEGRAM_API_HASH, PHONE_NUMBER, CALLISTOFX_CHANNEL
 
 # Session file (keeps you logged in)
-SESSION_FILE = '/agents/quanta/quanta_telegram_session'
+SESSION_FILE = '/tmp/quanta_telegram_session'
 
 # Initialize client
 client = TelegramClient(SESSION_FILE, TELEGRAM_API_ID, TELEGRAM_API_HASH)
@@ -124,9 +124,10 @@ def parse_trading_signal(text):
 async def main():
     """Main entry point"""
     print(f"[{datetime.now()}] 🔐 Connecting to Telegram...")
+    print(f"[{datetime.now()}] 📱 Using phone: {PHONE_NUMBER}")
     
-    # Start the client (will ask for code on first run)
-    await client.start(phone=PHONE_NUMBER)
+    # Start the client with phone from config
+    await client.start(phone=lambda: PHONE_NUMBER)
     
     me = await client.get_me()
     print(f"[{datetime.now()}] ✅ Logged in as: {me.first_name} (@{me.username})")
