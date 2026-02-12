@@ -4,7 +4,7 @@
   "role": "Story Agent",
   "project": "A2",
   "specialty": "Creative writing, RE:UNITE novel",
-  "model": "default",
+  "model": "ollama/qwen2.5:14b",
   "status": "spawned_and_active",
   "currentTask": "A2-13: Edit Chapter 13",
   "lastActive": "2026-02-12T14:38:00+08:00",
