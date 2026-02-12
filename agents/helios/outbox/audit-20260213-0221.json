@@ -1,0 +1,148 @@
+{
+  "auditId": "helios-audit-2026-02-13T0221",
+  "timestamp": "2026-02-13T02:21:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "duration": "45s",
+  "summary": {
+    "status": "ISSUES_FOUND",
+    "issuesFound": 4,
+    "autoFixesApplied": 0,
+    "criticalIssues": 1,
+    "warnings": 3,
+    "dataConsistencyScore": 0.75
+  },
+  "consistencyChecks": {
+    "escritorAlignment": {
+      "status": "PASS",
+      "taskId": "A2-13",
+      "dataJsonStatus": "active",
+      "agentStateStatus": "active",
+      "currentTaskMd": "A2-13 Study Phase - answering 90 questions",
+      "notes": "All sources aligned - Study Phase in progress"
+    },
+    "chadYiAlignment": {
+      "status": "WARNING",
+      "dataJsonTask": "A6-3: Dashboard audit infrastructure",
+      "agentStateTask": "Hourly coordination check",
+      "notes": "Task description mismatch between sources"
+    },
+    "blockedAgents": {
+      "status": "PASS",
+      "quanta": {
+        "blocked": true,
+        "blocker": "OANDA credentials needed",
+        "idleHours": 102,
+        "consistent": true
+      },
+      "mensamusa": {
+        "blocked": true,
+        "blocker": "Moomoo credentials needed",
+        "idleHours": 102,
+        "consistent": true
+      }
+    },
+    "taskCounts": {
+      "status": "FAIL",
+      "stats": {
+        "pending": 2,
+        "active": 7,
+        "review": 1,
+        "done": 3
+      },
+      "workflow": {
+        "pending": 2,
+        "active": 5,
+        "review": 1,
+        "done": 3
+      },
+      "discrepancy": "Stats claim 7 active but workflow only lists 5"
+    }
+  },
+  "criticalIssues": [
+    {
+      "id": "A1-1",
+      "severity": "CRITICAL",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 21.5,
+      "problem": "ACTIVE.md incorrectly states 'due tomorrow' - it is NOW due TODAY",
+      "actionRequired": "CHAD_YI must action today",
+      "userActionRequired": true
+    }
+  ],
+  "warnings": [
+    {
+      "type": "STALE_DATA",
+      "file": "ACTIVE.md",
+      "generated": "2026-02-12T22:36:00+08:00",
+      "ageHours": 3.75,
+      "recommendation": "Regenerate ACTIVE.md to reflect current date"
+    },
+    {
+      "type": "INCORRECT_HOURS",
+      "taskId": "A1-1",
+      "storedHours": 13,
+      "actualHours": 21.5,
+      "recommendation": "Update hoursRemaining calculation"
+    },
+    {
+      "type": "TASK_COUNT_MISMATCH",
+      "expectedActive": 7,
+      "actualInWorkflow": 5,
+      "missing": "A5-1, A5-2 may be counted as active but are blocked"
+    }
+  ],
+  "agentStatusSummary": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3 Dashboard audit",
+      "lastActive": "2026-02-13T01:30:00+08:00",
+      "idleHours": 0
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastActive": "2026-02-13T02:21:00+08:00",
+      "idleHours": 0
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13 Study Phase (90 questions)",
+      "lastActive": "2026-02-12T19:06:00+08:00",
+      "idleHours": 7.25
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials",
+      "idleHours": 102
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials",
+      "idleHours": 102
+    },
+    "autour": {
+      "status": "not_spawned",
+      "notes": "Configured but never spawned"
+    }
+  },
+  "dataFreshness": {
+    "dataJson": {
+      "lastUpdated": "2026-02-13T01:30:00+08:00",
+      "ageMinutes": 51,
+      "status": "FRESH"
+    },
+    "agentState": {
+      "lastUpdated": "2026-02-12T23:40:00+08:00",
+      "ageMinutes": 161,
+      "status": "STALE"
+    },
+    "activeMd": {
+      "generated": "2026-02-12T22:36:00+08:00",
+      "ageMinutes": 225,
+      "status": "STALE"
+    }
+  },
+  "nextAudit": "2026-02-13T02:36:00+08:00"
+}

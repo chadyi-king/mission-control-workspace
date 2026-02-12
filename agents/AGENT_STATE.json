@@ -1,32 +1,32 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T00:30:00+08:00",
+  "lastUpdated": "2026-02-13T02:30:00+08:00",
   "coordinator": "chad_yi",
   "agents": {
     "chad_yi": {
       "role": "orchestrator",
       "status": "active",
       "currentTask": "A6-3: Dashboard audit infrastructure setup",
-      "lastActive": "2026-02-13T00:30:00+08:00",
-      "lastCoordinationCheck": "2026-02-13T00:30:00+08:00",
-      "interactionsToday": 10
+      "lastActive": "2026-02-13T02:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
+      "interactionsToday": 11
     },
     "helios": {
       "role": "mission_control_engineer",
       "status": "active",
       "currentTask": "15-minute audit cycle",
-      "lastActive": "2026-02-13T00:21:00+08:00",
-      "lastCoordinationCheck": "2026-02-13T00:30:00+08:00",
-      "interactionsToday": 8,
-      "lastAudit": "helios-2026-02-13T0021"
+      "lastActive": "2026-02-13T02:21:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
+      "interactionsToday": 9,
+      "lastAudit": "helios-audit-2026-02-13T0221"
     },
     "escritor": {
       "role": "story_agent",
       "status": "active",
       "currentTask": "A2-13: Study Phase - 90 questions",
       "lastActive": "2026-02-12T19:30:00+08:00",
-      "idleHours": 0,
-      "lastCoordinationCheck": "2026-02-12T19:30:00+08:00",
+      "idleHours": 7.25,
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
       "interactionsToday": 3,
       "notes": "Study questions in inbox, working on knowledge test for Chapter 13 prep"
     },
@@ -35,7 +35,7 @@
       "status": "blocked",
       "currentTask": "A5-1: Trading signal automation",
       "blocker": "OANDA credentials needed",
-      "lastCoordinationCheck": "2026-02-12T18:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
       "interactionsToday": 0,
       "idleHours": 102
     },
@@ -44,7 +44,7 @@
       "status": "blocked",
       "currentTask": "A5-2: Options flow monitoring",
       "blocker": "Moomoo credentials needed",
-      "lastCoordinationCheck": "2026-02-12T18:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
       "interactionsToday": 0,
       "idleHours": 102
     },
@@ -52,7 +52,7 @@
       "role": "content_agent",
       "status": "not_spawned",
       "currentTask": null,
-      "lastCoordinationCheck": "2026-02-12T18:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T02:30:00+08:00",
       "interactionsToday": 0,
       "notes": "Configured for A3 KOE but never spawned"
     }
@@ -63,11 +63,18 @@
       "title": "Change Taiwan flights and hotel",
       "deadline": "2026-02-13",
       "severity": "critical",
-      "hoursRemaining": 18,
+      "hoursRemaining": 21.5,
       "userActionRequired": true
     }
   ],
   "coordinationHistory": [
+    {
+      "timestamp": "2026-02-13T02:30:00+08:00",
+      "reportPath": "/agents/message-bus/archive/coordination-report-2026-02-13T0230.md",
+      "issuesFound": 4,
+      "autoFixes": 0,
+      "notes": "A1-1 CRITICAL due TODAY. Helios running clean. Trading agents blocked 102h. Escritor has study questions. AGENT_STATE updated for all agents."
+    },
     {
       "timestamp": "2026-02-13T00:30:00+08:00",
       "reportPath": "/agents/message-bus/archive/coordination-report-2026-02-13T0030.md",

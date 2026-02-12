@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T02:43:00+08:00",
-  "updatedBy": "CHAD_YI",
+  "lastUpdated": "2026-02-13T02:36:00+08:00",
+  "updatedBy": "helios_audit",
   "stats": {
     "totalTasks": 71,
     "pending": 2,
@@ -1235,14 +1235,7 @@
       "icon": "\u2694\ufe0f",
       "projects": [
         "C1",
-        "C2",
-        {
-          "id": "C3",
-          "name": "Vibe Code Games",
-          "description": "Building games and interactive experiences",
-          "icon": "\ud83c\udfae",
-          "taskCount": 0
-        }
+        "C2"
       ]
     }
   },
@@ -1322,14 +1315,6 @@
     "C2": {
       "name": "Side Sales",
       "description": "Remote sales"
-    },
-    "C3": {
-      "id": "C3",
-      "name": "Vibe Code Games",
-      "description": "Building games and interactive experiences, starting with Gather Town",
-      "category": "C",
-      "status": "active",
-      "created": "2026-02-13"
     }
   },
   "urgentDeadlines": [
