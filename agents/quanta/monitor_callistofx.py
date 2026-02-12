@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Quanta CALLISTOFX Monitor v2.0
+Quanta CALLISTOFX Monitor v2.1
 - Log rotation (7 days retention)
 - Signal pattern learning
-- Fast execution (<10 seconds)
-- OANDA integration ready
+- Position sizing ($20 risk)
+- Multiple TP splitting
+- OANDA trade execution
 """
 
 from telethon import TelegramClient, events
@@ -16,8 +17,17 @@ import gzip
 import glob
 from pathlib import Path
 
-# Load config
+# Load configs
 from telegram_config import TELEGRAM_API_ID, TELEGRAM_API_HASH, PHONE_NUMBER, CALLISTOFX_CHANNEL
+from trading_config import PAPER_TRADING_MODE, MAX_RISK_PER_TRADE
+
+# Import trade executor
+try:
+    from oanda_executor import execute_trade
+    TRADING_ENABLED = True
+except ImportError:
+    TRADING_ENABLED = False
+    print("⚠️ OANDA executor not available - running in monitoring mode only")
 
 # Paths
 BASE_DIR = '/home/chad-yi/.openclaw/workspace/agents/quanta'
@@ -314,8 +324,34 @@ async def main():
             
             print(f"[{timestamp}] ✅ Signal saved and alert sent to CHAD_YI")
             
-            # TODO: Execute trade on OANDA (when you're ready)
-            # await execute_oanda_trade(signal)
+            # EXECUTE TRADE (if enabled and you're ready)
+            if TRADING_ENABLED:
+                if PAPER_TRADING_MODE:
+                    print(f"[{timestamp}] 🧪 PAPER TRADING: Executing simulated trade...")
+                else:
+                    print(f"[{timestamp}] 💰 LIVE TRADING: Executing real trade...")
+                
+                try:
+                    # This will:
+                    # 1. Calculate position size based on $20 max risk
+                    # 2. Split into multiple positions for multiple TPs
+                    # 3. Execute on OANDA (or simulate)
+                    result = execute_trade(signal)
+                    
+                    if result:
+                        print(f"[{timestamp}] ✅ Trade executed successfully!")
+                        print(f"   Positions opened: {len(result['positions'])}")
+                        print(f"   Total units: {result['total_units']}")
+                        print(f"   Risk: ${result['risk_usd']}")
+                    else:
+                        print(f"[{timestamp}] ⚠️ Trade execution failed")
+                        
+                except Exception as e:
+                    print(f"[{timestamp}] ❌ Trade execution error: {e}")
+                    # Still alert even if execution fails
+            else:
+                print(f"[{timestamp}] ℹ️ Trading not enabled - monitoring only")
+                print(f"      To enable: Set up OANDA credentials in trading_config.py")
         else:
             # Not a signal, just log it
             print(f"[{timestamp}] 💬 Message received (not a signal)")
