@@ -1,37 +1,50 @@
 {
   "agentId": "helios",
-  "role": "Mission Control Engineer",
-  "status": "active",
-  "lastAudit": "2026-02-11T18:36:00+08:00",
-  "lastAuditRun": "2026-02-11T18:36:00+08:00",
-  "totalAuditsRun": 1,
-  "auditIntervalMinutes": 15,
-  "autoFixRules": [
+  "role": "Autonomous Mission Control Auditor",
+  "status": "spawned_and_active",
+  "mode": "autonomous_proactive",
+  "heartbeat": {
+    "intervalSeconds": 900,
+    "lastHeartbeat": "2026-02-12T11:58:00+08:00",
+    "nextHeartbeat": "2026-02-12T12:13:00+08:00"
+  },
+  "triggers": [
     {
-      "condition": "agent_status_mismatch",
-      "action": "sync_to_actual_work",
-      "severity": "medium"
+      "type": "heartbeat",
+      "interval": "15 minutes",
+      "action": "full_dashboard_audit"
     },
     {
-      "condition": "stale_task_older_than_7_days",
-      "action": "mark_for_review",
-      "severity": "low"
+      "type": "file_watch",
+      "watch": "/mission-control-dashboard/data.json",
+      "action": "verify_data_integrity"
     },
     {
-      "condition": "agent_idle_over_24h",
-      "action": "ping_agent",
-      "severity": "high"
+      "type": "event",
+      "on": "git_push",
+      "action": "verify_deployment"
     },
     {
-      "condition": "missing_agent_files",
-      "action": "flag_for_setup",
-      "severity": "medium"
+      "type": "scheduled",
+      "at": "00:00",
+      "action": "daily_summary_report"
     }
   ],
-  "notificationRules": {
-    "urgent": ["agent_idle_over_24h", "deadline_within_24h", "data_corruption"],
-    "daily": ["stale_tasks", "agent_status_summary"]
+  "currentActivity": {
+    "task": "Monitoring dashboard integrity",
+    "startedAt": "2026-02-12T11:45:00+08:00",
+    "collaboratingWith": "CHAD_YI",
+    "canAutoFix": true
   },
-  "monitoredAgents": ["chad_yi", "escritor", "quanta", "mensamusa", "autour"],
-  "version": "1.0.0"
+  "collaborationMode": {
+    "with": "CHAD_YI",
+    "protocol": "find_issues_together_fix_together",
+    "escalateToCaleb": "only_when_CHAD_YI_blocked"
+  },
+  "stats": {
+    "auditsCompleted": 28,
+    "issuesFound": 52,
+    "autoFixesApplied": 20,
+    "collaborationsWithCHAD_YI": 15
+  }
 }
