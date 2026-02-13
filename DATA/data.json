@@ -1,17 +1,17 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T08:50:00+08:00",
+  "lastUpdated": "2026-02-13T14:48:00+08:00",
   "updatedBy": "CHAD_YI",
   "stats": {
-    "totalTasks": 71,
+    "totalTasks": 75,
     "pending": 2,
-    "active": 5,
+    "active": 7,
     "review": 1,
-    "done": 3,
-    "backlog": 53,
+    "done": 4,
+    "backlog": 54,
     "urgent": 2,
-    "highPriority": 15,
-    "completionRate": 4.2
+    "highPriority": 19,
+    "completionRate": 5.3
   },
   "workflow": {
     "pending": [
@@ -19,10 +19,12 @@
       "B6-6"
     ],
     "active": [
+      "A1-2",
       "A2-3",
       "A2-13",
       "A6-3",
       "A6-13",
+      "A6-14",
       "B6-3"
     ],
     "review": [
@@ -30,6 +32,7 @@
     ],
     "done": [
       "A2-1",
+      "A7-1",
       "B3-1",
       "B6-1"
     ]
@@ -41,12 +44,26 @@
       "project": "A1",
       "category": "A",
       "priority": "critical",
-      "status": "pending",
+      "status": "in_progress",
       "agent": "CHAD_YI",
-      "notes": "URGENT: Deadline today (Feb 13)",
+      "notes": "Caleb handling personally",
       "description": "Reschedule Taiwan trip flights and accommodation",
       "deadline": "2026-02-13",
       "createdAt": "2026-02-06T00:00:00Z",
+      "completedAt": null
+    },
+    "A1-2": {
+      "id": "A1-2",
+      "title": "Daily payments - DEVSPACE and Findit Sen",
+      "project": "A1",
+      "category": "A",
+      "priority": "high",
+      "status": "active",
+      "agent": "CHAD_YI",
+      "notes": "Daily payments for 5-6 days starting today (Feb 13)",
+      "description": "Process daily payments for DEVSPACE and Findit Sen services",
+      "deadline": "2026-02-19",
+      "createdAt": "2026-02-13T12:39:00Z",
       "completedAt": null
     },
     "A2-4": {
@@ -925,10 +942,24 @@
       "priority": "high",
       "status": "active",
       "agent": "CHAD_YI",
-      "notes": "Click project \u2192 full view modal",
+      "notes": "Click project → full view modal",
       "description": "",
       "deadline": null,
       "createdAt": "2026-02-06T00:00:00Z",
+      "completedAt": null
+    },
+    "A6-14": {
+      "id": "A6-14",
+      "title": "Dashboard design changes + fix System/Resources pages",
+      "project": "A6",
+      "category": "A",
+      "priority": "high",
+      "status": "active",
+      "agent": "CHAD_YI",
+      "notes": "Minor design updates to dashboard. Fix System and Resources pages. Requires planning first.",
+      "description": "Update dashboard UI design and fix non-functional System and Resources pages",
+      "deadline": null,
+      "createdAt": "2026-02-13T12:42:00Z",
       "completedAt": null
     },
     "A2-2": {
@@ -1001,19 +1032,33 @@
       "createdAt": "2026-02-12T07:30:00Z",
       "completedAt": null
     },
-    "A7-1": {
-      "id": "A7-1",
-      "title": "Venue shortlist",
-      "project": "A7",
-      "category": "A",
+    "B6-7": {
+      "id": "B6-7",
+      "title": "Check insurance for SMU event",
+      "project": "B6",
+      "category": "B",
       "priority": "high",
       "status": "pending",
       "agent": "CHAD_YI",
-      "notes": "Find 3 venues",
-      "description": "",
+      "notes": "Verify event insurance coverage for SMU event",
+      "description": "Check and confirm insurance requirements for SMU event",
+      "deadline": "2026-02-17",
+      "createdAt": "2026-02-13T14:48:00Z",
+      "completedAt": null
+    },
+    "A7-1": {
+      "id": "A7-1",
+      "title": "Venue confirmed - Shangri-La",
+      "project": "A7",
+      "category": "A",
+      "priority": "high",
+      "status": "done",
+      "agent": "CHAD_YI",
+      "notes": "Venue confirmed: Shangri-La. Now working on venue logistics.",
+      "description": "Wedding venue confirmed at Shangri-La",
       "deadline": null,
       "createdAt": "2026-02-08T12:02:05.387258Z",
-      "completedAt": null
+      "completedAt": "2026-02-13T14:51:00Z"
     },
     "A7-2": {
       "id": "A7-2",
@@ -1042,6 +1087,20 @@
       "deadline": null,
       "createdAt": "2026-02-08T12:06:04.411346Z",
       "completedAt": null
+    },
+    "A7-4": {
+      "id": "A7-4",
+      "title": "Check Shangri-La transport",
+      "project": "A7",
+      "category": "A",
+      "priority": "high",
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "notes": "Check if Shangri-La has transport for gas, if not arrange transport",
+      "description": "Verify Shangri-La gas transport logistics for wedding",
+      "deadline": null,
+      "createdAt": "2026-02-13T14:48:00Z",
+      "completedAt": null
     }
   },
   "agents": {
@@ -1061,7 +1120,7 @@
       "status": "active",
       "currentTask": "15-minute audit cycle",
       "taskCount": 0,
-      "lastActive": "2026-02-13T06:51:00+08:00"
+      "lastActive": "2026-02-13T10:06:00+08:00"
     },
     "escritor": {
       "id": "escritor",
@@ -1105,10 +1164,30 @@
   },
   "inputsNeeded": [
     {
+      "taskId": "A5-1"
+    },
+    {
       "taskId": "A5-2"
     }
   ],
   "inputDetails": {
+    "A5-1": {
+      "taskId": "A5-1",
+      "agent": "Quanta",
+      "waitingFor": "OANDA API credentials",
+      "idleHours": 120,
+      "priority": "MEDIUM",
+      "title": "Trading Bot: Forex/Commodities",
+      "brief": "A5 • From: Quanta",
+      "whatINeed": "OANDA API credentials",
+      "why": "Quanta has been blocked for 120 hours waiting for this",
+      "steps": [
+        "Review the blocker",
+        "Provide the required credentials",
+        "Agent will resume work"
+      ],
+      "currentStatus": "Waiting for OANDA API credentials"
+    },
     "A5-2": {
       "taskId": "A5-2",
       "agent": "MensaMusa",
@@ -1116,9 +1195,9 @@
       "idleHours": 120,
       "priority": "MEDIUM",
       "title": "Trading Bot: Options Flow",
-      "brief": "A5 \u2022 From: MensaMusa",
+      "brief": "A5 • From: MensaMusa",
       "whatINeed": "Moomoo account credentials",
-      "why": "MensaMusa has been blocked for 102 hours waiting for this",
+      "why": "MensaMusa has been blocked for 120 hours waiting for this",
       "steps": [
         "Review the blocker",
         "Provide the required information/credentials",
@@ -1169,8 +1248,8 @@
       "state": "Active"
     },
     "quanta": {
-      "activity": "OANDA connected, ready for live trading",
-      "state": "Active"
+      "activity": "Needs OANDA API credentials",
+      "state": "Blocked"
     },
     "mensamusa": {
       "activity": "Needs Moomoo account",

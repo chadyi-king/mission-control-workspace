@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-02-13T09:30:00+08:00",
+  "auditType": "data_integrity",
+  "issues": [
+    {
+      "severity": "CRITICAL",
+      "type": "deadline",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "status": "pending",
+      "hoursRemaining": 20,
+      "message": "Task deadline is TODAY and still pending"
+    },
+    {
+      "severity": "HIGH",
+      "type": "blocked_agent",
+      "agent": "MensaMusa",
+      "taskId": "A5-2",
+      "idleHours": 120,
+      "blocker": "Moomoo account credentials needed",
+      "message": "Agent blocked for 5 days waiting for credentials"
+    },
+    {
+      "severity": "MEDIUM",
+      "type": "data_inconsistency",
+      "agent": "Quanta",
+      "dataJsonStatus": "blocked (102h idle)",
+      "actualStatus": "Ready for live trading (OANDA configured)",
+      "message": "Status mismatch between data.json and agent current-task.md"
+    },
+    {
+      "severity": "HIGH",
+      "type": "upcoming_deadline",
+      "taskId": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 94,
+      "notes": "Need minimum 120 facilitators confirmed"
+    },
+    {
+      "severity": "HIGH",
+      "type": "upcoming_deadline",
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 94,
+      "notes": "Order by 17 February"
+    }
+  ],
+  "agentStatus": {
+    "CHAD_YI": "active - A6-3: Dashboard audit infrastructure",
+    "Escritor": "active - A2-13: Study Phase (90 questions)",
+    "Quanta": "ready (needs status sync in data.json)",
+    "MensaMusa": "blocked - 120h idle, needs Moomoo credentials",
+    "Autour": "not_spawned"
+  },
+  "nextAudit": "2026-02-13T09:45:00+08:00"
+}

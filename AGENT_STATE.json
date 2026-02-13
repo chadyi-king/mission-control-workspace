@@ -1,58 +1,58 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T08:30:00+08:00",
+  "lastUpdated": "2026-02-13T11:30:00+08:00",
   "coordinator": "chad_yi",
   "agents": {
     "chad_yi": {
       "role": "orchestrator",
       "status": "active",
       "currentTask": "Hourly coordination check",
-      "lastActive": "2026-02-13T08:30:00+08:00",
-      "lastCoordinationCheck": "2026-02-13T08:30:00+08:00",
-      "interactionsToday": 6
+      "lastActive": "2026-02-13T11:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
+      "interactionsToday": 7
     },
     "helios": {
       "role": "mission_control_engineer",
       "status": "active",
       "currentTask": "15-minute audit cycle",
-      "lastActive": "2026-02-13T07:06:00+08:00",
-      "lastCoordinationCheck": "2026-02-13T07:06:00+08:00",
-      "interactionsToday": 12,
-      "lastAudit": "helios-audit-2026-02-13T0706"
+      "lastActive": "2026-02-13T11:21:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
+      "interactionsToday": 13,
+      "lastAudit": "helios-audit-2026-02-13T1121"
     },
     "escritor": {
       "role": "story_agent",
       "status": "active",
       "currentTask": "A2-13: Study Phase - answering 90 questions",
       "lastActive": "2026-02-12T19:06:00+08:00",
-      "idleHours": 12.0,
-      "lastCoordinationCheck": "2026-02-13T07:06:00+08:00",
+      "idleHours": 16.5,
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
       "interactionsToday": 0,
-      "notes": "Idle 12h - no progress reported on 90 questions"
+      "notes": "In Study Phase - 90 questions in inbox (intentional idle for reading/answering)"
     },
     "quanta": {
       "role": "trading_agent",
       "status": "blocked",
       "currentTask": "A5-1: Trading signal automation",
       "blocker": "OANDA credentials needed",
-      "lastCoordinationCheck": "2026-02-12T05:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
       "interactionsToday": 0,
-      "hoursBlocked": 102
+      "hoursBlocked": 120
     },
     "mensamusa": {
       "role": "trading_agent",
       "status": "blocked",
       "currentTask": "A5-2: Options flow monitoring",
       "blocker": "Moomoo credentials needed",
-      "lastCoordinationCheck": "2026-02-12T05:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
       "interactionsToday": 0,
-      "hoursBlocked": 102
+      "hoursBlocked": 120
     },
     "autour": {
       "role": "content_agent",
       "status": "not_spawned",
       "currentTask": null,
-      "lastCoordinationCheck": "2026-02-12T05:30:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
       "interactionsToday": 0,
       "notes": "Configured for A3 KOE but never spawned"
     }
@@ -63,11 +63,33 @@
       "title": "Change Taiwan flights and hotel",
       "deadline": "2026-02-13",
       "severity": "critical",
-      "hoursRemaining": 13,
+      "hoursRemaining": 12,
+      "userActionRequired": true
+    },
+    {
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "severity": "high",
+      "hoursRemaining": 94,
+      "userActionRequired": true
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "severity": "high",
+      "hoursRemaining": 94,
       "userActionRequired": true
     }
   ],
   "coordinationHistory": [
+    {
+      "timestamp": "2026-02-13T11:30:00+08:00",
+      "reportPath": "/agents/message-bus/archive/coordination-report-2026-02-13T1130.md",
+      "issuesFound": 3,
+      "autoFixes": 0
+    },
     {
       "timestamp": "2026-02-13T08:30:00+08:00",
       "reportPath": "/agents/message-bus/archive/coordination-report-2026-02-13T0830.md",

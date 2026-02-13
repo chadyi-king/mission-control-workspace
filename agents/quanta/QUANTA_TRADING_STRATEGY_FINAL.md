@@ -4,6 +4,18 @@
 
 **THIS IS THE STRATEGY. DO NOT FORGET. REFERENCE THIS FILE.**
 
+## ⚠️ CRITICAL: CHECK PIP VALUE BEFORE EVERY TRADE
+
+**Each instrument has different pip value:**
+- XAUUSD (Gold): ~$1.19 SGD per pip (NOT $0.01!)
+- Forex pairs: Varies
+- Indices: Different calculation
+- **ALWAYS check OANDA's "1 PIP = $X" display before calculating position size**
+
+**Formula:** Units = Risk Amount ÷ (Pip Value × SL Distance)
+
+See: OANDA_PIP_VALUES.md for full details
+
 ---
 
 ## 1. RISK MANAGEMENT

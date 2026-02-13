@@ -2,44 +2,122 @@
   "agentId": "helios",
   "agentName": "Helios",
   "role": "mission_control_engineer",
-  "version": "1.0.0",
-  "createdAt": "2026-02-12T15:51:00+08:00",
-  "auditSchedule": {
+  "version": "2.0.0",
+  "createdAt": "2026-02-13T10:20:00+08:00",
+  "lastAudit": "2026-02-13T11:51:00+08:00",
+  "mode": "autonomous",
+  "description": "Coordinates all agents, compiles reports, verifies dashboard, alerts CHAD_YI",
+  
+  "coordination_schedule": {
     "intervalMinutes": 15,
-    "lastAudit": "2026-02-13T08:36:00+08:00",
-    "nextAudit": "2026-02-13T08:51:00+08:00"
+    "cycle": {
+      "00": "ping_all_agents",
+      "02": "collect_responses",
+      "05": "verify_dashboard",
+      "07": "compile_report",
+      "10": "send_to_chad_yi"
+    }
   },
-  "autoFixRules": {
-    "staleTaskThresholdHours": 48,
-    "idleAgentThresholdHours": 24,
-    "urgentDeadlineHours": 48,
-    "criticalDeadlineHours": 24,
-    "autoFixesEnabled": true,
-    "allowedAutoFixes": [
-      "mark_agent_idle",
-      "update_last_active_timestamp",
-      "flag_stale_tasks",
-      "update_task_counts"
+  
+  "agents_to_monitor": [
+    {
+      "id": "chad_yi",
+      "name": "CHAD_YI",
+      "role": "Orchestrator",
+      "ping_method": "sessions_send",
+      "response_expected": true,
+      "files_to_check": ["current-task.md", "MEMORY.md"]
+    },
+    {
+      "id": "escritor",
+      "name": "Escritor",
+      "role": "Story Agent",
+      "ping_method": "sessions_send",
+      "response_expected": true,
+      "files_to_check": ["current-task.md", "MEMORY.md", "outbox/drafts/"]
+    },
+    {
+      "id": "quanta",
+      "name": "Quanta",
+      "role": "Trading Dev",
+      "ping_method": "sessions_send",
+      "response_expected": true,
+      "files_to_check": ["current-task.md", "MEMORY.md", "signals/PENDING/", "logs/"],
+      "special_alerts": ["new_signal", "trade_executed", "position_closed"]
+    },
+    {
+      "id": "mensamusa",
+      "name": "MensaMusa",
+      "role": "Options Trading",
+      "ping_method": "sessions_send",
+      "response_expected": false,
+      "files_to_check": ["current-task.md"],
+      "status": "not_spawned",
+      "blocker": "Moomoo credentials"
+    },
+    {
+      "id": "autour",
+      "name": "Autour",
+      "role": "Content Creator",
+      "ping_method": "sessions_send",
+      "response_expected": false,
+      "files_to_check": ["current-task.md"],
+      "status": "not_spawned"
+    }
+  ],
+  
+  "communication_protocol": {
+    "ping_message": "Helios ping [TIMESTAMP]. Please respond with: 1) Current task, 2) Status, 3) Progress, 4) Blockers, 5) Next milestone ETA",
+    "response_format": "/agents/message-bus/AGENT_RESPONSE_TEMPLATE.md",
+    "report_recipient": "chad_yi",
+    "report_method": "sessions_send",
+    "urgent_escalation": "chad_yi_decides"
+  },
+  
+  "dashboard_verification": {
+    "data_json_path": "/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json",
+    "checks": [
+      "agent_status_matches_reality",
+      "task_counts_accurate",
+      "deadlines_current",
+      "workflow_arrays_correct"
     ],
-    "blockedAutoFixes": [
-      "delete_tasks",
-      "change_task_status",
-      "reassign_tasks"
+    "discrepancy_action": "report_to_chad_yi_with_fix_instructions"
+  },
+  
+  "event_triggers": {
+    "immediate_alert": [
+      "critical_deadline_today",
+      "large_trading_loss",
+      "system_failure",
+      "security_issue"
+    ],
+    "new_signal": {
+      "source": "quanta",
+      "action": "include_in_next_report",
+      "priority": "high"
+    }
+  },
+  
+  "daily_digest": {
+    "enabled": true,
+    "time": "20:00",
+    "timezone": "Asia/Singapore",
+    "includes": [
+      "tasks_completed_today",
+      "tasks_in_progress",
+      "blockers",
+      "trading_summary",
+      "tomorrow_priorities",
+      "dashboard_health"
     ]
   },
-  "dataSources": [
-    "/mission-control-dashboard/data.json",
-    "/agents/escritor/current-task.md",
-    "/agents/escritor/MEMORY.md",
-    "/ACTIVE.md",
-    "/AGENT_STATE.json"
-  ],
-  "notificationRules": {
-    "chad_yi": {
-      "onCritical": true,
-      "onDataInconsistency": true,
-      "onAgentBlocked": true,
-      "onStaleTask": false
-    }
+  
+  "files_and_directories": {
+    "state_file": "/agents/helios/AGENT_STATE.json",
+    "outbox": "/agents/helios/outbox/",
+    "inbox": "/agents/message-bus/inbox/helios/",
+    "report_template": "/agents/message-bus/AGENT_RESPONSE_TEMPLATE.md",
+    "infrastructure_doc": "/AGENT_INFRASTRUCTURE.md"
   }
 }

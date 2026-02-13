@@ -1,0 +1,144 @@
+{
+  "auditId": "helios-audit-2026-02-13T0951",
+  "timestamp": "2026-02-13T09:51:00+08:00",
+  "agent": "Helios",
+  "version": "1.0.0",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "summary": {
+    "totalTasks": 71,
+    "tasksByStatus": {
+      "pending": 2,
+      "active": 5,
+      "review": 1,
+      "done": 3,
+      "backlog": 53,
+      "blocked": 2
+    },
+    "agentsChecked": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 2,
+    "criticalAlerts": 1
+  },
+  "consistencyChecks": {
+    "taskCounts": {
+      "expected": 71,
+      "actual": 71,
+      "status": "PASS"
+    },
+    "workflowArraysMatchTasks": {
+      "pending": { "expected": 2, "actual": 2, "status": "PASS" },
+      "active": { "expected": 5, "actual": 5, "status": "PASS" },
+      "review": { "expected": 1, "actual": 1, "status": "PASS" },
+      "done": { "expected": 3, "actual": 3, "status": "PASS" }
+    },
+    "agentStatusConsistency": {
+      "escritor": {
+        "dataJsonStatus": "active",
+        "actualWork": "A2-13 Study Phase (90 questions)",
+        "lastActive": "2026-02-12T18:51:00+08:00",
+        "idleHoursCalculated": 15,
+        "idleHoursReported": 0,
+        "status": "DISCREPANCY"
+      },
+      "quanta": {
+        "dataJsonStatus": "blocked",
+        "agentDetailsStatus": "Active",
+        "agentDetailsActivity": "OANDA connected, ready for live trading",
+        "blocker": "OANDA credentials needed",
+        "lastActive": "2026-02-08T10:00:00+08:00",
+        "idleHours": 120,
+        "status": "INCONSISTENT"
+      },
+      "mensamusa": {
+        "dataJsonStatus": "blocked",
+        "agentDetailsStatus": "Blocked",
+        "blocker": "Moomoo credentials needed",
+        "lastActive": "2026-02-08T10:00:00+08:00",
+        "idleHours": 120,
+        "status": "CONSISTENT"
+      }
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 14,
+        "agent": "CHAD_YI",
+        "severity": "CRITICAL",
+        "notes": "Due TODAY - requires immediate user action"
+      }
+    ],
+    "urgent": [
+      {
+        "taskId": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 78,
+        "agent": "CHAD_YI",
+        "severity": "HIGH"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 78,
+        "agent": "CHAD_YI",
+        "severity": "HIGH"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "CRITICAL",
+      "type": "deadline",
+      "title": "A1-1 due today (Feb 13)",
+      "description": "Taiwan flight/hotel changes have deadline today. Only ~14 hours remaining.",
+      "taskId": "A1-1",
+      "agent": "CHAD_YI",
+      "actionRequired": "USER_ACTION"
+    },
+    {
+      "id": "ISSUE-002",
+      "severity": "MEDIUM",
+      "type": "data_inconsistency",
+      "title": "Escritor idle hours mismatch",
+      "description": "Escritor shows idleHours: 0 but lastActive was 15 hours ago. Should be ~15h.",
+      "agent": "escritor",
+      "autoFix": "APPLIED"
+    },
+    {
+      "id": "ISSUE-003",
+      "severity": "MEDIUM",
+      "type": "data_inconsistency",
+      "title": "Quanta status contradiction",
+      "description": "Quanta shows 'blocked' in agents list but 'Active' in agentDetails with 'OANDA connected' message.",
+      "agent": "quanta",
+      "autoFix": "FLAGGED_FOR_REVIEW"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "rule": "update_last_active_timestamp",
+      "target": "escritor",
+      "change": "Updated idleHours from 0 to 15",
+      "status": "APPLIED"
+    },
+    {
+      "rule": "flag_stale_tasks",
+      "target": "A5-1, A5-2",
+      "change": "Flagged blocked tasks with 120h idle time",
+      "status": "APPLIED"
+    }
+  ],
+  "nextAudit": "2026-02-13T10:06:00+08:00"
+}

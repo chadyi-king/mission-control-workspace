@@ -1,0 +1,155 @@
+{
+  "auditId": "helios-audit-2026-02-13T1051",
+  "timestamp": "2026-02-13T10:51:00+08:00",
+  "agent": "helios",
+  "version": "2.0.0",
+  "duration": "15min_cycle",
+  
+  "data_sources_checked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  
+  "consistency_check": {
+    "status": "PASSED_WITH_WARNINGS",
+    "agent_status_verified": {
+      "chad_yi": {
+        "data_json_status": "active",
+        "data_json_task": "A6-3: Dashboard audit infrastructure",
+        "verified": true
+      },
+      "helios": {
+        "data_json_status": "active",
+        "data_json_task": "15-minute audit cycle",
+        "verified": true
+      },
+      "escritor": {
+        "data_json_status": "active",
+        "data_json_task": "A2-13: Study Phase (90 questions)",
+        "actual_task_file": "A2-13 Study Phase - answering 90 questions",
+        "memory_match": true,
+        "verified": true
+      },
+      "quanta": {
+        "data_json_status": "blocked",
+        "data_json_task": "A5-1: Trading signals",
+        "blocker": "OANDA credentials needed",
+        "idle_hours": 120,
+        "verified": true
+      },
+      "mensamusa": {
+        "data_json_status": "blocked",
+        "data_json_task": "A5-2: Options flow",
+        "blocker": "Moomoo credentials needed",
+        "idle_hours": 120,
+        "verified": true
+      },
+      "autour": {
+        "data_json_status": "not_spawned",
+        "data_json_task": null,
+        "verified": true
+      }
+    },
+    "workflow_arrays_verified": {
+      "pending_count": 2,
+      "active_count": 5,
+      "review_count": 1,
+      "done_count": 3,
+      "matches_stats": true
+    }
+  },
+  
+  "issues_found": [
+    {
+      "severity": "CRITICAL",
+      "type": "deadline_today",
+      "task_id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hours_remaining": 13,
+      "agent": "CHAD_YI",
+      "status": "pending",
+      "action": "URGENT_USER_ACTION_REQUIRED"
+    },
+    {
+      "severity": "WARNING",
+      "type": "stale_data",
+      "description": "data.json lastUpdated is 2+ hours old",
+      "last_updated": "2026-02-13T08:50:00+08:00",
+      "current_time": "2026-02-13T10:51:00+08:00",
+      "age_hours": 2.02,
+      "action": "RECOMMEND_UPDATE"
+    },
+    {
+      "severity": "WARNING",
+      "type": "long_term_blocked",
+      "description": "Quanta blocked 120+ hours waiting for OANDA credentials",
+      "agent": "quanta",
+      "task_id": "A5-1",
+      "idle_hours": 120,
+      "action": "ESCALATE_TO_CHAD_YI"
+    },
+    {
+      "severity": "WARNING",
+      "type": "long_term_blocked",
+      "description": "MensaMusa blocked 120+ hours waiting for Moomoo credentials",
+      "agent": "mensamusa",
+      "task_id": "A5-2",
+      "idle_hours": 120,
+      "action": "ESCALATE_TO_CHAD_YI"
+    },
+    {
+      "severity": "INFO",
+      "type": "not_spawned",
+      "description": "Autour not spawned for A3 KOE scripts project",
+      "agent": "autour",
+      "action": "MONITOR"
+    }
+  ],
+  
+  "deadlines_check": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hours_remaining": 13
+      }
+    ],
+    "urgent_48h": [],
+    "upcoming": [
+      {
+        "id": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "days_remaining": 4
+      },
+      {
+        "id": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "days_remaining": 4
+      }
+    ]
+  },
+  
+  "auto_fixes_applied": [],
+  "manual_fixes_needed": [
+    "A1-1 requires immediate user action - Taiwan flight changes due today",
+    "Quanta and MensaMusa need credential decisions from Caleb"
+  ],
+  
+  "summary": {
+    "total_tasks": 71,
+    "pending": 2,
+    "active": 5,
+    "review": 1,
+    "done": 3,
+    "blocked": 2,
+    "critical_issues": 1,
+    "warnings": 3,
+    "info": 1
+  }
+}
