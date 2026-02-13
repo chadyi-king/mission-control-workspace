@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T02:43:00+08:00",
+  "lastUpdated": "2026-02-13T08:50:00+08:00",
   "updatedBy": "CHAD_YI",
   "stats": {
     "totalTasks": 71,
@@ -9,7 +9,7 @@
     "review": 1,
     "done": 3,
     "backlog": 53,
-    "urgent": 4,
+    "urgent": 2,
     "highPriority": 15,
     "completionRate": 4.2
   },
@@ -1061,7 +1061,7 @@
       "status": "active",
       "currentTask": "15-minute audit cycle",
       "taskCount": 0,
-      "lastActive": "2026-02-12T18:51:00+08:00"
+      "lastActive": "2026-02-13T06:51:00+08:00"
     },
     "escritor": {
       "id": "escritor",
@@ -1105,35 +1105,15 @@
   },
   "inputsNeeded": [
     {
-      "taskId": "A5-1"
-    },
-    {
       "taskId": "A5-2"
     }
   ],
   "inputDetails": {
-    "A5-1": {
-      "taskId": "A5-1",
-      "agent": "Quanta",
-      "waitingFor": "OANDA API credentials",
-      "idleHours": 102,
-      "priority": "MEDIUM",
-      "title": "Trading Bot: Forex/Commodities",
-      "brief": "A5 \u2022 From: Quanta",
-      "whatINeed": "OANDA API credentials",
-      "why": "Quanta has been blocked for 102 hours waiting for this",
-      "steps": [
-        "Review the blocker",
-        "Provide the required information/credentials",
-        "Agent will resume work"
-      ],
-      "currentStatus": "Waiting for OANDA API credentials"
-    },
     "A5-2": {
       "taskId": "A5-2",
       "agent": "MensaMusa",
       "waitingFor": "Moomoo account credentials",
-      "idleHours": 102,
+      "idleHours": 120,
       "priority": "MEDIUM",
       "title": "Trading Bot: Options Flow",
       "brief": "A5 \u2022 From: MensaMusa",
@@ -1152,7 +1132,7 @@
       "id": "A1-1",
       "title": "Change Taiwan flights and hotel",
       "deadline": "2026-02-13",
-      "hoursRemaining": 23,
+      "hoursRemaining": 20,
       "agent": "CHAD_YI",
       "severity": "critical"
     },
@@ -1160,7 +1140,7 @@
       "id": "B6-6",
       "title": "Find facilitators for ESU",
       "deadline": "2026-02-17",
-      "hoursRemaining": 97,
+      "hoursRemaining": 94,
       "agent": "CHAD_YI",
       "severity": "high",
       "description": "Need minimum 120 facilitators by 17 Feb"
@@ -1169,7 +1149,7 @@
       "id": "B6-3",
       "title": "SPH items to order",
       "deadline": "2026-02-17",
-      "hoursRemaining": 97,
+      "hoursRemaining": 94,
       "agent": "CHAD_YI",
       "severity": "high",
       "description": "Order by 17 February"
@@ -1189,8 +1169,8 @@
       "state": "Active"
     },
     "quanta": {
-      "activity": "Needs API credentials",
-      "state": "Blocked"
+      "activity": "OANDA connected, ready for live trading",
+      "state": "Active"
     },
     "mensamusa": {
       "activity": "Needs Moomoo account",
@@ -1337,19 +1317,19 @@
       "id": "A1-1",
       "title": "Change Taiwan flights and hotel",
       "deadline": "2026-02-13",
-      "hoursRemaining": 26
+      "hoursRemaining": 20
     },
     {
-      "id": "B6-1",
-      "title": "Elluminate proposal - School A",
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
       "deadline": "2026-02-17",
-      "hoursRemaining": 121
+      "hoursRemaining": 94
     },
     {
       "id": "B6-3",
       "title": "Elluminate pitch deck",
       "deadline": "2026-02-17",
-      "hoursRemaining": 121
+      "hoursRemaining": 94
     }
   ]
 }

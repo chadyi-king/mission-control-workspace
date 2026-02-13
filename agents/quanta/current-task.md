@@ -1,1 +1,3 @@
-URGENT: Trading setup required. See TRADING_SETUP.md
+✅ OANDA credentials configured
+✅ Ready for live trading
+⏳ Waiting for trading signals from CallistoFX

@@ -1,0 +1,123 @@
+{
+  "auditId": "helios-audit-2026-02-13T0551",
+  "timestamp": "2026-02-13T05:51:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "totalTasks": 71,
+    "agentsChecked": 6,
+    "issues": 2,
+    "autoFixesApplied": 0,
+    "requiresChadYi": true
+  },
+  "dataFreshness": {
+    "dataJsonLastUpdated": "2026-02-13T03:30:00+08:00",
+    "activeMdLastUpdated": "2026-02-13T02:51:00+08:00",
+    "hoursSinceUpdate": 2.35,
+    "status": "acceptable"
+  },
+  "consistencyChecks": {
+    "taskCounts": {
+      "expected": 71,
+      "workflowTotal": 11,
+      "backlogCalculated": 60,
+      "status": "mismatch_detected"
+    },
+    "escritorStatus": {
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "currentTaskMd": "A2-13 Study Phase",
+      "memoryMd": "Study Phase - answer 90 questions",
+      "status": "consistent"
+    },
+    "agentStatuses": {
+      "chad_yi": "active - matches workload",
+      "helios": "active - running audit",
+      "escritor": "active - task in progress",
+      "quanta": "blocked - credentials needed",
+      "mensamusa": "blocked - credentials needed",
+      "autour": "not_spawned - expected"
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 18,
+        "status": "pending",
+        "agent": "CHAD_YI",
+        "severity": "critical",
+        "userActionRequired": true
+      }
+    ],
+    "urgent": [
+      {
+        "id": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 90,
+        "status": "pending",
+        "agent": "CHAD_YI"
+      },
+      {
+        "id": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 90,
+        "status": "active",
+        "agent": "CHAD_YI"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "type": "critical_deadline",
+      "severity": "critical",
+      "taskId": "A1-1",
+      "message": "Task A1-1 deadline is TODAY (2026-02-13) and is still pending",
+      "actionRequired": "User must reschedule Taiwan flights/hotel immediately",
+      "autoFixable": false
+    },
+    {
+      "type": "data_inconsistency",
+      "severity": "minor",
+      "message": "Idle hours mismatch for blocked agents (102h vs 120h)",
+      "location": "inputDetails vs task notes",
+      "autoFixable": false,
+      "note": "Cosmetic issue - times drifted since last update"
+    }
+  ],
+  "agentDetails": {
+    "chad_yi": {
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "taskCount": 4,
+      "workload": "high",
+      "hasUrgentDeadlines": true
+    },
+    "escritor": {
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "progress": "in_progress",
+      "studyAnswersLocation": "/agents/escritor/outbox/study-answers.md",
+      "status": "on_track"
+    },
+    "quanta": {
+      "blocker": "OANDA API credentials",
+      "idleHours": 120,
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "status": "blocked"
+    },
+    "mensamusa": {
+      "blocker": "Moomoo account credentials",
+      "idleHours": 120,
+      "lastActive": "2026-02-08T10:00:00+08:00",
+      "status": "blocked"
+    }
+  },
+  "recommendations": [
+    "URGENT: Address A1-1 Taiwan flight changes today",
+    "Consider spawning Autour for A3 KOE scripts",
+    "Review blocked trading agents - credentials needed for 5+ days"
+  ]
+}

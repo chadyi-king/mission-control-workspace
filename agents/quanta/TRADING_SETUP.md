@@ -19,11 +19,12 @@
 ### 3. Trading Accounts
 
 #### OANDA (Forex)
-**Status:** ⏳ PENDING SETUP
-**Needs:**
-- Account creation
-- API key generation
-- Practice account for testing
+**Status:** ✅ DONE (2026-02-13)
+**Details:**
+- Account ID: 001-003-8520002-001
+- Balance: 2004.57 SGD
+- Environment: Live
+- API Key: Stored in .env
 
 #### Moomoo (Options/Stocks)
 **Status:** ⏳ PENDING SETUP

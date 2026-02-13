@@ -1,0 +1,149 @@
+{
+  "auditId": "helios-audit-2026-02-13T0821",
+  "timestamp": "2026-02-13T08:21:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "totalTasks": 71,
+    "actualCounts": {
+      "pending": 62,
+      "active": 4,
+      "review": 1,
+      "done": 3,
+      "blocked": 2
+    },
+    "reportedCounts": {
+      "pending": 2,
+      "active": 5,
+      "review": 1,
+      "done": 3
+    },
+    "agentsChecked": 6,
+    "issuesFound": 4,
+    "autoFixesApplied": 0,
+    "requiresChadYiAttention": true
+  },
+  "dataConsistency": {
+    "status": "INCONSISTENT",
+    "issues": [
+      {
+        "type": "stat_mismatch",
+        "severity": "medium",
+        "description": "Stats.pending (2) does not match actual pending tasks (62)",
+        "recommendation": "Stats should reflect workflow array counts, not all tasks with 'pending' status"
+      },
+      {
+        "type": "stat_mismatch",
+        "severity": "medium",
+        "description": "Stats.active (5) does not match actual active tasks (4)",
+        "recommendation": "Verify B6-3 status - listed in workflow.active but actual count shows 4"
+      }
+    ]
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "idleHours": 16,
+      "healthy": true,
+      "notes": "Within 24h idle threshold"
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "idleHours": 1,
+      "healthy": true,
+      "notes": "Currently running audit"
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13: Study Phase (90 questions)",
+      "idleHours": 13,
+      "healthy": true,
+      "notes": "Task matches between data.json and current-task.md - CONSISTENT"
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1: Trading signals",
+      "idleHours": 118,
+      "healthy": false,
+      "notes": "EXCEEDS 48h stale threshold - blocked on OANDA credentials"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2: Options flow",
+      "idleHours": 118,
+      "healthy": false,
+      "notes": "EXCEEDS 48h stale threshold - blocked on Moomoo credentials"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "idleHours": null,
+      "healthy": true,
+      "notes": "Configured but never spawned - intentional"
+    }
+  },
+  "deadlines": {
+    "critical": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": -1,
+        "status": "OVERDUE",
+        "agent": "CHAD_YI",
+        "actionRequired": "USER_ACTION"
+      }
+    ],
+    "urgent": [
+      {
+        "taskId": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 95,
+        "status": "active",
+        "agent": "CHAD_YI"
+      },
+      {
+        "taskId": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 95,
+        "status": "pending",
+        "agent": "CHAD_YI"
+      }
+    ]
+  },
+  "autoFixes": {
+    "applied": [],
+    "blocked": [
+      {
+        "rule": "flag_stale_tasks",
+        "reason": "Auto-fix disabled - tasks are correctly marked as blocked, not stale"
+      },
+      {
+        "rule": "mark_agent_idle",
+        "reason": "Auto-fix would mark Quanta/MensaMusa as idle but they are explicitly blocked"
+      }
+    ],
+    "manualActionsNeeded": [
+      "Update stats counts to match workflow arrays",
+      "Verify B6-3 status discrepancy"
+    ]
+  },
+  "verificationResults": {
+    "escritorTaskMatch": {
+      "passed": true,
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "currentTaskMd": "A2-13 Study Phase - 90 questions",
+      "notes": "Task ID and description match between sources"
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-13T06:36:00+08:00",
+      "hoursSinceUpdate": 1.75,
+      "status": "fresh"
+    }
+  },
+  "nextAudit": "2026-02-13T08:36:00+08:00"
+}

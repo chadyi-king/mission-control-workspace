@@ -16,9 +16,10 @@
 - [Add more channels as needed]
 
 ## OANDA (Forex)
-- Account ID: [PENDING]
-- API Key: [PENDING]
-- Environment: practice (for testing)
+- Account ID: 001-003-8520002-001
+- API Key: [STORED IN .env]
+- Environment: live
+- Balance: 2004.57 SGD
 
 ## Moomoo (Options)
 - Account ID: [PENDING]
@@ -33,7 +34,7 @@
 - ✅ Telegram API: DONE (2026-02-09)
 - ✅ Phone Number: DONE (+6591593838)
 - ✅ Signal Channel: DONE (🚀 CallistoFx Premium Channel 🚀)
-- ⏳ OANDA: PENDING
+- ✅ OANDA: DONE (2026-02-13)
 - ⏳ Moomoo: PENDING
 - ⏳ TradingView: PENDING
 

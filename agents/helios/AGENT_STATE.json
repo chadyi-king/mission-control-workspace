@@ -6,8 +6,8 @@
   "createdAt": "2026-02-12T15:51:00+08:00",
   "auditSchedule": {
     "intervalMinutes": 15,
-    "lastAudit": "2026-02-13T02:36:00+08:00",
-    "nextAudit": "2026-02-13T02:51:00+08:00"
+    "lastAudit": "2026-02-13T08:36:00+08:00",
+    "nextAudit": "2026-02-13T08:51:00+08:00"
   },
   "autoFixRules": {
     "staleTaskThresholdHours": 48,
