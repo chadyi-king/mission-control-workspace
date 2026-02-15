@@ -15,6 +15,7 @@ from telethon import TelegramClient, events
 import json
 import re
 import asyncio
+import requests
 from datetime import datetime, timedelta
 import os
 import gzip
@@ -443,6 +444,7 @@ class TradeMonitor:
         self.executor = executor
         self.state = state
         self.managed_trades = {}  # Track which trades have had SL moved
+        self.last_status_report = datetime.now()
         self.load_managed_trades()
     
     def load_managed_trades(self):
@@ -498,9 +500,75 @@ class TradeMonitor:
             try:
                 await asyncio.sleep(5)
                 await self.check_open_trades()
+                await self.report_status_if_needed()
             except Exception as e:
                 print(f"⚠️ Monitor error: {e}")
                 await asyncio.sleep(5)
+    
+    async def report_status_if_needed(self):
+        """Report open trade status every 5 minutes"""
+        now = datetime.now()
+        if (now - self.last_status_report).seconds >= 300:  # 5 minutes
+            await self.report_open_trades_status()
+            self.last_status_report = now
+    
+    async def report_open_trades_status(self):
+        """Report status of all open trades to CHAD_YI"""
+        result = self.executor.get_open_trades()
+        
+        if not result['success']:
+            return
+        
+        trades = result.get('trades', [])
+        
+        if not trades:
+            return  # No open trades, no report needed
+        
+        # Build status report
+        status_lines = ["📊 ONGOING TRADES STATUS:"]
+        total_pnl = 0
+        
+        for trade in trades:
+            trade_id = trade['id']
+            symbol = trade['instrument'].replace('_', '')
+            direction = 'BUY' if int(trade['currentUnits']) > 0 else 'SELL'
+            entry = float(trade['price'])
+            units = abs(int(trade['currentUnits']))
+            
+            # Get current price and PnL
+            price_result = self.executor.get_price(trade['instrument'])
+            if price_result['success']:
+                if direction == 'BUY':
+                    current = price_result['bid']
+                else:
+                    current = price_result['ask']
+                
+                pip_size = 0.01 if symbol in ['XAUUSD', 'XAGUSD', 'USDJPY'] else 0.0001
+                if direction == 'BUY':
+                    pips = (current - entry) / pip_size
+                else:
+                    pips = (entry - current) / pip_size
+                
+                unrealized_pnl = trade.get('unrealizedPL', 0)
+                total_pnl += float(unrealized_pnl)
+                
+                # Get current SL status
+                sl_status = "Initial"
+                managed = self.managed_trades.get(trade_id, {})
+                if managed.get('trailing_active'):
+                    sl_status = "🔒 Trailing"
+                elif managed.get('profit_locked'):
+                    sl_status = "🔒 +20p Locked"
+                elif managed.get('breakeven_moved'):
+                    sl_status = "🔒 Breakeven"
+                
+                status_lines.append(f"  • {symbol} {direction} | Entry: {entry} | Current: {current:.2f} | Pips: {pips:+.1f} | P&L: ${float(unrealized_pnl):+.2f} | SL: {sl_status}")
+        
+        status_lines.append(f"\n💰 TOTAL UNREALIZED P&L: ${total_pnl:+.2f}")
+        
+        # Send consolidated report
+        report_message = "\n".join(status_lines)
+        self.alert(report_message, trade_data={'open_trades_count': len(trades), 'total_unrealized_pnl': total_pnl})
     
     async def check_open_trades(self):
         """Check all open trades and manage SL"""
@@ -510,9 +578,60 @@ class TradeMonitor:
             return
         
         trades = result.get('trades', [])
+        current_trade_ids = {t['id'] for t in trades}
+        
+        # Check for closed trades (were in managed_trades but not in current open trades)
+        for trade_id in list(self.managed_trades.keys()):
+            if trade_id not in current_trade_ids:
+                await self.report_closed_trade(trade_id)
         
         for trade in trades:
             await self.manage_trade(trade)
+    
+    async def report_closed_trade(self, trade_id):
+        """Report trade closure - profit or loss"""
+        managed = self.managed_trades.get(trade_id, {})
+        symbol = managed.get('symbol', 'UNKNOWN')
+        direction = managed.get('direction', 'UNKNOWN')
+        entry = managed.get('entry', 0)
+        
+        # Import BASE_URL from oanda_executor
+        from oanda_executor import BASE_URL
+        
+        # Get trade history from OANDA to find realized PnL
+        try:
+            # Trade is closed, get from transactions
+            trans_url = f'{BASE_URL}/accounts/{self.executor.account_id}/transactions'
+            trans_params = {'type': 'ORDER_FILL', 'count': 50}
+            trans_response = requests.get(trans_url, headers=self.executor.headers, params=trans_params)
+            
+            if trans_response.status_code == 200:
+                transactions = trans_response.json().get('transactions', [])
+                for tx in transactions:
+                    if tx.get('tradeClosed') and tx['tradeClosed'].get('tradeID') == trade_id:
+                        realized_pl = float(tx['tradeClosed'].get('realizedPL', 0))
+                        
+                        if realized_pl > 0:
+                            self.alert(
+                                f"💰 PROFIT TAKEN: {symbol} {direction} closed at +${realized_pl:.2f}",
+                                trade_data={'trade_id': trade_id, 'symbol': symbol, 'pnl': realized_pl, 'status': 'PROFIT'}
+                            )
+                        else:
+                            self.alert(
+                                f"❌ LOSS: {symbol} {direction} closed at ${realized_pl:.2f}",
+                                trade_data={'trade_id': trade_id, 'symbol': symbol, 'pnl': realized_pl, 'status': 'LOSS'}
+                            )
+                        
+                        # Update state
+                        self.state.update_balance(realized_pl)
+                        break
+        except Exception as e:
+            print(f"⚠️ Error reporting closed trade {trade_id}: {e}")
+        
+        # Remove from managed trades
+        if trade_id in self.managed_trades:
+            del self.managed_trades[trade_id]
+            self.save_managed_trades()
     
     async def manage_trade(self, trade):
         """Manage a single trade's SL/TP"""
