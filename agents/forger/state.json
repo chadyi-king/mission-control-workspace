@@ -1,0 +1,13 @@
+{
+  "agentId": "forger",
+  "name": "FORGER",
+  "status": "active",
+  "currentTask": "Processing TASK-HERO-VISUAL-NOW.md",
+  "lastActive": "2026-02-15T20:12:06.296568",
+  "capabilities": [
+    "web-design",
+    "frontend-dev",
+    "ui-ux"
+  ],
+  "pendingTasks": 2
+}

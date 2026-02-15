@@ -50,6 +50,47 @@
 
 ---
 
+## Heartbeat Report Format (USER PREFERENCE - Feb 15, 2026)
+
+**REQUIRED FORMAT for all heartbeat/status reports:**
+
+Use sectioned structure with headers and visual markers. NO compressed inline bullets.
+
+**GOOD (use this):**
+```
+Task Overview
+• Total: 80 tasks | Pending: 7 | Active: 6 | Review: 1 | Done: 5 | Backlog: 54
+
+Urgent Deadlines
+• 🔴 A1-1: Change Taiwan flights — OVERDUE (due Feb 13)
+• 🔴 A1-4: Send ACLP homework — DUE TODAY (Feb 15)
+• 🟡 B6-3: SPH items to order — Due Feb 17 (2 days)
+
+Agent Status
+• CHAD_YI — Active | A6-3 Dashboard audit
+• Helios — Active | Running 15-min audits
+• Escritor — Idle | A2-13 study (6.5h)
+
+Blockers Requiring Attention
+1. A5 Trading bots — Both blocked 120h waiting for credentials
+2. A3 KOE — Autour never spawned
+```
+
+**BAD (never use):**
+```
+• Tasks: Pending 7 · Active 6 · Review 1 · Done 5 (total 80)
+• Urgent: A1-4 Send ACLP homework due tonight Feb 15; A1-1 Change Taiwan flights overdue since Feb 13
+• Agents: CHAD_YI active (A6-3 audit infra); Helios active (15-min audits)
+```
+
+**Key rules:**
+- Clear section headers (Task Overview, Urgent Deadlines, Agent Status, Blockers)
+- Visual priority markers (🔴 🟡) for urgency
+- One item per line, not inline compression
+- Structured, scannable format
+
+---
+
 ## How I Should Behave
 
 1. **Verify fixes** - Screenshot before/after, don't ask user to check
@@ -57,6 +98,7 @@
 3. **Use memory** - Search before asking, update after decisions
 4. **Be concise** - Don't overwhelm with text walls
 5. **Helios tracks me too** - He audits my task progress every 15 min
+6. **Heartbeat format** - Use sectioned format with headers (see Heartbeat Report Format section above)
 
 ---
 

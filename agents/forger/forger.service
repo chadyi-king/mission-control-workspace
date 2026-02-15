@@ -1,0 +1,14 @@
+[Unit]
+Description=Forger - Web Architect Agent
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/forger
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/forger/forger-autonomous.py
+Restart=always
+RestartSec=600
+Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+
+[Install]
+WantedBy=default.target

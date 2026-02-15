@@ -15,10 +15,10 @@
       "role": "mission_control_engineer",
       "status": "active",
       "currentTask": "15-minute audit cycle",
-      "lastActive": "2026-02-13T11:21:00+08:00",
-      "lastCoordinationCheck": "2026-02-13T11:30:00+08:00",
-      "interactionsToday": 13,
-      "lastAudit": "helios-audit-2026-02-13T1121"
+      "lastActive": "2026-02-13T22:40:00+08:00",
+      "lastCoordinationCheck": "2026-02-13T22:40:00+08:00",
+      "interactionsToday": 14,
+      "lastAudit": "poke-cycle-2026-02-14T0625"
     },
     "escritor": {
       "role": "story_agent",

@@ -112,7 +112,7 @@ class AgentHub:
                 'timestamp': datetime.now().isoformat()
             }))
             
-    async def handler(self, websocket, path):
+    async def handler(self, websocket):
         """WebSocket connection handler"""
         agent_id = None
         

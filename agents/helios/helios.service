@@ -4,7 +4,6 @@ After=network.target
 
 [Service]
 Type=simple
-User=chad-yi
 WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/helios
 ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/helios/helios-audit.py
 Restart=always
@@ -12,4 +11,4 @@ RestartSec=900
 Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

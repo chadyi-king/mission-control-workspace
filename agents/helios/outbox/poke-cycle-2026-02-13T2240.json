@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-02-13T22:40:00+08:00",
+  "type": "agent-poke-cycle",
+  "pokesIssued": 4,
+  "agentsChecked": ["escritor", "quanta", "mensamusa", "autour", "chad-yi"],
+  "pokes": [
+    {
+      "agent": "escritor",
+      "reason": "Idle 27+ hours in study phase",
+      "file": "agents/message-bus/helios-to-escritor/pending/poke-2026-02-13T2240.md"
+    },
+    {
+      "agent": "quanta",
+      "reason": "State mismatch - AGENT_STATE shows blocked, task file shows ready",
+      "file": "agents/message-bus/helios-to-quanta/pending/poke-2026-02-13T2240.md"
+    },
+    {
+      "agent": "mensamusa",
+      "reason": "Blocked 120hrs on Moomoo credentials",
+      "file": "agents/message-bus/helios-to-mensamusa/pending/poke-2026-02-13T2240.md"
+    },
+    {
+      "agent": "autour",
+      "reason": "Never spawned - waiting for CHAD_YI",
+      "file": "agents/message-bus/helios-to-autour/pending/poke-2026-02-13T2240.md"
+    }
+  ],
+  "summary": {
+    "active": 1,
+    "idle": 1,
+    "blocked": 2,
+    "not_spawned": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "agentId": "forger",
+  "name": "FORGER",
+  "role": "Web Architect",
+  "specialty": "Full-stack web development, UI/UX design",
+  "model": "kimi-coding/kimi-k2-thinking",
+  "status": "active",
+  "currentTask": "Awaiting first project assignment",
+  "lastActive": "2026-02-14T17:45:00+08:00",
+  "capabilities": ["web-design", "frontend-dev", "ui-ux", "responsive-design", "seo", "accessibility"],
+  "skillPath": "/home/chad-yi/.openclaw/workspace/agents/forger/SKILL.md",
+  "workspace": "/home/chad-yi/.openclaw/workspace/agents/forger",
+  "reportingTo": "chad_yi",
+  "auditPartner": "helios",
+  "qualityGates": ["design-review", "mobile-test", "performance", "security", "brand-consistency"]
+}
