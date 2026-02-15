@@ -7,6 +7,12 @@ OANDA_ACCOUNT_ID = "001-003-8520002-001"
 # Environment: "practice" for demo, "live" for real money
 OANDA_ENVIRONMENT = "live"  # LIVE account with SGD 2,004.57
 
+# API Base URL
+if OANDA_ENVIRONMENT == "live":
+    BASE_URL = "https://api-fxtrade.oanda.com/v3"
+else:
+    BASE_URL = "https://api-fxpractice.oanda.com/v3"
+
 # Trading Settings
 RISK_PERCENT_PER_TRADE = 1.0  # Risk 1% per trade
 MAX_OPEN_POSITIONS = 5

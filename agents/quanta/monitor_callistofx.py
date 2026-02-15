@@ -61,7 +61,8 @@ LOT_SIZES = {
     'USDJPY': 100000,
 }
 
-# Initialize client
+# Initialize client - use existing authenticated session
+SESSION_FILE = '/home/chad-yi/.openclaw/workspace/agents/quanta/quanta_session'
 client = TelegramClient(SESSION_FILE, TELEGRAM_API_ID, TELEGRAM_API_HASH)
 
 # Ensure directories exist
@@ -817,5 +818,11 @@ async def main():
 
 
 if __name__ == '__main__':
-    with client:
-        client.loop.run_until_complete(main())
+    async def start():
+        await client.connect()
+        if not await client.is_user_authorized():
+            print("❌ Telegram not authorized - run interactive setup first")
+            return
+        await main()
+    
+    client.loop.run_until_complete(start())
