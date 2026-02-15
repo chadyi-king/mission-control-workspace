@@ -169,17 +169,26 @@ class HeliosAgent:
         return {'issues': issues}
     
     def check_agents(self):
-        """Check agent health"""
+        """Check agent health - systemd services AND running processes"""
         issues = []
         agents = ['forger', 'escritor', 'quanta', 'mensamusa', 'autour']
         
         for agent in agents:
-            # Check if service is running
+            # Check if service is running (systemd)
             result = self.client.exec(f'systemctl --user is-active {agent} 2>/dev/null || echo "inactive"')
-            status = result.get('stdout', '').strip()
+            service_status = result.get('stdout', '').strip()
             
-            if status != 'active':
-                issues.append({'severity': 'warning', 'agent': agent, 'issue': f'Service {status}'})
+            # Also check if process is running directly (for non-systemd agents like Quanta)
+            process_check = self.client.exec(f'ps aux | grep -E "{agent}.*\.py|monitor_{agent}" | grep -v grep | wc -l')
+            process_count = int(process_check.get('stdout', '0').strip() or 0)
+            
+            is_running = (service_status == 'active') or (process_count > 0)
+            
+            if not is_running:
+                issues.append({'severity': 'warning', 'agent': agent, 'issue': f'Not running (service: {service_status}, processes: {process_count})'})
+            else:
+                # Agent is running - update dashboard status
+                logger.info(f"✅ {agent} is active")
             
             # Check inbox for stale messages
             inbox_result = self.client.exec(f'ls ~/.openclaw/workspace/agents/{agent}/inbox/ 2>/dev/null | wc -l')
