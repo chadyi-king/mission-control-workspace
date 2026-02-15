@@ -1,4 +1,4 @@
-# Quanta v4.0 - Desktop Installation
+# Quanta v4.1 - Desktop Installation
 
 ## What You Need
 
@@ -9,7 +9,7 @@
 ## Installation Steps
 
 ### Step 1: Extract Files
-Extract `quanta-v4.0-desktop.tar.gz` to a folder like `C:\quanta` or `~/quanta`
+Extract `quanta-v4.1-desktop.tar.gz` to a folder like `C:\quanta` or `~/quanta`
 
 ### Step 2: Install Dependencies
 ```bash
@@ -53,15 +53,16 @@ python3 monitor_callistofx.py
 
 1. **Connects to Telegram** - Listens to CallistoFx Premium
 2. **Parses signals** - Buy/Sell, Entry, SL, TP
-3. **LEARNS from messages** - Extracts patterns, analysis, reasoning
-4. **Calculates position** - Based on $20 fixed risk per trade
-5. **3-Tier Entry** - Enters at high, mid, low of range
-6. **Manages trades** - Auto SL management:
+3. **LEARNS from every message** - Patterns, analysis, reasoning
+4. **Tracks recurring strategies** - Identifies their core teaching topics
+5. **Calculates position** - Based on $20 fixed risk per trade
+6. **3-Tier Entry** - Enters at high, mid, low of range
+7. **Manages trades** - Auto SL management:
    - +20 pips → Move to breakeven
    - +50 pips → Lock +20 pips profit
    - +100 pips → Trail SL at -50 pips
-7. **Tracks outcomes** - Records wins/losses per pattern
-8. **Reports learning** - Weekly performance by pattern
+8. **Tracks outcomes** - Records wins/losses per pattern
+9. **Reports learning** - Weekly performance by pattern + recurring strategies
 
 ## Risk Settings
 
@@ -74,36 +75,64 @@ Edit these in `monitor_callistofx.py` (TradingState class):
 
 ## Learning System
 
-Quanta reads EVERY message from the channel and learns:
+### Pattern Recognition
+Quanta reads EVERY message and extracts:
 
-### Patterns Tracked:
-- `engulfing` - Bullish/Bearish engulfing candles
-- `pin_bar` - Pin bars, shooting stars, hammers
-- `doji` - Doji patterns
-- `support_bounce` - Price bouncing off support
-- `resistance_break` - Breaking through resistance
-- `trend_continuation` - Trend continuation setups
-- `trend_reversal` - Trend reversal setups
-- `rsi_oversold` - RSI oversold conditions
-- `rsi_overbought` - RSI overbought conditions
-- `macd_cross` - MACD crossovers
-- `ema_bounce` - EMA bounce setups
-- `consolidation_break` - Breaking out of consolidation
-- `news_driven` - News-based trades (FOMC, NFP, CPI, PMI)
+| Pattern | Example | Tracked |
+|---------|---------|---------|
+| `engulfing` | "Bullish engulfing at support" | ✅ |
+| `pin_bar` | "Pin bar rejection" | ✅ |
+| `support_bounce` | "Bouncing off daily support" | ✅ |
+| `rsi_oversold` | "RSI oversold" | ✅ |
+| `breakout` | "Breaking consolidation" | ✅ |
 
-### Analysis Extracted:
-- Any text after "Analysis:", "Why:", "Reason:", "Setup:"
-- Pattern explanations
-- Market context (London/NY/Asia session)
-- Confidence levels (High/Medium/Low)
+### Strategy Tracking
+**When they discuss the same strategy multiple times, Quanta recognizes it:**
+
+```
+📚 NEW RECURRING STRATEGY: 'smart_money_concepts' mentioned 3+ times
+⭐ CORE STRATEGY IDENTIFIED: 'supply_demand' mentioned 5+ times
+```
+
+**20 Strategy Keywords Tracked:**
+- `smart_money_concepts` - SMC, imbalance, order blocks
+- `supply_demand` - Supply/demand zones
+- `price_action` - Pure price action
+- `breakout_strategy` - Breakout trading
+- `pullback_strategy` - Pullback entries
+- `trend_following` - Trend following
+- `mean_reversion` - Mean reversion
+- `momentum` - Momentum trading
+- `scalping` - Scalp trades
+- `swing_trading` - Swing trades
+- `london_breakout` - London session breakout
+- `ny_session` - New York session trades
+- `asia_range` - Asia range setups
+- `kill_zone` - Kill zone timing
+- `judas_swing` - Judas swing pattern
+- `stop_hunt` - Stop hunt setups
+- `choch` - Change of character
+- `bos` - Break of structure
+- `inducement` - Inducement patterns
 
 ### Learning Reports:
-Every day at 8 PM, Quanta generates a report:
+Every day at 8 PM, Quanta generates:
 ```
 🧠 WEEKLY LEARNING REPORT
 Period: Last 7 days
 Total Trades: 15 | Wins: 10 | Losses: 5
 Total P&L: +$320.50
+
+📚 RECURRING STRATEGIES (mentioned 3+ times):
+   • smart_money_concepts: mentioned 8 times ⭐ CORE
+   • supply_demand: mentioned 6 times ⭐ CORE
+   • london_breakout: mentioned 4 times
+
+⭐ CORE STRATEGIES (mentioned 5+ times - their main approach):
+   • smart_money_concepts: 8 mentions
+     Example: "Using SMC concepts, we identified an order block..."
+   • supply_demand: 6 mentions
+     Example: "Price rejecting from supply zone..."
 
 ✅ BEST PATTERNS (70%+ win rate):
    • engulfing: 80% (4W/1L) | P&L: +$180.00
@@ -115,11 +144,11 @@ Total P&L: +$320.50
 
 ## Files
 
-- `monitor_callistofx.py` - Main bot (reads Telegram, manages trades, learns)
+- `monitor_callistofx.py` - Main bot v4.1 (trading + learning)
 - `oanda_executor.py` - OANDA API wrapper
 - `telegram_config.py` - Telegram credentials
 - `.env` - OANDA credentials
-- `learning_database.json` - Tracks patterns and outcomes
+- `learning_database.json` - Tracks patterns, strategies, outcomes
 - `lessons_learned.jsonl` - Log of all lessons
 - `quanta_session.session` - Telegram auth (auto-created)
 
@@ -128,7 +157,7 @@ Total P&L: +$320.50
 - `trade_alerts.jsonl` - All trade alerts
 - `open_trades.json` - Currently open trades
 - `trading_state.json` - Daily stats and balance
-- `learning_database.json` - Pattern performance stats
+- `learning_database.json` - Pattern performance + strategy mentions
 - `learning_database_lessons.jsonl` - Educational content log
 
 ## Safety
@@ -137,3 +166,4 @@ Total P&L: +$320.50
 - Test with OANDA demo account
 - Monitor logs in console
 - Review learning reports to see which patterns work best
+- See which strategies they teach most (their core approach)

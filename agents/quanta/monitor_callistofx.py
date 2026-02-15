@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quanta CALLISTOFX Monitor v4.0 - WITH LIVE TRADE MANAGEMENT
+Quanta CALLISTOFX Monitor v4.1 - WITH LIVE TRADE MANAGEMENT & LEARNING
 
 Key Features:
 - Captures signals from CallistoFX Telegram
@@ -8,6 +8,11 @@ Key Features:
 - MONITORS open trades and manages SL/TP automatically
 - Moves SL to breakeven at +20 pips
 - Locks +20 pips profit at +50 pips
+- Trails SL at -50 pips when +100 pips profit
+- LEARNS from every message - patterns, strategies, analysis
+- Tracks recurring strategy discussions
+- Generates performance reports by pattern
+"""
 - Trails SL at -50 pips when +100 pips profit
 """
 
@@ -271,6 +276,7 @@ class LearningDatabase:
         self.lessons_file = LESSONS_FILE
         self.patterns = {}
         self.strategies = {}
+        self.strategy_mentions = {}  # Track recurring strategy discussions
         self.outcomes = []
         self.load()
     
@@ -281,6 +287,7 @@ class LearningDatabase:
                 data = json.load(f)
                 self.patterns = data.get('patterns', {})
                 self.strategies = data.get('strategies', {})
+                self.strategy_mentions = data.get('strategy_mentions', {})
                 self.outcomes = data.get('outcomes', [])
     
     def save(self):
@@ -288,6 +295,7 @@ class LearningDatabase:
         data = {
             'patterns': self.patterns,
             'strategies': self.strategies,
+            'strategy_mentions': self.strategy_mentions,
             'outcomes': self.outcomes,
             'last_updated': datetime.now().isoformat()
         }
@@ -373,6 +381,85 @@ class LearningDatabase:
             lesson['context'] = lesson.get('context', []) + ['asia_session']
         
         return lesson
+    
+    def record_strategy_mention(self, text, is_educational=False):
+        """
+        Track recurring strategy discussions.
+        When they mention the same strategy multiple times, it indicates importance.
+        """
+        # Strategy keywords to track
+        strategy_keywords = {
+            'smart_money_concepts': r'[Ss]mart [Mm]oney|[Ss][Mm][Cc]|[Ii]mbalance|[Ff]air [Vv]alue [Gg]ap|[Oo]rder [Bb]lock',
+            'supply_demand': r'[Ss]upply [Zz]one|[Dd]emand [Zz]one|[Ss]upply.*demand|[Ss]/[Dd]',
+            'price_action': r'[Pp]rice [Aa]ction|[Pp]ure [Pp]rice',
+            'breakout_strategy': r'[Bb]reakout|[Bb]reak.*out|[Bb]reaking',
+            'pullback_strategy': r'[Pp]ullback|[Rr]etracement|[Pp]ull.*back',
+            'trend_following': r'[Tt]rend [Ff]ollowing|[Ff]ollow.*trend|[Tt]rend.*trade',
+            'mean_reversion': r'[Mm]ean [Rr]eversion|[Rr]eversion|[Mm]ean',
+            'momentum': r'[Mm]omentum|[Mm]omo',
+            'scalping': r'[Ss]calp|[Ss]calping',
+            'swing_trading': r'[Ss]wing|[Ss]wing.*trade',
+            'position_trading': r'[Pp]osition.*trade|[Ll]ong.*term',
+            'london_breakout': r'[Ll]ondon.*breakout|[Ll]ondon [Bb]reak',
+            'ny_session': r'[Nn][Yy].*session|[Nn]ew.*[Yy]ork.*session',
+            'asia_range': r'[Aa]sia.*range|[Tt]okyo.*range',
+            'kill_zone': r'[Kk]ill [Zz]one|[Kk]illzone',
+            'judas_swing': r'[Jj]udas|[Jj]udas.*swing',
+            'stop_hunt': r'[Ss]top [Hh]unt|[Ss]top.*hunt|[Ll]iquidity [Gg]rab',
+            'choch': r'[Cc]ho[Cc]h|[Cc]hange [Oo]f [Cc]haracter',
+            'bos': r'[Bb]reak [Oo]f [Ss]tructure|[Bb][Oo][Ss]',
+            'inducement': r'[Ii]nducement',
+        }
+        
+        mentioned_strategies = []
+        
+        for strategy_name, pattern in strategy_keywords.items():
+            if re.search(pattern, text, re.IGNORECASE):
+                mentioned_strategies.append(strategy_name)
+                
+                # Track mention count
+                if strategy_name not in self.strategy_mentions:
+                    self.strategy_mentions[strategy_name] = {
+                        'count': 0,
+                        'first_seen': datetime.now().isoformat(),
+                        'last_seen': datetime.now().isoformat(),
+                        'examples': [],
+                        'is_core_strategy': False
+                    }
+                
+                self.strategy_mentions[strategy_name]['count'] += 1
+                self.strategy_mentions[strategy_name]['last_seen'] = datetime.now().isoformat()
+                
+                # Store example (keep last 5)
+                if len(self.strategy_mentions[strategy_name]['examples']) < 5:
+                    self.strategy_mentions[strategy_name]['examples'].append({
+                        'timestamp': datetime.now().isoformat(),
+                        'snippet': text[:150] + '...' if len(text) > 150 else text,
+                        'educational': is_educational
+                    })
+                
+                # Mark as core strategy if mentioned 5+ times
+                if self.strategy_mentions[strategy_name]['count'] >= 5:
+                    self.strategy_mentions[strategy_name]['is_core_strategy'] = True
+        
+        self.save()
+        return mentioned_strategies
+    
+    def get_recurring_strategies(self, min_mentions=3):
+        """Get strategies that have been mentioned multiple times"""
+        recurring = []
+        for strategy, data in self.strategy_mentions.items():
+            if data['count'] >= min_mentions:
+                recurring.append({
+                    'strategy': strategy,
+                    'mentions': data['count'],
+                    'is_core': data['is_core_strategy'],
+                    'first_seen': data['first_seen'],
+                    'last_seen': data['last_seen'],
+                    'examples': data['examples']
+                })
+        
+        return sorted(recurring, key=lambda x: x['mentions'], reverse=True)
     
     def record_trade_with_lesson(self, trade_id, signal, lesson, order_ids):
         """Record a new trade with its associated lesson"""
@@ -495,6 +582,10 @@ class LearningDatabase:
         week_ago = datetime.now() - timedelta(days=7)
         recent_outcomes = [o for o in recent_outcomes if datetime.fromisoformat(o['opened_at']) > week_ago]
         
+        # Get recurring strategies
+        recurring_strategies = self.get_recurring_strategies(min_mentions=3)
+        core_strategies = [s for s in recurring_strategies if s['is_core']]
+        
         report = {
             'generated_at': datetime.now().isoformat(),
             'period': 'Last 7 days',
@@ -504,7 +595,9 @@ class LearningDatabase:
             'total_pnl': sum([o['pnl'] for o in recent_outcomes]),
             'pattern_performance': stats[:10],  # Top 10 patterns
             'best_patterns': [s for s in stats if s['win_rate'] >= 70 and s['total_trades'] >= 3],
-            'avoid_patterns': [s for s in stats if s['win_rate'] <= 40 and s['total_trades'] >= 3]
+            'avoid_patterns': [s for s in stats if s['win_rate'] <= 40 and s['total_trades'] >= 3],
+            'recurring_strategies': recurring_strategies[:10],
+            'core_strategies': core_strategies
         }
         
         return report
@@ -781,6 +874,22 @@ class TradeMonitor:
             f"Total P&L: ${report['total_pnl']:+.2f}",
             ""
         ]
+        
+        # Recurring strategies section
+        if report['recurring_strategies']:
+            lines.append("📚 RECURRING STRATEGIES (mentioned 3+ times):")
+            for s in report['recurring_strategies'][:5]:
+                core_marker = "⭐ CORE" if s['is_core'] else ""
+                lines.append(f"   • {s['strategy']}: mentioned {s['mentions']} times {core_marker}")
+            lines.append("")
+        
+        if report['core_strategies']:
+            lines.append("⭐ CORE STRATEGIES (mentioned 5+ times - their main approach):")
+            for s in report['core_strategies']:
+                lines.append(f"   • {s['strategy']}: {s['mentions']} mentions")
+                if s['examples']:
+                    lines.append(f"     Example: {s['examples'][0]['snippet'][:80]}...")
+            lines.append("")
         
         if report['best_patterns']:
             lines.append("✅ BEST PATTERNS (70%+ win rate):")
@@ -1059,7 +1168,7 @@ async def find_callistofx_channel():
 
 async def main():
     """Main entry point"""
-    print("🚀 Quanta v4.0 - With Live Trade Management & Learning")
+    print("🚀 Quanta v4.1 - With Live Trade Management & Learning")
     print("=" * 50)
     
     # Initialize
@@ -1119,6 +1228,17 @@ async def main():
         
         # ALWAYS parse for lessons (learning from every message)
         lesson = learning_db.parse_lesson(text)
+        
+        # Track strategy mentions from EVERY message
+        mentioned_strategies = learning_db.record_strategy_mention(text, is_educational=not bool(signal))
+        
+        # Alert if this is a new recurring strategy (just hit 3 mentions)
+        for strategy in mentioned_strategies:
+            count = learning_db.strategy_mentions.get(strategy, {}).get('count', 0)
+            if count == 3:
+                print(f"\n📚 NEW RECURRING STRATEGY: '{strategy}' mentioned 3+ times. They're teaching this frequently.")
+            elif count == 5:
+                print(f"\n⭐ CORE STRATEGY IDENTIFIED: '{strategy}' mentioned 5+ times. This is their main approach.")
         
         if lesson.get('has_lesson') and not signal:
             # Educational message without trade signal
