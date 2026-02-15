@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elluminate - Team Building Singapore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #2E5C4F;
+            --warm-orange: #F4A261;
+            --cream: #FDF8F3;
+            --charcoal: #2D2D2D;
+            --blue-glow: #4A90D9;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, #fff 50%, var(--cream) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(74, 144, 217, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(46, 92, 79, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-content { position: relative; z-index: 1; max-width: 1200px; }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+        
+        .hero h1 span { color: var(--warm-orange); }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* FIGURES */
+        .figures {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .figure {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            min-width: 200px;
+            transition: transform 0.3s;
+        }
+        
+        .figure:hover { transform: translateY(-10px); }
+        
+        .figure-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 30px currentColor;
+        }
+        
+        .figure.blue .figure-icon { 
+            background: var(--blue-glow); 
+            color: white;
+            box-shadow: 0 0 30px var(--blue-glow);
+        }
+        .figure.orange .figure-icon { 
+            background: var(--warm-orange); 
+            color: white;
+            box-shadow: 0 0 30px var(--warm-orange);
+        }
+        .figure.green .figure-icon { 
+            background: var(--forest-green); 
+            color: white;
+            box-shadow: 0 0 30px var(--forest-green);
+        }
+        
+        .figure h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .figure p { color: #666; font-size: 0.9rem; }
+        
+        /* SERVICES */
+        .services {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .service-tag {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--charcoal);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* CTA */
+        .cta-button {
+            display: inline-block;
+            background: var(--forest-green);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(46, 92, 79, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(46, 92, 79, 0.4);
+        }
+        
+        /* SERVICES SECTION */
+        .services-section {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: var(--charcoal);
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .activity-card {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .activity-card:hover { transform: translateY(-5px); }
+        
+        .activity-card h3 {
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        /* CONTACT SECTION */
+        .contact-section {
+            padding: 6rem 2rem;
+            background: var(--forest-green);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* FOOTER */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: var(--charcoal);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .figures { flex-direction: column; align-items: center; }
+            .services { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Ignite the <span>SPARK</span><br>within your TEAM</h1>
+            <p class="hero-subtitle">Transform your team into a high-performing unit with Singapore's most engaging team building experiences</p>
+            
+            <div class="figures">
+                <div class="figure blue">
+                    <div class="figure-icon">💼</div>
+                    <h3>Corporate</h3>
+                    <p>Professional teams</p>
+                </div>
+                <div class="figure orange">
+                    <div class="figure-icon">🎓</div>
+                    <h3>Schools</h3>
+                    <p>Students & educators</p>
+                </div>
+                <div class="figure green">
+                    <div class="figure-icon">🎯</div>
+                    <h3>Training</h3>
+                    <p>Skill development</p>
+                </div>
+            </div>
+            
+            <div class="services">
+                <span class="service-tag">Corporate Teambuilding</span>
+                <span class="service-tag">School Programs</span>
+                <span class="service-tag">Overseas Retreats</span>
+                <span class="service-tag">Focused Trainings</span>
+            </div>
+            
+            <a href="#contact" class="cta-button">Get Started →</a>
+        </div>
+    </section>
+    
+    <!-- SERVICES SECTION -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Activities</h2>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <h3>🔫 Laser Tag</h3>
+                    <p>High-energy tactical gameplay that builds strategy and communication. Indoor and outdoor setups available.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🏹 Archery</h3>
+                    <p>Focus, precision, and calm under pressure. Perfect for developing concentration and patience.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>💥 Gel Blitz</h3>
+                    <p>Adrenaline-pumping team battles that foster camaraderie and tactical thinking.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🔫 Nerf Wars</h3>
+                    <p>Safe, fun combat scenarios ideal for all ages. Builds teamwork and quick decision-making.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🚁 Drone Racing</h3>
+                    <p>Cutting-edge tech experience. Teams build, program, and race drones together.</p>
+                </div>
+                <div class="activity-card">
+                    <h3>🎯 Custom Challenges</h3>
+                    <p>Bespoke activities designed around your specific team goals and objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Team?</h2>
+            <p>Get a customized quote for your next team building event</p>
+            <a href="https://wa.me/6581234567" class="whatsapp-btn">
+                <span>📱</span> Chat on WhatsApp
+            </a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Elluminate. All rights reserved. | Team Building Singapore</p>
+    </footer>
+</body>
+</html>
