@@ -1,26 +1,31 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-02-13T14:48:00+08:00",
+  "lastUpdated": "2026-02-15T18:40:00+08:00",
   "updatedBy": "CHAD_YI",
   "stats": {
-    "totalTasks": 75,
-    "pending": 2,
-    "active": 7,
+    "totalTasks": 80,
+    "pending": 7,
+    "active": 6,
     "review": 1,
-    "done": 4,
+    "done": 5,
     "backlog": 54,
-    "urgent": 2,
-    "highPriority": 19,
-    "completionRate": 5.3
+    "urgent": 3,
+    "highPriority": 21,
+    "completionRate": 6.3,
+    "totalAgents": 7
   },
   "workflow": {
     "pending": [
       "A1-1",
-      "B6-6"
+      "A1-3",
+      "A1-4",
+      "A1-5",
+      "A2-14",
+      "B6-6",
+      "B6-8"
     ],
     "active": [
       "A1-2",
-      "A2-3",
       "A2-13",
       "A6-3",
       "A6-13",
@@ -32,6 +37,7 @@
     ],
     "done": [
       "A2-1",
+      "A2-3",
       "A7-1",
       "B3-1",
       "B6-1"
@@ -44,9 +50,9 @@
       "project": "A1",
       "category": "A",
       "priority": "critical",
-      "status": "in_progress",
+      "status": "overdue",
       "agent": "CHAD_YI",
-      "notes": "Caleb handling personally",
+      "notes": "OVERDUE: Deadline was Feb 13. Caleb handling personally - needs immediate action.",
       "description": "Reschedule Taiwan trip flights and accommodation",
       "deadline": "2026-02-13",
       "createdAt": "2026-02-06T00:00:00Z",
@@ -64,6 +70,48 @@
       "description": "Process daily payments for DEVSPACE and Findit Sen services",
       "deadline": "2026-02-19",
       "createdAt": "2026-02-13T12:39:00Z",
+      "completedAt": null
+    },
+    "A1-3": {
+      "id": "A1-3",
+      "title": "Book Disney Cruise rebooking",
+      "project": "A1",
+      "category": "A",
+      "priority": "high",
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "notes": "Target: next next week (by Feb 27). Hard deadline: March 25.",
+      "description": "Rebook Disney Cruise",
+      "deadline": "2026-02-27",
+      "createdAt": "2026-02-13T23:16:00Z",
+      "completedAt": null
+    },
+    "A1-4": {
+      "id": "A1-4",
+      "title": "Send ACLP homework",
+      "project": "A1",
+      "category": "A",
+      "priority": "critical",
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "notes": "DUE TODAY (Feb 15) - Submit before end of day",
+      "description": "Submit ACLP homework assignment",
+      "deadline": "2026-02-15",
+      "createdAt": "2026-02-14T00:05:00Z",
+      "completedAt": null
+    },
+    "A1-5": {
+      "id": "A1-5",
+      "title": "Rebook ACLP reassessment",
+      "project": "A1",
+      "category": "A",
+      "priority": "high",
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "notes": "Rebook by next Wednesday (Feb 19). Date given for assessment.",
+      "description": "Rebook ACLP reassessment slot",
+      "deadline": "2026-02-19",
+      "createdAt": "2026-02-14T00:05:00Z",
       "completedAt": null
     },
     "A2-4": {
@@ -194,16 +242,16 @@
     },
     "A6-14": {
       "id": "A6-14",
-      "title": "Project Tasks List enhancement",
+      "title": "Dashboard design changes + fix System/Resources pages",
       "project": "A6",
       "category": "A",
       "priority": "high",
-      "status": "pending",
+      "status": "active",
       "agent": "CHAD_YI",
-      "notes": "Show all tasks in project modal",
-      "description": "",
+      "notes": "Minor design updates to dashboard. Fix System and Resources pages. Requires planning first.",
+      "description": "Update dashboard UI design and fix non-functional System and Resources pages",
       "deadline": null,
-      "createdAt": "2026-02-06T00:00:00Z",
+      "createdAt": "2026-02-13T12:42:00Z",
       "completedAt": null
     },
     "A6-15": {
@@ -908,30 +956,44 @@
     },
     "A2-3": {
       "id": "A2-3",
-      "title": "Edit Chapter 3",
+      "title": "Chapters 1-12 COMPLETE",
       "project": "A2",
       "category": "A",
       "priority": "high",
-      "status": "active",
+      "status": "done",
       "agent": "CHAD_YI",
-      "notes": "Review and polish novel chapter",
-      "description": "",
+      "notes": "All chapters 1-12 written and complete. Ready for Chapter 13.",
+      "description": "RE:UNITE chapters 1-12 are done",
       "deadline": null,
       "createdAt": "2026-02-06T00:00:00Z",
-      "completedAt": null
+      "completedAt": "2026-02-14T00:00:00Z"
     },
     "A2-13": {
       "id": "A2-13",
-      "title": "Study Phase - 90 question knowledge check",
+      "title": "Escritor Study Phase - Understand Story",
       "project": "A2",
       "category": "A",
       "priority": "high",
       "status": "active",
       "agent": "Escritor",
-      "notes": "Answer Story Bible questions before drafting Chapter 13",
-      "description": "Complete the 90-question RE:UNITE knowledge test stored in escritor/inbox/study-questions.md",
+      "notes": "Escritor reads chapters 1-12 and Story Bible to understand RE:UNITE universe before collaborating on Chapter 13",
+      "description": "Study all existing content to prepare for Chapter 13 collaboration",
       "deadline": null,
       "createdAt": "2026-02-12T07:30:00Z",
+      "completedAt": null
+    },
+    "A2-14": {
+      "id": "A2-14",
+      "title": "Write Chapter 13 WITH Caleb",
+      "project": "A2",
+      "category": "A",
+      "priority": "high",
+      "status": "pending",
+      "agent": "Escritor",
+      "notes": "Collaborative writing - Escritor drafts, Caleb reviews and guides. Start after Study Phase complete.",
+      "description": "Chapter 13 written in collaboration with Caleb",
+      "deadline": null,
+      "createdAt": "2026-02-14T00:00:00Z",
       "completedAt": null
     },
     "A6-13": {
@@ -942,24 +1004,10 @@
       "priority": "high",
       "status": "active",
       "agent": "CHAD_YI",
-      "notes": "Click project → full view modal",
+      "notes": "Click project \u2192 full view modal",
       "description": "",
       "deadline": null,
       "createdAt": "2026-02-06T00:00:00Z",
-      "completedAt": null
-    },
-    "A6-14": {
-      "id": "A6-14",
-      "title": "Dashboard design changes + fix System/Resources pages",
-      "project": "A6",
-      "category": "A",
-      "priority": "high",
-      "status": "active",
-      "agent": "CHAD_YI",
-      "notes": "Minor design updates to dashboard. Fix System and Resources pages. Requires planning first.",
-      "description": "Update dashboard UI design and fix non-functional System and Resources pages",
-      "deadline": null,
-      "createdAt": "2026-02-13T12:42:00Z",
       "completedAt": null
     },
     "A2-2": {
@@ -1046,6 +1094,20 @@
       "createdAt": "2026-02-13T14:48:00Z",
       "completedAt": null
     },
+    "B6-8": {
+      "id": "B6-8",
+      "title": "Order gel blitz guns for MENDAKI",
+      "project": "B6",
+      "category": "B",
+      "priority": "high",
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "notes": "Order equipment for MENDAKI event",
+      "description": "Order gel blitz guns for MENDAKI event by next Wednesday",
+      "deadline": "2026-02-19",
+      "createdAt": "2026-02-14T16:20:00Z",
+      "completedAt": null
+    },
     "A7-1": {
       "id": "A7-1",
       "title": "Venue confirmed - Shangri-La",
@@ -1127,9 +1189,9 @@
       "name": "Escritor",
       "role": "story_agent",
       "status": "active",
-      "currentTask": "A2-13: Study Phase (90 questions)",
-      "taskCount": 1,
-      "lastActive": "2026-02-12T18:51:00+08:00",
+      "currentTask": "A2-13: Study Phase - Reading chapters 1-12 + answering 80 questions",
+      "taskCount": 2,
+      "lastActive": "2026-02-14T01:16:00+08:00",
       "idleHours": 0
     },
     "quanta": {
@@ -1178,7 +1240,7 @@
       "idleHours": 120,
       "priority": "MEDIUM",
       "title": "Trading Bot: Forex/Commodities",
-      "brief": "A5 • From: Quanta",
+      "brief": "A5 \u2022 From: Quanta",
       "whatINeed": "OANDA API credentials",
       "why": "Quanta has been blocked for 120 hours waiting for this",
       "steps": [
@@ -1195,7 +1257,7 @@
       "idleHours": 120,
       "priority": "MEDIUM",
       "title": "Trading Bot: Options Flow",
-      "brief": "A5 • From: MensaMusa",
+      "brief": "A5 \u2022 From: MensaMusa",
       "whatINeed": "Moomoo account credentials",
       "why": "MensaMusa has been blocked for 120 hours waiting for this",
       "steps": [
@@ -1214,6 +1276,15 @@
       "hoursRemaining": 20,
       "agent": "CHAD_YI",
       "severity": "critical"
+    },
+    "A1-4": {
+      "id": "A1-4",
+      "title": "Send ACLP homework",
+      "deadline": "2026-02-15",
+      "hoursRemaining": 48,
+      "agent": "CHAD_YI",
+      "severity": "critical",
+      "description": "Due tomorrow night"
     },
     "B6-6": {
       "id": "B6-6",
@@ -1254,6 +1325,10 @@
     "mensamusa": {
       "activity": "Needs Moomoo account",
       "state": "Blocked"
+    },
+    "forger": {
+      "activity": "Awaiting first website project",
+      "state": "Active"
     }
   },
   "projects": {
@@ -1295,13 +1370,7 @@
       "projects": [
         "C1",
         "C2",
-        {
-          "id": "C3",
-          "name": "Vibe Code Games",
-          "description": "Building games and interactive experiences",
-          "icon": "\ud83c\udfae",
-          "taskCount": 0
-        }
+        "C3"
       ]
     }
   },
@@ -1374,14 +1443,6 @@
       "name": "Epitaph",
       "description": "Data tracking"
     },
-    "C1": {
-      "name": "Real Estate",
-      "description": "RES exam June 2026"
-    },
-    "C2": {
-      "name": "Side Sales",
-      "description": "Remote sales"
-    },
     "C3": {
       "id": "C3",
       "name": "Vibe Code Games",
@@ -1389,6 +1450,14 @@
       "category": "C",
       "status": "active",
       "created": "2026-02-13"
+    },
+    "C1": {
+      "name": "Real Estate",
+      "description": "RES exam June 2026"
+    },
+    "C2": {
+      "name": "Side Sales",
+      "description": "Remote sales"
     }
   },
   "urgentDeadlines": [
