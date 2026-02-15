@@ -23,11 +23,49 @@ class HeliosAgent:
         self.base_dir = '/home/chad-yi/.openclaw/workspace'
         self.outbox_dir = os.path.join(self.base_dir, 'agents', 'helios', 'outbox')
         
+    async def handle_message(self, msg_type, payload, sender):
+        """Handle incoming messages from other agents"""
+        logger.info(f"[{self.client.agent_id}] Received {msg_type} from {sender}")
+        
+        if msg_type == 'status_request':
+            # Report current status
+            await self.client.send_to(sender, 'status_report', {
+                'agent': 'helios',
+                'status': 'running',
+                'last_audit': datetime.now().isoformat(),
+                'active_tasks': ['auditing']
+            })
+            
+        elif msg_type == 'audit_request':
+            # Run immediate audit
+            logger.info("Running on-demand audit...")
+            await self.run_audit()
+            await self.client.send_to(sender, 'audit_done', {
+                'timestamp': datetime.now().isoformat()
+            })
+            
+        elif msg_type == 'task_complete':
+            # Another agent finished a task - log it
+            logger.info(f"Task complete from {sender}: {payload}")
+            # Update dashboard
+            await self.update_dashboard_task(payload)
+            
+        elif msg_type == 'help_request':
+            # Agent needs help
+            logger.warning(f"Help requested by {sender}: {payload}")
+            # Could escalate to CHAD_YI
+            
+        else:
+            logger.info(f"Unhandled message type: {msg_type}")
+        
     async def run(self):
-        """Main agent loop"""
+        """Main agent loop with message handling"""
         logger.info("=" * 50)
         logger.info("HELIOS v2.0 - Mission Control Engineer Starting")
         logger.info("=" * 50)
+        
+        # Override client's handle_message to use ours
+        self.client._handle_message = self._wrap_handle_message
         
         # Connect to infrastructure
         await self.client.connect()
@@ -36,10 +74,20 @@ class HeliosAgent:
         # Run audit immediately
         await self.run_audit()
         
-        # Then loop
+        # Then loop - handle messages AND run audits
         while True:
-            await asyncio.sleep(900)  # 15 minutes
-            await self.run_audit()
+            await asyncio.sleep(60)  # Check every minute
+            # Audit runs every 15 minutes automatically
+            if datetime.now().minute % 15 == 0:
+                await self.run_audit()
+    
+    async def _wrap_handle_message(self, data):
+        """Wrapper to route messages to handle_message"""
+        await self.handle_message(
+            data.get('type'),
+            data.get('payload', {}),
+            data.get('from', 'unknown')
+        )
     
     async def run_audit(self):
         """Run full audit cycle"""
@@ -141,6 +189,27 @@ class HeliosAgent:
                 issues.append({'severity': 'info', 'agent': agent, 'issue': f'{inbox_count} unread messages'})
         
         return issues
+    
+    async def update_dashboard_task(self, payload):
+        """Update dashboard when agent completes task"""
+        try:
+            task_id = payload.get('task_id')
+            status = payload.get('status')
+            
+            if task_id and status == 'done':
+                # Mark task as done in data.json
+                result = self.client.file_read('DATA/data.json')
+                if 'content' in result:
+                    data = json.loads(result['content'])
+                    if task_id in data.get('tasks', {}):
+                        data['tasks'][task_id]['status'] = 'done'
+                        data['tasks'][task_id]['completedAt'] = datetime.now().isoformat()
+                        
+                        # Write back
+                        self.client.file_write('DATA/data.json', json.dumps(data, indent=2))
+                        logger.info(f"✅ Updated dashboard: {task_id} marked done")
+        except Exception as e:
+            logger.error(f"Failed to update dashboard: {e}")
 
 if __name__ == '__main__':
     agent = HeliosAgent()

@@ -60,6 +60,65 @@ class ForgerAgent:
         self.inbox_dir = os.path.join(self.base_dir, 'inbox')
         self.outbox_dir = os.path.join(self.base_dir, 'outbox')
         self.projects_dir = os.path.join(self.base_dir, 'projects')
+        self.current_task = None
+        
+    async def handle_message(self, msg_type, payload, sender):
+        """Handle incoming messages from other agents"""
+        logger.info(f"[forger] Received {msg_type} from {sender}")
+        
+        if msg_type == 'design_request':
+            # Another agent wants a design
+            project = payload.get('project')
+            requirements = payload.get('requirements')
+            logger.info(f"Design request for {project}: {requirements}")
+            
+            # Create design
+            await self.create_design(project, requirements)
+            
+            # Notify completion
+            await self.client.send_to(sender, 'design_complete', {
+                'project': project,
+                'files_created': ['design-spec.md'],
+                'timestamp': datetime.now().isoformat()
+            })
+            
+        elif msg_type == 'website_request':
+            # Build full website
+            specs = payload.get('specs', {})
+            logger.info(f"Website build request: {specs.get('project', 'unknown')}")
+            
+            await self.build_website(specs)
+            
+            await self.client.send_to(sender, 'website_complete', {
+                'project': specs.get('project'),
+                'url': f"/agents/forger/projects/{specs.get('project')}/dist/",
+                'timestamp': datetime.now().isoformat()
+            })
+            
+        elif msg_type == 'status_request':
+            await self.client.send_to(sender, 'status_report', {
+                'agent': 'forger',
+                'status': 'ready',
+                'current_task': self.current_task,
+                'capabilities': ['web-design', 'html-css', 'responsive-design']
+            })
+            
+        elif msg_type == 'review_request':
+            # Helios or CHAD_YI wants to review work
+            file_path = payload.get('file_path')
+            logger.info(f"Review requested for: {file_path}")
+            
+            # Read and send back
+            result = self.client.file_read(file_path)
+            if 'content' in result:
+                await self.client.send_to(sender, 'review_response', {
+                    'file_path': file_path,
+                    'content_preview': result['content'][:500],
+                    'timestamp': datetime.now().isoformat()
+                })
+                
+        else:
+            logger.info(f"Unhandled message type: {msg_type}")
         
     async def run(self):
         """Main agent loop"""
