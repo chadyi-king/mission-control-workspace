@@ -43,6 +43,8 @@ MAX_LOG_DAYS = 7
 SIGNAL_LOG_FILE = f'{INBOX_DIR}/signals.jsonl'
 TRADING_STATE_FILE = f'{BASE_DIR}/trading_state.json'
 OPEN_TRADES_FILE = f'{BASE_DIR}/open_trades.json'
+LEARNING_DB_FILE = f'{BASE_DIR}/learning_database.json'
+LESSONS_FILE = f'{BASE_DIR}/lessons_learned.jsonl'
 
 # Trading Constants - OANDA ACTUAL VALUES
 # Pip values are PER STANDARD LOT (100 units for XAUUSD, 100k for forex)
@@ -258,6 +260,256 @@ class SignalParser:
         return score
 
 
+class LearningDatabase:
+    """
+    Tracks trading lessons from CallistoFX and correlates with outcomes.
+    Learns WHY they took trades and whether it worked.
+    """
+    
+    def __init__(self):
+        self.db_file = LEARNING_DB_FILE
+        self.lessons_file = LESSONS_FILE
+        self.patterns = {}
+        self.strategies = {}
+        self.outcomes = []
+        self.load()
+    
+    def load(self):
+        """Load learning database"""
+        if os.path.exists(self.db_file):
+            with open(self.db_file) as f:
+                data = json.load(f)
+                self.patterns = data.get('patterns', {})
+                self.strategies = data.get('strategies', {})
+                self.outcomes = data.get('outcomes', [])
+    
+    def save(self):
+        """Save learning database"""
+        data = {
+            'patterns': self.patterns,
+            'strategies': self.strategies,
+            'outcomes': self.outcomes,
+            'last_updated': datetime.now().isoformat()
+        }
+        with open(self.db_file, 'w') as f:
+            json.dump(data, f, indent=2)
+    
+    @staticmethod
+    def parse_lesson(text):
+        """
+        Extract educational content from CallistoFX messages.
+        Parses analysis, reasoning, patterns, and teachings.
+        """
+        lesson = {
+            'raw_text': text,
+            'parsed_at': datetime.now().isoformat(),
+            'has_lesson': False
+        }
+        
+        # Look for analysis/reasoning sections
+        analysis_patterns = [
+            r'[Aa]nalysis[\s:]+([^\n]+)',
+            r'[Ww]hy[\s:]+([^\n]+)',
+            r'[Rr]eason[\s:]+([^\n]+)',
+            r'[Ss]etup[\s:]+([^\n]+)',
+            r'[Pp]attern[\s:]+([^\n]+)',
+            r'[Ss]trategy[\s:]+([^\n]+)',
+            r'[Bb]ecause[\s:]+([^\n]+)',
+            r'[Tt]echnical[\s:]+([^\n]+)',
+            r'[Ff]undamental[\s:]+([^\n]+)',
+            r'[Ss]upport[\s:]+([^\n]+)',
+            r'[Rr]esistance[\s:]+([^\n]+)',
+            r'[Tt]rend[\s:]+([^\n]+)',
+            r'[Bb]reakout[\s:]+([^\n]+)',
+            r'[Rr]et[r]?acement[\s:]+([^\n]+)',
+        ]
+        
+        analysis_found = []
+        for pattern in analysis_patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            analysis_found.extend(matches)
+        
+        if analysis_found:
+            lesson['has_lesson'] = True
+            lesson['analysis'] = analysis_found
+        
+        # Extract specific patterns mentioned
+        pattern_keywords = {
+            'engulfing': r'[Bb]ullish engulfing|[Bb]earish engulfing',
+            'pin_bar': r'[Pp]in bar|[Ss]hooting star|[Hh]ammer',
+            'doji': r'[Dd]oji',
+            'support_bounce': r'[Bb]ounce.*support|[Ss]upport.*hold',
+            'resistance_break': r'[Bb]reak.*resistance|[Rr]esistance.*break',
+            'trend_continuation': r'[Cc]ontinuation|[Tt]rend.*follow',
+            'trend_reversal': r'[Rr]eversal|[Rr]everse',
+            'rsi_oversold': r'[Rr][Ss][Ii].*oversold|[Oo]versold',
+            'rsi_overbought': r'[Rr][Ss][Ii].*overbought|[Oo]verbought',
+            'macd_cross': r'[Mm][Aa][Cc][Dd].*cross',
+            'ema_bounce': r'[Ee][Mm][Aa].*bounce|[Ee][Mm][Aa].*hold',
+            'consolidation_break': r'[Cc]onsolidation.*break|[Bb]reakout',
+            'news_driven': r'[Nn]ews|[Ff]omc|[Nn][Ff][Pp]|[Cc][Pp][Ii]|[Pp][Mm][Ii]',
+        }
+        
+        patterns_found = []
+        for pattern_name, pattern_regex in pattern_keywords.items():
+            if re.search(pattern_regex, text, re.IGNORECASE):
+                patterns_found.append(pattern_name)
+        
+        if patterns_found:
+            lesson['has_lesson'] = True
+            lesson['patterns'] = patterns_found
+        
+        # Extract confidence level
+        confidence_match = re.search(r'([Hh]igh|[Mm]edium|[Ll]ow|[Ss]trong|[Ww]eak).*confidence', text, re.IGNORECASE)
+        if confidence_match:
+            lesson['confidence'] = confidence_match.group(1).lower()
+        
+        # Extract market context
+        if re.search(r'[Ll]ondon|[Ll]ondon.*session', text, re.IGNORECASE):
+            lesson['context'] = lesson.get('context', []) + ['london_session']
+        if re.search(r'[Nn]ew.*[Yy]ork|[Nn][Yy].*session', text, re.IGNORECASE):
+            lesson['context'] = lesson.get('context', []) + ['ny_session']
+        if re.search(r'[Aa]sia|[Tt]okyo.*session', text, re.IGNORECASE):
+            lesson['context'] = lesson.get('context', []) + ['asia_session']
+        
+        return lesson
+    
+    def record_trade_with_lesson(self, trade_id, signal, lesson, order_ids):
+        """Record a new trade with its associated lesson"""
+        outcome_entry = {
+            'trade_id': trade_id,
+            'order_ids': order_ids,
+            'symbol': signal.get('symbol'),
+            'direction': signal.get('direction'),
+            'entry_price': signal.get('entry_range', {}).get('mid'),
+            'sl': signal.get('sl'),
+            'tps': signal.get('tps'),
+            'lesson': lesson,
+            'opened_at': datetime.now().isoformat(),
+            'status': 'OPEN',
+            'result': None,
+            'pnl': None,
+            'exit_price': None,
+            'closed_at': None
+        }
+        
+        self.outcomes.append(outcome_entry)
+        self.save()
+        
+        # Log the lesson learned
+        if lesson.get('has_lesson'):
+            lesson_log = {
+                'timestamp': datetime.now().isoformat(),
+                'trade_id': trade_id,
+                'symbol': signal.get('symbol'),
+                'lesson_type': 'NEW_TRADE',
+                'patterns': lesson.get('patterns', []),
+                'analysis': lesson.get('analysis', []),
+                'confidence': lesson.get('confidence', 'unknown'),
+                'context': lesson.get('context', [])
+            }
+            with open(self.lessons_file, 'a') as f:
+                f.write(json.dumps(lesson_log) + '\n')
+        
+        return outcome_entry
+    
+    def record_outcome(self, trade_id, result, pnl, exit_price=None):
+        """Record the outcome of a trade"""
+        for outcome in self.outcomes:
+            if outcome['trade_id'] == trade_id and outcome['status'] == 'OPEN':
+                outcome['status'] = 'CLOSED'
+                outcome['result'] = 'WIN' if pnl > 0 else 'LOSS'
+                outcome['pnl'] = pnl
+                outcome['exit_price'] = exit_price
+                outcome['closed_at'] = datetime.now().isoformat()
+                
+                # Update pattern statistics
+                lesson = outcome.get('lesson', {})
+                patterns = lesson.get('patterns', [])
+                
+                for pattern in patterns:
+                    if pattern not in self.patterns:
+                        self.patterns[pattern] = {'wins': 0, 'losses': 0, 'total_pnl': 0}
+                    
+                    if pnl > 0:
+                        self.patterns[pattern]['wins'] += 1
+                    else:
+                        self.patterns[pattern]['losses'] += 1
+                    self.patterns[pattern]['total_pnl'] += pnl
+                
+                self.save()
+                
+                # Log outcome
+                outcome_log = {
+                    'timestamp': datetime.now().isoformat(),
+                    'trade_id': trade_id,
+                    'result': outcome['result'],
+                    'pnl': pnl,
+                    'patterns': patterns,
+                    'lesson_learned': self._generate_lesson_learned(outcome)
+                }
+                with open(self.lessons_file, 'a') as f:
+                    f.write(json.dumps(outcome_log) + '\n')
+                
+                return outcome
+        return None
+    
+    def _generate_lesson_learned(self, outcome):
+        """Generate a lesson learned from the outcome"""
+        lesson = outcome.get('lesson', {})
+        patterns = lesson.get('patterns', [])
+        result = outcome.get('result')
+        
+        if not patterns:
+            return "No specific pattern identified"
+        
+        if result == 'WIN':
+            return f"Patterns {patterns} resulted in a WIN. Continue using these signals."
+        else:
+            return f"Patterns {patterns} resulted in a LOSS. Review entry timing or SL placement."
+    
+    def get_pattern_stats(self):
+        """Get statistics on which patterns work best"""
+        stats = []
+        for pattern, data in self.patterns.items():
+            total = data['wins'] + data['losses']
+            if total > 0:
+                win_rate = (data['wins'] / total) * 100
+                stats.append({
+                    'pattern': pattern,
+                    'total_trades': total,
+                    'wins': data['wins'],
+                    'losses': data['losses'],
+                    'win_rate': round(win_rate, 1),
+                    'total_pnl': round(data['total_pnl'], 2)
+                })
+        
+        return sorted(stats, key=lambda x: x['win_rate'], reverse=True)
+    
+    def generate_weekly_report(self):
+        """Generate a weekly learning report"""
+        stats = self.get_pattern_stats()
+        recent_outcomes = [o for o in self.outcomes if o['status'] == 'CLOSED']
+        
+        # Filter to last 7 days
+        week_ago = datetime.now() - timedelta(days=7)
+        recent_outcomes = [o for o in recent_outcomes if datetime.fromisoformat(o['opened_at']) > week_ago]
+        
+        report = {
+            'generated_at': datetime.now().isoformat(),
+            'period': 'Last 7 days',
+            'total_trades': len(recent_outcomes),
+            'wins': len([o for o in recent_outcomes if o['result'] == 'WIN']),
+            'losses': len([o for o in recent_outcomes if o['result'] == 'LOSS']),
+            'total_pnl': sum([o['pnl'] for o in recent_outcomes]),
+            'pattern_performance': stats[:10],  # Top 10 patterns
+            'best_patterns': [s for s in stats if s['win_rate'] >= 70 and s['total_trades'] >= 3],
+            'avoid_patterns': [s for s in stats if s['win_rate'] <= 40 and s['total_trades'] >= 3]
+        }
+        
+        return report
+
+
 class PositionManager:
     """Manage position sizing and trade execution"""
     
@@ -440,9 +692,10 @@ class PositionManager:
 class TradeMonitor:
     """Monitor open trades and manage SL/TP dynamically"""
     
-    def __init__(self, executor, state):
+    def __init__(self, executor, state, learning_db=None):
         self.executor = executor
         self.state = state
+        self.learning_db = learning_db  # Learning database for outcome tracking
         self.managed_trades = {}  # Track which trades have had SL moved
         self.last_status_report = datetime.now()
         self.load_managed_trades()
@@ -506,11 +759,48 @@ class TradeMonitor:
                 await asyncio.sleep(5)
     
     async def report_status_if_needed(self):
-        """Report open trade status every 5 minutes"""
+        """Report open trade status every 5 minutes and learning report daily"""
         now = datetime.now()
         if (now - self.last_status_report).seconds >= 300:  # 5 minutes
             await self.report_open_trades_status()
+            
+            # Also generate learning report if we have learning db
+            if self.learning_db and now.hour == 20 and now.minute < 10:  # 8 PM daily
+                await self.report_learning_status()
+            
             self.last_status_report = now
+    
+    async def report_learning_status(self):
+        """Report learning/performance insights"""
+        report = self.learning_db.generate_weekly_report()
+        
+        lines = [
+            "🧠 WEEKLY LEARNING REPORT",
+            f"Period: {report['period']}",
+            f"Total Trades: {report['total_trades']} | Wins: {report['wins']} | Losses: {report['losses']}",
+            f"Total P&L: ${report['total_pnl']:+.2f}",
+            ""
+        ]
+        
+        if report['best_patterns']:
+            lines.append("✅ BEST PATTERNS (70%+ win rate):")
+            for p in report['best_patterns']:
+                lines.append(f"   • {p['pattern']}: {p['win_rate']}% ({p['wins']}W/{p['losses']}L) | P&L: ${p['total_pnl']:+.2f}")
+            lines.append("")
+        
+        if report['avoid_patterns']:
+            lines.append("⚠️ AVOID PATTERNS (40%- win rate):")
+            for p in report['avoid_patterns']:
+                lines.append(f"   • {p['pattern']}: {p['win_rate']}% ({p['wins']}W/{p['losses']}L) | P&L: ${p['total_pnl']:+.2f}")
+            lines.append("")
+        
+        if report['pattern_performance']:
+            lines.append("📊 ALL PATTERNS:")
+            for p in report['pattern_performance'][:5]:
+                lines.append(f"   • {p['pattern']}: {p['win_rate']}% ({p['total_trades']} trades)")
+        
+        report_msg = "\n".join(lines)
+        self.alert(report_msg, trade_data={'type': 'learning_report', 'report': report})
     
     async def report_open_trades_status(self):
         """Report status of all open trades to CHAD_YI"""
@@ -621,6 +911,10 @@ class TradeMonitor:
                                 f"❌ LOSS: {symbol} {direction} closed at ${realized_pl:.2f}",
                                 trade_data={'trade_id': trade_id, 'symbol': symbol, 'pnl': realized_pl, 'status': 'LOSS'}
                             )
+                        
+                        # Record outcome in learning database
+                        if self.learning_db:
+                            self.learning_db.record_outcome(trade_id, 'WIN' if realized_pl > 0 else 'LOSS', realized_pl)
                         
                         # Update state
                         self.state.update_balance(realized_pl)
@@ -765,7 +1059,7 @@ async def find_callistofx_channel():
 
 async def main():
     """Main entry point"""
-    print("🚀 Quanta v4.0 - With Live Trade Management")
+    print("🚀 Quanta v4.0 - With Live Trade Management & Learning")
     print("=" * 50)
     
     # Initialize
@@ -773,6 +1067,7 @@ async def main():
     state = TradingState()
     parser = SignalParser()
     position_mgr = PositionManager()
+    learning_db = LearningDatabase()  # Initialize learning system
     
     # Initialize OANDA executor
     executor = OandaExecutor()
@@ -787,10 +1082,11 @@ async def main():
     
     print(f"📊 Daily Risk Used: {state.daily_stats['risk_used_percent']}%")
     print(f"📈 Trades Today: {state.daily_stats['trades_taken']}")
+    print(f"🧠 Learning Database: {len(learning_db.outcomes)} trades recorded")
     print()
     
-    # Start trade monitor
-    monitor = TradeMonitor(executor, state)
+    # Start trade monitor (pass learning_db for outcome tracking)
+    monitor = TradeMonitor(executor, state, learning_db)
     monitor_task = asyncio.create_task(monitor.monitor_loop())
     
     # Connect to Telegram
@@ -804,6 +1100,7 @@ async def main():
         return
     
     print(f"🎯 Monitoring CallistoFX for signals...")
+    print(f"🧠 Learning Mode: Extracting lessons from every message")
     print(f"⚙️  Trade Management:")
     print(f"   • +20 pips → SL to breakeven")
     print(f"   • +50 pips → Lock +20 pips profit")
@@ -820,6 +1117,28 @@ async def main():
         # Parse signal
         signal = parser.parse_signal(text)
         
+        # ALWAYS parse for lessons (learning from every message)
+        lesson = learning_db.parse_lesson(text)
+        
+        if lesson.get('has_lesson') and not signal:
+            # Educational message without trade signal
+            print(f"\n📚 LESSON LEARNED:")
+            if lesson.get('patterns'):
+                print(f"   Patterns: {', '.join(lesson['patterns'])}")
+            if lesson.get('analysis'):
+                print(f"   Analysis: {lesson['analysis'][0][:100]}...")
+            # Save lesson
+            lesson_log = {
+                'timestamp': datetime.now().isoformat(),
+                'lesson_type': 'EDUCATIONAL',
+                'patterns': lesson.get('patterns', []),
+                'analysis': lesson.get('analysis', []),
+                'confidence': lesson.get('confidence'),
+                'context': lesson.get('context', [])
+            }
+            with open(LEARNING_DB_FILE.replace('.json', '_lessons.jsonl'), 'a') as f:
+                f.write(json.dumps(lesson_log) + '\n')
+        
         if not signal:
             print(f"💬 Message: {text[:50]}...")
             return
@@ -827,6 +1146,14 @@ async def main():
         print(f"\n🚨 SIGNAL: {signal['symbol']} {signal['direction']}")
         print(f"   Range: {signal['entry_range']['low']} - {signal['entry_range']['high']}")
         print(f"   SL: {signal['sl']} | TPs: {signal['tps']}")
+        
+        # Show lesson if available
+        if lesson.get('has_lesson'):
+            print(f"\n📚 LESSON:")
+            if lesson.get('patterns'):
+                print(f"   Patterns: {', '.join(lesson['patterns'])}")
+            if lesson.get('analysis'):
+                print(f"   Why: {lesson['analysis'][0][:80]}...")
         
         # Calculate score
         score = parser.calculate_signal_score(signal, {})
@@ -906,6 +1233,10 @@ async def main():
             }
             state.record_trade(trade)
             
+            # Record in learning database with lesson
+            if learning_db:
+                learning_db.record_trade_with_lesson(','.join(order_ids), signal, lesson, order_ids)
+            
             # Report to Helios and CHAD_YI via message bus
             trade_alert_data = {
                 'trade_id': ','.join(order_ids),
@@ -916,7 +1247,8 @@ async def main():
                 'sl': position['sl'],
                 'tp': position['tps'][0],
                 'risk': state.calculate_risk_amount(),
-                'split_entries': position['split_entries']
+                'split_entries': position['split_entries'],
+                'lesson': lesson if lesson.get('has_lesson') else None
             }
             monitor.alert(
                 f"✅ 3-TIER SPLIT ENTRY: {signal['symbol']} {signal['direction']} - {len(order_ids)} orders placed",
