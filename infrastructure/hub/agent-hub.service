@@ -1,0 +1,14 @@
+[Unit]
+Description=Agent Communication Hub (WebSocket)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/infrastructure/hub/websocket-server.py
+Restart=always
+RestartSec=10
+Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+
+[Install]
+WantedBy=default.target

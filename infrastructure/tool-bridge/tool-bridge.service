@@ -1,0 +1,14 @@
+[Unit]
+Description=Tool Bridge Service (REST API)
+After=network.target agent-hub.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/infrastructure/tool-bridge/server.py
+Restart=always
+RestartSec=10
+Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+
+[Install]
+WantedBy=default.target

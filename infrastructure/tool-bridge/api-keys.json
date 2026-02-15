@@ -1,0 +1,12 @@
+{
+  "openai": null,
+  "allowed_agents": [
+    "forger",
+    "helios", 
+    "escritor",
+    "quanta",
+    "mensamusa",
+    "autour",
+    "chad_yi"
+  ]
+}

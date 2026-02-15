@@ -1,0 +1,14 @@
+[Unit]
+Description=Agent Supervisor
+After=network.target agent-hub.service tool-bridge.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/infrastructure/supervisor/monitor.py
+Restart=always
+RestartSec=10
+Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+
+[Install]
+WantedBy=default.target
