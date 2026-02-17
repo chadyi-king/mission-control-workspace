@@ -16,11 +16,11 @@ class AgentOrchestrator:
     
     def __init__(self, node_name: str = "helios"):
         self.node_name = node_name
-        self.comm = RedisComm(node_name=node_name, use_rest=True)
+        self.comm = RedisComm(node_name=node_name)
         self.agents: Dict[str, Any] = {}
         self.tasks: Dict[str, Any] = {}
         self.running = False
-        self.data_file = "/root/.openclaw/workspace/mission-control-workspace/data.json"
+        self.data_file = "/home/chad-yi/.openclaw/workspace/data.json"
         
         # Register handlers
         self.comm.on("agent_register", self._handle_agent_register)
