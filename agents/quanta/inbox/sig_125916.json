@@ -1,0 +1,9 @@
+{
+  "symbol": "XAUUSD",
+  "direction": "BUY",
+  "entry_low": 4970,
+  "entry_high": 4975,
+  "sl": 4965,
+  "tps": [4990, 5000, 5010, 5020],
+  "time": "$(date -Iseconds)"
+}

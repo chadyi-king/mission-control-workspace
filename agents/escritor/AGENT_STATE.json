@@ -1,16 +1,36 @@
 {
   "agentId": "escritor",
-  "role": "Story Agent (A2)",
+  "name": "Escritor",
+  "role": "story_agent",
+  "specialty": "Creative writing, fiction, RE:UNITE novel",
+  "model": "kimi-coding/k2p5",
   "status": "active",
-  "project": "A2 - RE:UNITE",
-  "currentTask": "A2-13: Study Phase - 90 questions",
-  "lastActive": "2026-02-13T07:36:00+08:00",
-  "health": "HEALTHY",
-  "notes": "Study Phase in progress. 90 questions in inbox awaiting answers. Chapter 13 writing pending study completion.",
-  "assignedTask": "A2-13",
-  "taskStatus": "active",
-  "createdAt": "2026-02-09T13:00:00+08:00",
-  "spawnedAt": "2026-02-12T16:00:00+08:00",
-  "lastCoordinationCheck": "2026-02-13T05:30:00+08:00",
-  "coordinationIssues": []
+  "currentTask": null,
+  "project": "A2",
+  "projectName": "RE:UNITE",
+  "capabilities": [
+    "creative_writing",
+    "character_development",
+    "plot_structure",
+    "dialogue",
+    "world_building"
+  ],
+  "workspace": "/home/chad-yi/.openclaw/workspace/agents/escritor",
+  "inbox": "/home/chad-yi/.openclaw/workspace/agents/escritor/inbox",
+  "outbox": "/home/chad-yi/.openclaw/workspace/agents/escritor/outbox",
+  "reportingTo": "chad_yi",
+  "auditPartner": "helios",
+  "autoSpawn": true,
+  "spawnConditions": {
+    "ready": true,
+    "blockers": [],
+    "firstTask": "A2-13: Study Phase - Read chapters 1-12, prepare for Chapter 13"
+  },
+  "communicationProtocol": {
+    "checkInboxEveryMinutes": 30,
+    "reportProgressEveryHours": 4,
+    "escalateBlockersImmediately": true
+  },
+  "spawnedAt": "2026-02-17T23:57:19.775819",
+  "lastActive": "2026-02-17T23:57:19.775829"
 }

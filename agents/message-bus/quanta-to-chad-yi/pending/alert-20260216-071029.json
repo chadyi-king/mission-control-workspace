@@ -1,0 +1,11 @@
+{
+  "from": "quanta",
+  "to": "helios",
+  "timestamp": "2026-02-16T07:10:29.192501",
+  "type": "trade_alert",
+  "message": "\ud83d\udcca ONGOING TRADES STATUS:\n  \u2022 BTCUSD SELL | Entry: 65725.0 | Current: 68484.00 | Pips: -27590000.0 | P&L: $-10.51 | SL: Initial\n\n\ud83d\udcb0 TOTAL UNREALIZED P&L: $-10.51",
+  "trade_data": {
+    "open_trades_count": 1,
+    "total_unrealized_pnl": -10.5052
+  }
+}

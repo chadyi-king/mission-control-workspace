@@ -1,0 +1,36 @@
+{
+  "agentId": "quanta",
+  "name": "Quanta",
+  "role": "trading_agent",
+  "specialty": "Forex/Gold trading, XAUUSD, signal processing",
+  "model": "kimi-coding/k2p5",
+  "status": "blocked",
+  "currentTask": "A5-1: Trading Bot - Forex/Commodities",
+  "project": "A5",
+  "projectName": "Trading",
+  "capabilities": ["forex_trading", "gold_trading", "signal_processing", "risk_management", "api_integration"],
+  "workspace": "/home/chad-yi/.openclaw/workspace/agents/quanta",
+  "inbox": "/home/chad-yi/.openclaw/workspace/agents/quanta/inbox",
+  "outbox": "/home/chad-yi/.openclaw/workspace/agents/quanta/outbox",
+  "reportingTo": "chad_yi",
+  "auditPartner": "helios",
+  "autoSpawn": false,
+  "spawnConditions": {
+    "ready": false,
+    "blockers": ["OANDA_API_credentials_needed"],
+    "firstTask": "A5-1: Connect to OANDA, setup trading bot"
+  },
+  "blockerDetails": {
+    "OANDA_API_credentials_needed": {
+      "description": "Need OANDA API key and account ID",
+      "requestedFrom": "caleb",
+      "requestedAt": "2026-02-08",
+      "hoursWaiting": 120
+    }
+  },
+  "communicationProtocol": {
+    "checkInboxEveryMinutes": 15,
+    "reportProgressEveryHours": 1,
+    "escalateBlockersImmediately": true
+  }
+}

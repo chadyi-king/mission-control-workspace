@@ -1,0 +1,40 @@
+{
+  "agentId": "autour",
+  "name": "Autour",
+  "role": "content_agent",
+  "specialty": "YouTube scripts, TikTok content, social media",
+  "model": "kimi-coding/k2p5",
+  "status": "active",
+  "currentTask": null,
+  "project": "A3",
+  "projectName": "KOE",
+  "capabilities": [
+    "script_writing",
+    "content_creation",
+    "social_media",
+    "youtube_shorts",
+    "tiktok_scripts"
+  ],
+  "workspace": "/home/chad-yi/.openclaw/workspace/agents/autour",
+  "inbox": "/home/chad-yi/.openclaw/workspace/agents/autour/inbox",
+  "outbox": "/home/chad-yi/.openclaw/workspace/agents/autour/outbox",
+  "reportingTo": "chad_yi",
+  "auditPartner": "helios",
+  "autoSpawn": true,
+  "spawnConditions": {
+    "ready": true,
+    "blockers": [],
+    "firstTask": "A3-1: Script 1 - Right vs Left politics (YouTube short)"
+  },
+  "dependencies": {
+    "needsContentFrom": "clair",
+    "clairStatus": "not_spawned"
+  },
+  "communicationProtocol": {
+    "checkInboxEveryMinutes": 30,
+    "reportProgressEveryHours": 4,
+    "escalateBlockersImmediately": true
+  },
+  "spawnedAt": "2026-02-17T23:57:19.776570",
+  "lastActive": "2026-02-17T23:57:19.776608"
+}

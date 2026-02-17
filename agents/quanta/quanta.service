@@ -1,15 +1,13 @@
 [Unit]
-Description=Quanta - Trading Bot (CALLISTOFX Monitor)
+Description=Quanta Trading Monitor v4.0
 After=network.target
 
 [Service]
 Type=simple
-User=chad-yi
 WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/quanta
-ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/quanta/quanta_v4_service.py
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/quanta/monitor_callistofx.py
 Restart=always
-RestartSec=60
-Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
+RestartSec=30
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
