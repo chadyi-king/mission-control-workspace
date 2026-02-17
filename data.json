@@ -1,0 +1,137 @@
+{
+  "schema": "mission.control.dashboard.v1",
+  "lastUpdated": "2026-02-18T03:20:00+08:00",
+  "system": {
+    "status": "operational",
+    "version": "1.0.0",
+    "uptime_hours": 0
+  },
+  "agents": {
+    "CHAD_YI": {
+      "id": "CHAD_YI",
+      "name": "Chad Yi",
+      "role": "Main Orchestrator",
+      "status": "active",
+      "last_seen": "2026-02-18T03:15:00+08:00",
+      "location": "local",
+      "capabilities": ["delegation", "decision", "reporting"],
+      "tasks_active": 0,
+      "tasks_completed": 0
+    },
+    "HELIOS": {
+      "id": "HELIOS",
+      "name": "Helios",
+      "role": "Control Engineer / COO / Auditor",
+      "status": "active",
+      "last_seen": "2026-02-18T03:20:00+08:00",
+      "location": "cloud",
+      "capabilities": ["monitoring", "auditing", "routing"],
+      "tasks_active": 0,
+      "tasks_completed": 0
+    },
+    "ESCRITOR": {
+      "id": "ESCRITOR",
+      "name": "Escritor",
+      "role": "Novel Writer",
+      "status": "idle",
+      "last_seen": null,
+      "location": "local",
+      "capabilities": ["writing", "research"],
+      "tasks_active": 0,
+      "tasks_completed": 0
+    },
+    "QUANTA": {
+      "id": "QUANTA",
+      "name": "Quanta",
+      "role": "Trading Bot",
+      "status": "blocked",
+      "last_seen": null,
+      "location": "local",
+      "capabilities": ["trading", "analysis"],
+      "tasks_active": 0,
+      "tasks_completed": 0,
+      "block_reason": "auth_issues"
+    },
+    "MENSAMUSA": {
+      "id": "MENSAMUSA",
+      "name": "MensaMusa",
+      "role": "Options Monitor",
+      "status": "blocked",
+      "last_seen": null,
+      "location": "local",
+      "capabilities": ["monitoring", "alerts"],
+      "tasks_active": 0,
+      "tasks_completed": 0,
+      "block_reason": "needs_moomoo"
+    },
+    "AUTOUR": {
+      "id": "AUTOUR",
+      "name": "Autour",
+      "role": "KOE Scripts",
+      "status": "not_spawned",
+      "last_seen": null,
+      "location": "local",
+      "capabilities": ["scripting"],
+      "tasks_active": 0,
+      "tasks_completed": 0
+    }
+  },
+  "tasks": {
+    "total": 80,
+    "pending": 7,
+    "active": 6,
+    "done": 5,
+    "backlog": 54,
+    "urgent": 3,
+    "overdue": 1,
+    "completion_rate": 6.3
+  },
+  "critical_tasks": [
+    {
+      "id": "A1-1",
+      "title": "Taiwan flights",
+      "status": "overdue",
+      "deadline": "2026-02-13",
+      "assignee": "CHAD_YI",
+      "priority": "critical"
+    },
+    {
+      "id": "A1-4",
+      "title": "ACLP homework",
+      "status": "due_today",
+      "deadline": "2026-02-15",
+      "assignee": "CHAD_YI",
+      "priority": "critical"
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items",
+      "status": "due_soon",
+      "deadline": "2026-02-17",
+      "assignee": "FORGER",
+      "priority": "critical"
+    }
+  ],
+  "communications": {
+    "helios_chad": {
+      "protocol": "redis",
+      "status": "connected",
+      "latency_ms": 50,
+      "last_message": "2026-02-18T03:15:00+08:00"
+    },
+    "helios_caleb": {
+      "protocol": "telegram",
+      "status": "connected",
+      "last_message": "2026-02-18T03:20:00+08:00"
+    }
+  },
+  "health": {
+    "dashboard_staleness_minutes": 0,
+    "last_audit": "2026-02-18T03:20:00+08:00",
+    "alerts": [],
+    "warnings": [
+      "QUANTA blocked: auth issues",
+      "MENSAMUSA blocked: needs Moomoo"
+    ]
+  }
+}
