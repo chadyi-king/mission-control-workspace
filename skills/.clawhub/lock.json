@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "trading": {
+      "version": "1.0.0",
+      "installedAt": 1771214771387
+    },
+    "telegram": {
+      "version": "1.0.1",
+      "installedAt": 1771214784830
+    }
+  }
+}

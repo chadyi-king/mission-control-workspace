@@ -123,3 +123,82 @@ Blockers Requiring Attention
 - agentDetails: Activity details for all 5 agents
 **Prevention:** Updated helios-audit skill to verify ALL required structures exist and use browser screenshots to verify rendering.
 **Result:** Dashboard now renders correctly with 4 urgent tasks, 5 agents, 3 inputs needed, 19 projects.
+
+
+---
+
+## Kimi Claw Architecture (Feb 16, 2026)
+**Status:** Proposed replacement for Helios
+**Platform:** kimi.com (Moonshot AI cloud)
+**Why:** Can do browser automation that OpenClaw in WSL2 cannot
+
+**Capabilities:**
+- 24/7 persistent cloud agent
+- Browser automation (screenshots, clicks, Telegram Web)
+- 40GB storage, 5000+ skills
+- Screenshot dashboard every 15 min
+- Monitor CallistoFX every 2 min
+- Alert CHAD_YI immediately on signals
+
+**Integration:**
+- Kimi-Claw-Helios: Detection, monitoring, browser tasks
+- CHAD_YI: Decisions, memory, OANDA trading execution
+- Message bridge between agents
+
+**Files created:**
+- KIMI_CLAW_HELIOS_CONFIG.md
+- setup_kimi_claw_helios.sh  
+- INTEGRATION_GUIDE.md
+- skills/kimi-claw-helios/
+
+---
+
+## Quanta Trading - Lessons Learned (Feb 16, 2026)
+**Status:** FAILED - Multiple attempts, all blocked
+
+**What was tried:**
+1. Telethon user client - Sessions expire/corrupt
+2. Playwright browser - WSL2 can't access Windows GUI
+3. Systemd service - Crash loops, auth issues
+4. QR code login - Too complex, user frustration
+
+**Root cause:** Telegram user accounts cannot be reliably automated (by design)
+
+**User decision:** Manual forwarding for now. Quanta on back burner.
+
+**Position sizing lesson:** 
+- 400 units XAUUSD = $99,540 margin (WRONG)
+- Correct: Max 100 units = ~$500 margin, based on $20 risk
+
+
+---
+
+## CRITICAL LESSON - Feb 16, 2026 (Evening)
+
+### The Problem
+When marking tasks as done, I was:
+1. ✅ Updating data.json locally
+2. ❌ NOT committing + pushing to GitHub
+3. Result: Dashboard stayed stale, user saw wrong data
+
+### The Fix
+Created TASK_UPDATE_PROCEDURE.md
+Every task update MUST:
+1. Update task object
+2. Move in workflow arrays
+3. Recalculate stats
+4. Update timestamp
+5. git add + commit + push
+6. Verify on dashboard
+
+### User Impact
+- User reported A1-4 showed as not done (was done yesterday)
+- Dashboard had uncommitted changes
+- Push fixed it immediately
+- User trust eroded due to repeated failures
+
+### Prevention
+- Created verification script
+- Created pre-flight checklist
+- This note as reminder
+

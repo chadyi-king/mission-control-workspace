@@ -139,7 +139,7 @@ echo "Creating environment file: $ENV_FILE"
 
 cat > "$ENV_FILE" << 'EOF'
 # Helios-Chad Sync Environment Configuration
-# Source this file: source /root/.openclaw/workspace/.sync_env
+# Source this file: source $HOME/.openclaw/workspace/.sync_env
 
 export NODE_NAME=helios
 export CHAD_HOST=chad
@@ -147,7 +147,7 @@ export CALEB_TELEGRAM_ID=512366713
 export SYNC_INTERVAL=60
 export HEARTBEAT_PORT=8765
 export HEALTH_PORT=8080
-export LOG_DIR=/root/.openclaw/workspace/logs
+export LOG_DIR=$HOME/.openclaw/workspace/logs
 EOF
 
 echo "✓ Environment file created"

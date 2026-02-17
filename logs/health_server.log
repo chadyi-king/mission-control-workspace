@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+PermissionError: [Errno 13] Permission denied: '/root/.openclaw/workspace/logs'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/chad-yi/.openclaw/workspace/sync/health_server.py", line 22, in <module>
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+  File "/usr/lib/python3.10/pathlib.py", line 1184, in mkdir
+    if not exist_ok or not self.is_dir():
+  File "/usr/lib/python3.10/pathlib.py", line 1305, in is_dir
+    return S_ISDIR(self.stat().st_mode)
+  File "/usr/lib/python3.10/pathlib.py", line 1097, in stat
+    return self._accessor.stat(self, follow_symlinks=follow_symlinks)
+PermissionError: [Errno 13] Permission denied: '/root/.openclaw/workspace/logs'
+2026-02-18 02:26:11,281 - health_server - INFO - Health server started on port 8080
+2026-02-18 02:26:26,643 - health_server - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-02-18 02:29:04,650 - health_server - INFO - Health server started on port 8080
+2026-02-18 02:29:07,626 - health_server - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-02-18 02:29:34,808 - health_server - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-02-18 02:34:11,533 - health_server - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -
+2026-02-18 02:34:35,718 - health_server - INFO - 127.0.0.1 - "GET /health HTTP/1.1" 200 -

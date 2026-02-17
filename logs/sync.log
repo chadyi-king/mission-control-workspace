@@ -1,0 +1,155 @@
+mkdir: cannot create directory ‘/root’: Permission denied
+mkdir: cannot create directory ‘/root’: Permission denied
+mkdir: cannot create directory ‘/root’: Permission denied
+mkdir: cannot create directory ‘/root’: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] Robust Sync started (PID: 2596189)
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] Node: unknown
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] Workspace: /root/.openclaw/workspace
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] ERROR: Sync failed (consecutive failures: 1)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:25:38] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:26:38] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:26:38] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:26:38] ERROR: Sync failed (consecutive failures: 2)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:26:38] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:27:38] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:27:38] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:27:38] ERROR: Sync failed (consecutive failures: 3)
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:27:38] Sending alert: Sync has failed 3 times in a row
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:27:40] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:28:40] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:28:40] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:28:40] ERROR: Sync failed (consecutive failures: 1)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:28:40] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:29:40] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:29:40] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:29:40] ERROR: Sync failed (consecutive failures: 2)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:29:40] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:30:40] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:30:40] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:30:40] ERROR: Sync failed (consecutive failures: 3)
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:30:40] Sending alert: Sync has failed 3 times in a row
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:30:42] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:31:42] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:31:42] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:31:42] ERROR: Sync failed (consecutive failures: 1)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:31:42] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:32:42] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:32:42] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:32:42] ERROR: Sync failed (consecutive failures: 2)
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:32:42] Waiting 60 seconds before next sync...
+./robust_sync.sh: line 69: /root/.openclaw/workspace/sync/sync.lock: Permission denied
+./robust_sync.sh: line 70: /root/.openclaw/workspace/sync/sync.pid: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:33:42] === Starting sync cycle ===
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:33:42] ERROR: Not a git repository: /root/.openclaw/workspace
+./robust_sync.sh: line 105: /root/.openclaw/workspace/sync/sync_state.json: Permission denied
+tee: /root/.openclaw/workspace/logs/sync_errors.log: Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:33:42] ERROR: Sync failed (consecutive failures: 3)
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:33:42] Sending alert: Sync has failed 3 times in a row
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:33:44] Waiting 60 seconds before next sync...
+tee: /root/.openclaw/workspace/logs/sync.log: Permission denied
+[2026-02-18 02:34:44] Cleaning up...
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.lock': Permission denied
+rm: cannot remove '/root/.openclaw/workspace/sync/sync.pid': Permission denied
