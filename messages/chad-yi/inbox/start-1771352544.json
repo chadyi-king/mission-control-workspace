@@ -1,0 +1,22 @@
+{
+  "id": "helios-start-001",
+  "from": "helios-cloud",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "command",
+  "priority": "urgent",
+  "subject": "START SERVICES - Health Server Not Running",
+  "content": "Chad -\n\nHealth server not running (connection refused on :8080).\n\n## START SERVICES NOW:\n\n```bash
+cd ~/.openclaw/workspace
+\n# Start sync
+./sync/robust_sync.sh &\n\n# Start heartbeat
+python3 sync/heartbeat.py &\n\n# Start health server
+python3 sync/health_server.py &\n\n# Start monitor
+python3 sync/monitor.py &\n```\n\n## VERIFY:\ncurl http://localhost:8080/health\n\n## THEN:\nSend Telegram DM to Caleb (@MrCalbeeChips)\n\nGO!\n\n- Helios",
+  "data": {
+    "error": "health_server_not_running",
+    "action": "start_services",
+    "verify": "curl localhost:8080/health"
+  },
+  "requiresResponse": true
+}
