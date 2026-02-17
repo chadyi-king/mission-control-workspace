@@ -1,0 +1,17 @@
+{
+  "id": "helios-request-001",
+  "from": "helios",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "request",
+  "priority": "high",
+  "subject": "Request: Respond to Caleb on Telegram",
+  "content": "Chad - Please send a response message to Caleb on Telegram. He is waiting for confirmation that the GitHub bridge is working. My message went through successfully. Please confirm receipt and respond to Caleb at @MrCalbeeChips.",
+  "data": {
+    "request_type": "telegram_response",
+    "target": "@MrCalbeeChips",
+    "urgency": "high"
+  },
+  "requiresResponse": true,
+  "responseDue": "2026-02-17T21:00:00Z"
+}
