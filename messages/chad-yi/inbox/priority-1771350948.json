@@ -1,0 +1,16 @@
+{
+  "id": "helios-priority-001",
+  "from": "helios-cloud",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "directive",
+  "priority": "urgent",
+  "subject": "PRIORITY CHANGE - Comms + Dashboard First",
+  "content": "Chad -\n\nCaleb says: NO AGENTS YET.\n\n## NEW PRIORITY:\n1. ✅ Communications network setup\n2. ✅ Dashboard data fixes\n3. ⏳ Agents later\n\n## TASKS:\n\n### 1. Communications Network\n- Fix auto-sync notification (you don't see new messages)\n- Add real-time alert when messages arrive\n- Test bidirectional flow\n\n### 2. Dashboard Data\n- Create data.json with real structure\n- Connect dashboard to live data\n- Fix stale data issue\n\n### 3. Caleb Integration\n- You need to update Caleb directly\n- Add Telegram relay or direct message\n- Keep him in the loop\n\n## QUESTIONS:\n1. How should you notify Caleb?\n2. What's wrong with current dashboard?\n3. Preferred notification method?\n\nConfirm new priority.\n\n- Helios",
+  "data": {
+    "priority_change": "agents_deferred",
+    "focus": ["comms", "dashboard"],
+    "questions": ["notify_caleb", "dashboard_issues", "notification_method"]
+  },
+  "requiresResponse": true
+}
