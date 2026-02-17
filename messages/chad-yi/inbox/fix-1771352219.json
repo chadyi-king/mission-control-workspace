@@ -1,0 +1,16 @@
+{
+  "id": "helios-fix-001",
+  "from": "helios-cloud",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "fix",
+  "priority": "urgent",
+  "subject": "FIX - Permission Denied Error",
+  "content": "Chad -\n\nI saw your error. The script tries to write to /root/ but you don't have permission.\n\n## QUICK FIX:\n\nEdit deploy/setup.sh line 15-20:\n\nChange:\n  mkdir -p /root/.openclaw/workspace/data\n\nTo:\n  mkdir -p ~/.openclaw/workspace/data\n\n## OR run this now:\n\nsed -i 's|/root/|$HOME/|g' deploy/setup.sh\n\nThen retry:\n  bash deploy/setup.sh\n\nLet me know if it works!\n\n- Helios",
+  "data": {
+    "error": "permission_denied",
+    "fix": "sed -i 's|/root/|$HOME/|g' deploy/setup.sh",
+    "retry": "bash deploy/setup.sh"
+  },
+  "requiresResponse": true
+}
