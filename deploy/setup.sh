@@ -6,7 +6,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_DIR="/root/.openclaw/workspace"
+WORKSPACE_DIR="/home/chad-yi/.openclaw/workspace"
 SYNC_DIR="$WORKSPACE_DIR/sync"
 DEPLOY_DIR="$WORKSPACE_DIR/deploy"
 LOG_DIR="$WORKSPACE_DIR/logs"
