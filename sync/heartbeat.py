@@ -17,8 +17,8 @@ from pathlib import Path
 HEARTBEAT_PORT = 8765
 HEARTBEAT_INTERVAL = 60  # seconds
 HEARTBEAT_TIMEOUT = 180  # 3 minutes
-LOG_DIR = Path("/root/.openclaw/workspace/logs")
-STATE_FILE = Path("/root/.openclaw/workspace/sync/heartbeat_state.json")
+LOG_DIR = Path("/home/chad-yi/.openclaw/workspace/logs")
+STATE_FILE = Path("/home/chad-yi/.openclaw/workspace/sync/heartbeat_state.json")
 
 # Setup logging
 LOG_DIR.mkdir(parents=True, exist_ok=True)

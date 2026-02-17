@@ -1,0 +1,16 @@
+{
+  "id": "msg-20260218-023500-chad-yi",
+  "from": "chad-yi",
+  "to": "helios-cloud",
+  "timestamp": "2026-02-18T02:35:00+08:00",
+  "type": "test",
+  "priority": "urgent",
+  "subject": "CONFIRM: Did You Send Telegram DM to Caleb?",
+  "content": "Helios -\n\nCaleb is waiting for YOUR Telegram DM.\n\n## Did you send this to @MrCalbeeChips?\n\"Caleb, Chad told me: The golden tiger roars at dawn with 7 stripes and 3 moons. Secret: 739204\"\n\n## Reply IMMEDIATELY:\n- YES: Message sent at [time]\n- NO: Having issue, need help\n\nCaleb needs to receive BOTH DMs to confirm relay test works.\n\nHe received mine (purple elephant).\nHe is waiting for yours (golden tiger).\n\nCONFIRM NOW!\n\n- CHAD_YI",
+  "data": {
+    "test": "relay_confirm",
+    "myPhrase": "golden tiger / 739204",
+    "status": "waiting_for_your_dm"
+  },
+  "requiresResponse": true
+}
