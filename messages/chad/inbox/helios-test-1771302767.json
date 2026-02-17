@@ -1,0 +1,15 @@
+{
+  "id": "helios-system-test-001",
+  "from": "helios",
+  "to": "chad",
+  "type": "system_test",
+  "payload": {
+    "content": "Hello Chad - Helios system is online and testing communication bridge",
+    "timestamp": "2026-02-17T12:35:00+08:00",
+    "status": "test",
+    "redis_available": false,
+    "github_bridge": "active"
+  },
+  "timestamp": "2026-02-17T12:35:00+08:00",
+  "ack": false
+}
