@@ -1,0 +1,38 @@
+[Unit]
+Description=Helios-Chad Sync Monitor
+After=network-online.target sync.service heartbeat.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+
+# Environment
+Environment="NODE_NAME=helios"
+Environment="PYTHONUNBUFFERED=1"
+Environment="CALEB_TELEGRAM_ID=512366713"
+
+# Main monitor script
+ExecStart=/usr/bin/python3 /root/.openclaw/workspace/sync/monitor.py --daemon
+
+# Graceful shutdown
+TimeoutStopSec=10
+KillSignal=SIGTERM
+
+# Restart policy
+Restart=always
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=5
+
+# Logging
+StandardOutput=append:/root/.openclaw/workspace/logs/monitor_service.log
+StandardError=append:/root/.openclaw/workspace/logs/monitor_service_errors.log
+
+# Resource limits
+MemoryMax=128M
+TasksMax=10
+
+[Install]
+WantedBy=multi-user.target

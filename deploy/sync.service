@@ -1,0 +1,46 @@
+[Unit]
+Description=Helios-Chad Robust Sync Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+
+# Environment
+Environment="NODE_NAME=helios"
+Environment="PYTHONUNBUFFERED=1"
+Environment="LOG_DIR=/root/.openclaw/workspace/logs"
+
+# Main sync script
+ExecStart=/root/.openclaw/workspace/sync/robust_sync.sh
+
+# Graceful shutdown
+ExecStop=/root/.openclaw/workspace/sync/robust_sync.sh --stop
+TimeoutStopSec=30
+KillSignal=SIGTERM
+
+# Restart policy
+Restart=always
+RestartSec=10
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Resource limits
+MemoryMax=512M
+MemorySwapMax=0
+TasksMax=50
+
+# Logging
+StandardOutput=append:/root/.openclaw/workspace/logs/sync_service.log
+StandardError=append:/root/.openclaw/workspace/logs/sync_service_errors.log
+
+# Security
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/root/.openclaw/workspace
+
+[Install]
+WantedBy=multi-user.target

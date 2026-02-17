@@ -1,0 +1,37 @@
+[Unit]
+Description=Helios-Chad Health Server
+After=network-online.target sync.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+
+# Environment
+Environment="NODE_NAME=helios"
+Environment="PYTHONUNBUFFERED=1"
+
+# Main health server
+ExecStart=/usr/bin/python3 /root/.openclaw/workspace/sync/health_server.py --port 8080
+
+# Graceful shutdown
+TimeoutStopSec=10
+KillSignal=SIGTERM
+
+# Restart policy
+Restart=always
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=5
+
+# Logging
+StandardOutput=append:/root/.openclaw/workspace/logs/health_service.log
+StandardError=append:/root/.openclaw/workspace/logs/health_service_errors.log
+
+# Resource limits
+MemoryMax=128M
+TasksMax=10
+
+[Install]
+WantedBy=multi-user.target

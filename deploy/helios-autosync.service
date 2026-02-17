@@ -1,0 +1,37 @@
+[Unit]
+Description=Helios Auto-Sync Service
+Documentation=https://github.com/chad-yi/helios-sync
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+Environment=PYTHONPATH=/root/.openclaw/workspace
+Environment=HELIOS_STATE_DIR=/root/.openclaw/workspace/state
+Environment=HELIOS_WORKSPACE_DIR=/root/.openclaw/workspace
+Environment=HELIOS_POLL_INTERVAL=30
+Environment=HELIOS_PUSH_DEBOUNCE=5
+Environment=HELIOS_WEBHOOK_PORT=8000
+Environment=HELIOS_ENABLE_PULL=true
+Environment=HELIOS_ENABLE_PUSH=true
+Environment=HELIOS_ENABLE_WEBHOOK=true
+# Add these via systemctl edit helios-autosync:
+# Environment=GITHUB_TOKEN=your_token_here
+# Environment=GITHUB_WEBHOOK_SECRET=your_secret_here
+# Environment=HELIOS_GITHUB_REPO=chad-yi/helios-sync
+ExecStart=/usr/bin/python3 /root/.openclaw/workspace/services/autosync.py
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=helios-autosync
+
+# Security hardening (adjust as needed)
+NoNewPrivileges=false
+ProtectSystem=no
+ProtectHome=no
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,38 @@
+[Unit]
+Description=Helios-Chad Heartbeat Service
+After=network-online.target sync.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+
+# Environment
+Environment="NODE_NAME=helios"
+Environment="PYTHONUNBUFFERED=1"
+Environment="CHAD_HOST=chad"
+
+# Main heartbeat script
+ExecStart=/usr/bin/python3 /root/.openclaw/workspace/sync/heartbeat.py --node helios
+
+# Graceful shutdown
+TimeoutStopSec=10
+KillSignal=SIGTERM
+
+# Restart policy
+Restart=always
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=5
+
+# Logging
+StandardOutput=append:/root/.openclaw/workspace/logs/heartbeat_service.log
+StandardError=append:/root/.openclaw/workspace/logs/heartbeat_service_errors.log
+
+# Resource limits
+MemoryMax=128M
+TasksMax=10
+
+[Install]
+WantedBy=multi-user.target
