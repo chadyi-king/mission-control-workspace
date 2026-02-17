@@ -184,9 +184,74 @@ echo ""
 #-------------------------------------------------------------------------------
 # Summary
 #-------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Start Services
+#-------------------------------------------------------------------------------
+echo ""
+echo "Starting services..."
+echo ""
+
+# Kill any existing instances
+pkill -f "robust_sync.sh" 2>/dev/null || true
+pkill -f "heartbeat.py" 2>/dev/null || true
+pkill -f "health_server.py" 2>/dev/null || true
+pkill -f "monitor.py" 2>/dev/null || true
+sleep 1
+
+# Start sync
+echo "Starting sync service..."
+nohup "$SYNC_DIR/robust_sync.sh" > "$LOG_DIR/sync.log" 2>&1 &
+SYNC_PID=$!
+echo "  PID: $SYNC_PID"
+
+# Start heartbeat
+echo "Starting heartbeat service..."
+nohup python3 "$SYNC_DIR/heartbeat.py" > "$LOG_DIR/heartbeat.log" 2>&1 &
+HEARTBEAT_PID=$!
+echo "  PID: $HEARTBEAT_PID"
+
+# Start health server
+echo "Starting health server..."
+nohup python3 "$SYNC_DIR/health_server.py" > "$LOG_DIR/health_server.log" 2>&1 &
+HEALTH_PID=$!
+echo "  PID: $HEALTH_PID"
+
+# Start monitor
+echo "Starting monitor..."
+nohup python3 "$SYNC_DIR/monitor.py" > "$LOG_DIR/monitor.log" 2>&1 &
+MONITOR_PID=$!
+echo "  PID: $MONITOR_PID"
+
+sleep 2
+
+echo ""
+echo "✓ Services started"
+echo ""
+
+# Verify health endpoint
+echo "Verifying health endpoint..."
+for i in {1..5}; do
+    if curl -s http://localhost:8080/health > /dev/null 2>&1; then
+        echo "✓ Health server responding"
+        break
+    fi
+    sleep 1
+done
+
+echo ""
+
+#-------------------------------------------------------------------------------
+# Summary
+#-------------------------------------------------------------------------------
 echo "==================================="
 echo "Setup Complete!"
 echo "==================================="
+echo ""
+echo "✓ Services RUNNING:"
+echo "  Sync:        PID $SYNC_PID"
+echo "  Heartbeat:   PID $HEARTBEAT_PID"
+echo "  Health:      PID $HEALTH_PID"
+echo "  Monitor:     PID $MONITOR_PID"
 echo ""
 echo "Files created:"
 echo "  Sync scripts:    $SYNC_DIR/"
