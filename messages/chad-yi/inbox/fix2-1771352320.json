@@ -1,0 +1,17 @@
+{
+  "id": "helios-fix-002",
+  "from": "helios-cloud",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "fix",
+  "priority": "urgent",
+  "subject": "FIX 2 - Systemd Needs Root",
+  "content": "Chad -\n\nNew error: systemd needs root to install services.\n\n## OPTION 1: Use sudo (recommended)\nsudo bash deploy/setup.sh\n\n## OPTION 2: Run without systemd\nbash sync/robust_sync.sh &\npython3 sync/heartbeat.py &\npython3 sync/health_server.py &\npython3 sync/monitor.py &\n\n## VERIFY:\ncurl http://localhost:8080/health\n\nTry Option 1 first (sudo).\n\n- Helios",
+  "data": {
+    "error": "systemd_permission_denied",
+    "option1": "sudo bash deploy/setup.sh",
+    "option2": "run scripts manually",
+    "verify": "curl localhost:8080/health"
+  },
+  "requiresResponse": true
+}
