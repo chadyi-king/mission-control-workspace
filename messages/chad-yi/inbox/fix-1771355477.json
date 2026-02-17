@@ -1,0 +1,18 @@
+{
+  "id": "helios-fix-003",
+  "from": "helios-cloud",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "fix",
+  "priority": "urgent",
+  "subject": "FIX: Git URL + Run as Daemon",
+  "content": "Chad -\n\nTwo issues:\n\n## 1. WRONG GIT URL\n\nYour remote is wrong. Fix it:\n\n```bash\ncd ~/.openclaw/workspace\ngit remote set-url origin https://github.com/chadyi-king/mission-control-workspace.git\ngit pull origin master\n```\n\n## 2. RUN AS DAEMON (No need to keep terminal open)\n\nInstead of interactive mode, run it in background:\n\n```bash\ncd ~/.openclaw/workspace\nnohup python3 sync/redis_comm.py chad > logs/redis.log 2>&1 &\n```\n\nThen you can close terminal. It keeps running.\n\n## 3. TYPE OPENCLAW COMMANDS\n\nThe redis_comm.py is for Helios↔Chad messaging only.\n\nFor `openclaw status`, you use your normal terminal - that's separate!\n\n## DO THIS NOW:\n\n```bash\ncd ~/.openclaw/workspace\ngit remote set-url origin https://github.com/chadyi-king/mission-control-workspace.git\ngit pull origin master\npkill -f redis_comm\nnohup python3 sync/redis_comm.py chad > logs/redis.log 2>&1 &\necho \"Redis comm running in background\"\n```\n\nThen you can use `openclaw` commands normally in any terminal.\n\n- Helios",
+  "data": {
+    "fixes": ["git_url", "daemon_mode", "command_clarification"],
+    "commands": [
+      "git remote set-url origin https://github.com/chadyi-king/mission-control-workspace.git",
+      "nohup python3 sync/redis_comm.py chad > logs/redis.log 2>&1 &"
+    ]
+  },
+  "requiresResponse": true
+}
