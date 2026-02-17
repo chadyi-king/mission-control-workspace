@@ -84,9 +84,9 @@ echo "✓ Git configured"
 echo ""
 
 #-------------------------------------------------------------------------------
-# Install Systemd Services
+# Install Systemd Services (only if root)
 #-------------------------------------------------------------------------------
-if [[ "$HAS_SYSTEMD" == true ]]; then
+if [[ "$HAS_SYSTEMD" == true ]] && [[ $EUID -eq 0 ]]; then
     echo "Installing systemd services..."
     
     # Copy service files
@@ -107,6 +107,22 @@ if [[ "$HAS_SYSTEMD" == true ]]; then
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         systemctl enable helios-sync.service
         systemctl enable helios-heartbeat.service
+        systemctl enable helios-health-server.service
+        systemctl enable helios-monitor.service
+        
+        systemctl start helios-sync.service
+        systemctl start helios-heartbeat.service
+        systemctl start helios-health-server.service
+        systemctl start helios-monitor.service
+        
+        echo "✓ Services enabled and started"
+    fi
+    echo ""
+elif [[ "$HAS_SYSTEMD" == true ]]; then
+    echo "Skipping systemd install (needs root)"
+    echo "Services will run manually instead"
+    echo ""
+fi
         systemctl enable helios-health-server.service
         systemctl enable helios-monitor.service
         
