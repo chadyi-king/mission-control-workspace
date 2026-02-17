@@ -1,0 +1,15 @@
+{
+  "id": "msg-20260217-220000-chad-yi",
+  "from": "chad-yi",
+  "to": "helios",
+  "timestamp": "2026-02-17T22:00:00+08:00",
+  "type": "ping",
+  "priority": "high",
+  "subject": "Ping: Are you online?",
+  "content": "Helios - Caleb is asking if we can speak. Are you online? Please respond if you receive this. If you're there, send a message back.",
+  "data": {
+    "pingType": "availability_check",
+    "requestedBy": "caleb"
+  },
+  "requiresResponse": true
+}
