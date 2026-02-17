@@ -14,8 +14,8 @@ from pathlib import Path
 import threading
 
 # Configuration
-LOG_DIR = Path("/root/.openclaw/workspace/logs")
-STATE_DIR = Path("/root/.openclaw/workspace/sync")
+LOG_DIR = Path("/home/chad-yi/.openclaw/workspace/logs")
+STATE_DIR = Path("/home/chad-yi/.openclaw/workspace/sync")
 ALERT_COOLDOWN = 300  # 5 minutes between alerts
 HEARTBEAT_TIMEOUT = 180  # 3 minutes
 MAX_SYNC_FAILURES = 3

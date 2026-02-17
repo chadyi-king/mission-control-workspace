@@ -15,8 +15,8 @@ import logging
 
 # Configuration
 HEALTH_PORT = 8080
-STATE_DIR = Path("/root/.openclaw/workspace/sync")
-LOG_DIR = Path("/root/.openclaw/workspace/logs")
+STATE_DIR = Path("/home/chad-yi/.openclaw/workspace/sync")
+LOG_DIR = Path("/home/chad-yi/.openclaw/workspace/logs")
 
 # Setup logging
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -243,7 +243,7 @@ class HealthHandler(BaseHTTPRequestHandler):
         }
         
         try:
-            repo_path = Path("/root/.openclaw/workspace")
+            repo_path = Path("/home/chad-yi/.openclaw/workspace")
             
             # Get current branch
             result = subprocess.run(

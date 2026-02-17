@@ -13,9 +13,9 @@ from datetime import datetime
 from pathlib import Path
 
 # Configuration
-LOG_DIR = Path("/root/.openclaw/workspace/logs")
-CONFLICT_DIR = Path("/root/.openclaw/workspace/sync/conflicts")
-BACKUP_DIR = Path("/root/.openclaw/workspace/sync/backups")
+LOG_DIR = Path("/home/chad-yi/.openclaw/workspace/logs")
+CONFLICT_DIR = Path("/home/chad-yi/.openclaw/workspace/sync/conflicts")
+BACKUP_DIR = Path("/home/chad-yi/.openclaw/workspace/sync/backups")
 
 # Setup logging
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -31,7 +31,7 @@ logger = logging.getLogger("conflict_resolver")
 
 
 class ConflictResolver:
-    def __init__(self, repo_path="/root/.openclaw/workspace"):
+    def __init__(self, repo_path="/home/chad-yi/.openclaw/workspace"):
         self.repo_path = Path(repo_path)
         self.conflict_dir = CONFLICT_DIR
         self.backup_dir = BACKUP_DIR

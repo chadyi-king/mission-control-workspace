@@ -10,7 +10,7 @@ set -o pipefail
 # Configuration
 #-------------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKSPACE_DIR="/root/.openclaw/workspace"
+WORKSPACE_DIR="/home/chad-yi/.openclaw/workspace"
 LOG_DIR="$WORKSPACE_DIR/logs"
 SYNC_DIR="$WORKSPACE_DIR/sync"
 STATE_DIR="$SYNC_DIR"
