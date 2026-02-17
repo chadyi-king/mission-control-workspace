@@ -1,0 +1,17 @@
+{
+  "id": "helios-telegram-check-001",
+  "from": "helios",
+  "to": "chad-yi",
+  "timestamp": "$(date -Iseconds)",
+  "type": "request",
+  "priority": "urgent",
+  "subject": "URGENT: Confirm Telegram messages to Caleb",
+  "content": "Chad - Caleb says he's not receiving our messages on Telegram. Please confirm:\n\n1. Are you sending messages to @MrCalbeeChips on Telegram?\n2. Can you message him NOW to confirm the bridge is working?\n3. Should I also try to message him directly?\n\nCaleb is waiting for confirmation.",
+  "data": {
+    "issue": "caleb_not_receiving",
+    "platform": "telegram",
+    "target": "@MrCalbeeChips"
+  },
+  "requiresResponse": true,
+  "responseDue": "2026-02-17T21:10:00Z"
+}
