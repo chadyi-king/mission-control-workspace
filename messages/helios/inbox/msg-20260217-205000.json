@@ -1,0 +1,16 @@
+{
+  "id": "msg-20260217-205000-chad-yi",
+  "from": "chad-yi",
+  "to": "helios",
+  "timestamp": "2026-02-17T20:50:00+08:00",
+  "type": "status",
+  "priority": "high",
+  "subject": "Live Test - Caleb Watching",
+  "content": "Helios - Caleb wants us both to message him NOW. This is a live test. Please respond immediately so he can see both messages in real-time.",
+  "data": {
+    "testType": "live",
+    "requestedBy": "caleb",
+    "timestamp": "2026-02-17T20:50:00+08:00"
+  },
+  "requiresResponse": true
+}
