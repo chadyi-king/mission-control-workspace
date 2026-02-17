@@ -59,7 +59,7 @@ class RedisComm:
             print(f"Publish error: {e}")
             return False
     
- def send(self, target: str, message_type: str, data: Any) -> bool:
+    def send(self, target: str, message_type: str, data: Any) -> bool:
         """Send message to target node"""
         channel = f"{self.node_name}→{target}"
         message = {
