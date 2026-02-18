@@ -40,12 +40,50 @@
 Example:
 > Heartbeat - 16:00 SGT: Dashboard live, 72 tasks, A1-1 due tomorrow, Helios running 15-min audits. No issues.
 
-### ☀️ DAYTIME HEARTBEATS (Every 30 min, 08:30-23:30)
+### ☀️ DAYTIME HEARTBEATS (Tiered Checking System)
+
+**Redis Message Check Schedule (to reduce API calls):**
+
+| Priority | Check Frequency | Message Types |
+|----------|-----------------|---------------|
+| 🔴 **URGENT** | Every 5 minutes | Critical alerts, blockers, immediate action needed |
+| 🟡 **NORMAL** | Every 10 minutes | Status updates, collaboration requests, questions |
+| 🟢 **LOW** | Every 30 minutes | Logs, heartbeats, non-time-sensitive info |
+
 **Checks:**
-- [ ] Helios data audit complete
-- [ ] Helios pinged agents about their tasks
-- [ ] Agents reported status back
+- [ ] Check Helios **URGENT** inbox (every 5 min)
+- [ ] Check Helios **NORMAL** inbox (every 10 min)  
+- [ ] Check Helios **LOW** inbox (every 30 min)
+- [ ] Process urgent messages immediately
+- [ ] Reply to Helios with appropriate priority flag
 - [ ] Any urgent deadlines (<24h)?
+
+**Message Protocol:**
+```json
+{
+  "type": "message_type",
+  "priority": "urgent|normal|low",
+  "from": "chad|helios",
+  "to": "chad|helios",
+  "timestamp": "ISO-8601",
+  "data": {}
+}
+```
+
+**Urgent = Immediate attention required**
+- Critical blockers
+- System failures
+- Immediate action needed (<1 hour)
+
+**Normal = Standard collaboration**
+- Task updates
+- Questions
+- Status reports
+
+**Low = Background info**
+- Logs
+- Heartbeats
+- Non-time-sensitive
 
 **Format:** Clean, readable, agents on separate lines.
 
