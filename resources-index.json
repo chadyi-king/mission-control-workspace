@@ -1,0 +1,28 @@
+{
+  "schema": "mission.control.resources.v1",
+  "lastUpdated": "2026-02-19T07:36:00+08:00",
+  "description": "Resource index for Mission Control dashboard",
+  "folders": {
+    "agents": {
+      "path": "./resources/agents",
+      "description": "Agent-specific resources and configurations",
+      "items": []
+    },
+    "documents": {
+      "path": "./resources/documents",
+      "description": "Documentation and reference materials",
+      "items": []
+    },
+    "external": {
+      "path": "./resources/external",
+      "description": "External service configurations and credentials",
+      "items": []
+    },
+    "tasks": {
+      "path": "./resources/tasks",
+      "description": "Task-related resources and templates",
+      "items": []
+    }
+  },
+  "total_resources": 0
+}
