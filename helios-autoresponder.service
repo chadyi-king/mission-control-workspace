@@ -1,0 +1,16 @@
+[Unit]
+Description=Helios Auto-Responder
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace/mission-control-workspace
+Environment=PYTHONPATH=/root/.openclaw/workspace/mission-control-workspace
+Environment=UPSTASH_REDIS_URL=redis://default:AVd9AAIjcDE2ZjE2MzQwNjI0NzE0ZDU4OWY2MjRiYzQwMjE0NjU0MHAxMA@natural-mutt-49849.upstash.io:6379
+ExecStart=/usr/bin/python3 /root/.openclaw/workspace/mission-control-workspace/helios_auto_responder.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

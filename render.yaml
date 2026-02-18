@@ -1,0 +1,31 @@
+# Render.com Configuration
+# Deploy this to Render for 24/7 background processing
+
+services:
+  # Background Worker - Always running, listens to Redis
+  - type: worker
+    name: helios-background-worker
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 render_worker.py
+    envVars:
+      - key: PYTHONPATH
+        value: /app
+    plan: free
+
+  # Cron Job - Runs every minute
+  - type: cron
+    name: helios-health-check
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 render_cron.py
+    schedule: "*/1 * * * *"  # Every minute
+    plan: free
+
+  # Web Service - Dashboard API (optional)
+  - type: web
+    name: helios-dashboard
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 -m http.server 10000
+    plan: free

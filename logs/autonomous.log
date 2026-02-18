@@ -1,0 +1,15 @@
+======================================================================
+🤖 AUTONOMOUS HELIOS AGENT
+======================================================================
+This agent ACTUALLY DOES THINGS, not just logs.
+Commands I can execute:
+  • spawn_agent — Create new agent configs
+  • run_command — Execute shell commands
+  • update_dashboard — Modify data.json
+  • respond — Send messages back via Redis
+======================================================================
+
+[helios] Listening on: ['chad', 'broadcast']
+[AUTONOMOUS] Listening for commands...
+[MESSAGE] From helios: Autonomous Helios agent started and ready for commands
+[DECISION] Received message from helios
