@@ -168,6 +168,19 @@ class TelegramMonitor:
         async def handler(event):
             await self.handle_message(event)
         
+        # Read recent messages on startup (last 20)
+        logger.info("Reading recent messages from channel...")
+        try:
+            message_count = 0
+            async for message in self.client.iter_messages(self.channel_id, limit=20):
+                if message.text:
+                    logger.info(f"Recent message: {message.text[:100]}...")
+                    self.message_handler(message.text, msg_type='recent')
+                    message_count += 1
+            logger.info(f"Read {message_count} recent messages")
+        except Exception as e:
+            logger.error(f"Error reading recent messages: {e}")
+        
         logger.info("Telegram monitor started!")
         logger.info(f"Monitoring: {TARGET_CHANNEL}")
         

@@ -9,6 +9,10 @@ import time
 import json
 import logging
 from datetime import datetime
+import pytz
+
+# Set timezone to Singapore
+os.environ['TZ'] = 'Asia/Singapore'
 
 # Setup logging
 logging.basicConfig(
