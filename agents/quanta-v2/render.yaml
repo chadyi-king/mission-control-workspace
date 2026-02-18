@@ -1,0 +1,20 @@
+services:
+  - type: worker
+    name: quanta-v2
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OANDA_API_TOKEN
+        sync: false
+      - key: OANDA_ACCOUNT_ID
+        value: "001-003-8520002-001"
+      - key: OANDA_ENVIRONMENT
+        value: practice
+      - key: REDIS_URL
+        sync: false
+      - key: RISK_AMOUNT
+        value: "20.0"
+    autoDeploy: true
