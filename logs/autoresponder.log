@@ -1,0 +1,26 @@
+============================================================
+🚀 HELIOS AUTO-RESPONDER
+============================================================
+[AUTO-RESPONDER] Starting...
+[AUTO-RESPONDER] Connecting to Redis...
+[helios] Listening on: ['chad', 'broadcast']
+[AUTO-RESPONDER] ✅ Listening for messages...
+[AUTO-RESPONDER] Press Ctrl+C to stop
+------------------------------------------------------------
+[AUTO-RESPONDER] Message from helios: 
+============================================================
+🚀 HELIOS AUTO-RESPONDER
+============================================================
+[AUTO-RESPONDER] Starting...
+[AUTO-RESPONDER] Connecting to Redis...
+[helios] Listening on: ['chad', 'broadcast']
+[AUTO-RESPONDER] ✅ Listening for messages...
+[AUTO-RESPONDER] Press Ctrl+C to stop
+------------------------------------------------------------
+[AUTO-RESPONDER] Message from helios: 
+[AUTO-RESPONDER] Ping from chad
+[AUTO-RESPONDER] Ping from chad
+[helios] Unhandled: status
+[AUTO-RESPONDER] Ping from chad
+[helios] Unhandled: status
+[AUTO-RESPONDER] Ping from chad

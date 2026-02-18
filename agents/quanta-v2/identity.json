@@ -1,0 +1,11 @@
+{
+  "id": "QUANTA-V2",
+  "name": "Quanta v2",
+  "role": "Trading Bot",
+  "status": "initializing",
+  "location": "cloud",
+  "capabilities": ["trading", "risk_management", "oanda_api", "signal_processing", "learning"],
+  "parent": "HELIOS",
+  "created_by": "Caleb",
+  "created_date": "2026-02-19"
+}

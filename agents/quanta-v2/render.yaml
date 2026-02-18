@@ -1,0 +1,20 @@
+services:
+  - type: worker
+    name: quanta-v2
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: OANDA_API_TOKEN
+        value: "8d4ff0fbea2b109c515a956784596208-be028efcd5faae816357345ff32c3bac"
+      - key: OANDA_ACCOUNT_ID
+        value: "001-003-8520002-001"
+      - key: OANDA_ENVIRONMENT
+        value: live
+      - key: REDIS_URL
+        value: "redis://default:AYylAAIncDI4Y2EwM2YyNWM4ZDk0N2M4OTJmMmE3ODFiYjEwYWYzYnAyMzYwMDU@national-gar-36005.upstash.io:6379"
+      - key: RISK_AMOUNT
+        value: "20.0"
+    autoDeploy: true
