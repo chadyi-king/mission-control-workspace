@@ -54,7 +54,7 @@ SL_LOCK_ACTIVATION = 50  # Lock +20 pips at +50
 SL_LOCK_PROFIT = 20
 
 # Redis Settings
-REDIS_URL = os.getenv('REDIS_URL')
+REDIS_URL = os.getenv('REDIS_URL', 'redis://default:AYylAAIncDI4Y2EwM2YyNWM4ZDk0N2M4OTJmMmE3ODFiYjEwYWYzYnAyMzYwMDU@national-gar-36005.upstash.io:6379')
 CHANNEL_IN = 'callisto→quanta'
 CHANNEL_OUT = 'quanta→helios'
 
