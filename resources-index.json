@@ -1,28 +1,36 @@
 {
   "schema": "mission.control.resources.v1",
-  "lastUpdated": "2026-02-19T07:36:00+08:00",
-  "description": "Resource index for Mission Control dashboard",
+  "lastUpdated": "2026-02-19T09:42:00+08:00",
   "folders": {
-    "agents": {
-      "path": "./resources/agents",
-      "description": "Agent-specific resources and configurations",
-      "items": []
-    },
     "documents": {
-      "path": "./resources/documents",
-      "description": "Documentation and reference materials",
-      "items": []
+      "path": "/resources/documents",
+      "description": "Documentation and markdown files",
+      "files": []
     },
-    "external": {
-      "path": "./resources/external",
-      "description": "External service configurations and credentials",
-      "items": []
+    "images": {
+      "path": "/resources/images",
+      "description": "Screenshots, diagrams, and visual assets",
+      "files": []
     },
-    "tasks": {
-      "path": "./resources/tasks",
-      "description": "Task-related resources and templates",
-      "items": []
+    "scripts": {
+      "path": "/resources/scripts",
+      "description": "Automation and utility scripts",
+      "files": []
+    },
+    "data": {
+      "path": "/resources/data",
+      "description": "Data exports and backups",
+      "files": [
+        "data-BACKUP-20260219.json"
+      ]
+    },
+    "references": {
+      "path": "/resources/references",
+      "description": "Reference materials and guides",
+      "files": []
     }
   },
-  "total_resources": 0
+  "totalFiles": 1,
+  "indexByTag": {},
+  "indexByAgent": {}
 }
