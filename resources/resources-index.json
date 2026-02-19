@@ -1,24 +1,22 @@
 {
   "schema": "mission.control.resources.v1",
-  "lastUpdated": "2026-02-19T23:12:00+08:00",
-  "description": "Resource index for Mission Control dashboard",
-  "folders": {
-    "agents": {
-      "path": "./agents",
-      "description": "Agent-specific resources and configs"
-    },
-    "tasks": {
-      "path": "./tasks", 
-      "description": "Task attachments and deliverables"
-    },
-    "docs": {
-      "path": "./docs",
-      "description": "Documentation and reference materials"
-    },
-    "external": {
-      "path": "./external",
-      "description": "External service integrations"
-    }
+  "lastUpdated": "2026-02-20T01:06:00+08:00",
+  "resources": {
+    "documents": [],
+    "links": [],
+    "credentials": [],
+    "scripts": [],
+    "external_services": []
   },
-  "resources": []
+  "categories": {
+    "trading": [],
+    "writing": [],
+    "monitoring": [],
+    "infrastructure": []
+  },
+  "metadata": {
+    "total_resources": 0,
+    "last_added": null,
+    "last_accessed": null
+  }
 }
