@@ -1,0 +1,10 @@
+{
+  "message_id": "helios-test-all-channels-20260219",
+  "from": "helios",
+  "to": "chad-yi",
+  "type": "test",
+  "timestamp": "2026-02-19T05:45:00+08:00",
+  "content": {
+    "message": "HELLO CHAD - Testing file-based messaging. Please respond if you see this. Also check Redis chad-helios channel. - Helios"
+  }
+}
