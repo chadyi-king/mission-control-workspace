@@ -1,22 +1,24 @@
 {
-  "schema": "mission.control.resources.v1",
-  "lastUpdated": "2026-02-20T01:06:00+08:00",
-  "resources": {
-    "documents": [],
-    "links": [],
-    "credentials": [],
-    "scripts": [],
-    "external_services": []
-  },
+  "schema": "resources.index.v1",
+  "lastUpdated": "2026-02-20T01:16:00+08:00",
+  "description": "Index of external resources and references for Mission Control",
   "categories": {
-    "trading": [],
-    "writing": [],
-    "monitoring": [],
-    "infrastructure": []
+    "documentation": {
+      "description": "External documentation and guides",
+      "items": []
+    },
+    "apis": {
+      "description": "External API references and credentials",
+      "items": []
+    },
+    "tools": {
+      "description": "Third-party tools and services",
+      "items": []
+    },
+    "references": {
+      "description": "Useful reference materials",
+      "items": []
+    }
   },
-  "metadata": {
-    "total_resources": 0,
-    "last_added": null,
-    "last_accessed": null
-  }
+  "totalResources": 0
 }
