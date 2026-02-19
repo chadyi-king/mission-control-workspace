@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-20T02:12:00+08:00",
+  "description": "Resource index for Mission Control dashboard",
+  "resources": {
+    "documentation": [],
+    "assets": [],
+    "external": []
+  },
+  "categories": [
+    {
+      "id": "docs",
+      "name": "Documentation",
+      "path": "./docs/",
+      "description": "Project documentation and guides"
+    },
+    {
+      "id": "assets",
+      "name": "Assets",
+      "path": "./assets/",
+      "description": "Images, icons, and media files"
+    },
+    {
+      "id": "external",
+      "name": "External Links",
+      "path": "./external/",
+      "description": "External resources and references"
+    }
+  ]
+}
