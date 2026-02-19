@@ -1,6 +1,9 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from urllib.parse import urlparse
+
+from runtime_secrets import *
 
 
 CHANNEL_PIP_SIZE = {
@@ -26,6 +29,18 @@ def channel_pips_to_price(symbol: str, pips: float) -> float:
         return float(pips) * 0.0001
 
 
+def _build_redis_url() -> str:
+    try:
+        parsed = urlparse(UPSTASH_REDIS_REST_URL)
+        host = parsed.netloc
+        if not host:
+            raise RuntimeError("Invalid UPSTASH_REDIS_REST_URL")
+        default_redis = f"rediss://default:{UPSTASH_REDIS_REST_TOKEN}@{host}:6379"
+        return os.getenv("REDIS_URL", default_redis)
+    except Exception:
+        raise
+
+
 @dataclass(frozen=True)
 class Settings:
     telegram_api_id: int
@@ -48,33 +63,23 @@ class Settings:
         return "https://api-fxpractice.oanda.com"
 
 
-def _required_env(name: str) -> str:
-    try:
-        value = os.getenv(name, "").strip()
-        if not value:
-            raise RuntimeError(f"Missing required env var: {name}")
-        return value
-    except Exception:
-        raise
-
-
 def load_settings() -> Settings:
     try:
-        env = _required_env("OANDA_ENVIRONMENT").upper()
+        env = str(OANDA_ENVIRONMENT).upper()
         if env not in {"LIVE", "PRACTICE"}:
             raise RuntimeError("OANDA_ENVIRONMENT must be LIVE or PRACTICE")
         base = Path(__file__).resolve().parent
         (base / "logs").mkdir(exist_ok=True)
         return Settings(
-            telegram_api_id=int(_required_env("TELEGRAM_API_ID")),
-            telegram_api_hash=_required_env("TELEGRAM_API_HASH"),
-            telegram_phone=_required_env("TELEGRAM_PHONE"),
+            telegram_api_id=int(TELEGRAM_API_ID),
+            telegram_api_hash=str(TELEGRAM_API_HASH),
+            telegram_phone=str(TELEGRAM_PHONE),
             telegram_session_file=os.getenv("TELEGRAM_SESSION_FILE", str(base / "quanta_v3.session")),
             telegram_channel_name=os.getenv("TELEGRAM_CHANNEL_NAME", "🚀 CallistoFx Premium Channel 🚀"),
-            oanda_account_id=_required_env("OANDA_ACCOUNT_ID"),
-            oanda_api_key=_required_env("OANDA_API_KEY"),
+            oanda_account_id=str(OANDA_ACCOUNT_ID),
+            oanda_api_key=str(OANDA_API_KEY),
             oanda_environment=env,
-            redis_url=_required_env("REDIS_URL"),
+            redis_url=_build_redis_url(),
             heartbeat_seconds=int(os.getenv("QUANTA_HEARTBEAT_SECONDS", "5")),
             log_file=base / "logs" / "quanta.log",
             telegram_state_file=base / "telegram_state.json",

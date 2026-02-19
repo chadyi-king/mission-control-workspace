@@ -1,5 +1,6 @@
 import asyncio
 from collections import deque
+from typing import Optional
 
 from telethon import TelegramClient
 
@@ -16,14 +17,20 @@ class TelegramMonitor:
         self.log = logger
         self.parser = SignalParser()
         self.buffer = deque(maxlen=50)
-        self.client = TelegramClient(
-            settings.telegram_session_file,
-            settings.telegram_api_id,
-            settings.telegram_api_hash,
-            auto_reconnect=True,
-            connection_retries=None,
-            retry_delay=5,
-        )
+        self.client: Optional[TelegramClient] = None
+
+    def _build_client(self) -> TelegramClient:
+        try:
+            return TelegramClient(
+                self.settings.telegram_session_file,
+                self.settings.telegram_api_id,
+                self.settings.telegram_api_hash,
+                auto_reconnect=True,
+                connection_retries=None,
+                retry_delay=5,
+            )
+        except Exception:
+            raise
 
     async def _resolve_channel_id(self) -> int:
         try:
@@ -74,6 +81,7 @@ class TelegramMonitor:
 
     async def run_forever(self):
         try:
+            self.client = self._build_client()
             await self.client.start(phone=self.settings.telegram_phone)
             channel_id = await self._resolve_channel_id()
             await self._prime_buffer(channel_id)

@@ -1,6 +1,7 @@
 from telethon import TelegramClient, events
 
 from redis_backbone import RedisState
+from runtime_secrets import TELEGRAM_API_HASH, TELEGRAM_API_ID, TELEGRAM_PHONE
 from signal_parser import SignalParser
 from trade_manager import TradeManager
 
@@ -13,9 +14,9 @@ class TelegramListener:
         self.logger = logger
         self.parser = SignalParser()
         self.client = TelegramClient(
-            settings.telegram_session_file,
-            settings.telegram_api_id,
-            settings.telegram_api_hash,
+            "quanta_session",
+            TELEGRAM_API_ID,
+            TELEGRAM_API_HASH,
             auto_reconnect=True,
             connection_retries=None,
             retry_delay=5,
@@ -35,7 +36,7 @@ class TelegramListener:
 
     async def run(self) -> None:
         try:
-            await self.client.start(phone=self.settings.telegram_phone)
+            await self.client.start(phone=TELEGRAM_PHONE)
             channel_id = await self._resolve_channel_id()
 
             @self.client.on(events.NewMessage(chats=channel_id))
