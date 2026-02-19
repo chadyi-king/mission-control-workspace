@@ -1,27 +1,32 @@
 {
   "schema": "mission.control.resources.v1",
-  "lastUpdated": "2026-02-19T19:15:00+08:00",
+  "lastUpdated": "2026-02-20T03:15:00+08:00",
+  "description": "Resource index for Mission Control Dashboard",
   "folders": {
-    "documents": {
-      "path": "resources/documents",
-      "description": "Documentation and guides",
+    "agents": {
+      "path": "./resources/agents",
+      "description": "Agent-specific resources and configs",
+      "items": []
+    },
+    "external": {
+      "path": "./resources/external",
+      "description": "External service integrations",
       "items": []
     },
     "templates": {
-      "path": "resources/templates", 
-      "description": "Reusable templates",
+      "path": "./resources/templates",
+      "description": "Reusable templates for reports and docs",
       "items": []
     },
     "assets": {
-      "path": "resources/assets",
-      "description": "Images, icons, media",
-      "items": []
-    },
-    "references": {
-      "path": "resources/references",
-      "description": "Reference materials",
+      "path": "./resources/assets",
+      "description": "Static assets (images, icons, etc.)",
       "items": []
     }
   },
-  "total_items": 0
+  "indices": {
+    "by_type": {},
+    "by_agent": {},
+    "by_date": {}
+  }
 }
