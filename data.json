@@ -1,6 +1,6 @@
 {
   "schema": "mission.control.dashboard.v1",
-  "lastUpdated": "2026-02-20T02:03:00+08:00",
+  "lastUpdated": "2026-02-20T04:13:00+08:00",
   "system": {
     "status": "operational",
     "version": "1.0.0",
@@ -23,7 +23,7 @@
       "name": "Helios",
       "role": "Control Engineer / COO / Auditor",
       "status": "active",
-      "last_seen": "2026-02-20T02:03:00+08:00",
+      "last_seen": "2026-02-20T04:13:00+08:00",
       "location": "cloud",
       "capabilities": ["monitoring", "auditing", "routing"],
       "tasks_active": 0,
@@ -127,7 +127,7 @@
   },
   "health": {
     "dashboard_staleness_minutes": 0,
-    "last_audit": "2026-02-18T03:20:00+08:00",
+    "last_audit": "2026-02-20T04:13:00+08:00",
     "alerts": [],
     "warnings": [
       "QUANTA blocked: auth issues",

@@ -1,30 +1,25 @@
 {
-  "version": "1.0.0",
-  "lastUpdated": "2026-02-20T02:12:00+08:00",
-  "description": "Resource index for Mission Control dashboard",
-  "resources": {
-    "documentation": [],
-    "assets": [],
-    "external": []
-  },
-  "categories": [
-    {
-      "id": "docs",
-      "name": "Documentation",
-      "path": "./docs/",
-      "description": "Project documentation and guides"
+  "schema": "resources.index.v1",
+  "lastUpdated": "2026-02-20T05:35:00+08:00",
+  "description": "Central index for all external resources used by Mission Control",
+  "categories": {
+    "agents": {
+      "path": "./agents",
+      "description": "Agent-specific resources and configurations"
     },
-    {
-      "id": "assets",
-      "name": "Assets",
-      "path": "./assets/",
-      "description": "Images, icons, and media files"
+    "tasks": {
+      "path": "./tasks",
+      "description": "Task-related files and attachments"
     },
-    {
-      "id": "external",
-      "name": "External Links",
-      "path": "./external/",
-      "description": "External resources and references"
+    "external": {
+      "path": "./external",
+      "description": "External service integrations and APIs"
+    },
+    "docs": {
+      "path": "./docs",
+      "description": "Documentation and reference materials"
     }
-  ]
+  },
+  "resources": [],
+  "version": "1.0.0"
 }
