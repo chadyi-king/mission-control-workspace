@@ -1,32 +1,25 @@
 {
-  "version": "1.0.0",
-  "lastUpdated": "2026-02-20T09:31:00+08:00",
-  "updatedBy": "Helios",
-  "description": "Resource index for Mission Control dashboard - tracks external resources, links, and references",
-  "categories": {
-    "documentation": {
-      "name": "Documentation",
-      "description": "Project documentation and guides",
-      "items": []
+  "schema": "resources.index.v1",
+  "lastUpdated": "2026-02-20T09:51:00+08:00",
+  "description": "Index of external resources for Mission Control",
+  "resources": {
+    "github": {
+      "repo_url": "https://github.com/chadyi-king/mission-control-workspace",
+      "status": "active",
+      "last_sync": null
     },
-    "tools": {
-      "name": "Tools",
-      "description": "External tools and services",
-      "items": []
+    "redis": {
+      "host": "national-gar-36005.upstash.io",
+      "port": 6379,
+      "channels": ["chad-helios", "helios-chad", "urgent-alerts"],
+      "status": "connected"
     },
-    "references": {
-      "name": "References",
-      "description": "Reference materials and research",
-      "items": []
-    },
-    "assets": {
-      "name": "Assets",
-      "description": "Images, videos, and other media",
-      "items": []
+    "dashboard": {
+      "url": "https://mission-control-dashboard-hf0r.onrender.com/",
+      "status": "operational",
+      "last_check": null
     }
   },
-  "stats": {
-    "totalResources": 0,
-    "byCategory": {}
-  }
+  "files": [],
+  "notes": "Auto-generated during Phase 1 dashboard fixes"
 }
