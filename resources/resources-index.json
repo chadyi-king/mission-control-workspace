@@ -1,25 +1,28 @@
 {
-  "schema": "resources.index.v1",
-  "lastUpdated": "2026-02-20T05:35:00+08:00",
-  "description": "Central index for all external resources used by Mission Control",
+  "schema": "mission.control.resources.v1",
+  "lastUpdated": "2026-02-20T08:17:00+08:00",
+  "description": "Resource index for Mission Control dashboard",
   "categories": {
     "agents": {
       "path": "./agents",
-      "description": "Agent-specific resources and configurations"
+      "description": "Agent-specific resources and configurations",
+      "files": []
     },
     "tasks": {
-      "path": "./tasks",
-      "description": "Task-related files and attachments"
+      "path": "./tasks", 
+      "description": "Task attachments and documentation",
+      "files": []
     },
     "external": {
       "path": "./external",
-      "description": "External service integrations and APIs"
+      "description": "External service integrations and APIs",
+      "files": []
     },
-    "docs": {
-      "path": "./docs",
-      "description": "Documentation and reference materials"
+    "shared": {
+      "path": "./shared",
+      "description": "Shared resources across all agents",
+      "files": []
     }
   },
-  "resources": [],
-  "version": "1.0.0"
+  "total_resources": 0
 }
