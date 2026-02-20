@@ -1,25 +1,36 @@
 {
-  "schema": "resources.index.v1",
-  "lastUpdated": "2026-02-20T09:51:00+08:00",
-  "description": "Index of external resources for Mission Control",
-  "resources": {
-    "github": {
-      "repo_url": "https://github.com/chadyi-king/mission-control-workspace",
-      "status": "active",
-      "last_sync": null
+  "schema": "mission.control.resources.v1",
+  "lastUpdated": "2026-02-20T10:46:00+08:00",
+  "description": "Index of external resources and references for Mission Control",
+  "categories": {
+    "documentation": {
+      "description": "Project documentation and guides",
+      "items": []
     },
-    "redis": {
-      "host": "national-gar-36005.upstash.io",
-      "port": 6379,
-      "channels": ["chad-helios", "helios-chad", "urgent-alerts"],
-      "status": "connected"
+    "scripts": {
+      "description": "Utility scripts and automation tools",
+      "items": []
     },
-    "dashboard": {
-      "url": "https://mission-control-dashboard-hf0r.onrender.com/",
-      "status": "operational",
-      "last_check": null
+    "configs": {
+      "description": "Configuration files and templates",
+      "items": []
+    },
+    "assets": {
+      "description": "Images, icons, and visual assets",
+      "items": []
+    },
+    "data": {
+      "description": "Data exports and backups",
+      "items": [
+        {
+          "name": "data-BACKUP-20260220.json",
+          "type": "backup",
+          "created": "2026-02-20T10:46:00+08:00",
+          "description": "Pre-Phase 1 backup of data.json"
+        }
+      ]
     }
   },
-  "files": [],
-  "notes": "Auto-generated during Phase 1 dashboard fixes"
+  "total_items": 1,
+  "version": "1.0.0"
 }
