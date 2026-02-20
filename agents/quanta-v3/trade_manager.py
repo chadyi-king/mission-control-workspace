@@ -1,121 +1,74 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
-from config import CHANNEL_PIP_SIZE, channel_pips_to_price
 from oanda_client import OandaClient
-from redis_backbone import RedisState
-from risk_manager import RiskManager
 from signal_parser import ParsedSignal
 
 
 class TradeManager:
-    def __init__(self, oanda: OandaClient, state: RedisState):
+    def __init__(self, oanda: OandaClient):
         self.oanda = oanda
-        self.state = state
-        self.risk_manager = RiskManager(oanda, state)
 
-    def _entry_prices(self, signal: ParsedSignal) -> List[float]:
+    def compute_units(self, signal: ParsedSignal) -> Tuple[int, float, float]:
         try:
-            low, high = signal.entry_low, signal.entry_high
-            mid = (low + high) / 2
-            if signal.direction == "BUY":
-                return [low, mid, high]
-            return [high, mid, low]
+            sl_distance = abs(((signal.entry_low + signal.entry_high) / 2) - signal.stop_loss)
+            sl_pips = sl_distance * 100
+            pip_value_per_unit = 0.01
+            units = int(20 / (pip_value_per_unit * sl_pips)) if sl_pips > 0 else 0
+            expected_loss = units * pip_value_per_unit * sl_pips
+            return max(units, 0), sl_pips, expected_loss
         except Exception:
             raise
 
-    def execute_signal(self, signal: ParsedSignal, message_id: int) -> Dict:
+    def _tier_units(self, total_units: int) -> List[int]:
         try:
-            risk = self.risk_manager.resolve_risk()
-            entries = self._entry_prices(signal)
-            side = 1 if signal.direction == "BUY" else -1
+            first = int(total_units * 0.33)
+            second = int(total_units * 0.33)
+            third = total_units - first - second
+            return [first, second, third]
+        except Exception:
+            raise
 
-            anchor_entry = min(entries) if signal.direction == "BUY" else max(entries)
-            worst_entry = max(entries) if signal.direction == "BUY" else min(entries)
-            worst_distance = abs(worst_entry - signal.stop_loss)
-            if worst_distance <= 0:
-                raise RuntimeError("invalid worst-distance for risk")
+    def execute_three_tier(self, signal: ParsedSignal, message_id: int) -> Dict:
+        try:
+            total_units, sl_pips, expected_loss = self.compute_units(signal)
+            if total_units <= 0:
+                raise RuntimeError("Computed units <= 0")
+            if expected_loss > 30:
+                raise RuntimeError(f"Expected loss too high: {expected_loss:.2f}")
 
-            pip_size = self.oanda.get_pip_size(signal.symbol) or 0.0001
+            entry_high = signal.entry_high
+            entry_mid = (signal.entry_low + signal.entry_high) / 2
+            entry_low = signal.entry_low
+            _ = [entry_high, entry_mid, entry_low]
 
-            tp_price_targets = {
-                "tp1": anchor_entry + channel_pips_to_price(signal.symbol, 20) if signal.direction == "BUY" else anchor_entry - channel_pips_to_price(signal.symbol, 20),
-                "tp2": anchor_entry + channel_pips_to_price(signal.symbol, 40) if signal.direction == "BUY" else anchor_entry - channel_pips_to_price(signal.symbol, 40),
-                "tp3": anchor_entry + channel_pips_to_price(signal.symbol, 60) if signal.direction == "BUY" else anchor_entry - channel_pips_to_price(signal.symbol, 60),
-                "tp4": anchor_entry + channel_pips_to_price(signal.symbol, 80) if signal.direction == "BUY" else anchor_entry - channel_pips_to_price(signal.symbol, 80),
-                "tp5": anchor_entry + channel_pips_to_price(signal.symbol, 100) if signal.direction == "BUY" else anchor_entry - channel_pips_to_price(signal.symbol, 100),
-            }
-            tp_pip_targets = {k: abs(v - anchor_entry) / pip_size for k, v in tp_price_targets.items()}
-
-            tier_orders: List[Dict] = []
-            total_units = 0
-            total_expected_loss_sgd = 0.0
-
-            for idx, entry_price in enumerate(entries, start=1):
-                sizing = self.risk_manager.calculate_units_and_explain(
-                    symbol=signal.symbol,
-                    entry_price=entry_price,
-                    stop_loss=signal.stop_loss,
-                    risk_per_tier_sgd=risk.risk_per_tier_sgd,
-                )
-                units = int(sizing["units"])
-                placed = self.oanda.create_limit_order(
+            tiers = self._tier_units(total_units)
+            signed = 1 if signal.direction == "BUY" else -1
+            responses = []
+            for idx, units in enumerate(tiers, start=1):
+                if units <= 0:
+                    continue
+                response = self.oanda.create_market_order(
                     instrument=signal.symbol,
-                    units=side * units,
-                    price=entry_price,
+                    units=signed * units,
                     stop_loss=signal.stop_loss,
-                    client_tag=f"qv3-{signal.signal_id}-tier{idx}",
+                    client_tag=f"qv3-{message_id}-tier{idx}",
                 )
-                order_id = str((placed.get("orderCreateTransaction") or {}).get("id", ""))
-                tier_orders.append(
-                    {
-                        "tier": idx,
-                        "entry": entry_price,
-                        "units": units,
-                        "risk_sgd": risk.risk_per_tier_sgd,
-                        "expected_loss_sgd": sizing["expected_loss_sgd"],
-                        "order_id": order_id,
-                    }
-                )
-                total_units += units
-                total_expected_loss_sgd += float(sizing["expected_loss_sgd"])
+                responses.append(response)
 
-            signal_state = {
-                "signal_id": signal.signal_id,
+            return {
+                "message_id": message_id,
                 "symbol": signal.symbol,
                 "direction": signal.direction,
-                "tier_orders": tier_orders,
-                "original_position_size": total_units,
-                "original_total_units": total_units,
-                "remaining_position_size": total_units,
-                "remaining_total_units": total_units,
-                "first_entry_price": anchor_entry,
-                "runner_mode_active": False,
-                "runner_active": False,
-                "runner_trigger_price": 0.0,
-                "runner_next_trigger": 200,
-                "current_trailing_sl": signal.stop_loss,
+                "entry_price": entry_mid,
+                "original_units": total_units,
+                "remaining_units": total_units,
                 "stop_loss": signal.stop_loss,
                 "tp_levels_hit": [],
-                "tp1_done": False,
-                "tp2_done": False,
-                "tp3_done": False,
-                "tp4_done": False,
-                "tp5_done": False,
-                "status": "open",
-                "message_id": message_id,
-                "risk_mode": risk.mode,
-                "tp_price_targets": tp_price_targets,
-                "tp_pip_targets": tp_pip_targets,
-                "stored_pip_distance": 0.0,
-                "explain": {
-                    "channel_pip_distance": worst_distance / CHANNEL_PIP_SIZE.get(signal.symbol.upper(), 0.0001),
-                    "actual_price_distance": worst_distance,
-                    "pip_size": pip_size,
-                    "total_sgd_risk": total_expected_loss_sgd,
-                },
+                "runner_active": False,
+                "runner_steps_hit": 0,
+                "trailing_sl": signal.stop_loss,
+                "sl_pips": sl_pips,
+                "orders": responses,
             }
-            self.state.save_signal_state(signal.signal_id, signal_state)
-            self.state.increment_trade_count()
-            return signal_state
         except Exception:
             raise
