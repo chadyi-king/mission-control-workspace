@@ -1,91 +1,89 @@
+import asyncio
 from telethon import TelegramClient, events
 
-from redis_backbone import RedisState
-from runtime_secrets import TELEGRAM_API_HASH, TELEGRAM_API_ID, TELEGRAM_PHONE
 from signal_parser import SignalParser
 from trade_manager import TradeManager
 
 
-class TelegramListener:
-    def __init__(self, settings, state: RedisState, trade_manager: TradeManager, logger):
+class TelegramExecutionBot:
+    def __init__(self, settings, store, oanda, logger):
         self.settings = settings
-        self.state = state
-        self.trade_manager = trade_manager
+        self.store = store
+        self.oanda = oanda
         self.logger = logger
         self.parser = SignalParser()
+        self.trade_manager = TradeManager(oanda)
         self.client = TelegramClient(
-            "quanta_session",
-            TELEGRAM_API_ID,
-            TELEGRAM_API_HASH,
+            settings.telegram_session_file,
+            settings.telegram_api_id,
+            settings.telegram_api_hash,
             auto_reconnect=True,
             connection_retries=None,
             retry_delay=5,
         )
 
-    @staticmethod
-    def _title_matches_channel(title: str) -> bool:
-        try:
-            t = (title or "").lower()
-            return ("callistofx" in t) or ("premium" in t)
-        except Exception:
-            return False
-
     async def _resolve_channel_id(self) -> int:
         try:
-            st = self.state.get_telegram_state()
-            if st.get("channel_id"):
-                return int(st["channel_id"])
-
-            async for dialog in self.client.iter_dialogs():
-                name = getattr(dialog, "name", "") or ""
-                if self._title_matches_channel(name):
-                    st["channel_id"] = int(dialog.id)
-                    self.state.set_telegram_state(st)
-                    self.logger.info("resolved listener channel by fuzzy title match name=%s id=%s", name, dialog.id)
-                    return int(dialog.id)
-
+            state = self.store.load_telegram_state()
+            if state.get("channel_id"):
+                return int(state["channel_id"])
             entity = await self.client.get_entity(self.settings.telegram_channel_name)
-            st["channel_id"] = int(entity.id)
-            self.state.set_telegram_state(st)
+            state["channel_id"] = entity.id
+            self.store.save_telegram_state(state)
             return int(entity.id)
         except Exception:
             raise
 
-    async def run(self) -> None:
+    def _extract_trade_ids(self, execution_payload) -> list:
         try:
-            await self.client.start(phone=TELEGRAM_PHONE)
+            trade_ids = []
+            for order_response in execution_payload.get("orders", []):
+                fill = order_response.get("orderFillTransaction") or {}
+                if fill.get("tradeOpened", {}).get("tradeID"):
+                    trade_ids.append(fill["tradeOpened"]["tradeID"])
+                for x in fill.get("tradesOpened", []):
+                    if x.get("tradeID"):
+                        trade_ids.append(x["tradeID"])
+            return trade_ids
+        except Exception:
+            return []
+
+    async def run(self):
+        try:
+            await self.client.start(phone=self.settings.telegram_phone)
             channel_id = await self._resolve_channel_id()
 
             @self.client.on(events.NewMessage(chats=channel_id))
-            async def on_message(event):
+            async def on_signal(event):
                 try:
-                    st = self.state.get_telegram_state()
                     message_id = int(event.message.id)
-                    if message_id <= int(st.get("last_processed_message_id", 0)):
+                    state = self.store.load_telegram_state()
+                    if message_id <= int(state.get("last_processed_message_id", 0)):
                         return
 
-                    parsed = self.parser.parse(event.raw_text or "", message_id=message_id)
+                    text = event.raw_text or ""
+                    parsed = self.parser.parse(text)
                     if not parsed:
-                        self.logger.info("ignored non-trade message_id=%s", message_id)
-                        st["last_processed_message_id"] = message_id
-                        self.state.set_telegram_state(st)
-                        return
-                    if self.state.is_processed_signal(parsed.signal_id):
-                        self.logger.info("duplicate signal ignored signal_id=%s", parsed.signal_id)
-                        st["last_processed_message_id"] = message_id
-                        self.state.set_telegram_state(st)
+                        self.logger.info("Ignored non-signal or invalid message_id=%s", message_id)
                         return
 
-                    self.trade_manager.execute_signal(parsed, message_id)
-                    self.state.mark_processed_signal(parsed.signal_id)
-                    st["last_processed_message_id"] = message_id
-                    self.state.set_telegram_state(st)
-                    self.logger.info("signal executed message_id=%s signal_id=%s", message_id, parsed.signal_id)
-                except Exception as inner:
-                    self.logger.exception("malformed or failed signal handler %s", inner)
+                    execution = self.trade_manager.execute_three_tier(parsed, message_id)
+                    trade_ids = self._extract_trade_ids(execution)
+                    execution["trade_ids"] = trade_ids
+                    execution["status"] = "open"
 
-            self.logger.info("telegram listener started channel_id=%s", channel_id)
+                    trades = self.store.load_open_trades()
+                    trades.append(execution)
+                    self.store.save_open_trades(trades)
+
+                    state["last_processed_message_id"] = message_id
+                    self.store.save_telegram_state(state)
+                    self.logger.info("Executed signal from message %s", message_id)
+                except Exception as exc:
+                    self.logger.exception("signal handler failed: %s", exc)
+
+            self.logger.info("Listener started for channel_id=%s", channel_id)
             await self.client.run_until_disconnected()
         except Exception as exc:
-            self.logger.exception("telegram listener crash %s", exc)
+            self.logger.exception("listener crashed: %s", exc)
             raise
