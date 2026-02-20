@@ -1,118 +1,113 @@
 import json
-import time
-from typing import Any, Dict, List
+from datetime import datetime, timezone
+from typing import Dict, Iterable, List, Optional, Tuple
 
 from redis import Redis
 
 
-def event_payload(event_type: str, data: Dict[str, Any], source: str = "quanta-v3") -> Dict[str, str]:
-    try:
-        return {
-            "from": source,
-            "type": event_type,
-            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            "data": json.dumps(data),
-        }
-    except Exception:
-        return {"from": source, "type": "error", "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "data": "{}"}
-
-
-class RedisState:
+class RedisBackbone:
     def __init__(self, redis_url: str):
         self.redis = Redis.from_url(redis_url, decode_responses=True)
 
-    def publish_event(self, stream: str, payload: Dict[str, Any]) -> str:
+    def ensure_group(self, stream: str, group: str) -> None:
         try:
-            fields = {k: (json.dumps(v) if isinstance(v, (dict, list)) else str(v)) for k, v in payload.items()}
-            return self.redis.xadd(stream, fields=fields)
-        except Exception:
-            raise
+            self.redis.xgroup_create(stream, group, id="0", mkstream=True)
+        except Exception as exc:
+            if "BUSYGROUP" not in str(exc):
+                raise
 
-    def get_telegram_state(self) -> Dict[str, Any]:
-        try:
-            raw = self.redis.get("quanta.telegram.state")
-            if not raw:
-                return {"channel_id": None, "last_processed_message_id": 0}
-            return json.loads(raw)
-        except Exception:
-            return {"channel_id": None, "last_processed_message_id": 0}
+    def publish_stream(self, stream: str, payload: Dict) -> str:
+        data = {k: json.dumps(v) if isinstance(v, (dict, list)) else str(v) for k, v in payload.items()}
+        return self.redis.xadd(stream, data)
 
-    def set_telegram_state(self, state: Dict[str, Any]) -> None:
-        try:
-            self.redis.set("quanta.telegram.state", json.dumps(state))
-        except Exception:
-            raise
+    def read_group(self, stream: str, group: str, consumer: str, block_ms: int = 5000, count: int = 10):
+        return self.redis.xreadgroup(group, consumer, {stream: ">"}, count=count, block=block_ms)
+
+    def claim_stale(self, stream: str, group: str, consumer: str, min_idle_ms: int, count: int = 20):
+        next_cursor = "0-0"
+        reclaimed = []
+        while True:
+            next_cursor, messages, _ = self.redis.xautoclaim(
+                stream,
+                group,
+                consumer,
+                min_idle_ms=min_idle_ms,
+                start_id=next_cursor,
+                count=count,
+            )
+            reclaimed.extend(messages)
+            if next_cursor == "0-0" or not messages:
+                break
+        return reclaimed
+
+    def ack(self, stream: str, group: str, message_id: str) -> int:
+        return self.redis.xack(stream, group, message_id)
+
+    def add_processed_signal(self, signal_id: str) -> bool:
+        return self.redis.sadd("quanta.processed_signals", signal_id) == 1
 
     def is_processed_signal(self, signal_id: str) -> bool:
-        try:
-            return bool(self.redis.sismember("quanta.processed_signals", signal_id))
-        except Exception:
-            return False
+        return self.redis.sismember("quanta.processed_signals", signal_id)
 
-    def mark_processed_signal(self, signal_id: str) -> None:
-        try:
-            self.redis.sadd("quanta.processed_signals", signal_id)
-        except Exception:
-            raise
+    def set_last_telegram_id(self, message_id: int) -> None:
+        self.redis.set("quanta.telegram.last_message_id", message_id)
 
-    def save_signal_state(self, signal_id: str, state: Dict[str, Any]) -> None:
-        try:
-            payload = {k: json.dumps(v) if isinstance(v, (dict, list)) else str(v) for k, v in state.items()}
-            self.redis.hset(f"quanta.signal:{signal_id}", mapping=payload)
-            self.redis.sadd("quanta.active_signals", signal_id)
-        except Exception:
-            raise
+    def get_last_telegram_id(self) -> int:
+        value = self.redis.get("quanta.telegram.last_message_id")
+        return int(value) if value else 0
 
-    def load_signal_state(self, signal_id: str) -> Dict[str, Any]:
-        try:
-            raw = self.redis.hgetall(f"quanta.signal:{signal_id}")
-            state: Dict[str, Any] = {}
-            for k, v in raw.items():
-                if v.startswith("[") or v.startswith("{"):
-                    state[k] = json.loads(v)
-                elif v in {"True", "False"}:
-                    state[k] = v == "True"
-                else:
-                    try:
-                        state[k] = float(v) if "." in v else int(v)
-                    except Exception:
-                        state[k] = v
-            return state
-        except Exception:
-            return {}
+    def save_signal_patterns(self, payload: Dict) -> None:
+        self.redis.set("quanta.signal_patterns", json.dumps(payload))
 
-    def list_active_signals(self) -> List[str]:
-        try:
-            return sorted(list(self.redis.smembers("quanta.active_signals")))
-        except Exception:
-            return []
+    def load_signal_patterns(self) -> Dict:
+        value = self.redis.get("quanta.signal_patterns")
+        return json.loads(value) if value else {}
 
-    def close_signal(self, signal_id: str) -> None:
-        try:
-            self.redis.srem("quanta.active_signals", signal_id)
-            self.redis.hset(f"quanta.signal:{signal_id}", mapping={"status": "closed", "updated_at": str(int(time.time()))})
-        except Exception:
-            raise
+    def save_trade_state(self, trade_id: str, payload: Dict) -> None:
+        key = f"quanta.trade.state:{trade_id}"
+        data = {k: json.dumps(v) if isinstance(v, (dict, list)) else str(v) for k, v in payload.items()}
+        self.redis.hset(key, mapping=data)
 
-    def get_trade_count(self) -> int:
-        try:
-            value = self.redis.get("quanta.trade_count")
-            return int(value) if value else 0
-        except Exception:
-            return 0
+    def load_trade_state(self, trade_id: str) -> Dict:
+        key = f"quanta.trade.state:{trade_id}"
+        out = {}
+        for k, v in self.redis.hgetall(key).items():
+            if isinstance(v, str) and (v.startswith("{") or v.startswith("[")):
+                out[k] = json.loads(v)
+            elif v in {"True", "False"}:
+                out[k] = v == "True"
+            else:
+                try:
+                    out[k] = float(v) if "." in v else int(v)
+                except Exception:
+                    out[k] = v
+        return out
 
     def increment_trade_count(self) -> int:
-        try:
-            return int(self.redis.incr("quanta.trade_count"))
-        except Exception:
-            raise
+        return self.redis.incr("quanta.risk.trade_count")
+
+    def get_trade_count(self) -> int:
+        value = self.redis.get("quanta.risk.trade_count")
+        return int(value) if value else 0
+
+    def set_baseline_equity(self, equity: float) -> None:
+        self.redis.set("quanta.risk.baseline_equity", equity)
+
+    def get_baseline_equity(self) -> Optional[float]:
+        value = self.redis.get("quanta.risk.baseline_equity")
+        return float(value) if value else None
+
+    def set_risk_mode(self, mode: str) -> None:
+        self.redis.set("quanta.risk.mode", mode)
+
+    def get_risk_mode(self) -> str:
+        return self.redis.get("quanta.risk.mode") or "fixed_20"
 
 
-class RedisBackbone:
-    """Compatibility shim for older Reporter usage."""
-
-    def __init__(self, redis_url: str):
-        self.state = RedisState(redis_url)
-
-    def publish_stream(self, stream: str, payload: Dict[str, Any]) -> str:
-        return self.state.publish_event(stream, payload)
+def event_payload(event_type: str, data: Dict) -> Dict:
+    return {
+        "from": "quanta-v3",
+        "type": event_type,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "data": data,
+    }

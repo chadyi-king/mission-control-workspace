@@ -32,32 +32,14 @@ class TelegramMonitor:
         except Exception:
             raise
 
-    @staticmethod
-    def _title_matches_channel(title: str) -> bool:
-        try:
-            t = (title or "").lower()
-            return ("callistofx" in t) or ("premium" in t)
-        except Exception:
-            return False
-
     async def _resolve_channel_id(self) -> int:
         try:
             st = self.disk_state.load()
             if st.get("channel_id"):
                 return int(st["channel_id"])
-
-            async for dialog in self.client.iter_dialogs():
-                name = getattr(dialog, "name", "") or ""
-                if self._title_matches_channel(name):
-                    st["channel_id"] = int(dialog.id)
-                    self.disk_state.save(st)
-                    self.log.info("resolved channel by fuzzy title match name=%s id=%s", name, dialog.id)
-                    return int(dialog.id)
-
             entity = await self.client.get_entity(self.settings.telegram_channel_name)
             st["channel_id"] = int(entity.id)
             self.disk_state.save(st)
-            self.log.info("resolved channel by fallback exact entity id=%s", entity.id)
             return int(entity.id)
         except Exception:
             raise
@@ -70,7 +52,6 @@ class TelegramMonitor:
                 self.buffer.appendleft(msg)
             async for msg in self.client.iter_messages(channel_id, min_id=last_id, reverse=True):
                 self.buffer.append(msg)
-            self.log.info("primed telegram buffer size=%s", len(self.buffer))
         except Exception as e:
             self.log.error(e)
 
@@ -82,13 +63,9 @@ class TelegramMonitor:
                 self.buffer.append(msg)
                 if int(msg.id) <= last_id:
                     continue
-
                 parsed = self.parser.parse(msg.message or "", message_id=int(msg.id))
                 if not parsed:
-                    st["last_processed_id"] = int(msg.id)
-                    self.disk_state.save(st)
                     continue
-
                 if self.redis_state.is_processed_signal(parsed.signal_id):
                     st["last_processed_id"] = int(msg.id)
                     self.disk_state.save(st)
