@@ -1,28 +1,32 @@
 {
-  "schema": "mission.control.resources.v1",
-  "lastUpdated": "2026-02-20T08:17:00+08:00",
-  "description": "Resource index for Mission Control dashboard",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-20T09:31:00+08:00",
+  "updatedBy": "Helios",
+  "description": "Resource index for Mission Control dashboard - tracks external resources, links, and references",
   "categories": {
-    "agents": {
-      "path": "./agents",
-      "description": "Agent-specific resources and configurations",
-      "files": []
+    "documentation": {
+      "name": "Documentation",
+      "description": "Project documentation and guides",
+      "items": []
     },
-    "tasks": {
-      "path": "./tasks", 
-      "description": "Task attachments and documentation",
-      "files": []
+    "tools": {
+      "name": "Tools",
+      "description": "External tools and services",
+      "items": []
     },
-    "external": {
-      "path": "./external",
-      "description": "External service integrations and APIs",
-      "files": []
+    "references": {
+      "name": "References",
+      "description": "Reference materials and research",
+      "items": []
     },
-    "shared": {
-      "path": "./shared",
-      "description": "Shared resources across all agents",
-      "files": []
+    "assets": {
+      "name": "Assets",
+      "description": "Images, videos, and other media",
+      "items": []
     }
   },
-  "total_resources": 0
+  "stats": {
+    "totalResources": 0,
+    "byCategory": {}
+  }
 }
