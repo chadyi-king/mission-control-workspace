@@ -9,8 +9,10 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python3 render_worker.py
     envVars:
-      - key: PYTHONPATH
-        value: /app
+      - key: UPSTASH_REDIS_URL
+        sync: false   # set manually in Render dashboard
+      - key: DATA_JSON_PATH
+        value: /tmp/data.json
     plan: free
 
   # Cron Job - Runs every minute
@@ -22,10 +24,16 @@ services:
     schedule: "*/1 * * * *"  # Every minute
     plan: free
 
-  # Web Service - Dashboard API (optional)
+  # Web Service - Helios FastAPI (live websocket + REST for dashboard)
   - type: web
-    name: helios-dashboard
+    name: helios-api
     runtime: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python3 -m http.server 10000
+    startCommand: uvicorn helios.service:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
     plan: free
+    envVars:
+      - key: UPSTASH_REDIS_URL
+        sync: false   # set manually in Render dashboard
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://mission-control-dashboard-hf0r.onrender.com
