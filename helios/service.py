@@ -1,3 +1,8 @@
+import asyncio
+import json
+import threading
+import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from typing import Any
 
@@ -5,15 +10,21 @@ from fastapi import FastAPI, Header, HTTPException, Query, WebSocket, WebSocketD
 
 from helios.adapters import ExternalAdapters
 from helios.config import load_config
-from helios.models import AgentOut, EventIn, HeartbeatIn
+from helios.models import AgentOut, EventIn, EventStatus, HeartbeatIn, ModelTier
 from helios.store import InMemoryStore
 
-app = FastAPI(title="Helios Service", version="0.1.0")
 config = load_config()
 adapters = ExternalAdapters(config)
 store = InMemoryStore(adapters=adapters)
 
 PROTECTED_FILES = {"AGENTS.md", "SOUL.md"}
+
+_loop: asyncio.AbstractEventLoop | None = None
+
+
+# --------------------------------------------------------------------------- #
+# Dashboard WebSocket hub
+# --------------------------------------------------------------------------- #
 
 
 class DashboardHub:
@@ -41,6 +52,97 @@ class DashboardHub:
 hub = DashboardHub()
 
 
+# --------------------------------------------------------------------------- #
+# Redis pub/sub listener (background thread → ingest into store + broadcast)
+# --------------------------------------------------------------------------- #
+
+
+def _redis_listener() -> None:
+    """Subscribe to Redis channels and forward events into the in-memory store."""
+    import os
+
+    redis_url = config.redis_url or os.getenv("UPSTASH_REDIS_URL")
+    if not redis_url:
+        print("[helios] No Redis URL configured — Redis subscriber disabled", flush=True)
+        return
+
+    try:
+        import redis as redis_lib
+
+        r = redis_lib.from_url(redis_url, decode_responses=True)
+        pub = r.pubsub(ignore_subscribe_messages=True)
+        pub.subscribe("helios", "chad->helios")
+    except Exception as exc:
+        print(f"[helios] Redis subscriber failed to start: {exc}", flush=True)
+        return
+
+    print("[helios] Redis subscriber started on: helios, chad->helios", flush=True)
+
+    for message in pub.listen():
+        if message["type"] != "message":
+            continue
+        try:
+            raw = json.loads(message["data"])
+        except json.JSONDecodeError:
+            continue
+
+        msg_type = str(raw.get("type", "message"))
+        agent = str(raw.get("from", raw.get("agent", "external")))
+        data_payload = raw.get("data", raw)
+        if not isinstance(data_payload, dict):
+            data_payload = {"raw": str(data_payload)}
+
+        event = EventIn(
+            agent=agent,
+            ts=datetime.now(timezone.utc),
+            event_type=msg_type,
+            status=EventStatus.success,
+            idempotency_key=str(raw.get("idempotency_key") or uuid.uuid4()),
+            payload=data_payload,
+            model_tier=ModelTier.cheap,
+            model_id="redis-bridge",
+            reasoning_summary="",
+            confidence=1.0,
+        )
+        accepted, result = store.ingest_event(event)
+
+        if accepted and _loop is not None and not _loop.is_closed():
+            asyncio.run_coroutine_threadsafe(
+                hub.broadcast(
+                    {
+                        "type": "event",
+                        "accepted": True,
+                        "agent": agent,
+                        "event_type": msg_type,
+                        "result": result,
+                    }
+                ),
+                _loop,
+            )
+
+
+# --------------------------------------------------------------------------- #
+# App lifespan — start Redis subscriber on boot
+# --------------------------------------------------------------------------- #
+
+
+@asynccontextmanager
+async def _lifespan(application: FastAPI):  # type: ignore[type-arg]
+    global _loop
+    _loop = asyncio.get_event_loop()
+    t = threading.Thread(target=_redis_listener, daemon=True, name="redis-sub")
+    t.start()
+    yield
+
+
+app = FastAPI(title="Helios Service", version="0.1.0", lifespan=_lifespan)
+
+
+# --------------------------------------------------------------------------- #
+# Helpers
+# --------------------------------------------------------------------------- #
+
+
 def _is_protected_write(payload: dict[str, Any]) -> bool:
     target = str(payload.get("target_file", ""))
     action = str(payload.get("action", ""))
@@ -48,6 +150,11 @@ def _is_protected_write(payload: dict[str, Any]) -> bool:
         return False
     hit = any(target.endswith(name) for name in PROTECTED_FILES)
     return hit and action in {"write", "modify", "delete", "replace"}
+
+
+# --------------------------------------------------------------------------- #
+# REST endpoints
+# --------------------------------------------------------------------------- #
 
 
 @app.get("/api/health")
@@ -99,8 +206,6 @@ async def post_events(event: EventIn) -> dict[str, Any]:
     )
     if accepted:
         adapters.notify_chad(f"Helios: event accepted from {event.agent} ({event.event_type})")
-    if accepted:
-        return result
     return result
 
 
@@ -123,6 +228,11 @@ def get_sync() -> dict[str, Any]:
 @app.get("/")
 def root() -> dict[str, str]:
     return {"service": "helios", "status": "running", "ts": datetime.now(timezone.utc).isoformat()}
+
+
+# --------------------------------------------------------------------------- #
+# WebSocket
+# --------------------------------------------------------------------------- #
 
 
 @app.websocket("/ws/dashboard")

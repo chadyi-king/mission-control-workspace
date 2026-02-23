@@ -1,184 +1,141 @@
 #!/usr/bin/env python3
 """
 Helios Background Worker for Render.com
-Listens to Redis, manages task/agent state, writes data.json for the dashboard.
-No internal module dependencies — only the redis package is required.
+Bridges Redis pub/sub ↔ Helios API REST.
+
+Flow:
+  User/Chad  –publishes→  Redis 'helios' or 'chad->helios' channel
+  This worker –POSTs→  Helios API  /api/events
+  Helios API  –broadcasts→  Dashboard WebSocket
+
+Environment variables required:
+  UPSTASH_REDIS_URL     – Upstash Redis URL
+  HELIOS_API_URL        – Public URL of the helios-api Render service
+                          e.g. https://helios-api-xxxx.onrender.com
 """
 
 import json
 import os
-import threading
 import time
+import threading
+import uuid
 from datetime import datetime, timezone
 
 import redis
+import requests
 
 # --------------------------------------------------------------------------- #
-# Configuration
+# Config
 # --------------------------------------------------------------------------- #
 REDIS_URL = os.environ.get("UPSTASH_REDIS_URL", "")
-DATA_JSON_PATH = os.environ.get("DATA_JSON_PATH", "/tmp/data.json")
+HELIOS_API_URL = os.environ.get("HELIOS_API_URL", "").rstrip("/")
 
-LISTEN_CHANNELS = ["helios", "chad->helios"]
+LISTEN_CHANNELS = ["helios", "chad->helios", "chad"]
 SEND_CHANNEL = "chad"
-
-# --------------------------------------------------------------------------- #
-# State (in-memory; refreshed from data.json on startup if it exists)
-# --------------------------------------------------------------------------- #
-state: dict = {
-    "agents": {},
-    "tasks": {},
-    "system": {
-        "status": "initialising",
-        "worker_started": datetime.now(timezone.utc).isoformat(),
-    },
-    "lastUpdated": datetime.now(timezone.utc).isoformat(),
-}
-
-
-def load_state_from_disk() -> None:
-    """Seed in-memory state from an existing data.json, if present."""
-    global state
-    try:
-        with open(DATA_JSON_PATH) as fh:
-            on_disk = json.load(fh)
-        state.update(on_disk)
-        ts("Seeded state from", DATA_JSON_PATH)
-    except FileNotFoundError:
-        ts("No existing data.json found — starting fresh")
-    except Exception as exc:
-        ts("Warning: could not read data.json:", exc)
-
-
-def ts(*parts) -> None:
-    """Timestamped print, always flushed."""
-    print(f"[{datetime.now(timezone.utc).isoformat()}]", *parts, flush=True)
-
 
 # --------------------------------------------------------------------------- #
 # Helpers
 # --------------------------------------------------------------------------- #
 
-def write_data_json() -> None:
-    """Persist current state to data.json for the dashboard."""
-    state["lastUpdated"] = datetime.now(timezone.utc).isoformat()
-    tmp = DATA_JSON_PATH + ".tmp"
+def ts(*parts) -> None:
+    print(f"[{datetime.now(timezone.utc).isoformat()}]", *parts, flush=True)
+
+
+def post_to_helios(payload: dict) -> bool:
+    """POST a structured event to Helios API /api/events."""
+    if not HELIOS_API_URL:
+        ts("WARNING: HELIOS_API_URL not set — cannot forward events to API")
+        return False
     try:
-        with open(tmp, "w") as fh:
-            json.dump(state, fh, indent=2)
-        os.replace(tmp, DATA_JSON_PATH)
-        ts("data.json written →", DATA_JSON_PATH)
-    except Exception as exc:
-        ts("ERROR writing data.json:", exc)
+        resp = requests.post(
+            f"{HELIOS_API_URL}/api/events",
+            json=payload,
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            ts(f"  → Helios API accepted event [{payload.get('event_type','?')}]")
+            return True
+        else:
+            ts(f"  WARNING: Helios API returned {resp.status_code}: {resp.text[:120]}")
+            return False
+    except requests.RequestException as exc:
+        ts("  ERROR posting to Helios API:", exc)
+        return False
 
 
-def publish(r: redis.Redis, channel: str, payload: dict) -> None:
-    r.publish(channel, json.dumps(payload))
+def redis_msg_to_helios_event(raw_payload: dict) -> dict:
+    """
+    Convert a Redis pub/sub message (arbitrary shape from Chad / other agents)
+    into a Helios API EventIn-compatible payload.
+    """
+    msg_type = raw_payload.get("type", "generic")
+    agent = raw_payload.get("from", raw_payload.get("agent", "worker"))
+    data = raw_payload.get("data", raw_payload)
+
+    # Map Redis message types to Helios event_type vocabulary
+    type_map = {
+        "task_create": "task_create",
+        "task_update": "task_update",
+        "heartbeat": "heartbeat",
+        "status_request": "status_request",
+        "agent_update": "agent_update",
+        "agent_command": "agent_command",
+        "task_ack": "task_ack",
+        "message": "message",
+    }
+    event_type = type_map.get(msg_type, msg_type)
+
+    return {
+        "agent": agent,
+        "event_type": event_type,
+        "status": "success",
+        "idempotency_key": raw_payload.get("idempotency_key") or str(uuid.uuid4()),
+        "payload": data,
+        "model_tier": "fast",
+        "ts": raw_payload.get("ts", datetime.now(timezone.utc).isoformat()),
+    }
 
 
 def notify_chad(r: redis.Redis, msg_type: str, data: dict) -> None:
-    publish(r, SEND_CHANNEL, {
+    r.publish(SEND_CHANNEL, json.dumps({
         "from": "helios-worker",
         "type": msg_type,
         "data": data,
         "ts": datetime.now(timezone.utc).isoformat(),
-    })
+    }))
 
 
 # --------------------------------------------------------------------------- #
-# Event handlers
+# Event dispatcher
 # --------------------------------------------------------------------------- #
 
-def handle_heartbeat(r: redis.Redis, payload: dict) -> None:
-    agent_id = payload.get("agent_id") or payload.get("from", "unknown")
-    state["agents"].setdefault(agent_id, {})
-    state["agents"][agent_id].update({
-        "last_seen": payload.get("ts", datetime.now(timezone.utc).isoformat()),
-        "status": payload.get("status", "active"),
-    })
-    write_data_json()
-
-
-def handle_task_create(r: redis.Redis, payload: dict) -> None:
-    task = payload.get("data", payload)
-    task_id = task.get("id") or f"task-{int(time.time())}"
-    state["tasks"][task_id] = {
-        **task,
-        "id": task_id,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "status": task.get("status", "pending"),
-    }
-    ts("Task created:", task_id)
-    write_data_json()
-    notify_chad(r, "task_created", {"task_id": task_id, "task": state["tasks"][task_id]})
-
-
-def handle_task_update(r: redis.Redis, payload: dict) -> None:
-    data = payload.get("data", payload)
-    task_id = data.get("task_id") or data.get("id")
-    if not task_id:
-        ts("task_update missing task_id — skipping")
-        return
-    state["tasks"].setdefault(task_id, {})
-    state["tasks"][task_id].update(data)
-    state["tasks"][task_id]["updated_at"] = datetime.now(timezone.utc).isoformat()
-    ts("Task updated:", task_id, "→", data.get("status", "?"))
-    write_data_json()
-    notify_chad(r, "task_updated", {"task_id": task_id, "task": state["tasks"][task_id]})
-
-
-def handle_status_request(r: redis.Redis, payload: dict) -> None:
-    ts("Status request received")
-    summary = {
-        "agents": len(state["agents"]),
-        "tasks": {
-            "total": len(state["tasks"]),
-            "pending": sum(1 for t in state["tasks"].values() if t.get("status") == "pending"),
-            "in_progress": sum(1 for t in state["tasks"].values() if t.get("status") == "in_progress"),
-            "completed": sum(1 for t in state["tasks"].values() if t.get("status") == "completed"),
-        },
-        "system": state["system"],
-        "lastUpdated": state["lastUpdated"],
-    }
-    notify_chad(r, "status_response", summary)
-
-
-def handle_agent_update(r: redis.Redis, payload: dict) -> None:
-    data = payload.get("data", payload)
-    agent_id = data.get("agent_id") or data.get("id") or payload.get("from", "unknown")
-    state["agents"].setdefault(agent_id, {})
-    state["agents"][agent_id].update({**data, "updated_at": datetime.now(timezone.utc).isoformat()})
-    ts("Agent updated:", agent_id)
-    write_data_json()
-
-
-HANDLERS = {
-    "heartbeat": handle_heartbeat,
-    "task_create": handle_task_create,
-    "task_update": handle_task_update,
-    "status_request": handle_status_request,
-    "agent_update": handle_agent_update,
-}
-
-
-def dispatch(r: redis.Redis, raw: str) -> None:
+def dispatch(r: redis.Redis, raw: str, channel: str) -> None:
     try:
         payload = json.loads(raw)
     except json.JSONDecodeError as exc:
-        ts("Bad JSON:", exc)
+        ts("Bad JSON:", exc, "—", raw[:60])
         return
 
     msg_type = payload.get("type", "unknown")
-    ts("← event:", msg_type)
+    ts(f"← [{channel}] type={msg_type}")
 
-    handler = HANDLERS.get(msg_type)
-    if handler:
+    # Skip echo messages that originated from this worker to avoid loops
+    if payload.get("from") == "helios-worker":
+        return
+
+    # Special case: status_request responds directly via Redis (no Helios event)
+    if msg_type == "status_request":
         try:
-            handler(r, payload)
-        except Exception as exc:
-            ts("ERROR in handler", msg_type, ":", exc)
-    else:
-        ts("No handler for event type:", msg_type)
+            resp = requests.get(f"{HELIOS_API_URL}/api/sync", timeout=8)
+            summary = resp.json() if resp.ok else {"error": "API unreachable"}
+        except Exception:
+            summary = {"error": "API unreachable"}
+        notify_chad(r, "status_response", summary)
+        return
+
+    # Forward all other events to Helios API
+    helios_event = redis_msg_to_helios_event(payload)
+    post_to_helios(helios_event)
 
 
 # --------------------------------------------------------------------------- #
@@ -186,16 +143,17 @@ def dispatch(r: redis.Redis, raw: str) -> None:
 # --------------------------------------------------------------------------- #
 
 def heartbeat_loop(r: redis.Redis) -> None:
+    """Send a worker heartbeat every 30 s to keep Helios agent list alive."""
     while True:
         time.sleep(30)
         try:
-            state["system"]["status"] = "active"
-            state["system"]["last_heartbeat"] = datetime.now(timezone.utc).isoformat()
-            write_data_json()
-            notify_chad(r, "worker_heartbeat", {
-                "status": "active",
-                "tasks": len(state["tasks"]),
-                "agents": len(state["agents"]),
+            post_to_helios({
+                "agent": "helios-worker",
+                "event_type": "heartbeat",
+                "status": "success",
+                "idempotency_key": str(uuid.uuid4()),
+                "payload": {"status": "active"},
+                "model_tier": "fast",
             })
         except Exception as exc:
             ts("Heartbeat error:", exc)
@@ -208,34 +166,32 @@ def heartbeat_loop(r: redis.Redis) -> None:
 def main() -> None:
     if not REDIS_URL:
         raise RuntimeError("UPSTASH_REDIS_URL is not set")
+    if not HELIOS_API_URL:
+        ts("WARNING: HELIOS_API_URL not set — status_request will fail; other events will be dropped")
 
     ts("=" * 60)
     ts("HELIOS BACKGROUND WORKER STARTING")
-    ts("  Redis URL:", REDIS_URL[:30], "…")
-    ts("  data.json path:", DATA_JSON_PATH)
-    ts("  Channels:", LISTEN_CHANNELS)
+    ts("  Redis URL :", REDIS_URL[:30], "…")
+    ts("  Helios API:", HELIOS_API_URL or "(not set)")
+    ts("  Channels  :", LISTEN_CHANNELS)
     ts("=" * 60)
-
-    load_state_from_disk()
-    state["system"]["status"] = "active"
 
     r = redis.from_url(REDIS_URL, decode_responses=True)
     pub = r.pubsub(ignore_subscribe_messages=True)
     pub.subscribe(*LISTEN_CHANNELS)
 
-    # Start heartbeat thread
+    # Start heartbeat daemon
     hb = threading.Thread(target=heartbeat_loop, args=(r,), daemon=True)
     hb.start()
 
-    # Announce startup
-    notify_chad(r, "worker_started", {"channels": LISTEN_CHANNELS})
-    write_data_json()
+    # Announce startup via Redis so Chad bot hears it
+    notify_chad(r, "worker_started", {"channels": LISTEN_CHANNELS, "helios_api": HELIOS_API_URL})
 
     ts("Listening…")
     for message in pub.listen():
         if message["type"] != "message":
             continue
-        dispatch(r, message["data"])
+        dispatch(r, message["data"], message["channel"])
 
 
 if __name__ == "__main__":
