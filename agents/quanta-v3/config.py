@@ -36,6 +36,22 @@ def _required_env(name: str) -> str:
 
 def load_settings() -> Settings:
     try:
+        # If environment variables aren't set (e.g., dev machine), try a local
+        # `runtime_secrets.py` as a fallback so keys can be loaded without
+        # changing code elsewhere. Do NOT print or log secret values here.
+        if not os.getenv("OANDA_ENVIRONMENT"):
+            try:
+                import importlib
+
+                rs = importlib.import_module("runtime_secrets")
+                # only set env vars if they are present in the module
+                for k in ("OANDA_ENVIRONMENT", "OANDA_ACCOUNT_ID", "OANDA_API_KEY", "TELEGRAM_API_ID", "TELEGRAM_API_HASH", "TELEGRAM_PHONE"):
+                    if hasattr(rs, k):
+                        os.environ.setdefault(k, str(getattr(rs, k)))
+            except Exception:
+                # no runtime_secrets available; proceed and let _required_env raise
+                pass
+
         env = _required_env("OANDA_ENVIRONMENT").upper()
         if env not in {"LIVE", "PRACTICE"}:
             raise RuntimeError("OANDA_ENVIRONMENT must be LIVE or PRACTICE")
