@@ -8,6 +8,28 @@ def _as_bool(raw: str | None, default: bool = False) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _resolve_redis_url() -> str | None:
+    """
+    Returns a redis-py-compatible socket URL.
+    Priority:
+      1. REDIS_URL                         (already a redis:// or rediss:// URL)
+      2. UPSTASH_REDIS_URL                 (same)
+      3. UPSTASH_REDIS_REST_URL +          (Upstash REST credentials —
+         UPSTASH_REDIS_REST_TOKEN           construct rediss:// TLS URL)
+    """
+    if url := os.getenv("REDIS_URL"):
+        return url
+    if url := os.getenv("UPSTASH_REDIS_URL"):
+        return url
+    rest_url = os.getenv("UPSTASH_REDIS_REST_URL", "")
+    token = os.getenv("UPSTASH_REDIS_REST_TOKEN", "")
+    if rest_url and token:
+        # e.g. https://national-gar-36005.upstash.io → national-gar-36005.upstash.io
+        host = rest_url.removeprefix("https://").removeprefix("http://").rstrip("/")
+        return f"rediss://default:{token}@{host}:6380"
+    return None
+
+
 @dataclass(frozen=True)
 class HeliosConfig:
     env: str
@@ -29,7 +51,7 @@ def load_config() -> HeliosConfig:
         host=os.getenv("HELIOS_HOST", "0.0.0.0"),
         port=int(os.getenv("HELIOS_PORT", "8000")),
         replay_token=os.getenv("HELIOS_REPLAY_TOKEN", "replace_me"),
-        redis_url=os.getenv("REDIS_URL"),
+        redis_url=_resolve_redis_url(),
         postgres_dsn=os.getenv("POSTGRES_DSN"),
         weaviate_url=os.getenv("WEAVIATE_URL"),
         telegram_bot_token=os.getenv("TELEGRAM_BOT_TOKEN"),

@@ -61,7 +61,22 @@ def _redis_listener() -> None:
     """Subscribe to Redis channels and forward events into the in-memory store."""
     import os
 
-    redis_url = config.redis_url or os.getenv("UPSTASH_REDIS_URL")
+    # Resolve Redis URL — support REST creds (Upstash) as well as direct socket URLs
+    rest_url = os.getenv("UPSTASH_REDIS_REST_URL", "")
+    token = os.getenv("UPSTASH_REDIS_REST_TOKEN", "")
+    upstash_socket = (
+        "rediss://default:{}@{}:6380".format(
+            token,
+            rest_url.removeprefix("https://").removeprefix("http://").rstrip("/"),
+        )
+        if rest_url and token
+        else ""
+    )
+    redis_url = (
+        config.redis_url
+        or os.getenv("UPSTASH_REDIS_URL")
+        or upstash_socket
+    )
     if not redis_url:
         print("[helios] No Redis URL configured — Redis subscriber disabled", flush=True)
         return
@@ -69,7 +84,7 @@ def _redis_listener() -> None:
     try:
         import redis as redis_lib
 
-        r = redis_lib.from_url(redis_url, decode_responses=True)
+        r: redis_lib.Redis = redis_lib.from_url(redis_url, decode_responses=True)  # type: ignore[assignment]
         pub = r.pubsub(ignore_subscribe_messages=True)
         pub.subscribe("helios", "chad->helios")
     except Exception as exc:

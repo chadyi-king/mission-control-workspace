@@ -9,10 +9,12 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: python3 render_worker.py
     envVars:
-      - key: UPSTASH_REDIS_URL
-        sync: false   # set manually in Render dashboard (same as REDIS_URL)
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false   # https://national-gar-36005.upstash.io
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false   # your Upstash REST token
       - key: HELIOS_API_URL
-        sync: false   # set to the helios-api public URL after first deploy
+        sync: false   # set to helios-api public URL after first deploy
     plan: free
 
   # Cron Job - Runs every minute
@@ -33,9 +35,9 @@ services:
     healthCheckPath: /api/health
     plan: free
     envVars:
-      - key: REDIS_URL
-        sync: false   # set manually (same Upstash URL as UPSTASH_REDIS_URL)
-      - key: UPSTASH_REDIS_URL
-        sync: false   # alias used by worker and chad bridge
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false   # https://national-gar-36005.upstash.io
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false   # your Upstash REST token
       - key: CORS_ALLOWED_ORIGINS
         value: https://mission-control-dashboard-hf0r.onrender.com

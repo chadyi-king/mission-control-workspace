@@ -27,7 +27,27 @@ import requests
 # --------------------------------------------------------------------------- #
 # Config
 # --------------------------------------------------------------------------- #
-REDIS_URL = os.environ.get("UPSTASH_REDIS_URL", "")
+
+def _resolve_redis_url() -> str:
+    """
+    Build a redis-py-compatible socket URL from whatever env vars are present.
+    Priority:
+      1. REDIS_URL / UPSTASH_REDIS_URL  (already a redis:// or rediss:// URL)
+      2. UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN  →  rediss:// TLS URL
+    """
+    if url := os.environ.get("REDIS_URL"):
+        return url
+    if url := os.environ.get("UPSTASH_REDIS_URL"):
+        return url
+    rest_url = os.environ.get("UPSTASH_REDIS_REST_URL", "")
+    token = os.environ.get("UPSTASH_REDIS_REST_TOKEN", "")
+    if rest_url and token:
+        host = rest_url.removeprefix("https://").removeprefix("http://").rstrip("/")
+        return f"rediss://default:{token}@{host}:6380"
+    return ""
+
+
+REDIS_URL = _resolve_redis_url()
 HELIOS_API_URL = os.environ.get("HELIOS_API_URL", "").rstrip("/")
 
 LISTEN_CHANNELS = ["helios", "chad->helios", "chad"]
@@ -176,7 +196,7 @@ def main() -> None:
     ts("  Channels  :", LISTEN_CHANNELS)
     ts("=" * 60)
 
-    r = redis.from_url(REDIS_URL, decode_responses=True)
+    r: redis.Redis = redis.from_url(REDIS_URL, decode_responses=True)  # type: ignore[assignment]
     pub = r.pubsub(ignore_subscribe_messages=True)
     pub.subscribe(*LISTEN_CHANNELS)
 
