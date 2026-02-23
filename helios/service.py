@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 import threading
 import uuid
 from contextlib import asynccontextmanager
@@ -7,6 +8,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import FastAPI, Header, HTTPException, Query, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 
 from helios.adapters import ExternalAdapters
 from helios.config import load_config
@@ -151,6 +153,20 @@ async def _lifespan(application: FastAPI):  # type: ignore[type-arg]
 
 
 app = FastAPI(title="Helios Service", version="0.1.0", lifespan=_lifespan)
+
+# CORS — allow dashboard origin to call API
+_allowed_origins = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "https://mission-control-dashboard-hf0r.onrender.com",
+).split(",")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # --------------------------------------------------------------------------- #
