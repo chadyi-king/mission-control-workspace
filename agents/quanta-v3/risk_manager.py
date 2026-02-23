@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 from redis_backbone import RedisBackbone
 
@@ -13,25 +14,23 @@ class RiskManager:
     def __init__(self, store: RedisBackbone):
         self.store = store
 
-    def calculate(self, equity: float) -> RiskDecision:
+    def calculate(self, equity: Optional[float]) -> RiskDecision:
         trade_count = self.store.get_trade_count()
-        baseline = self.store.get_baseline_equity()
 
-        if baseline is None:
-            baseline = equity
-            self.store.set_baseline_equity(baseline)
-
-        if trade_count < 20:
-            risk = 20.0
-            mode = "fixed_20"
+        if trade_count < 10:
+            risk = 30.0
+            mode = "fixed_30_sgd_first_10"
         else:
-            growth = (equity - baseline) / baseline if baseline else 0
-            pct = 0.02 if growth >= 0.10 else 0.01
-            risk = equity * pct
-            mode = f"equity_{int(pct*100)}pct"
+            if equity is None:
+                raise RuntimeError("Equity is required for 2% risk sizing")
+            risk = float(equity) * 0.02
+            mode = "equity_2pct"
 
-        if risk > 30:
-            raise RuntimeError(f"Risk {risk:.2f} SGD exceeds hard cap of 30 SGD")
-
-        self.store.set_risk_mode(mode)
+        if hasattr(self.store, "set_risk_mode"):
+            self.store.set_risk_mode(mode)
         return RiskDecision(risk_sgd=risk, mode=mode)
+
+    def tier_risks(self, equity: Optional[float]) -> list[float]:
+        decision = self.calculate(equity)
+        total = decision.risk_sgd
+        return [total * 0.33, total * 0.33, total * 0.34]

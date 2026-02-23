@@ -1,6 +1,7 @@
 import json
 import logging
 import time
+import os
 
 from config import load_settings
 from oanda_client import OandaClient
@@ -8,6 +9,7 @@ from redis_backbone import RedisBackbone
 from reporter import Reporter
 from risk_manager import RiskManager
 from trade_manager import TradeManager
+from state_store import StateStore
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("quanta.executor")
@@ -19,12 +21,15 @@ class SignalExecutor:
         self.store = RedisBackbone(self.settings.redis_url)
         self.store.ensure_group(self.settings.signal_stream, self.settings.signal_group)
         self.reporter = Reporter(self.store, self.settings.event_stream)
+        self.state_store = StateStore(self.settings.state_file, self.settings.open_trades_file)
+        self.state_store.redis_backbone = self.store
         self.oanda = OandaClient(
             self.settings.oanda_account_id,
             self.settings.oanda_api_key,
             self.settings.oanda_base_url,
+            dry_run=os.getenv("DRY_RUN", "1").lower() in ("1", "true", "yes", "y"),
         )
-        self.trade_manager = TradeManager(self.oanda, self.store, RiskManager(self.store))
+        self.trade_manager = TradeManager(self.oanda, self.store, RiskManager(self.store), logger)
 
     def _handle_message(self, msg_id: str, fields: dict) -> None:
         signal = json.loads(fields["signal"])
@@ -36,10 +41,21 @@ class SignalExecutor:
             return
 
         self.reporter.emit("signal", {"signal_id": signal_id, "symbol": signal["symbol"]})
-        result = self.trade_manager.execute_signal(signal)
+        message_id = signal.get("message_id") or signal.get("signal_id") or "unknown"
+        result = self.trade_manager.execute_signal(signal, message_id)
+        for trade_id in result.get("trade_ids", []):
+            self.store.save_trade_state(trade_id, result)
+        self.store.increment_trade_count()
+        try:
+            open_trades = self.state_store.load_open_trades()
+            open_trades.append(result)
+            self.state_store.save_open_trades(open_trades)
+        except Exception as exc:
+            self.reporter.emit("error", {"message_id": msg_id, "signal_id": signal_id, "error": str(exc), "retry": False})
         self.store.add_processed_signal(signal_id)
         self.store.ack(self.settings.signal_stream, self.settings.signal_group, msg_id)
         self.reporter.emit("trade", result)
+        self.reporter.emit("trade_executed", {"signal_id": signal_id, "message_id": message_id, "trade_ids": result.get("trade_ids", [])})
 
     def run_forever(self):
         self.reporter.emit("status", {"message": "executor started"})
@@ -54,7 +70,12 @@ class SignalExecutor:
                 try:
                     self._handle_message(msg_id, fields)
                 except Exception as exc:
-                    self.reporter.emit("error", {"message_id": msg_id, "error": str(exc), "retry": True})
+                    signal_id = None
+                    try:
+                        signal_id = json.loads(fields.get("signal", "{}")).get("signal_id")
+                    except Exception:
+                        signal_id = None
+                    self.reporter.emit("error", {"message_id": msg_id, "signal_id": signal_id, "error": str(exc), "retry": True})
 
             streams = self.store.read_group(
                 self.settings.signal_stream,
@@ -66,7 +87,12 @@ class SignalExecutor:
                     try:
                         self._handle_message(msg_id, fields)
                     except Exception as exc:
-                        self.reporter.emit("error", {"message_id": msg_id, "error": str(exc), "retry": True})
+                        signal_id = None
+                        try:
+                            signal_id = json.loads(fields.get("signal", "{}")).get("signal_id")
+                        except Exception:
+                            signal_id = None
+                        self.reporter.emit("error", {"message_id": msg_id, "signal_id": signal_id, "error": str(exc), "retry": True})
             time.sleep(0.2)
 
 
