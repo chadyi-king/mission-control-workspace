@@ -46,3 +46,17 @@ Apply this design to all 18 projects (A1-A6, B1-B10, C1-C2)
    - Full task details with subtasks
 
 **Report: Working or need fixes?**
+
+---
+
+## Helios Infrastructure Todo Status (2026-02-23)
+
+- [x] Finalize architecture bootstrap
+- [x] Add realtime dashboard websocket
+- [x] Add Redis/Postgres-ready adapters
+- [x] Add docker-compose deployment stack
+- [x] Add notifications bridge for Chad
+- [x] Expand tests for new behavior
+- [x] Run full Helios test validation
+- [x] Document run/debug workflow
+- [ ] Prevent secret leakage in quanta-v3 branch *(in progress)*

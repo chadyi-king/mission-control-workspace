@@ -1,1 +1,842 @@
-2026-02-20 11:35:22,634 INFO quanta-v3 Applied correction audit: fuzzy Telegram channel resolution, runner step SL anchored to first_entry_price, 33/33/34 tier-risk allocation, persisted current_stop_loss
+nohup: ignoring input
+2026-02-23 22:27:08,609 INFO libssl detected, it will be used for encryption
+2026-02-23 22:27:08,701 INFO Connecting to 91.108.56.185:443/TcpFull...
+2026-02-23 22:27:08,706 INFO Connection to 91.108.56.185:443/TcpFull complete!
+egram client (sqlite session file bypassed)
+2026-02-23 22:27:08,701 INFO quanta-v3 supervisor started thread: manager
+2026-02-23 22:27:08,702 INFO quanta-v3 supervisor started thread: executor
+2026-02-23 22:27:09,002 INFO quanta-v3 Telegram channel resolved: name=🚀 CallistoFx Premium Channel 🚀 id=-1001623437581
+2026-02-23 22:27:09,002 INFO quanta-v3 
+2026-02-23 22:27:09,002 INFO quanta-v3 ━━  BACKFILL START  loading last 50 messages from [🚀 CallistoFx Premium Channel 🚀]  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:27:09,092 INFO quanta-v3 
+┌─ MSG #52669  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🔴SELL ZONE: 5176.69 - 5181 level  Once tapped look for price to create a bearish confirmation on the 1/3/5M timeframe to capitalise on SELLS towards the 5108.14 level.  ...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,092 INFO quanta-v3 
+┌─ MSG #52668  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🟢BUY ZONE: 5122.53 -5132.46 level  Once tapped into the Buy zone, look for price to create 3/5M bullish confirmations to capitalise on BUYS towards the 5176 level.   Com...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,093 INFO quanta-v3 
+┌─ MSG #52667  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : That’s why I focus on directional bias!  We caught a few pips, had sl set to be for risk management, and sadly out at BE for us before FLYING!!!  Am i fomoing? No. Am i greeding? No. BUT DAMN AM I ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,093 INFO quanta-v3 
+┌─ MSG #52666  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : HAHAHA ONCE AGAIN…. If you’re holding CONGRATS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,093 INFO quanta-v3 
+┌─ MSG #52665  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Youtube: https://youtube.com/live/psk1HIinpZ8?feature=share  Twitch : https://www.twitch.tv/callistofx  Amazing volume coming into the NEW YORK Session Looking for Setups LIVE on stream.  Be there,...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,094 INFO quanta-v3 
+┌─ MSG #52664  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 8/8 Scalps for the day!!! Lets smash it this NY LIVE on stream together, use the zones, pay attention to the confirmations and lets PRINT BIG PREM🚀
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,094 INFO quanta-v3 
+┌─ MSG #52663  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,094 INFO quanta-v3 
+┌─ MSG #52662  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢51 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,095 INFO quanta-v3 
+┌─ MSG #52661  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢40 Pips TP 2, secure partials here
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,095 INFO quanta-v3 
+┌─ MSG #52660  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢37 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,095 INFO quanta-v3 
+┌─ MSG #52659  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢33 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,096 INFO quanta-v3 
+┌─ MSG #52657  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢26 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,096 INFO quanta-v3 
+┌─ MSG #52656  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : take partials set  SL to be NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,096 INFO quanta-v3 
+┌─ MSG #52654  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5149-5142  SL 5138  TP :5165/5178/5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5149.0  SL=5138.0  TP1=5165.0  TP2=5178.0  TP3=5188.0  TP4=5208.0  TP5=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,097 INFO quanta-v3 
+┌─ MSG #52653  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,097 INFO quanta-v3 
+┌─ MSG #52652  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Looking for reentry BUYS, Pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,097 INFO quanta-v3 
+┌─ MSG #52651  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,098 INFO quanta-v3 
+┌─ MSG #52650  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢25 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,098 INFO quanta-v3 
+┌─ MSG #52649  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : take partials SET SL TO BE NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,098 INFO quanta-v3 
+┌─ MSG #52647  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5150.5-5142  SL 5138  TP :5158/5165/5178 5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5150.5  SL=5138.0  TP1=5158.0  TP2=5165.0  TP3=5178.0  TP4=5188.0  TP5=5208.0  TP6=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,099 INFO quanta-v3 
+┌─ MSG #52646  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,099 INFO quanta-v3 
+┌─ MSG #52645  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Prem, looking for BUYS, pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,099 INFO quanta-v3 
+┌─ MSG #52643  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : WE GOIN’ RIGHT NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,100 INFO quanta-v3 
+┌─ MSG #52642  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Profit accelerator Stream: ENDED
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,100 INFO quanta-v3 
+┌─ MSG #52641  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Ahhh yes absolutely beautiful trade 🤭🤭🤭  More trades to come, but first, private stream in a 50 minutes  If you’re not up at least $1,000+ USD today from all the wins, you NEED to show up  P.S. If ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,100 INFO quanta-v3 
+┌─ MSG #52640  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,101 INFO quanta-v3 
+┌─ MSG #52639  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Ya’ll follow the plan.   You think I’m joking when I said thousands in a day.   TODAY.   I mentioned it before, everyone here wants to be a winner, surrounded by winners. If you wanna be stuck in 0...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,101 INFO quanta-v3 
+┌─ MSG #52627  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢124 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,101 INFO quanta-v3 
+┌─ MSG #52625  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 108 pips, bangggggg
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,102 INFO quanta-v3 
+┌─ MSG #52624  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : YALL BETTER MAKE MONEY TODAY  Don’t wanna see no 0.01 0.1 lot bullshit  Send me your screenshots NOW!!!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,102 INFO quanta-v3 
+┌─ MSG #52623  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Take more partials here
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,102 INFO quanta-v3 
+┌─ MSG #52622  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 100 pips, TP4 smacked
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,102 INFO quanta-v3 
+┌─ MSG #52620  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 94 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,103 INFO quanta-v3 
+┌─ MSG #52619  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 84 pipperoos
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,103 INFO quanta-v3 
+┌─ MSG #52618  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 80 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,103 INFO quanta-v3 
+┌─ MSG #52617  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : HAHAHAHAHHA FUCKING AMAZING
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,104 INFO quanta-v3 
+┌─ MSG #52616  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : TAKE A FK TON OF PARTIALS NOWWWW 30% total
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,104 INFO quanta-v3 
+┌─ MSG #52615  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 70 pips! TP3
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,104 INFO quanta-v3 
+┌─ MSG #52614  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 57 pips!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,105 INFO quanta-v3 
+┌─ MSG #52613  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : moving fast lads. TAKE PARTIALS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,105 INFO quanta-v3 
+┌─ MSG #52612  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : 🟢 28 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,105 INFO quanta-v3 
+┌─ MSG #52611  [BACKFILL]  Feb 23 22:27:09
+│  TEXT   : Take partials set SL TO BE NOW
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:27:09,106 INFO quanta-v3 ━━  BACKFILL DONE   50 messages loaded  newest_id=52669  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:27:09,106 INFO quanta-v3 
+2026-02-23 22:27:09,106 INFO quanta-v3 ━━  LISTENING   connected to [🚀 CallistoFx Premium Channel 🚀]  watching for new signals  ━━━━━━━━━━━━━━━━━━━━━━
+nohup: ignoring input
+2026-02-23 22:28:48,900 INFO libssl detected, it will be used for encryption
+2026-02-23 22:28:48,982 INFO quanta-v3 supervisor started thread: listener
+2026-02-23 22:28:48,983 INFO quanta-v3 Using TELEGRAM_STRING_SESSION for Telegram client (sqlite session file bypassed)
+2026-02-23 22:28:48,983 INFO Connecting to 91.108.56.185:443/TcpFull...
+2026-02-23 22:28:48,983 INFO quanta-v3 supervisor started thread: manager
+2026-02-23 22:28:48,985 INFO quanta-v3 supervisor started thread: executor
+2026-02-23 22:28:48,990 INFO Connection to 91.108.56.185:443/TcpFull complete!
+2026-02-23 22:28:49,331 INFO quanta-v3 Telegram channel resolved: name=🚀 CallistoFx Premium Channel 🚀 id=-1001623437581
+2026-02-23 22:28:49,331 INFO quanta-v3 
+2026-02-23 22:28:49,331 INFO quanta-v3 ━━  BACKFILL START  loading last 50 messages from [🚀 CallistoFx Premium Channel 🚀]  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:28:49,441 INFO quanta-v3 
+┌─ MSG #52669  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🔴SELL ZONE: 5176.69 - 5181 level  Once tapped look for price to create a bearish confirmation on the 1/3/5M timeframe to capitalise on SELLS towards the 5108.14 level.  ...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,441 INFO quanta-v3 
+┌─ MSG #52668  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🟢BUY ZONE: 5122.53 -5132.46 level  Once tapped into the Buy zone, look for price to create 3/5M bullish confirmations to capitalise on BUYS towards the 5176 level.   Com...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,441 INFO quanta-v3 
+┌─ MSG #52667  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : That’s why I focus on directional bias!  We caught a few pips, had sl set to be for risk management, and sadly out at BE for us before FLYING!!!  Am i fomoing? No. Am i greeding? No. BUT DAMN AM I ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,442 INFO quanta-v3 
+┌─ MSG #52666  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : HAHAHA ONCE AGAIN…. If you’re holding CONGRATS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,442 INFO quanta-v3 
+┌─ MSG #52665  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Youtube: https://youtube.com/live/psk1HIinpZ8?feature=share  Twitch : https://www.twitch.tv/callistofx  Amazing volume coming into the NEW YORK Session Looking for Setups LIVE on stream.  Be there,...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,442 INFO quanta-v3 
+┌─ MSG #52664  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 8/8 Scalps for the day!!! Lets smash it this NY LIVE on stream together, use the zones, pay attention to the confirmations and lets PRINT BIG PREM🚀
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,443 INFO quanta-v3 
+┌─ MSG #52663  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,443 INFO quanta-v3 
+┌─ MSG #52662  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢51 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,443 INFO quanta-v3 
+┌─ MSG #52661  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢40 Pips TP 2, secure partials here
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,444 INFO quanta-v3 
+┌─ MSG #52660  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢37 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,444 INFO quanta-v3 
+┌─ MSG #52659  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢33 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,444 INFO quanta-v3 
+┌─ MSG #52657  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢26 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,444 INFO quanta-v3 
+┌─ MSG #52656  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : take partials set  SL to be NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,445 INFO quanta-v3 
+┌─ MSG #52654  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5149-5142  SL 5138  TP :5165/5178/5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5149.0  SL=5138.0  TP1=5165.0  TP2=5178.0  TP3=5188.0  TP4=5208.0  TP5=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,445 INFO quanta-v3 
+┌─ MSG #52653  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,445 INFO quanta-v3 
+┌─ MSG #52652  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Looking for reentry BUYS, Pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,446 INFO quanta-v3 
+┌─ MSG #52651  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,446 INFO quanta-v3 
+┌─ MSG #52650  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢25 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,446 INFO quanta-v3 
+┌─ MSG #52649  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : take partials SET SL TO BE NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,446 INFO quanta-v3 
+┌─ MSG #52647  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5150.5-5142  SL 5138  TP :5158/5165/5178 5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5150.5  SL=5138.0  TP1=5158.0  TP2=5165.0  TP3=5178.0  TP4=5188.0  TP5=5208.0  TP6=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,447 INFO quanta-v3 
+┌─ MSG #52646  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,447 INFO quanta-v3 
+┌─ MSG #52645  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Prem, looking for BUYS, pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,447 INFO quanta-v3 
+┌─ MSG #52643  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : WE GOIN’ RIGHT NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,447 INFO quanta-v3 
+┌─ MSG #52642  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Profit accelerator Stream: ENDED
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,448 INFO quanta-v3 
+┌─ MSG #52641  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Ahhh yes absolutely beautiful trade 🤭🤭🤭  More trades to come, but first, private stream in a 50 minutes  If you’re not up at least $1,000+ USD today from all the wins, you NEED to show up  P.S. If ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,448 INFO quanta-v3 
+┌─ MSG #52640  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,448 INFO quanta-v3 
+┌─ MSG #52639  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Ya’ll follow the plan.   You think I’m joking when I said thousands in a day.   TODAY.   I mentioned it before, everyone here wants to be a winner, surrounded by winners. If you wanna be stuck in 0...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,449 INFO quanta-v3 
+┌─ MSG #52627  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢124 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,449 INFO quanta-v3 
+┌─ MSG #52625  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 108 pips, bangggggg
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,449 INFO quanta-v3 
+┌─ MSG #52624  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : YALL BETTER MAKE MONEY TODAY  Don’t wanna see no 0.01 0.1 lot bullshit  Send me your screenshots NOW!!!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,449 INFO quanta-v3 
+┌─ MSG #52623  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Take more partials here
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,450 INFO quanta-v3 
+┌─ MSG #52622  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 100 pips, TP4 smacked
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,450 INFO quanta-v3 
+┌─ MSG #52620  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 94 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,450 INFO quanta-v3 
+┌─ MSG #52619  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 84 pipperoos
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,450 INFO quanta-v3 
+┌─ MSG #52618  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 80 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,451 INFO quanta-v3 
+┌─ MSG #52617  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : HAHAHAHAHHA FUCKING AMAZING
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,451 INFO quanta-v3 
+┌─ MSG #52616  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : TAKE A FK TON OF PARTIALS NOWWWW 30% total
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,451 INFO quanta-v3 
+┌─ MSG #52615  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 70 pips! TP3
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,451 INFO quanta-v3 
+┌─ MSG #52614  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 57 pips!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,452 INFO quanta-v3 
+┌─ MSG #52613  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : moving fast lads. TAKE PARTIALS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,452 INFO quanta-v3 
+┌─ MSG #52612  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : 🟢 28 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,452 INFO quanta-v3 
+┌─ MSG #52611  [BACKFILL]  Feb 23 22:28:49
+│  TEXT   : Take partials set SL TO BE NOW
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:28:49,452 INFO quanta-v3 ━━  BACKFILL DONE   50 messages loaded  newest_id=52669  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:28:49,452 INFO quanta-v3 
+2026-02-23 22:28:49,452 INFO quanta-v3 ━━  LISTENING   connected to [🚀 CallistoFx Premium Channel 🚀]  watching for new signals  ━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:43:49,144 INFO Got difference for account updates
+2026-02-23 22:43:49,265 INFO Got difference for channel 1151024971 updates
+2026-02-23 22:43:50,003 INFO Got difference for channel 1223490369 updates
+2026-02-23 22:43:50,181 INFO Got difference for channel 1339070963 updates
+nohup: ignoring input
+2026-02-23 22:45:28,018 INFO libssl detected, it will be used for encryption
+2026-02-23 22:45:28,099 INFO quanta-v3 supervisor started thread: listener
+2026-02-23 22:45:28,099 INFO quanta-v3 Using TELEGRAM_STRING_SESSION for Telegram client (sqlite session file bypassed)
+2026-02-23 22:45:28,100 INFO Connecting to 91.108.56.185:443/TcpFull...
+2026-02-23 22:45:28,099 INFO quanta-v3 supervisor started thread: manager
+2026-02-23 22:45:28,101 INFO quanta-v3 supervisor started thread: executor
+2026-02-23 22:45:28,104 INFO Connection to 91.108.56.185:443/TcpFull complete!
+2026-02-23 22:45:28,373 INFO quanta-v3 Telegram channel resolved: name=🚀 CallistoFx Premium Channel 🚀 id=-1001623437581
+2026-02-23 22:45:28,373 INFO quanta-v3 
+2026-02-23 22:45:28,373 INFO quanta-v3 ━━  BACKFILL START  loading last 50 messages from [🚀 CallistoFx Premium Channel 🚀]  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:45:28,432 INFO quanta-v3 
+┌─ MSG #52669  [BACKFILL]  Feb 23 13:00:36
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🔴SELL ZONE: 5176.69 - 5181 level  Once tapped look for price to create a bearish confirmation on the 1/3/5M timeframe to capitalise on SELLS towards the 5108.14 level.  ...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,432 INFO quanta-v3 
+┌─ MSG #52668  [BACKFILL]  Feb 23 13:00:30
+│  TEXT   : 📊NEW YORK ANALYSIS: XAUUSD  🟢BUY ZONE: 5122.53 -5132.46 level  Once tapped into the Buy zone, look for price to create 3/5M bullish confirmations to capitalise on BUYS towards the 5176 level.   Com...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,432 INFO quanta-v3 
+┌─ MSG #52667  [BACKFILL]  Feb 23 12:43:25
+│  TEXT   : That’s why I focus on directional bias!  We caught a few pips, had sl set to be for risk management, and sadly out at BE for us before FLYING!!!  Am i fomoing? No. Am i greeding? No. BUT DAMN AM I ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,433 INFO quanta-v3 
+┌─ MSG #52666  [BACKFILL]  Feb 23 12:43:03
+│  TEXT   : HAHAHA ONCE AGAIN…. If you’re holding CONGRATS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,433 INFO quanta-v3 
+┌─ MSG #52665  [BACKFILL]  Feb 23 12:33:01
+│  TEXT   : Youtube: https://youtube.com/live/psk1HIinpZ8?feature=share  Twitch : https://www.twitch.tv/callistofx  Amazing volume coming into the NEW YORK Session Looking for Setups LIVE on stream.  Be there,...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,433 INFO quanta-v3 
+┌─ MSG #52664  [BACKFILL]  Feb 23 12:29:30
+│  TEXT   : 8/8 Scalps for the day!!! Lets smash it this NY LIVE on stream together, use the zones, pay attention to the confirmations and lets PRINT BIG PREM🚀
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,434 INFO quanta-v3 
+┌─ MSG #52663  [BACKFILL]  Feb 23 12:28:44
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,434 INFO quanta-v3 
+┌─ MSG #52662  [BACKFILL]  Feb 23 11:36:40
+│  TEXT   : 🟢51 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,434 INFO quanta-v3 
+┌─ MSG #52661  [BACKFILL]  Feb 23 11:34:02
+│  TEXT   : 🟢40 Pips TP 2, secure partials here
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,435 INFO quanta-v3 
+┌─ MSG #52660  [BACKFILL]  Feb 23 11:32:41
+│  TEXT   : 🟢37 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,435 INFO quanta-v3 
+┌─ MSG #52659  [BACKFILL]  Feb 23 11:32:40
+│  TEXT   : 🟢33 Pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,435 INFO quanta-v3 
+┌─ MSG #52657  [BACKFILL]  Feb 23 11:32:14
+│  TEXT   : 🟢26 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,435 INFO quanta-v3 
+┌─ MSG #52656  [BACKFILL]  Feb 23 11:32:09
+│  TEXT   : take partials set  SL to be NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,436 INFO quanta-v3 
+┌─ MSG #52654  [BACKFILL]  Feb 23 11:31:49
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5149-5142  SL 5138  TP :5165/5178/5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5149.0  SL=5138.0  TP1=5165.0  TP2=5178.0  TP3=5188.0  TP4=5208.0  TP5=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,436 INFO quanta-v3 
+┌─ MSG #52653  [BACKFILL]  Feb 23 11:31:48
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,436 INFO quanta-v3 
+┌─ MSG #52652  [BACKFILL]  Feb 23 11:30:12
+│  TEXT   : Looking for reentry BUYS, Pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,436 INFO quanta-v3 
+┌─ MSG #52651  [BACKFILL]  Feb 23 11:30:05
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,437 INFO quanta-v3 
+┌─ MSG #52650  [BACKFILL]  Feb 23 11:27:20
+│  TEXT   : 🟢25 Pips TP 1
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,437 INFO quanta-v3 
+┌─ MSG #52649  [BACKFILL]  Feb 23 11:27:01
+│  TEXT   : take partials SET SL TO BE NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,437 INFO quanta-v3 
+┌─ MSG #52647  [BACKFILL]  Feb 23 11:26:44
+│  TEXT   : 🟢XAUUSD🟢  BUY   RANGE: 5150.5-5142  SL 5138  TP :5158/5165/5178 5188/5208/5228
+│  SIGNAL : ✓  XAUUSD  BUY  entry=5142.0–5150.5  SL=5138.0  TP1=5158.0  TP2=5165.0  TP3=5178.0  TP4=5188.0  TP5=5208.0  TP6=5228.0
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,437 INFO quanta-v3 
+┌─ MSG #52646  [BACKFILL]  Feb 23 11:26:34
+│  TEXT   : BUY NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,438 INFO quanta-v3 
+┌─ MSG #52645  [BACKFILL]  Feb 23 11:26:26
+│  TEXT   : Prem, looking for BUYS, pay attention
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,438 INFO quanta-v3 
+┌─ MSG #52643  [BACKFILL]  Feb 23 09:23:10
+│  TEXT   : WE GOIN’ RIGHT NOW.
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,438 INFO quanta-v3 
+┌─ MSG #52642  [BACKFILL]  Feb 23 09:21:08
+│  TEXT   : Profit accelerator Stream: ENDED
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,438 INFO quanta-v3 
+┌─ MSG #52641  [BACKFILL]  Feb 23 08:32:56
+│  TEXT   : Ahhh yes absolutely beautiful trade 🤭🤭🤭  More trades to come, but first, private stream in a 50 minutes  If you’re not up at least $1,000+ USD today from all the wins, you NEED to show up  P.S. If ...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,439 INFO quanta-v3 
+┌─ MSG #52640  [BACKFILL]  Feb 23 08:30:34
+│  TEXT   : 🔴POSITION CLOSED🔴  We are no longer in this trade, we have taken our profits and the position has been taken out at break even.   CLOSE ALL OPEN POSITIONS NOW  Amazing Scalp prem!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,439 INFO quanta-v3 
+┌─ MSG #52639  [BACKFILL]  Feb 23 08:08:00
+│  TEXT   : Ya’ll follow the plan.   You think I’m joking when I said thousands in a day.   TODAY.   I mentioned it before, everyone here wants to be a winner, surrounded by winners. If you wanna be stuck in 0...
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,439 INFO quanta-v3 
+┌─ MSG #52627  [BACKFILL]  Feb 23 07:53:51
+│  TEXT   : 🟢124 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,439 INFO quanta-v3 
+┌─ MSG #52625  [BACKFILL]  Feb 23 07:45:27
+│  TEXT   : 🟢 108 pips, bangggggg
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,440 INFO quanta-v3 
+┌─ MSG #52624  [BACKFILL]  Feb 23 07:44:24
+│  TEXT   : YALL BETTER MAKE MONEY TODAY  Don’t wanna see no 0.01 0.1 lot bullshit  Send me your screenshots NOW!!!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,440 INFO quanta-v3 
+┌─ MSG #52623  [BACKFILL]  Feb 23 07:44:07
+│  TEXT   : Take more partials here
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,440 INFO quanta-v3 
+┌─ MSG #52622  [BACKFILL]  Feb 23 07:43:59
+│  TEXT   : 🟢 100 pips, TP4 smacked
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,440 INFO quanta-v3 
+┌─ MSG #52620  [BACKFILL]  Feb 23 07:43:26
+│  TEXT   : 🟢 94 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,441 INFO quanta-v3 
+┌─ MSG #52619  [BACKFILL]  Feb 23 07:41:30
+│  TEXT   : 🟢 84 pipperoos
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,441 INFO quanta-v3 
+┌─ MSG #52618  [BACKFILL]  Feb 23 07:41:08
+│  TEXT   : 🟢 80 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,441 INFO quanta-v3 
+┌─ MSG #52617  [BACKFILL]  Feb 23 07:40:33
+│  TEXT   : HAHAHAHAHHA FUCKING AMAZING
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,441 INFO quanta-v3 
+┌─ MSG #52616  [BACKFILL]  Feb 23 07:40:12
+│  TEXT   : TAKE A FK TON OF PARTIALS NOWWWW 30% total
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,442 INFO quanta-v3 
+┌─ MSG #52615  [BACKFILL]  Feb 23 07:39:45
+│  TEXT   : 🟢 70 pips! TP3
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,442 INFO quanta-v3 
+┌─ MSG #52614  [BACKFILL]  Feb 23 07:39:41
+│  TEXT   : 🟢 57 pips!
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,442 INFO quanta-v3 
+┌─ MSG #52613  [BACKFILL]  Feb 23 07:39:13
+│  TEXT   : moving fast lads. TAKE PARTIALS
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,442 INFO quanta-v3 
+┌─ MSG #52612  [BACKFILL]  Feb 23 07:39:04
+│  TEXT   : 🟢 28 pips
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,442 INFO quanta-v3 
+┌─ MSG #52611  [BACKFILL]  Feb 23 07:39:04
+│  TEXT   : Take partials set SL TO BE NOW
+│  SIGNAL : ✗  not a trading signal
+└─ ACTION : ⏭ SKIPPED     →  already processed in a previous session
+
+2026-02-23 22:45:28,443 INFO quanta-v3 ━━  BACKFILL DONE   50 messages loaded  newest_id=52669  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 22:45:28,443 INFO quanta-v3 
+2026-02-23 22:45:28,443 INFO quanta-v3 ━━  LISTENING   connected to [🚀 CallistoFx Premium Channel 🚀]  watching for new signals  ━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 23:00:28,226 INFO Got difference for account updates
+2026-02-23 23:00:28,255 INFO Got difference for channel 1151024971 updates
+2026-02-23 23:00:28,287 INFO Got difference for channel 1623437581 updates
+nohup: ignoring input
+2026-02-23 23:01:35,032 INFO libssl detected, it will be used for encryption
+2026-02-23 23:01:35,100 INFO quanta-v3 supervisor started thread: listener
+2026-02-23 23:01:35,100 INFO quanta-v3 Using TELEGRAM_STRING_SESSION for Telegram client (sqlite session file bypassed)
+2026-02-23 23:01:35,101 INFO Connecting to 91.108.56.185:443/TcpFull...
+2026-02-23 23:01:35,101 INFO quanta-v3 supervisor started thread: manager
+2026-02-23 23:01:35,103 INFO quanta-v3 supervisor started thread: executor
+2026-02-23 23:01:35,106 INFO Connection to 91.108.56.185:443/TcpFull complete!
+2026-02-23 23:01:35,485 INFO quanta-v3 Telegram channel resolved: name=🚀 CallistoFx Premium Channel 🚀 id=-1001623437581
+2026-02-23 23:01:35,485 INFO quanta-v3 
+2026-02-23 23:01:35,485 INFO quanta-v3 ━━  BACKFILL START  (silent — already seen before)  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 23:01:35,577 INFO quanta-v3 ━━  BACKFILL DONE   50 messages loaded  newest_id=52670  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 23:01:35,577 INFO quanta-v3 
+2026-02-23 23:01:35,577 INFO quanta-v3 ━━  LISTENING   connected to [🚀 CallistoFx Premium Channel 🚀]  watching for new signals  ━━━━━━━━━━━━━━━━━━━━━━
+2026-02-23 23:16:35,225 INFO Got difference for account updates
+2026-02-23 23:16:35,282 INFO Got difference for channel 1151024971 updates
+2026-02-23 23:16:35,364 INFO Got difference for channel 1623437581 updates
+2026-02-23 23:16:35,365 INFO quanta-v3 
+┌─ MSG #52671  [LIVE    ]  Feb 23 23:10:54 SGT
+│  TEXT   : Trading summary 23rd Feb 2026:  🟢(PREM)XAUUSD + 295 Pips (TP 4) 🟢(PREM)XAUUSD + 40 Pips (TP 2) 🟢(PREM)XAUUSD + 43 Pips (TP 2) 🟢(PREM)XAUUSD + 70 Pips (TP 3) 🟢(PREM)XAUUSD + 75 Pips (TP 3) 🟢(PREM)XA...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⚠  IGNORED     →  fuzzy match but parser could not confirm signal
+
+2026-02-23 23:16:35,374 INFO quanta-v3 
+┌─ MSG #52672  [LIVE    ]  Feb 23 23:15:50 SGT
+│  TEXT   : EOD Trade Breakdown 23rd Feb 2026 NO.1  🔴Criteria 1: 5M bullish CHOCH with a body candle close + retest at the 5151.35 level.  🟠Criteria 2: Create a 5M bullish FVG at the 5146.94 level.  🟢Criteria ...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⚠  IGNORED     →  fuzzy match but parser could not confirm signal
+
+2026-02-23 23:16:35,771 INFO Got difference for channel 1371164437 updates
+2026-02-23 23:16:36,187 INFO Got difference for channel 1339070963 updates
+2026-02-23 23:20:57,377 INFO Got difference for channel 1623437581 updates
+2026-02-23 23:20:57,378 INFO quanta-v3 
+┌─ MSG #52673  [LIVE    ]  Feb 23 23:20:41 SGT
+│  TEXT   : EOD Trade Breakdown 23rd Feb 2026 NO.2  🔴Criteria 1: 1HR bullish FVG tapped at the 5129.71 level.  🟠Criteria 2: Swept past the 1M Low with a wick at the 5126.30 level. 🟢Criteria 3: Capitalised on A...
+│  SIGNAL : ~  looks like a signal but parser could not extract it
+└─ ACTION : ⚠  IGNORED     →  fuzzy match but parser could not confirm signal
+

@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  helios:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: helios-api
+    ports:
+      - "8000:8000"
+    environment:
+      HELIOS_ENV: docker
+      HELIOS_HOST: 0.0.0.0
+      HELIOS_PORT: 8000
+      HELIOS_REPLAY_TOKEN: replace_me
+      REDIS_URL: redis://redis:6379/0
+      POSTGRES_DSN: postgresql://helios:helios@postgres:5432/helios
+      WEAVIATE_URL: http://weaviate:8080
+    depends_on:
+      - redis
+      - postgres
+      - weaviate
+
+  redis:
+    image: redis:7-alpine
+    container_name: helios-redis
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: helios-postgres
+    environment:
+      POSTGRES_DB: helios
+      POSTGRES_USER: helios
+      POSTGRES_PASSWORD: helios
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  weaviate:
+    image: semitechnologies/weaviate:1.25.6
+    container_name: helios-weaviate
+    environment:
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: /var/lib/weaviate
+      DEFAULT_VECTORIZER_MODULE: none
+      ENABLE_MODULES: ""
+      CLUSTER_HOSTNAME: node1
+    ports:
+      - "8080:8080"
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+
+volumes:
+  postgres_data:
+  weaviate_data:

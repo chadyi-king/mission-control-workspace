@@ -1,0 +1,9 @@
+.env
+*.env
+*.session
+*.pyc
+__pycache__/
+.pytest_cache/
+agents/quanta-v3/.env
+agents/quanta-v3/*.session
+agents/quanta-v3/__pycache__/
