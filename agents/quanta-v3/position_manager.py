@@ -15,8 +15,8 @@ class PositionManager:
         try:
             entry = float(trade_state["entry_price"])
             if trade_state["direction"] == "BUY":
-                return (current_price - entry) * 100
-            return (entry - current_price) * 100
+                return (current_price - entry) * 10   # 1 ch-pip = $0.10
+            return (entry - current_price) * 10   # 1 ch-pip = $0.10
         except Exception:
             return 0.0
 
@@ -26,6 +26,25 @@ class PositionManager:
                 self.oanda.close_trade_units(trade_id, str(units))
         except Exception as exc:
             self.logger.exception("partial close failed: %s", exc)
+
+    def _close_partial_multi(self, trade_ids: List[str], close_units_total: int, remaining_units: int) -> int:
+        if not trade_ids or close_units_total <= 0 or remaining_units <= 0:
+            return 0
+        close_units_total = min(close_units_total, remaining_units)
+        per_trade = max(int(close_units_total / len(trade_ids)), 1)
+        closed = 0
+        for trade_id in trade_ids:
+            if closed >= close_units_total:
+                break
+            units = min(per_trade, close_units_total - closed)
+            self._close_partial(trade_id, units)
+            closed += units
+        return closed
+
+    def _price_hits_tp(self, direction: str, price: float, tp_price: float) -> bool:
+        if direction == "BUY":
+            return price >= tp_price
+        return price <= tp_price
 
     def manage_once(self, open_trades_state: List[Dict]) -> List[Dict]:
         try:
@@ -39,6 +58,26 @@ class PositionManager:
                         continue
                     trade_ids = [str(x) for x in state.get("trade_ids", [])]
                     active_ids = [tid for tid in trade_ids if tid in live_ids]
+
+                    # ── Resolve order IDs → trade IDs after limit orders fill ──
+                    # When orders were placed as LIMIT, state["trade_ids"] holds
+                    # ORDER IDs.  Once they fill, OANDA creates new TRADE IDs.
+                    # We find them by the client tag we set: qv3-{message_id}-tierN
+                    if not active_ids and state.get("message_id"):
+                        tag_prefix = f"qv3-{state['message_id']}"
+                        try:
+                            resolved = self.oanda.get_trade_ids_by_tag_prefix(tag_prefix)
+                            if resolved:
+                                self.logger.info(
+                                    "position_manager resolved order→trade IDs "
+                                    "for msg_id=%s: %s", state["message_id"], resolved
+                                )
+                                state["trade_ids"] = resolved
+                                trade_ids = resolved
+                                active_ids = [tid for tid in trade_ids if tid in live_ids]
+                        except Exception:
+                            self.logger.exception("Failed to resolve trade IDs for msg_id=%s", state.get("message_id"))
+
                     if not active_ids:
                         state["status"] = "closed"
                         updated.append(state)
@@ -50,30 +89,67 @@ class PositionManager:
                     remaining_units = int(state["remaining_units"])
                     hit = set(state.get("tp_levels_hit", []))
 
-                    for tp in self.TP_LEVELS:
-                        if pips >= tp and tp not in hit:
-                            close_units = max(int(original_units * 0.10), 1)
-                            self._close_partial(active_ids[0], close_units)
-                            remaining_units = max(remaining_units - close_units, 0)
-                            hit.add(tp)
-                            if tp == 20:
-                                self.oanda.update_trade_sl(active_ids[0], float(state["entry_price"]))
-                            if tp == 100:
-                                state["runner_active"] = True
+                    tp_levels = state.get("tp_levels") or []
+                    if tp_levels:
+                        ordered = sorted(tp_levels) if state["direction"] == "BUY" else sorted(tp_levels, reverse=True)
+                        first_tp = ordered[0]
+                        last_tp = ordered[-1]
+                        for tp_price in ordered:
+                            if tp_price in hit:
+                                continue
+                            if self._price_hits_tp(state["direction"], price, tp_price):
+                                close_units = max(int(original_units * 0.10), 1)
+                                closed = self._close_partial_multi(active_ids, close_units, remaining_units)
+                                remaining_units = max(remaining_units - closed, 0)
+                                hit.add(tp_price)
+                                if tp_price == first_tp:
+                                    for trade_id in active_ids:
+                                        self.oanda.update_trade_sl(trade_id, float(state["entry_price"]))
+                                if tp_price == last_tp:
+                                    state["runner_active"] = True
+                    else:
+                        for tp in self.TP_LEVELS:
+                            if pips >= tp and tp not in hit:
+                                close_units = max(int(original_units * 0.10), 1)
+                                closed = self._close_partial_multi(active_ids, close_units, remaining_units)
+                                remaining_units = max(remaining_units - closed, 0)
+                                hit.add(tp)
+                                if tp == 20:
+                                    for trade_id in active_ids:
+                                        self.oanda.update_trade_sl(trade_id, float(state["entry_price"]))
+                                if tp == 100:
+                                    state["runner_active"] = True
 
                     if state.get("runner_active"):
-                        runner_steps_should_be = int(max(0, (pips - 100)) // 100)
+                        # Runner: every 100 channel pips past TP5 -> close 10% remaining
+                        # 1 channel pip = $0.10, so 100 ch-pips = $10.00 price move
+                        RUNNER_STEP_PRICE = 10.0   # $10 per 100 channel pips
+                        RUNNER_SL_TRAIL   = 10.0   # trail SL $10 behind milestone
+
+                        entry_price = float(state["entry_price"])
+                        if state["direction"] == "BUY":
+                            price_gain = price - entry_price
+                        else:
+                            price_gain = entry_price - price
+
+                        runner_steps_should_be = int(price_gain // RUNNER_STEP_PRICE)
                         runner_steps_hit = int(state.get("runner_steps_hit", 0))
                         while runner_steps_hit < runner_steps_should_be and remaining_units > 0:
                             close_units = max(int(remaining_units * 0.10), 1)
-                            self._close_partial(active_ids[0], close_units)
-                            remaining_units = max(remaining_units - close_units, 0)
+                            closed = self._close_partial_multi(active_ids, close_units, remaining_units)
+                            remaining_units = max(remaining_units - closed, 0)
                             runner_steps_hit += 1
                         state["runner_steps_hit"] = runner_steps_hit
 
-                        trailing_sl = price - 1.0 if state["direction"] == "BUY" else price + 1.0
+                        # Trail SL: $10 behind latest milestone
+                        milestone_gain = runner_steps_hit * RUNNER_STEP_PRICE
+                        if state["direction"] == "BUY":
+                            trailing_sl = entry_price + milestone_gain - RUNNER_SL_TRAIL
+                        else:
+                            trailing_sl = entry_price - milestone_gain + RUNNER_SL_TRAIL
                         state["trailing_sl"] = trailing_sl
-                        self.oanda.update_trade_sl(active_ids[0], trailing_sl)
+                        for trade_id in active_ids:
+                            self.oanda.update_trade_sl(trade_id, trailing_sl)
 
                     state["remaining_units"] = remaining_units
                     state["tp_levels_hit"] = sorted(list(hit))

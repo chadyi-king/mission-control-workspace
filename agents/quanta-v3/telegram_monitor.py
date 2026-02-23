@@ -34,20 +34,33 @@ class TelegramMonitor:
 
     async def _resolve_channel_id(self) -> int:
         try:
-            st = self.disk_state.load()
+            st = self._load_state()
             if st.get("channel_id"):
                 return int(st["channel_id"])
             entity = await self.client.get_entity(self.settings.telegram_channel_name)
             st["channel_id"] = int(entity.id)
-            self.disk_state.save(st)
+            self._save_state(st)
             return int(entity.id)
         except Exception:
             raise
 
+    def _load_state(self) -> dict:
+        if hasattr(self.disk_state, "load_telegram_state"):
+            return self.disk_state.load_telegram_state()
+        if hasattr(self.disk_state, "load"):
+            return self.disk_state.load()
+        return {"channel_id": None, "last_processed_message_id": 0}
+
+    def _save_state(self, state: dict) -> None:
+        if hasattr(self.disk_state, "save_telegram_state"):
+            self.disk_state.save_telegram_state(state)
+        elif hasattr(self.disk_state, "save"):
+            self.disk_state.save(state)
+
     async def _prime_buffer(self, channel_id: int):
         try:
-            st = self.disk_state.load()
-            last_id = int(st.get("last_processed_id", 0))
+            st = self._load_state()
+            last_id = int(st.get("last_processed_message_id", 0))
             async for msg in self.client.iter_messages(channel_id, limit=50):
                 self.buffer.appendleft(msg)
             async for msg in self.client.iter_messages(channel_id, min_id=last_id, reverse=True):
@@ -57,25 +70,26 @@ class TelegramMonitor:
 
     async def _poll_once(self, channel_id: int):
         try:
-            st = self.disk_state.load()
-            last_id = int(st.get("last_processed_id", 0))
+            st = self._load_state()
+            last_id = int(st.get("last_processed_message_id", 0))
             async for msg in self.client.iter_messages(channel_id, min_id=last_id, reverse=True):
                 self.buffer.append(msg)
                 if int(msg.id) <= last_id:
                     continue
-                parsed = self.parser.parse(msg.message or "", message_id=int(msg.id))
+                parsed = self.parser.parse(msg.message or "")
                 if not parsed:
                     continue
-                if self.redis_state.is_processed_signal(parsed.signal_id):
-                    st["last_processed_id"] = int(msg.id)
-                    self.disk_state.save(st)
+                if hasattr(self.redis_state, "is_processed_signal") and self.redis_state.is_processed_signal(str(msg.id)):
+                    st["last_processed_message_id"] = int(msg.id)
+                    self._save_state(st)
                     continue
 
-                self.trade_manager.execute_signal(parsed, int(msg.id))
-                self.redis_state.mark_processed_signal(parsed.signal_id)
-                st["last_processed_id"] = int(msg.id)
-                self.disk_state.save(st)
-                self.log.info("signal received and order placed msg_id=%s signal_id=%s", msg.id, parsed.signal_id)
+                self.trade_manager.execute_three_tier(parsed, int(msg.id))
+                if hasattr(self.redis_state, "add_processed_signal"):
+                    self.redis_state.add_processed_signal(str(msg.id))
+                st["last_processed_message_id"] = int(msg.id)
+                self._save_state(st)
+                self.log.info("signal received and order placed msg_id=%s", msg.id)
         except Exception as e:
             self.log.error(e)
 

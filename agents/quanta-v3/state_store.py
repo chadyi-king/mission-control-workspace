@@ -7,6 +7,8 @@ class StateStore:
     def __init__(self, telegram_state_file: Path, open_trades_file: Path):
         self.telegram_state_file = telegram_state_file
         self.open_trades_file = open_trades_file
+        self.redis_backbone = None
+        self._open_trades_key = "quanta.open_trades"
 
     def load_telegram_state(self) -> Dict[str, Any]:
         try:
@@ -24,6 +26,9 @@ class StateStore:
 
     def load_open_trades(self) -> List[Dict[str, Any]]:
         try:
+            if self.redis_backbone is not None:
+                raw = self.redis_backbone.redis.get(self._open_trades_key)
+                return json.loads(raw) if raw else []
             if not self.open_trades_file.exists():
                 return []
             return json.loads(self.open_trades_file.read_text())
@@ -32,6 +37,9 @@ class StateStore:
 
     def save_open_trades(self, trades: List[Dict[str, Any]]) -> None:
         try:
+            if self.redis_backbone is not None:
+                self.redis_backbone.redis.set(self._open_trades_key, json.dumps(trades))
+                return
             self.open_trades_file.write_text(json.dumps(trades, indent=2))
         except Exception:
             raise
