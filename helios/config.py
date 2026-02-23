@@ -26,7 +26,7 @@ def _resolve_redis_url() -> str | None:
     if rest_url and token:
         # e.g. https://national-gar-36005.upstash.io → national-gar-36005.upstash.io
         host = rest_url.removeprefix("https://").removeprefix("http://").rstrip("/")
-        return f"rediss://default:{token}@{host}:6380"
+        return f"rediss://default:{token}@{host}:6379"
     return None
 
 

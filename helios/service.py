@@ -65,7 +65,7 @@ def _redis_listener() -> None:
     rest_url = os.getenv("UPSTASH_REDIS_REST_URL", "")
     token = os.getenv("UPSTASH_REDIS_REST_TOKEN", "")
     upstash_socket = (
-        "rediss://default:{}@{}:6380".format(
+        "rediss://default:{}@{}:6379".format(
             token,
             rest_url.removeprefix("https://").removeprefix("http://").rstrip("/"),
         )

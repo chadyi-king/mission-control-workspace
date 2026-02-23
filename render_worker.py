@@ -43,7 +43,7 @@ def _resolve_redis_url() -> str:
     token = os.environ.get("UPSTASH_REDIS_REST_TOKEN", "")
     if rest_url and token:
         host = rest_url.removeprefix("https://").removeprefix("http://").rstrip("/")
-        return f"rediss://default:{token}@{host}:6380"
+        return f"rediss://default:{token}@{host}:6379"
     return ""
 
 
