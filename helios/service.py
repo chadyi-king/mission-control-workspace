@@ -157,7 +157,7 @@ app = FastAPI(title="Helios Service", version="0.1.0", lifespan=_lifespan)
 # CORS — allow dashboard origin to call API
 _allowed_origins = os.getenv(
     "CORS_ALLOWED_ORIGINS",
-    "https://mission-control-dashboard-hf0r.onrender.com",
+    "https://red-sun-mission-control.onrender.com,https://mission-control-dashboard-hf0r.onrender.com",
 ).split(",")
 
 app.add_middleware(

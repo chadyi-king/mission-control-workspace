@@ -40,4 +40,4 @@ services:
       - key: UPSTASH_REDIS_REST_TOKEN
         sync: false   # your Upstash REST token
       - key: CORS_ALLOWED_ORIGINS
-        value: https://mission-control-dashboard-hf0r.onrender.com
+        value: https://red-sun-mission-control.onrender.com,https://mission-control-dashboard-hf0r.onrender.com
