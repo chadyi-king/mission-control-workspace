@@ -21,7 +21,11 @@ class ExternalAdapters:
         self.config = config
         self.redis_client = None
         if redis and config.redis_url:
-            self.redis_client = redis.from_url(config.redis_url, decode_responses=True)
+            try:
+                self.redis_client = redis.from_url(config.redis_url, decode_responses=True)
+            except Exception as exc:
+                print(f"[helios] Redis client init failed (non-fatal): {exc}", flush=True)
+                self.redis_client = None
 
     def publish_event(self, event: dict[str, Any]) -> None:
         if self.redis_client is None:
