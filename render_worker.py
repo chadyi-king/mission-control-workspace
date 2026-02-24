@@ -110,8 +110,11 @@ def redis_msg_to_helios_event(raw_payload: dict) -> dict:
         "event_type": event_type,
         "status": "success",
         "idempotency_key": raw_payload.get("idempotency_key") or str(uuid.uuid4()),
-        "payload": data,
-        "model_tier": "fast",
+        "payload": data if isinstance(data, dict) else {"raw": data},
+        "model_tier": "cheap",
+        "model_id": "redis-bridge",
+        "reasoning_summary": "",
+        "confidence": 1.0,
         "ts": raw_payload.get("ts", datetime.now(timezone.utc).isoformat()),
     }
 
@@ -173,7 +176,11 @@ def heartbeat_loop(r: redis.Redis) -> None:
                 "status": "success",
                 "idempotency_key": str(uuid.uuid4()),
                 "payload": {"status": "active"},
-                "model_tier": "fast",
+                "model_tier": "cheap",
+                "model_id": "redis-bridge",
+                "reasoning_summary": "",
+                "confidence": 1.0,
+                "ts": datetime.now(timezone.utc).isoformat(),
             })
         except Exception as exc:
             ts("Heartbeat error:", exc)
