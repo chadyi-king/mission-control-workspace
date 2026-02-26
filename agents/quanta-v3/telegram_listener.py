@@ -350,13 +350,11 @@ class TelegramExecutionBot:
         newest_id = None
         backfill_messages = []
         prior_state = self._load_state()
-        already_seen_before = int(prior_state.get("last_processed_message_id", 0) or 0) > 0
-        # On restarts (already_seen_before=True) do a silent backfill — just update
-        # state/buffer without printing 50 lines we already saw.
-        silent_backfill = already_seen_before
+        last_known_id = int(prior_state.get("last_processed_message_id", 0) or 0)
+        already_seen_before = last_known_id > 0
         self.logger.info("")
-        if silent_backfill:
-            self.logger.info("━━  BACKFILL START  (silent — already seen before)  ━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        if already_seen_before:
+            self.logger.info("━━  BACKFILL START  (silent for seen, live for any missed)  ━━━━━━━━━━━━━━━━━━━━━━━━━━")
         else:
             self.logger.info("━━  BACKFILL START  loading last 50 messages from [%s]  ━━━━━━━━━━━━━━━━━━━━━━━━━━", target_name)
         async for msg in self.client.iter_messages(target_id, limit=50):
@@ -365,7 +363,11 @@ class TelegramExecutionBot:
             row = self._build_snapshot_row(message_id, text)
             backfill_messages.append(row)
             if text:
-                await self._handle_text(message_id, text, is_old=True, msg_date=getattr(msg, "date", None), silent=silent_backfill)
+                # Any message newer than last_known_id arrived while offline → treat as live
+                msg_is_new = (message_id is not None) and (int(message_id) > last_known_id)
+                silent = already_seen_before and not msg_is_new
+                is_old = not msg_is_new
+                await self._handle_text(message_id, text, is_old=is_old, msg_date=getattr(msg, "date", None), silent=silent)
             if message_id is not None:
                 newest_id = max(newest_id or 0, int(msg.id))
 

@@ -42,6 +42,21 @@ class SignalExecutor:
 
         self.reporter.emit("signal", {"signal_id": signal_id, "symbol": signal["symbol"]})
         message_id = signal.get("message_id") or signal.get("signal_id") or "unknown"
+
+        # Guard: skip if an active (non-closed) trade for this message_id already exists
+        try:
+            for t in self.state_store.load_open_trades():
+                if str(t.get("message_id", "")) == str(message_id) and t.get("status") != "closed":
+                    logger.info("message_id=%s already has active trade — skipping duplicate", message_id)
+                    self.store.add_processed_signal(signal_id)
+                    self.store.ack(self.settings.signal_stream, self.settings.signal_group, msg_id)
+                    return
+        except Exception:
+            pass
+
+        # Mark processed BEFORE executing so a crash mid-execution cannot replay the trade
+        self.store.add_processed_signal(signal_id)
+
         result = self.trade_manager.execute_signal(signal, message_id)
         for trade_id in result.get("trade_ids", []):
             self.store.save_trade_state(trade_id, result)
@@ -52,7 +67,6 @@ class SignalExecutor:
             self.state_store.save_open_trades(open_trades)
         except Exception as exc:
             self.reporter.emit("error", {"message_id": msg_id, "signal_id": signal_id, "error": str(exc), "retry": False})
-        self.store.add_processed_signal(signal_id)
         self.store.ack(self.settings.signal_stream, self.settings.signal_group, msg_id)
         self.reporter.emit("trade", result)
         self.reporter.emit("trade_executed", {"signal_id": signal_id, "message_id": message_id, "trade_ids": result.get("trade_ids", [])})

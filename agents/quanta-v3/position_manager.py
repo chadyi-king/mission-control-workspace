@@ -79,7 +79,26 @@ class PositionManager:
                             self.logger.exception("Failed to resolve trade IDs for msg_id=%s", state.get("message_id"))
 
                     if not active_ids:
-                        state["status"] = "closed"
+                        # Don't mark closed if LIMIT orders are still pending (waiting to fill)
+                        has_pending = False
+                        if state.get("message_id"):
+                            tag_prefix = f"qv3-{state['message_id']}"
+                            try:
+                                pending_ids = self.oanda.get_order_ids_by_tag_prefix(tag_prefix)
+                                if pending_ids:
+                                    has_pending = True
+                                    self.logger.info(
+                                        "position_manager: no open trades yet — "
+                                        "%d pending order(s) for msg_id=%s, waiting for fill",
+                                        len(pending_ids), state["message_id"],
+                                    )
+                            except Exception:
+                                self.logger.exception(
+                                    "Failed to check pending orders for msg_id=%s",
+                                    state.get("message_id"),
+                                )
+                        if not has_pending:
+                            state["status"] = "closed"
                         updated.append(state)
                         continue
 

@@ -78,9 +78,11 @@ class TradeManager:
             for key in ("tradeOpened", "tradeReduced", "tradeClosed"):
                 if key in fill and isinstance(fill[key], dict) and fill[key].get("tradeID"):
                     trade_ids.append(str(fill[key]["tradeID"]))
-            # fallback for simulated responses
-            if "orderCreateTransaction" in resp and resp["orderCreateTransaction"].get("id"):
-                trade_ids.append(str(resp["orderCreateTransaction"]["id"]))
+            # dry-run only — never store real OANDA order IDs as trade IDs
+            create = resp.get("orderCreateTransaction") or {}
+            sim_id = str(create.get("id", ""))
+            if sim_id.startswith("DRY-") and sim_id not in trade_ids:
+                trade_ids.append(sim_id)
         # preserve order, remove dups
         return list(dict.fromkeys(trade_ids))
 

@@ -69,14 +69,31 @@ def run_supervisor(role: str):
             else:
                 threads: dict = {}
 
+                crash_counts: dict = {}
+
                 def _ensure_thread(name, target, args):
-                    """Start the named thread only if it is not already alive."""
+                    """Start the named thread only if not alive, with exponential backoff."""
                     t = threads.get(name)
                     if t is None or not t.is_alive():
+                        if threads.get(name) is not None:
+                            # Thread died — exponential backoff: 5s, 10s, 20s, 40s, max 120s
+                            count = crash_counts.get(name, 0) + 1
+                            crash_counts[name] = count
+                            wait = min(5 * (2 ** (count - 1)), 120)
+                            logger.warning(
+                                "supervisor: thread %s crashed (attempt %d) — "
+                                "waiting %ds before restart to avoid Telegram flood ban",
+                                name, count, wait,
+                            )
+                            time.sleep(wait)
+                        else:
+                            crash_counts[name] = 0
                         t = threading.Thread(target=target, args=args, daemon=True, name=name)
                         t.start()
                         threads[name] = t
                         logger.info("supervisor started thread: %s", name)
+                    else:
+                        crash_counts[name] = 0  # healthy — reset counter
                     return t
 
                 while True:
@@ -86,10 +103,10 @@ def run_supervisor(role: str):
                     time.sleep(3)
                     dead = [n for n, t in threads.items() if not t.is_alive()]
                     if dead:
-                        logger.warning("supervisor: thread(s) died and will be restarted: %s", dead)
+                        logger.warning("supervisor: thread(s) died — will restart with backoff: %s", dead)
         except Exception as exc:
             logger.exception("supervisor restarting after crash: %s", exc)
-            time.sleep(3)
+            time.sleep(10)
 
 
 def main():
