@@ -55,6 +55,9 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 SLEEP_INTERVAL  = 30 * 60   # 30 minutes
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
+# Agents intentionally stopped — suppress all silence alerts for these
+DORMANT_AGENTS = {"escritor", "mensamusa"}
+
 SEARCH_INDEX    = MEMORY / "search-index.json"
 CALEB_PROFILE   = MEMORY / "caleb-profile.md"
 COMPANY_VISION  = MEMORY / "company-vision.md"
@@ -204,6 +207,10 @@ def run_decision_engine(state: dict, report: dict) -> list:
     alerts = report.get("alerts", [])
 
     for agent_name, agent_data in agents.items():
+        # Skip intentionally dormant agents
+        if agent_name.lower() in DORMANT_AGENTS:
+            continue
+
         silence_h = 0
         if isinstance(agent_data, dict):
             # Try to get silence from the report structure
@@ -397,9 +404,11 @@ def rewrite_briefing(state: dict):
     pending2 = state.get("pending_tier2", [])
     pending3 = state.get("pending_tier3", [])
 
-    # Agent status table
+    # Agent status table (skip intentionally dormant agents)
     agent_rows = []
     for name, info in sorted(agents.items()):
+        if name.lower() in DORMANT_AGENTS:
+            continue
         status = info.get("status", "unknown").upper()
         last_seen = info.get("last_seen") or "—"
         silence = info.get("silence_hours", 0)
