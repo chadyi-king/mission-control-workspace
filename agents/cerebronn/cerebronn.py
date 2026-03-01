@@ -755,6 +755,8 @@ def run_learning_loop(state: dict, all_decisions: list):
 
     # Pattern: same agent repeatedly silent across cycles
     for agent, info in state.get("agents", {}).items():
+        if agent.lower() in DORMANT_AGENTS:
+            continue  # skip intentionally stopped agents
         silence_h = info.get("silence_hours", 0)
         if silence_h > 24:
             observations.append(
