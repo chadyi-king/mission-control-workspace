@@ -1,0 +1,78 @@
+{
+  "auditId": "audit-2026-02-11T22-06-00+08-00",
+  "timestamp": "2026-02-11T22:06:00+08:00",
+  "agent": "helios",
+  "run": 15,
+  "results": {
+    "consistencyChecks": {
+      "escritor": {
+        "status": "PASS",
+        "dataJsonStatus": "waiting_for_input",
+        "actualStatus": "Waiting for input",
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "notes": "Consistent - awaiting A2 chapter outline"
+      },
+      "chad_yi": {
+        "status": "PASS",
+        "dataJsonStatus": "active",
+        "actualStatus": "Running audit",
+        "lastActive": "2026-02-11T18:36:00+08:00",
+        "notes": "Status correct, timestamp auto-updated to 22:06"
+      },
+      "quanta": {
+        "status": "PASS",
+        "dataJsonStatus": "blocked",
+        "actualStatus": "Blocked - OANDA credentials needed",
+        "notes": "Consistent"
+      },
+      "mensamusa": {
+        "status": "PASS",
+        "dataJsonStatus": "blocked",
+        "actualStatus": "Blocked - Moomoo credentials needed",
+        "notes": "Consistent"
+      },
+      "autour": {
+        "status": "PASS",
+        "dataJsonStatus": "not_spawned",
+        "actualStatus": "Not yet activated",
+        "notes": "Consistent"
+      }
+    },
+    "autoFixesApplied": [
+      {
+        "rule": "agent_status_mismatch",
+        "agent": "chad_yi",
+        "action": "sync_to_actual_work",
+        "details": "Updated lastActive timestamp from 18:36 to 22:06",
+        "severity": "low"
+      },
+      {
+        "rule": "stale_data_timestamp",
+        "action": "update_lastUpdated",
+        "details": "Updated data.json lastUpdated from 21:36 to 22:06",
+        "severity": "low"
+      }
+    ],
+    "urgentIssues": [],
+    "warnings": [
+      {
+        "type": "stale_timestamp",
+        "message": "data.json lastUpdated was 30 min old, auto-corrected",
+        "severity": "low"
+      }
+    ],
+    "taskCounts": {
+      "total": 47,
+      "pending": 35,
+      "active": 8,
+      "review": 2,
+      "done": 2
+    },
+    "upcomingDeadlines": [
+      {"id": "A1-1", "deadline": "2026-02-13", "hoursRemaining": 49, "status": "on_track"},
+      {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "on_track"},
+      {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "on_track"}
+    ]
+  },
+  "nextAudit": "2026-02-11T22:21:00+08:00"
+}

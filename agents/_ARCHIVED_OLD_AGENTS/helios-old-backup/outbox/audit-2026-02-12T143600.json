@@ -1,0 +1,163 @@
+{
+  "auditId": "helios-2026-02-12T1436",
+  "timestamp": "2026-02-12T14:36:00+08:00",
+  "auditor": "helios",
+  "version": "1.0.0",
+  "dataSources": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "lastUpdated": "2026-02-12T14:23:26.998641",
+      "tasksTotal": 80,
+      "tasksByStatus": {
+        "pending": 13,
+        "active": 2,
+        "review": 0,
+        "done": 2,
+        "backlog": 63
+      }
+    },
+    "agentState": {
+      "path": "/agents/helios/AGENT_STATE.json",
+      "lastUpdated": "2026-02-12T14:22:00+08:00"
+    },
+    "escritorTask": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "Waiting for input",
+      "lastActivity": "Feb 9"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "agentActivated": false
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "activeTasks": 2
+    }
+  },
+  "agentStatusCheck": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3",
+      "consistency": "PASS",
+      "notes": "Working on dashboard audit infrastructure"
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "consistency": "PASS",
+      "notes": "Running on schedule"
+    },
+    "escritor": {
+      "status": "waiting_for_input",
+      "currentTask": "A2 - awaiting chapter outline",
+      "consistency": "PASS",
+      "idleHours": 78,
+      "thresholdExceeded": true,
+      "notes": "Idle timeout exceeded (78h > 24h threshold)"
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1",
+      "consistency": "FAIL",
+      "dataJsonStatus": "active",
+      "agentStateStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "notes": "Status mismatch between files"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2",
+      "consistency": "PASS",
+      "blocker": "Moomoo credentials needed",
+      "notes": "Waiting for credentials"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "consistency": "PASS",
+      "notes": "Configured but never activated"
+    }
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "userActionRequired": true
+    },
+    {
+      "id": "A5-3",
+      "title": "Set up OANDA account and API credentials",
+      "deadline": "2026-02-15",
+      "hoursRemaining": 74,
+      "severity": "high",
+      "userActionRequired": true
+    },
+    {
+      "id": "A6-19",
+      "title": "Connect agent to Telegram group/channel",
+      "deadline": "2026-02-15",
+      "hoursRemaining": 74,
+      "severity": "high"
+    },
+    {
+      "id": "B6-1",
+      "title": "Find facilitator for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "severity": "high",
+      "userActionRequired": true
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "severity": "high",
+      "userActionRequired": true
+    }
+  ],
+  "issuesFound": [
+    {
+      "type": "status_mismatch",
+      "severity": "medium",
+      "agent": "quanta",
+      "details": "data.json shows 'active' but AGENT_STATE.json shows 'blocked'",
+      "recommendation": "Update data.json to reflect blocked status with OANDA blocker"
+    },
+    {
+      "type": "idle_timeout",
+      "severity": "medium",
+      "agent": "escritor",
+      "details": "Agent idle for 78 hours (threshold: 24h)",
+      "recommendation": "Ping agent or escalate to CHAD_YI for task assignment"
+    },
+    {
+      "type": "urgent_deadline",
+      "severity": "critical",
+      "task": "A1-1",
+      "details": "Taiwan flights change due in 18 hours",
+      "recommendation": "Immediate user attention required"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "type": "status_correction",
+      "agent": "quanta",
+      "action": "Updated data.json status from 'active' to 'blocked'",
+      "reason": "Consistency with AGENT_STATE.json and actual blocker"
+    }
+  ],
+  "summary": {
+    "totalIssues": 3,
+    "criticalIssues": 1,
+    "mediumIssues": 2,
+    "autoFixes": 1,
+    "requiresCHAD_YI": true,
+    "agentsIdle": 1,
+    "agentsBlocked": 2,
+    "agentsActive": 2
+  }
+}

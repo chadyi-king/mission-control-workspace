@@ -1,0 +1,70 @@
+{
+  "auditId": "helios-audit-2026-02-13T0336",
+  "timestamp": "2026-02-13T03:36:00+08:00",
+  "agent": "Helios",
+  "version": "1.0.0",
+  "status": "completed",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyChecks": {
+    "taskCounts": {
+      "status": "PASS",
+      "expected": { "pending": 2, "active": 5, "review": 1, "done": 3 },
+      "actual": { "pending": 2, "active": 5, "review": 1, "done": 3 },
+      "workflowMatch": true
+    },
+    "escritorStatus": {
+      "status": "PASS",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "currentTaskMd": "A2-13 Study Phase",
+      "memoryMd": "Study Phase for Chapter 13",
+      "alignment": "CONSISTENT"
+    },
+    "blockedAgents": {
+      "status": "PASS",
+      "quanta": { "status": "blocked", "blocker": "OANDA credentials", "idleHours": 120 },
+      "mensamusa": { "status": "blocked", "blocker": "Moomoo credentials", "idleHours": 120 }
+    },
+    "urgentDeadlines": {
+      "status": "PASS",
+      "critical": ["A1-1 (due today)"],
+      "high": ["B6-3 (Feb 17)", "B6-6 (Feb 17)"]
+    }
+  },
+  "issuesFound": [
+    {
+      "severity": "minor",
+      "type": "stale_data",
+      "description": "Quanta/MensaMusa idle hours show 102h but actual is ~120h based on lastActive timestamp",
+      "autoFixApplied": true,
+      "fixDetails": "Updated idleHours to 120h in data.json inputDetails"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "rule": "update_last_active_timestamp",
+      "target": "AGENT_STATE.json",
+      "action": "Updated lastAudit to 2026-02-13T03:36:00+08:00"
+    },
+    {
+      "rule": "update_task_counts",
+      "target": "data.json idleHours",
+      "action": "Corrected Quanta/MensaMusa idleHours from 102h to 120h"
+    }
+  ],
+  "urgentNotifications": [],
+  "agentStatusSummary": {
+    "chad_yi": { "status": "active", "currentTask": "A6-3", "idleHours": 0 },
+    "helios": { "status": "active", "currentTask": "15-min audit", "idleHours": 0 },
+    "escritor": { "status": "active", "currentTask": "A2-13", "idleHours": 0 },
+    "quanta": { "status": "blocked", "currentTask": "A5-1", "idleHours": 120 },
+    "mensamusa": { "status": "blocked", "currentTask": "A5-2", "idleHours": 120 },
+    "autour": { "status": "not_spawned", "currentTask": null, "idleHours": null }
+  },
+  "nextAudit": "2026-02-13T03:51:00+08:00"
+}

@@ -1,0 +1,100 @@
+{
+  "auditId": "helios-2026-02-12T1106",
+  "timestamp": "2026-02-12T11:06:00+08:00",
+  "auditor": "helios",
+  "auditType": "15-minute-cycle",
+  "summary": {
+    "status": "issues-found",
+    "issuesFound": 2,
+    "autoFixes": 0,
+    "manualActionRequired": 2
+  },
+  "dataSourcesVerified": {
+    "missionControlDataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "verified",
+      "lastUpdated": "2026-02-12T10:00:00+08:00",
+      "tasksTotal": 72,
+      "tasksByStatus": {
+        "pending": 7,
+        "active": 8,
+        "review": 2,
+        "done": 2,
+        "backlog": 53
+      }
+    },
+    "agentStateJson": {
+      "path": "/home/chad-yi/.openclaw/workspace/AGENT_STATE.json",
+      "status": "verified",
+      "lastUpdated": "2026-02-12T05:30:00+08:00",
+      "agentsTracked": 6
+    },
+    "escritorCurrentTask": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "verified",
+      "agentStatus": "waiting_for_input",
+      "idleHours": 78
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "verified"
+    },
+    "activeMd": {
+      "path": "/home/chad-yi/.openclaw/workspace/ACTIVE.md",
+      "status": "verified"
+    }
+  },
+  "consistencyChecks": {
+    "agentStatusConsistency": {
+      "chad_yi": { "expected": "active", "actual": "active", "match": true },
+      "escritor": { "expected": "waiting_for_input", "actual": "waiting_for_input", "match": true },
+      "quanta": { "expected": "blocked", "actual": "blocked", "match": true },
+      "mensamusa": { "expected": "blocked", "actual": "blocked", "match": true },
+      "autour": { "expected": "not_spawned", "actual": "not_spawned", "match": true }
+    },
+    "dataFreshness": {
+      "status": "warning",
+      "message": "AGENT_STATE.json is 5.5 hours behind data.json. CHAD_YI last coordination check needs update."
+    }
+  },
+  "issues": [
+    {
+      "id": "ISSUE-2026-0212-1106-1",
+      "severity": "critical",
+      "type": "deadline-urgent",
+      "description": "Task A1-1 'Change Taiwan flights and hotel' deadline is tomorrow (Feb 13)",
+      "hoursRemaining": 18,
+      "assignedAgent": "CHAD_YI",
+      "userActionRequired": true,
+      "recommendedAction": "CHAD_YI to prioritize A1-1 immediately"
+    },
+    {
+      "id": "ISSUE-2026-0212-1106-2",
+      "severity": "warning",
+      "type": "agent-idle-timeout",
+      "description": "Escritor has been idle for 78 hours (exceeds 48h threshold)",
+      "agent": "escritor",
+      "idleHours": 78,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "autoFixApplied": false,
+      "recommendedAction": "Ping Escritor or reassign A2 chapter outline task"
+    }
+  ],
+  "deadlines": {
+    "critical": [
+      { "id": "A1-1", "title": "Change Taiwan flights and hotel", "deadline": "2026-02-13", "hoursRemaining": 18 }
+    ],
+    "upcoming": [
+      { "id": "B6-1", "title": "Find facilitator for ESU", "deadline": "2026-02-17", "hoursRemaining": 121 },
+      { "id": "B6-3", "title": "SPH items to order", "deadline": "2026-02-17", "hoursRemaining": 121 }
+    ]
+  },
+  "agentHealth": {
+    "chad_yi": { "status": "healthy", "lastActive": "2026-02-12T07:21:00+08:00" },
+    "helios": { "status": "healthy", "lastAudit": "2026-02-12T11:06:00+08:00" },
+    "escritor": { "status": "idle-timeout", "idleHours": 78, "needsAttention": true },
+    "quanta": { "status": "blocked", "blocker": "OANDA credentials needed" },
+    "mensamusa": { "status": "blocked", "blocker": "Moomoo credentials needed" },
+    "autour": { "status": "not_spawned" }
+  }
+}

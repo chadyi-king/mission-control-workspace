@@ -1,0 +1,95 @@
+{
+  "auditId": "helios-20260211-2236",
+  "timestamp": "2026-02-11T22:36:00+08:00",
+  "auditor": "helios",
+  "durationSeconds": 0,
+  "summary": {
+    "totalTasks": 47,
+    "agentsChecked": 5,
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "urgentNotifications": 1
+  },
+  "dataFreshness": {
+    "dataJsonLastUpdated": "2026-02-11T22:06:00+08:00",
+    "minutesSinceUpdate": 30,
+    "status": "stale_but_acceptable"
+  },
+  "agentStatusVerification": {
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "actualStatus": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure setup",
+      "match": true
+    },
+    "escritor": {
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "waiting_for_input",
+      "currentTask": null,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "hoursIdle": 58.6,
+      "match": true,
+      "issue": "idle_over_24h"
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "match": true
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "match": true
+    },
+    "autour": {
+      "dataJsonStatus": "not_spawned",
+      "actualStatus": "not_spawned",
+      "match": true
+    }
+  },
+  "deadlineScan": {
+    "urgentDeadlines": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49,
+        "within24h": false
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "within24h": false
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "within24h": false
+      }
+    ]
+  },
+  "issues": [
+    {
+      "severity": "high",
+      "type": "agent_idle_over_24h",
+      "agent": "escritor",
+      "hoursIdle": 58.6,
+      "description": "Escritor has been idle for 58.6 hours, awaiting chapter outline for A2 RE:UNITE",
+      "actionTaken": "flagged_for_urgent_notification"
+    }
+  ],
+  "autoFixes": [
+    {
+      "rule": "agent_idle_over_24h",
+      "target": "escritor",
+      "action": "ping_agent",
+      "notified": true
+    }
+  ]
+}

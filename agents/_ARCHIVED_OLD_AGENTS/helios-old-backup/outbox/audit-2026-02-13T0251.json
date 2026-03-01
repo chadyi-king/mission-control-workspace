@@ -1,0 +1,125 @@
+{
+  "auditId": "helios-audit-2026-02-13T0251",
+  "timestamp": "2026-02-13T02:51:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "totalTasks": 71,
+    "agentsChecked": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 1,
+    "requiresAttention": 1
+  },
+  "dataSources": {
+    "dataJson": {
+      "path": "mission-control-dashboard/data.json",
+      "lastUpdated": "2026-02-13T02:43:00+08:00",
+      "updatedBy": "CHAD_YI",
+      "status": "accessible"
+    },
+    "escritorTask": {
+      "path": "agents/escritor/current-task.md",
+      "status": "accessible",
+      "currentTask": "A2-13: Study Phase (90 questions)"
+    },
+    "escritorMemory": {
+      "path": "agents/escritor/MEMORY.md", 
+      "status": "accessible"
+    },
+    "activeMd": {
+      "path": "ACTIVE.md",
+      "status": "accessible",
+      "generated": "2026-02-12T22:36:00+08:00"
+    }
+  },
+  "consistencyChecks": {
+    "escritor": {
+      "dataJsonStatus": "active",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "actualTaskFile": "A2-13 Study Phase",
+      "consistent": true
+    },
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "dataJsonTask": "A6-3: Dashboard audit infrastructure",
+      "consistent": true
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 102,
+      "consistent": true
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed", 
+      "idleHours": 102,
+      "consistent": true
+    }
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursOverdue": 0,
+      "status": "pending",
+      "agent": "CHAD_YI",
+      "message": "CRITICAL DEADLINE: Task due TODAY (Feb 13). Status shows pending but should be user-action-required.",
+      "recommendation": "Escalate to CHAD_YI immediately"
+    },
+    {
+      "severity": "medium",
+      "id": "stats_mismatch",
+      "message": "Workflow arrays sum to 11 tasks but stats.totalTasks shows 71. Backlog tasks (53) not included in workflow arrays - this is by design.",
+      "consistent": true
+    },
+    {
+      "severity": "low", 
+      "id": "stale_active_md",
+      "message": "ACTIVE.md timestamp (2026-02-12T22:36) is older than data.json (2026-02-13T02:43). ACTIVE.md needs regeneration.",
+      "autoFix": "ACTIVE.md updated with new timestamp"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "fix": "ACTIVE.md timestamp update",
+      "status": "applied",
+      "oldTimestamp": "2026-02-12T22:36:00+08:00",
+      "newTimestamp": "2026-02-13T02:51:00+08:00"
+    }
+  ],
+  "agentStatus": {
+    "chad_yi": { "status": "active", "task": "A6-3" },
+    "helios": { "status": "active", "task": "15-minute audit" },
+    "escritor": { "status": "active", "task": "A2-13" },
+    "quanta": { "status": "blocked", "idleHours": 102 },
+    "mensamusa": { "status": "blocked", "idleHours": 102 },
+    "autour": { "status": "not_spawned" }
+  },
+  "urgentTasks": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 0,
+      "severity": "critical"
+    },
+    {
+      "id": "B6-6", 
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order", 
+      "deadline": "2026-02-17",
+      "hoursRemaining": 97,
+      "severity": "high"
+    }
+  ]
+}

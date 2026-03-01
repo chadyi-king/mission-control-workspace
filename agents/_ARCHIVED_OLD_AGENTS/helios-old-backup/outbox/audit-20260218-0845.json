@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-02-18T08:45:15.091120",
+  "auditor": "helios",
+  "findings": [
+    {
+      "severity": "warning",
+      "issue": "data.json stale: 62.1h"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: A1-1"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: A1-4"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: B6-3"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: B6-6"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: B6-7"
+    },
+    {
+      "severity": "warning",
+      "agent": "forger",
+      "issue": "Not running (service: activating\ninactive, processes: 0)"
+    },
+    {
+      "severity": "info",
+      "agent": "forger",
+      "issue": "4 unread messages"
+    },
+    {
+      "severity": "info",
+      "agent": "escritor",
+      "issue": "6 unread messages"
+    },
+    {
+      "severity": "warning",
+      "agent": "quanta",
+      "issue": "Not running (service: activating\ninactive, processes: 0)"
+    },
+    {
+      "severity": "info",
+      "agent": "quanta",
+      "issue": "1 unread messages"
+    },
+    {
+      "severity": "warning",
+      "agent": "autour",
+      "issue": "Not running (service: inactive\ninactive, processes: 0)"
+    },
+    {
+      "severity": "info",
+      "agent": "autour",
+      "issue": "1 unread messages"
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "critical": 0,
+    "warning": 9
+  }
+}

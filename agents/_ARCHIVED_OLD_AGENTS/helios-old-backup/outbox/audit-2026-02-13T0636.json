@@ -1,0 +1,137 @@
+{
+  "auditId": "helios-audit-2026-02-13T0636",
+  "timestamp": "2026-02-13T06:36:00+08:00",
+  "auditor": "helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "totalIssues": 2,
+    "criticalIssues": 1,
+    "warnings": 1,
+    "autoFixesApplied": 1,
+    "requiresChadYi": true
+  },
+  "dataSourcesChecked": [
+    {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "checked",
+      "issues": ["stale_timestamp"],
+      "lastUpdated": "2026-02-13T03:30:00+08:00",
+      "stalenessHours": 3.1
+    },
+    {
+      "path": "/agents/escritor/current-task.md",
+      "status": "consistent",
+      "currentTask": "A2-13",
+      "agent": "escritor"
+    },
+    {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "consistent",
+      "studyPhase": true
+    },
+    {
+      "path": "/ACTIVE.md",
+      "status": "consistent",
+      "generatedBy": "helios-audit-2026-02-13T0251"
+    },
+    {
+      "path": "/agents/helios/AGENT_STATE.json",
+      "status": "checked",
+      "lastAudit": "2026-02-13T06:21:00+08:00"
+    }
+  ],
+  "consistencyChecks": {
+    "escritor": {
+      "status": "consistent",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "actualTask": "A2-13 Study Phase",
+      "taskMatch": true,
+      "idleHours": 11.75,
+      "idleThreshold": 24,
+      "isIdle": false
+    },
+    "quanta": {
+      "status": "consistent",
+      "blocked": true,
+      "blocker": "OANDA credentials",
+      "idleHours": 120,
+      "inInputsNeeded": true
+    },
+    "mensamusa": {
+      "status": "consistent",
+      "blocked": true,
+      "blocker": "Moomoo credentials",
+      "idleHours": 120,
+      "inInputsNeeded": true
+    },
+    "chad_yi": {
+      "status": "consistent",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "idleHours": 14.75,
+      "idleThreshold": 24,
+      "isIdle": false
+    },
+    "taskCounts": {
+      "pending": 2,
+      "active": 5,
+      "review": 1,
+      "done": 3,
+      "verified": true
+    }
+  },
+  "deadlines": {
+    "critical": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 17.4,
+        "status": "pending",
+        "agent": "CHAD_YI",
+        "severity": "critical",
+        "actionRequired": "USER_ACTION"
+      }
+    ],
+    "urgent": [
+      {
+        "taskId": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 89.4,
+        "status": "pending",
+        "agent": "CHAD_YI"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 89.4,
+        "status": "active",
+        "agent": "CHAD_YI"
+      }
+    ]
+  },
+  "autoFixes": [
+    {
+      "type": "update_lastUpdated_timestamp",
+      "target": "data.json",
+      "oldValue": "2026-02-13T03:30:00+08:00",
+      "newValue": "2026-02-13T06:36:00+08:00",
+      "applied": true,
+      "reason": "Data was 3.1 hours stale"
+    }
+  ],
+  "issuesRequiringAttention": [
+    {
+      "severity": "critical",
+      "type": "deadline_today",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "message": "Task A1-1 is due TODAY (Feb 13). Still in pending status. Requires immediate user action.",
+      "suggestedAction": "Complete flight/hotel changes or update deadline"
+    }
+  ],
+  "nextAudit": "2026-02-13T06:51:00+08:00"
+}

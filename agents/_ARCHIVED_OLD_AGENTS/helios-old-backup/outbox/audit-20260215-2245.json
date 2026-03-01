@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-02-15T22:45:13.095075",
+  "auditor": "helios",
+  "findings": [
+    {
+      "severity": "warning",
+      "issue": "data.json stale: 4.1h"
+    },
+    {
+      "severity": "warning",
+      "issue": "Overdue: A1-1"
+    },
+    {
+      "severity": "warning",
+      "issue": "Due today: A1-4"
+    },
+    {
+      "severity": "warning",
+      "agent": "forger",
+      "issue": "Service activating\ninactive"
+    },
+    {
+      "severity": "info",
+      "agent": "forger",
+      "issue": "4 unread messages"
+    },
+    {
+      "severity": "info",
+      "agent": "escritor",
+      "issue": "5 unread messages"
+    },
+    {
+      "severity": "warning",
+      "agent": "autour",
+      "issue": "Service inactive\ninactive"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "critical": 0,
+    "warning": 5
+  }
+}

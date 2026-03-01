@@ -1,0 +1,21 @@
+[2026-02-13 12:05:26] 🚀 Quanta Signal Alert System initialized
+[2026-02-13 12:05:26] 📁 Signals dir: /home/chad-yi/.openclaw/workspace/agents/quanta/signals/PENDING
+[2026-02-13 12:05:26] 📢 Broadcast dir: /home/chad-yi/.openclaw/workspace/agents/message-bus/broadcast
+[2026-02-13 12:05:26] 
+🧪 Testing with sample signal...
+[2026-02-13 12:05:26] Checking message: 🟢XAUUSD🟢
+BUY
+RANGE: 2680-2685
+SL 2675
+TP : 2700/2720/2740/2760/2780...
+[2026-02-13 12:05:26] 🎯 SIGNAL DETECTED: XAUUSD BUY
+[2026-02-13 12:05:26] ✅ Signal saved: /home/chad-yi/.openclaw/workspace/agents/quanta/signals/PENDING/SIG_20260213_120526.json
+[2026-02-13 12:05:26] 🚨 HELIOS ALERT SENT: /home/chad-yi/.openclaw/workspace/agents/message-bus/broadcast/urgent-quanta-20260213_120526.md
+[2026-02-13 12:05:26] ✅ Signal captured and Helios alerted!
+[2026-02-13 12:05:26] 
+✅ TEST PASSED - Signal parsing works!
+[2026-02-13 12:05:26]    Pair: XAUUSD
+[2026-02-13 12:05:26]    Direction: BUY
+[2026-02-13 12:05:26]    Entry: 2680.0-2685.0
+[2026-02-13 12:05:26]    SL: 2675.0
+[2026-02-13 12:05:26]    TPs: [2700.0, 2720.0, 2740.0, 2760.0, 2780.0]

@@ -1,0 +1,215 @@
+{
+  "timestamp": "2026-02-17T00:36:59.713272",
+  "auditor": "helios",
+  "audit_id": "audit-20260217-0036",
+  "summary": {
+    "total_findings": 6,
+    "critical": 0,
+    "warning": 6,
+    "agents_audited": 7,
+    "urgent_deadlines": 2
+  },
+  "data_integrity": {
+    "passed": false,
+    "issues": [
+      "data.json stale: 7.2h old",
+      "Overdue tasks: A1-1",
+      "Due today: B6-3, B6-6, B6-7"
+    ]
+  },
+  "agents": {
+    "chad-yi": {
+      "name": "chad-yi",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0,
+      "role": "CEO/Brain",
+      "daily_log_exists": false,
+      "build_tracking_fresh": false
+    },
+    "quanta": {
+      "name": "quanta",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 1,
+      "inbox_has_recent": true,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    },
+    "escritor": {
+      "name": "escritor",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 5,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    },
+    "mensamusa": {
+      "name": "mensamusa",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    },
+    "helios": {
+      "name": "helios",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    },
+    "forger": {
+      "name": "forger",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 4,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    },
+    "autour": {
+      "name": "autour",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": false,
+      "git_commits": 0,
+      "log_errors": 0
+    }
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "data.json stale: 7.2h old"
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Overdue tasks: A1-1"
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Due today: B6-3, B6-6, B6-7"
+    },
+    {
+      "severity": "warning",
+      "category": "agent_health",
+      "agent": "chad-yi",
+      "issue": "Daily log missing: memory/2026-02-17.md"
+    },
+    {
+      "severity": "warning",
+      "category": "agent_health",
+      "agent": "quanta",
+      "issue": "Service not running: "
+    },
+    {
+      "severity": "warning",
+      "category": "agent_health",
+      "agent": "helios",
+      "issue": "Service not running: "
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "data.json stale: 7.2h old"
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Overdue tasks: A1-1"
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Due today: B6-3, B6-6, B6-7"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "data.json stale: 7.2h old"
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Overdue tasks: A1-1"
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Due today: B6-3, B6-6, B6-7"
+    },
+    {
+      "priority": "soon",
+      "category": "agent_health",
+      "agent": "chad-yi",
+      "action": "Daily log missing: memory/2026-02-17.md"
+    },
+    {
+      "priority": "soon",
+      "category": "agent_health",
+      "agent": "quanta",
+      "action": "Service not running: "
+    },
+    {
+      "priority": "soon",
+      "category": "agent_health",
+      "agent": "helios",
+      "action": "Service not running: "
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "data.json stale: 7.2h old"
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Overdue tasks: A1-1"
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Due today: B6-3, B6-6, B6-7"
+    }
+  ]
+}

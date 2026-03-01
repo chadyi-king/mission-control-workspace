@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-02-28T19:01:17.947478+00:00",
+  "generated_by": "helios-v2",
+  "agents": {
+    "chad-yi": {
+      "agent": "chad-yi",
+      "checked_at": "2026-02-28T19:01:17.947520+00:00",
+      "has_inbox": true,
+      "has_outbox": true,
+      "outbox_files": 3,
+      "inbox_pending": 0,
+      "last_activity": "2026-02-18T10:19:23.234555+00:00",
+      "health": "silent"
+    },
+    "escritor": {
+      "agent": "escritor",
+      "checked_at": "2026-02-28T19:01:17.950152+00:00",
+      "has_inbox": true,
+      "has_outbox": true,
+      "outbox_files": 6,
+      "inbox_pending": 1,
+      "last_activity": "2026-02-14T07:54:31.120599+00:00",
+      "health": "silent"
+    },
+    "autour": {
+      "agent": "autour",
+      "checked_at": "2026-02-28T19:01:17.951790+00:00",
+      "has_inbox": true,
+      "has_outbox": true,
+      "outbox_files": 0,
+      "inbox_pending": 1,
+      "last_activity": null,
+      "health": "idle"
+    },
+    "quanta": {
+      "agent": "quanta",
+      "checked_at": "2026-02-28T19:01:17.952232+00:00",
+      "has_inbox": false,
+      "has_outbox": false,
+      "outbox_files": 0,
+      "inbox_pending": 0,
+      "last_activity": null,
+      "health": "unknown"
+    },
+    "mensamusa": {
+      "agent": "mensamusa",
+      "checked_at": "2026-02-28T19:01:17.952268+00:00",
+      "has_inbox": true,
+      "has_outbox": true,
+      "outbox_files": 0,
+      "inbox_pending": 0,
+      "last_activity": null,
+      "health": "idle"
+    }
+  },
+  "alerts": [
+    {
+      "type": "agent_silent",
+      "agent": "chad-yi",
+      "last_activity": "2026-02-18T10:19:23.234555+00:00"
+    },
+    {
+      "type": "agent_silent",
+      "agent": "escritor",
+      "last_activity": "2026-02-14T07:54:31.120599+00:00"
+    }
+  ],
+  "summary": "0 active, 2 idle, 2 silent. Alerts: 2."
+}

@@ -1,0 +1,99 @@
+{
+  "auditId": "helios-2026-02-12T0951",
+  "timestamp": "2026-02-12T09:51:00+08:00",
+  "auditor": "helios",
+  "summary": {
+    "dataFreshness": "fresh",
+    "lastUpdate": "2026-02-12T09:36:00+08:00",
+    "agentsChecked": 5,
+    "tasksChecked": 47,
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "urgentEscalations": 0
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "actualStatus": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "lastActive": "2026-02-12T07:21:00+08:00",
+      "consistency": "match",
+      "hoursSinceActive": 2.5
+    },
+    "escritor": {
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "waiting_for_input",
+      "currentTask": "A2: Awaiting chapter outline",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "consistency": "match",
+      "hoursSinceActive": 69,
+      "issue": "idle > 48h with assigned task",
+      "autoFix": "status_already_correct"
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "currentTask": "A5-1: Trading signal automation",
+      "blocker": "OANDA credentials needed",
+      "consistency": "match"
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "currentTask": "A5-2: Options flow monitoring",
+      "blocker": "Moomoo credentials needed",
+      "consistency": "match"
+    },
+    "autour": {
+      "dataJsonStatus": "not_spawned",
+      "actualStatus": "not_spawned",
+      "consistency": "match"
+    }
+  },
+  "deadlineAnalysis": {
+    "urgentCount": 1,
+    "approachingCount": 2,
+    "deadlines": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 30,
+        "severity": "approaching",
+        "status": "pending"
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "severity": "normal",
+        "status": "pending"
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "severity": "normal",
+        "status": "pending"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "type": "agent_idle",
+      "agent": "escritor",
+      "severity": "warning",
+      "description": "Escritor idle for 69 hours with assigned A2 task",
+      "ruleTriggered": "agent_idle > 48h AND task_assigned",
+      "actionTaken": "No auto-fix needed - status already 'waiting_for_input'",
+      "recommendation": "Ping CHAD_YI to provide chapter outline"
+    }
+  ],
+  "consistencyCheck": {
+    "dataJsonVsActiveMd": "consistent",
+    "dataJsonVsAgentFiles": "consistent",
+    "agentStatuses": "all_match"
+  }
+}

@@ -1,0 +1,17 @@
+[Unit]
+Description=Quanta Watchdog (24/7 Monitor)
+After=network.target
+
+[Service]
+Type=simple
+User=chad-yi
+WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/quanta
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/quanta/watchdog.py
+Restart=on-failure
+RestartSec=60
+StartLimitInterval=0
+KillMode=mixed
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

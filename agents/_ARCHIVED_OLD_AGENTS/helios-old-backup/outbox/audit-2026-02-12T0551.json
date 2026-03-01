@@ -1,0 +1,89 @@
+{
+  "auditId": "helios-audit-2026-02-12T0551",
+  "timestamp": "2026-02-12T05:51:00+08:00",
+  "auditor": "helios",
+  "auditType": "15min_cycle",
+  "findings": {
+    "consistencyChecks": {
+      "escritor": {
+        "dataJsonStatus": "waiting_for_input",
+        "actualStatus": "waiting_for_input",
+        "currentTaskMatch": true,
+        "idleTime": "72+ hours",
+        "consistent": true
+      },
+      "quanta": {
+        "dataJsonStatus": "blocked",
+        "blocker": "OANDA credentials needed",
+        "consistent": true
+      },
+      "mensamusa": {
+        "dataJsonStatus": "blocked",
+        "blocker": "Moomoo credentials needed",
+        "consistent": true
+      },
+      "autour": {
+        "dataJsonStatus": "not_spawned",
+        "currentTask": null,
+        "consistent": true
+      },
+      "chad_yi": {
+        "dataJsonStatus": "active",
+        "currentTask": "A6-3: Dashboard audit infrastructure setup",
+        "note": "Cron session - main session may be inactive"
+      }
+    },
+    "urgentDeadlines": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49,
+        "status": "pending",
+        "severity": "critical"
+      },
+      {
+        "taskId": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "pending",
+        "severity": "warning"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "status": "pending",
+        "severity": "warning"
+      }
+    ],
+    "staleData": [
+      {
+        "field": "data.json lastUpdated",
+        "value": "2026-02-12T04:51:00+08:00",
+        "ageMinutes": 60,
+        "severity": "info"
+      }
+    ]
+  },
+  "autoFixesApplied": [],
+  "issuesRequiringAttention": [
+    {
+      "type": "urgent_deadline",
+      "taskId": "A1-1",
+      "message": "Task A1-1 (Taiwan flights/hotel) due in 49 hours and still pending"
+    }
+  ],
+  "stats": {
+    "totalTasks": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2,
+    "agentsActive": 1,
+    "agentsBlocked": 2,
+    "agentsWaiting": 1
+  }
+}

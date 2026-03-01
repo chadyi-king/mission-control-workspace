@@ -1,0 +1,102 @@
+{
+  "auditId": "helios-audit-2026-02-13T0506",
+  "timestamp": "2026-02-13T05:06:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "summary": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 5,
+    "review": 1,
+    "done": 3,
+    "backlog": 53,
+    "blocked": 2,
+    "criticalIssues": 1,
+    "warnings": 2
+  },
+  "consistencyChecks": {
+    "escritor": {
+      "dataJsonStatus": "active",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "actualTaskFile": "A2-13 Study Phase - 90 question knowledge check",
+      "match": true
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "dataJsonTask": "A5-1: Trading signals",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 120,
+      "match": true,
+      "stale": true
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "dataJsonTask": "A5-2: Options flow",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 120,
+      "match": true,
+      "stale": true
+    },
+    "workflowCounts": {
+      "pending": 2,
+      "active": 5,
+      "review": 1,
+      "done": 3,
+      "matchesStats": true
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-13T03:30:00+08:00",
+      "currentTime": "2026-02-13T05:06:00+08:00",
+      "staleMinutes": 96,
+      "status": "STALE"
+    }
+  },
+  "criticalIssues": [
+    {
+      "type": "DEADLINE_CRITICAL",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 19,
+      "owner": "CHAD_YI",
+      "severity": "critical",
+      "requiresUserAction": true
+    }
+  ],
+  "warnings": [
+    {
+      "type": "AGENT_STALE",
+      "agent": "Quanta",
+      "taskId": "A5-1",
+      "idleHours": 120,
+      "threshold": 48,
+      "blocker": "OANDA API credentials"
+    },
+    {
+      "type": "AGENT_STALE",
+      "agent": "MensaMusa",
+      "taskId": "A5-2",
+      "idleHours": 120,
+      "threshold": 48,
+      "blocker": "Moomoo account credentials"
+    }
+  ],
+  "autoFixesApplied": [],
+  "autoFixesBlocked": [
+    {
+      "reason": "Reassigning blocked tasks requires manual decision",
+      "wouldHaveFixed": "Reassign A5-1 and A5-2 or mark as abandoned"
+    }
+  ],
+  "urgentNotificationsSent": [
+    "CHAD_YI notified of A1-1 critical deadline"
+  ],
+  "nextAudit": "2026-02-13T05:21:00+08:00"
+}

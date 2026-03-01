@@ -1,0 +1,95 @@
+{
+  "auditId": "helios-audit-20260212-050600",
+  "timestamp": "2026-02-12T05:06:00+08:00",
+  "agent": "helios",
+  "auditType": "15min-dashboard",
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/helios/AGENT_STATE.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "status": "passed",
+    "checksRun": 5,
+    "mismatchesFound": 0,
+    "details": [
+      {
+        "agent": "chad_yi",
+        "dataJsonStatus": "active",
+        "dataJsonTask": "A6-3: Dashboard audit infrastructure setup",
+        "actualStatus": "active",
+        "actualTask": "A6-3: Dashboard audit infrastructure setup",
+        "match": true
+      },
+      {
+        "agent": "escritor",
+        "dataJsonStatus": "waiting_for_input",
+        "dataJsonTask": "A2: Awaiting chapter outline",
+        "actualStatus": "waiting_for_input",
+        "actualTask": "No active writing task assigned",
+        "match": true
+      },
+      {
+        "agent": "quanta",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "OANDA credentials needed",
+        "actualStatus": "blocked",
+        "match": true
+      },
+      {
+        "agent": "mensamusa",
+        "dataJsonStatus": "blocked",
+        "dataJsonBlocker": "Moomoo credentials needed",
+        "actualStatus": "blocked",
+        "match": true
+      },
+      {
+        "agent": "autour",
+        "dataJsonStatus": "not_spawned",
+        "actualStatus": "not_spawned",
+        "match": true
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle > 48h AND task_assigned",
+      "agent": "escritor",
+      "action": "ping_agent",
+      "severity": "warning",
+      "details": "Escritor idle since Feb 9 (72h), has A2 task assigned",
+      "applied": true
+    }
+  ],
+  "escalations": [
+    {
+      "rule": "task_deadline < 24h AND status != done",
+      "taskId": "A1-1",
+      "taskTitle": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "action": "escalate_urgent",
+      "messageBusFile": "urgent-20260212-050600.md"
+    }
+  ],
+  "stats": {
+    "dataJsonLastUpdated": "2026-02-12T04:51:00+08:00",
+    "dataFreshnessMinutes": 15,
+    "totalTasks": 47,
+    "pendingTasks": 35,
+    "activeTasks": 8,
+    "reviewTasks": 2,
+    "doneTasks": 2,
+    "urgentDeadlines": 1
+  },
+  "summary": {
+    "status": "healthy",
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "escalationsRequired": 1,
+    "nextAudit": "2026-02-12T05:21:00+08:00"
+  }
+}

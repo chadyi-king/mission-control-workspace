@@ -1,0 +1,88 @@
+{
+  "auditId": "helios-20260212-032100",
+  "timestamp": "2026-02-12T03:21:00+08:00",
+  "agent": "helios",
+  "auditNumber": 32,
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "chad_yi": {
+      "status": "consistent",
+      "dataJsonStatus": "active",
+      "actualStatus": "A6-3 Dashboard audit infrastructure setup",
+      "lastActive": "2026-02-11T22:06:00+08:00"
+    },
+    "escritor": {
+      "status": "consistent",
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "Waiting for input - no active writing task",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "daysIdle": 3
+    },
+    "quanta": {
+      "status": "consistent",
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "actualStatus": "Blocked - not in active work"
+    },
+    "mensamusa": {
+      "status": "consistent",
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "actualStatus": "Blocked - not in active work"
+    },
+    "autour": {
+      "status": "consistent",
+      "dataJsonStatus": "not_spawned",
+      "actualStatus": "No agent files to verify"
+    }
+  },
+  "issuesFound": [
+    {
+      "severity": "high",
+      "rule": "agent_idle_over_24h",
+      "agent": "escritor",
+      "details": "Agent idle for 3 days (last active Feb 9)",
+      "actionTaken": "ping_agent",
+      "message": "Escritor pinged: Awaiting chapter outline for A2 RE:UNITE. Please provide direction or mark agent as paused."
+    }
+  ],
+  "deadlineCheck": {
+    "urgent": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      }
+    ],
+    "within24h": false
+  },
+  "dataFreshness": {
+    "dataJson": {
+      "lastUpdated": "2026-02-11T22:51:00+08:00",
+      "ageHours": 4.5
+    },
+    "recommendation": "data.json is 4.5 hours old - consider refresh if task activity has occurred"
+  },
+  "autoFixesApplied": 1,
+  "notificationsSent": 1,
+  "summary": "All agent statuses consistent. 1 high-priority issue: Escritor idle 3 days and needs input. 3 upcoming deadlines within 5 days. Data.json is moderately stale (4.5h)."
+}

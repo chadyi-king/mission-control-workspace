@@ -1,0 +1,67 @@
+agent:
+  name: "tele"
+  role: "Telegram Interface Agent — Primary chat gateway for Telegram-based interactions"
+  status: "configured"
+  
+  employment:
+    type: "24/7 service"
+    start_date: "2026-02-28"
+    supervisor: "CHAD_YI"
+    reports_to: "Helios (audits) -> CHAD_YI -> Caleb"
+    
+  skills:
+    - name: "telegram"
+      description: "Telegram Bot API integration for messaging and commands"
+      enabled: true
+    - name: "mission-control"
+      description: "Dashboard integration and task status reporting"
+      enabled: true
+    - name: "helios_bridge"
+      description: "Report events and heartbeats to Helios API"
+      enabled: true
+      
+  access:
+    read:
+      - "agents/tele/inbox/"
+      - "agents/tele/memory/"
+      - "mission-control-dashboard/data.json"
+    write:
+      - "agents/tele/outbox/"
+      - "agents/tele/memory/"
+      - "agents/tele/state.json"
+    execute:
+      - "python3"
+      - "curl"
+      
+  resources:
+    model: "kimi-coding/k2p5"
+    compute: "Low"
+    memory: "128MB"
+    disk: "100MB"
+    
+  communication:
+    inbox: "agents/tele/inbox/"
+    outbox: "agents/tele/outbox/"
+    heartbeat_interval: "15 minutes"
+    status_report: "On events + periodic summary"
+    telegram_channel: "telegram"
+    
+  failure:
+    on_crash: "Auto-restart (systemd)"
+    on_error: "Log to outbox/error.json"
+    max_restarts: "5 per hour"
+    escalation: "Alert CHAD_YI if persistent"
+    
+  bot_commands:
+    - command: "/start"
+      description: "Welcome message and capabilities overview"
+    - command: "/status"
+      description: "Quick dashboard status summary"
+    - command: "/tasks"
+      description: "List active and pending tasks"
+    - command: "/agents"
+      description: "Show agent status overview"
+    - command: "/help"
+      description: "Command reference and usage"
+    - command: "/heartbeat"
+      description: "Manual heartbeat and system check"

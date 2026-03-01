@@ -1,0 +1,114 @@
+{
+  "auditId": "helios-20260211-2136",
+  "timestamp": "2026-02-11T21:36:23+08:00",
+  "auditor": "helios",
+  "auditType": "15min-dashboard",
+  "dataSources": {
+    "dataJson": "/mission-control-dashboard/data.json",
+    "escritorTask": "/agents/escritor/current-task.md",
+    "escritorMemory": "/agents/escritor/MEMORY.md",
+    "activeMd": "/ACTIVE.md"
+  },
+  "findings": {
+    "consistency": {
+      "status": "ISSUES_FOUND",
+      "dataFreshness": {
+        "dataJsonLastUpdated": "2026-02-11T18:36:00+08:00",
+        "auditTimestamp": "2026-02-11T21:36:23+08:00",
+        "stalenessHours": 3,
+        "severity": "MEDIUM"
+      },
+      "agentStatusChecks": {
+        "chad_yi": {
+          "expected": "active",
+          "dataJson": "active",
+          "actual": "active (per ACTIVE.md)",
+          "match": true
+        },
+        "escritor": {
+          "expected": "waiting_for_input",
+          "dataJson": "waiting_for_input",
+          "actual": "waiting_for_input (per current-task.md)",
+          "match": true
+        },
+        "quanta": {
+          "expected": "blocked",
+          "dataJson": "blocked",
+          "blocker": "OANDA credentials",
+          "match": true
+        },
+        "mensamusa": {
+          "expected": "blocked",
+          "dataJson": "blocked",
+          "blocker": "Moomoo credentials",
+          "match": true
+        },
+        "autour": {
+          "expected": "not_spawned",
+          "dataJson": "not_spawned",
+          "match": true
+        }
+      }
+    },
+    "triggeredRules": [
+      {
+        "rule": "agent_idle_over_24h",
+        "agent": "escritor",
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "idleHours": 57.6,
+        "severity": "HIGH",
+        "action": "ping_agent",
+        "applied": true
+      }
+    ],
+    "deadlineChecks": [
+      {
+        "id": "A1-1",
+        "title": "Travel booking - Japan trip",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49,
+        "urgent": false
+      },
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "urgent": false
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "urgent": false
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "type": "timestamp_update",
+      "target": "data.json",
+      "action": "Updated lastUpdated to current timestamp"
+    },
+    {
+      "type": "timestamp_update",
+      "target": "ACTIVE.md",
+      "action": "Updated Helios last run timestamp"
+    }
+  ],
+  "urgentNotifications": [
+    {
+      "type": "agent_idle",
+      "agent": "escritor",
+      "message": "Escritor has been idle for 57+ hours (since Feb 9). Awaiting chapter outline for A2 RE:UNITE."
+    }
+  ],
+  "summary": {
+    "totalIssues": 2,
+    "highSeverity": 1,
+    "mediumSeverity": 1,
+    "lowSeverity": 0,
+    "status": "STABLE_WITH_NOTES"
+  }
+}

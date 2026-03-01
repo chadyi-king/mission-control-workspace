@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/chad-yi/.openclaw/workspace/agents/quanta/monitor_callistofx.py", line 486, in <module>
+    with client:
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/helpers.py", line 219, in _sync_enter
+    return loop.run_until_complete(self.__aenter__())
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/client/auth.py", line 669, in __aenter__
+    return await self.start()
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/client/auth.py", line 135, in _start
+    await self.connect()
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/client/telegrambaseclient.py", line 563, in connect
+    self.session.auth_key = self._sender.auth_key
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/sessions/sqlite.py", line 180, in auth_key
+    self._update_session_table()
+  File "/home/chad-yi/.local/lib/python3.10/site-packages/telethon/sessions/sqlite.py", line 194, in _update_session_table
+    c.execute('delete from sessions')
+sqlite3.OperationalError: database is locked
+Task was destroyed but it is pending!
+task: <Task pending name='Task-3' coro=<Connection._send_loop() running at /home/chad-yi/.local/lib/python3.10/site-packages/telethon/network/connection/connection.py:322> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-4' coro=<Connection._recv_loop() running at /home/chad-yi/.local/lib/python3.10/site-packages/telethon/network/connection/connection.py:341> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-5' coro=<MTProtoSender._send_loop() running at /home/chad-yi/.local/lib/python3.10/site-packages/telethon/network/mtprotosender.py:470> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-6' coro=<MTProtoSender._recv_loop() running at /home/chad-yi/.local/lib/python3.10/site-packages/telethon/network/mtprotosender.py:513> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+Exception ignored in: <coroutine object Connection._recv_loop at 0x7b352925fbc0>
+RuntimeError: coroutine ignored GeneratorExit

@@ -1,0 +1,82 @@
+{
+  "auditId": "helios-2026-02-11T235100",
+  "timestamp": "2026-02-11T23:51:00+08:00",
+  "agent": "helios",
+  "auditNumber": 22,
+  "status": "completed",
+  "findings": {
+    "severity": "none",
+    "issuesFound": 0,
+    "autoFixesApplied": 0
+  },
+  "dataConsistency": {
+    "dataJson": {
+      "lastUpdated": "2026-02-11T22:51:00+08:00",
+      "ageMinutes": 60,
+      "status": "recent"
+    },
+    "activeMd": {
+      "status": "valid",
+      "matchesDataJson": true
+    }
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "dataJson": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure setup",
+      "lastActive": "2026-02-11T22:06:00+08:00",
+      "consistency": "match"
+    },
+    "escritor": {
+      "dataJson": "waiting_for_input",
+      "currentTask": null,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "actualWork": "waiting_for_input",
+      "consistency": "match"
+    },
+    "quanta": {
+      "dataJson": "blocked",
+      "blocker": "OANDA credentials needed",
+      "consistency": "match"
+    },
+    "mensamusa": {
+      "dataJson": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "consistency": "match"
+    },
+    "autour": {
+      "dataJson": "not_spawned",
+      "consistency": "match"
+    }
+  },
+  "deadlines": {
+    "urgent": [
+      {
+        "id": "A1-1",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49,
+        "status": "within_48h"
+      }
+    ],
+    "upcoming": [
+      {
+        "id": "B6-1",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      },
+      {
+        "id": "B6-3",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      }
+    ]
+  },
+  "statistics": {
+    "totalTasks": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2
+  },
+  "nextAudit": "2026-02-12T00:06:00+08:00"
+}

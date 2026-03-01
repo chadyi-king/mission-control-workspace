@@ -1,0 +1,115 @@
+{
+  "auditId": "helios-2026-02-11-1751",
+  "timestamp": "2026-02-11T17:51:00+08:00",
+  "agent": "Helios",
+  "auditNumber": 16,
+  "sourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "findings": {
+    "consistency": {
+      "status": "PASS",
+      "issues": []
+    },
+    "dataFreshness": {
+      "status": "WARNING",
+      "dataJsonLastUpdated": "2026-02-11T08:36:00Z",
+      "activeMdLastUpdated": "2026-02-11 5:30 PM SGT",
+      "note": "data.json timestamp (08:36 UTC / 16:36 SGT) is older than ACTIVE.md (17:30 SGT) - expected, ACTIVE.md is a derived view"
+    },
+    "agentStatus": {
+      "CHAD_YI": {
+        "status": "active",
+        "lastActive": "2026-02-11T15:20:00Z",
+        "source": "data.json",
+        "consistent": true
+      },
+      "Helios": {
+        "status": "active",
+        "lastActive": "2026-02-11T07:51:00Z",
+        "source": "data.json",
+        "consistent": true,
+        "note": "Updating now with this audit"
+      },
+      "Escritor": {
+        "status": "not_spawned",
+        "dataJsonStatus": "not_spawned",
+        "taskFileStatus": "NOT_INITIALIZED",
+        "memoryStatus": "Not yet initialized",
+        "consistent": true,
+        "note": "All sources agree - Escritor is configured but not spawned"
+      }
+    },
+    "tasks": {
+      "total": 73,
+      "pending": 7,
+      "active": 0,
+      "review": 0,
+      "done": 2,
+      "deadlines": {
+        "urgent": [
+          {
+            "id": "A1-1",
+            "title": "Change Taiwan flights and hotel",
+            "deadline": "2026-02-13",
+            "hoursRemaining": 30,
+            "assigned": "CHAD_YI",
+            "status": "pending"
+          }
+        ],
+        "upcoming": [
+          {
+            "id": "B6-1",
+            "title": "Find facilitator for ESU",
+            "deadline": "2026-02-17",
+            "hoursRemaining": 126,
+            "assigned": "CHAD_YI",
+            "status": "pending"
+          },
+          {
+            "id": "B6-3",
+            "title": "SPH items to order",
+            "deadline": "2026-02-17",
+            "hoursRemaining": 126,
+            "assigned": "CHAD_YI",
+            "status": "pending"
+          }
+        ]
+      }
+    },
+    "blockedAgents": [
+      {
+        "agent": "Escritor",
+        "blocker": "Awaits CHAD_YI spawn command",
+        "task": "A2-13 (Edit Chapter 13)"
+      },
+      {
+        "agent": "Quanta",
+        "blocker": "Needs OANDA credentials",
+        "task": "A5-1 (Trading Bot Forex)"
+      },
+      {
+        "agent": "MensaMusa",
+        "blocker": "Needs Moomoo credentials",
+        "task": "A5-2 (Trading Bot Options)"
+      },
+      {
+        "agent": "Autour",
+        "blocker": "Awaits CHAD_YI spawn command",
+        "task": "A3 (KOE scripts)"
+      }
+    ]
+  },
+  "autoFixesApplied": [],
+  "escalations": [],
+  "summary": {
+    "status": "HEALTHY",
+    "issues": 0,
+    "warnings": 1,
+    "message": "Dashboard data consistent. All sources synchronized. 1 urgent deadline (A1-1 due in 30h). 4 agents blocked awaiting input/credentials."
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "auditId": "helios-audit-2026-02-13T0306",
+  "timestamp": "2026-02-13T03:06:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "ISSUES_FOUND",
+    "issuesCount": 3,
+    "autoFixesApplied": 1,
+    "criticalIssues": 1,
+    "warnings": 2
+  },
+  "dataSourcesChecked": [
+    {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "valid",
+      "lastUpdated": "2026-02-13T02:43:00+08:00",
+      "ageMinutes": 23
+    },
+    {
+      "path": "/agents/escritor/current-task.md",
+      "status": "valid",
+      "taskId": "A2-13",
+      "phase": "Study Phase"
+    },
+    {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "valid"
+    },
+    {
+      "path": "/ACTIVE.md",
+      "status": "stale",
+      "generatedAt": "2026-02-13T02:51:00+08:00",
+      "ageMinutes": 15
+    }
+  ],
+  "consistencyChecks": [
+    {
+      "check": "Agent status alignment",
+      "status": "PASS",
+      "details": "Escritor status in data.json (active) matches current-task.md (Study Phase)"
+    },
+    {
+      "check": "Task status counts",
+      "status": "FAIL",
+      "issue": "stats.urgent=4 but only 3 tasks have urgent deadlines",
+      "expected": 3,
+      "actual": 4
+    },
+    {
+      "check": "ACTIVE.md accuracy",
+      "status": "FAIL",
+      "issue": "ACTIVE.md references 'B6-1' for facilitator task but correct ID is 'B6-6'",
+      "impact": "User may be confused about task ID when taking action"
+    },
+    {
+      "check": "Critical deadline tracking",
+      "status": "WARNING",
+      "issue": "A1-1 due date is TODAY (Feb 13) at 3:06 AM - only ~21 hours remain",
+      "severity": "CRITICAL"
+    }
+  ],
+  "agentStatus": {
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "actualTask": "A6-3: Dashboard audit infrastructure",
+      "consistency": "MATCH"
+    },
+    "escritor": {
+      "dataJsonStatus": "active",
+      "actualTask": "A2-13: Study Phase (90 questions)",
+      "fileExists": true,
+      "consistency": "MATCH"
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials",
+      "idleHours": 102,
+      "consistency": "MATCH"
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials",
+      "idleHours": 102,
+      "consistency": "MATCH"
+    }
+  },
+  "deadlineStatus": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 21,
+      "severity": "CRITICAL",
+      "actionRequired": "USER_ACTION"
+    },
+    {
+      "taskId": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 93,
+      "severity": "HIGH"
+    },
+    {
+      "taskId": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 93,
+      "severity": "HIGH"
+    }
+  ],
+  "autoFixes": [
+    {
+      "type": "update_last_active_timestamp",
+      "target": "helios",
+      "applied": true,
+      "timestamp": "2026-02-13T03:06:00+08:00"
+    }
+  ],
+  "requiresChadYiAttention": [
+    {
+      "priority": 1,
+      "issue": "CRITICAL DEADLINE: A1-1 due in 21 hours",
+      "taskId": "A1-1",
+      "recommendation": "User action required today to change Taiwan flights and hotel"
+    },
+    {
+      "priority": 2,
+      "issue": "DATA_INCONSISTENCY: ACTIVE.md has wrong task ID",
+      "details": "References B6-1 instead of B6-6 for facilitator task",
+      "recommendation": "Regenerate ACTIVE.md with correct task IDs"
+    },
+    {
+      "priority": 3,
+      "issue": "STATS_MISMATCH: data.json shows urgent=4 but only 3 urgent tasks exist",
+      "recommendation": "Update stats.urgent from 4 to 3"
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+{
+  "auditId": "helios-2026-02-12T2036",
+  "timestamp": "2026-02-12T20:36:43+08:00",
+  "agentId": "helios",
+  "auditType": "15min_dashboard_audit",
+  "summary": {
+    "status": "completed_with_issues",
+    "dataSourcesChecked": 5,
+    "consistencyChecks": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 2,
+    "urgentMessagesSent": 0
+  },
+  "dataSources": {
+    "helios_agent_state": {
+      "path": "/agents/helios/AGENT_STATE.json",
+      "status": "ok",
+      "lastAudit": "2026-02-12T20:21:00+08:00",
+      "nextAudit": "2026-02-12T20:36:00+08:00"
+    },
+    "dashboard_data": {
+      "path": "/mission-control-dashboard/data.json",
+      "status": "ok",
+      "lastUpdated": "2026-02-12T20:30:00+08:00",
+      "tasksCount": 8,
+      "agentsCount": 6
+    },
+    "escritor_current_task": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "ok",
+      "taskId": "A2-13",
+      "phase": "Study Phase (90 questions)"
+    },
+    "escritor_memory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "ok",
+      "lastUpdated": "2026-02-12T17:30:00+08:00"
+    },
+    "active_md": {
+      "path": "/ACTIVE.md",
+      "status": "ok",
+      "generatedAt": "2026-02-12T19:51:00+08:00"
+    }
+  },
+  "consistencyChecks": [
+    {
+      "check": "escritor_status_consistency",
+      "status": "pass",
+      "details": {
+        "data_json": "active - A2-13 Study Phase",
+        "current_task_md": "A2-13 Study Phase (90 questions)",
+        "memory_md": "A2-13 Study Phase",
+        "mismatch": false
+      }
+    },
+    {
+      "check": "quanta_status_consistency",
+      "status": "pass",
+      "details": {
+        "data_json": "blocked - A5-1 Trading signals",
+        "agent_state": "blocked - OANDA credentials needed",
+        "idleHours": 102,
+        "mismatch": false
+      }
+    },
+    {
+      "check": "mensamusa_status_consistency",
+      "status": "pass",
+      "details": {
+        "data_json": "blocked - A5-2 Options flow",
+        "agent_state": "blocked - Moomoo credentials needed",
+        "idleHours": 102,
+        "mismatch": false
+      }
+    },
+    {
+      "check": "chad_yi_status_consistency",
+      "status": "pass",
+      "details": {
+        "data_json": "active - A6-3 Dashboard audit",
+        "agent_state": "active - A6-3 Dashboard audit infrastructure",
+        "mismatch": false
+      }
+    },
+    {
+      "check": "helios_timestamp_freshness",
+      "status": "fixed",
+      "details": {
+        "previousLastActive": "2026-02-12T17:06:00+08:00",
+        "newLastActive": "2026-02-12T20:36:43+08:00",
+        "hoursStale": 3.5
+      }
+    },
+    {
+      "check": "stale_task_detection",
+      "status": "issues_found",
+      "details": {
+        "threshold": "48h",
+        "staleTasks": [
+          {
+            "taskId": "A5-1",
+            "agent": "Quanta",
+            "idleHours": 102,
+            "blocker": "OANDA credentials needed",
+            "alreadyFlagged": true
+          },
+          {
+            "taskId": "A5-2",
+            "agent": "MensaMusa",
+            "idleHours": 102,
+            "blocker": "Moomoo credentials needed",
+            "alreadyFlagged": true
+          }
+        ]
+      }
+    }
+  ],
+  "criticalDeadlines": [
+    {
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "severity": "critical",
+      "owner": "CHAD_YI",
+      "status": "active",
+      "alreadyFlagged": true
+    },
+    {
+      "taskId": "B6-4",
+      "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 17,
+      "severity": "high",
+      "owner": "CHAD_YI",
+      "status": "pending",
+      "alreadyFlagged": true
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "fix": "update_helios_last_active",
+      "target": "AGENT_STATE.json (agents/)",
+      "previous": "2026-02-12T17:06:00+08:00",
+      "new": "2026-02-12T20:36:43+08:00",
+      "rule": "autoFixRules.allowedAutoFixes: update_last_active_timestamp"
+    },
+    {
+      "fix": "update_helios_audit_timestamp",
+      "target": "AGENT_STATE.json (helios/)",
+      "previous": "2026-02-12T20:21:00+08:00",
+      "new": "2026-02-12T20:36:43+08:00",
+      "rule": "auditSchedule update"
+    }
+  ],
+  "issuesRequiringAttention": [
+    {
+      "level": "info",
+      "issue": "Blocked agents remain stalled",
+      "details": "Quanta and MensaMusa have been blocked for 102+ hours waiting for API credentials. Both are already flagged in inputsNeeded."
+    },
+    {
+      "level": "info",
+      "issue": "Escritor study phase in progress",
+      "details": "A2-13 90-question study phase is active. No output in outbox yet (expected - task is ongoing)."
+    }
+  ],
+  "nextAudit": {
+    "scheduled": "2026-02-12T20:51:00+08:00",
+    "focusAreas": [
+      "Verify A1-1 and B6-4 deadline progress",
+      "Check Escritor outbox for study-answers.md completion",
+      "Monitor Quanta/MensaMusa blocker resolution"
+    ]
+  }
+}
