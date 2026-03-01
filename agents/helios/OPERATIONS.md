@@ -40,6 +40,83 @@ Total: ~1.5 minutes before operational
 
 **Files to read:**
 - `/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json`
+- All agent `state.json` files
+- All agent `current-task.md` files
+- Recent inbox/outbox activity
+
+**Purpose:** Ensure dashboard reflects reality across all agents and tasks
+
+**Critical Check: Dashboard Reflects All Updates**
+
+Helios verifies that when Caleb or agents update tasks, the dashboard data.json shows the truth:
+
+```python
+# Check 1: Did CHAD_YI update a task status?
+# Compare git history with data.json lastUpdated
+git_changes = run("git diff HEAD~1 --name-only")
+if 'data.json' in git_changes:
+    # Verify the change is valid
+    check_data_json_structure()
+
+# Check 2: Did an agent mark task complete?
+# Read agent outbox for completion reports
+for agent in agents:
+    outbox_files = list_files(f"agents/{agent}/outbox/")
+    for file in outbox_files:
+        if 'complete' in file.name and file.mtime < 15min_ago:
+            # Verify dashboard shows task as "done"
+            task_id = extract_task_id(file)
+            if data['tasks'][task_id]['status'] != 'done':
+                finding = WARNING: f"{agent} marked {task_id} done but dashboard shows {status}"
+                # Auto-fix: Update dashboard
+                update_task_status(task_id, 'done')
+
+# Check 3: Did Caleb add a new task?
+# Check if tasks exist in data.json that weren't there before
+previous_task_count = get_previous_audit_task_count()
+current_task_count = len(data['tasks'])
+if current_task_count > previous_task_count:
+    log(f"New tasks detected: {current_task_count - previous_task_count}")
+    # Verify new tasks are properly categorized
+
+# Check 4: Are workflow arrays consistent with task statuses?
+for task_id, task in data['tasks'].items():
+    status = task['status']
+    workflow_location = find_in_workflow(task_id)
+    
+    if status == 'active' and task_id not in data['workflow']['active']:
+        finding = WARNING: f"Task {task_id} status='active' but not in workflow.active"
+        auto_fix_workflow(task_id, 'active')
+    
+    if status == 'done' and task_id not in data['workflow']['done']:
+        finding = WARNING: f"Task {task_id} status='done' but not in workflow.done"
+        auto_fix_workflow(task_id, 'done')
+```
+
+**Verification Rules:**
+
+1. **Caleb updates via CHAD_YI:**
+   - You tell me → I update data.json → Helios verifies in next cycle
+   - Helios checks: Did the update actually happen? Is it correct?
+
+2. **Agents complete tasks:**
+   - Agent finishes → Writes to outbox → Helios detects → Updates dashboard
+   - Helios checks: Agent says "done", dashboard shows "done"
+
+3. **Helios auto-fixes (if safe):**
+   - Wrong task counts → Recalculate and update
+   - Task in wrong workflow column → Move it
+   - Stale lastUpdated → Update timestamp
+   - **Does NOT fix:** Conflicting data (escalates to CHAD_YI)
+
+4. **Helios escalates (can't auto-fix):**
+   - Agent says "Chapter 13", dashboard says "Chapter 12" → Which is right?
+   - New task appears without proper assignment → Who owns this?
+   - Status conflicts → Needs human decision
+
+**Dashboard Accuracy Goal: >95%**
+
+Helios ensures that when anyone (Caleb, CHAD_YI, agents) makes a change, the dashboard reflects it accurately within 15 minutes.
 
 **Checks:**
 ```python
