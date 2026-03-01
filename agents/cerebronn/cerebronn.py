@@ -59,6 +59,7 @@ MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 # Agent heartbeat.json paths — Cerebronn reads these directly every cycle
 AGENT_HEARTBEATS = {
     "quanta": Path("/home/chad-yi/mission-control-workspace/agents/quanta-v3/heartbeat.json"),
+    "forger": Path("/home/chad-yi/.openclaw/workspace/agents/forger/heartbeat.json"),
 }
 
 # Systemd service names — used to auto-detect dormant agents
@@ -67,6 +68,7 @@ AGENT_SERVICES = {
     "mensamusa": "mensamusa.service",
     "autour":    "autour.service",
     "quanta":    "quanta-v3.service",
+    "forger":    "forger.service",
     "helios":    "helios.service",
     "cerebronn": "cerebronn.service",
 }
@@ -888,12 +890,13 @@ def run_cycle():
     # Collect inbox files sorted oldest→newest
     inbox_files = sorted(INBOX.iterdir()) if INBOX.exists() else []
     report_files   = [f for f in inbox_files if f.suffix == ".json" and f.name.startswith("helios-report")]
+    forger_files   = [f for f in inbox_files if f.suffix == ".json" and f.name.startswith("forger-status")]
     digest_files   = [f for f in inbox_files if f.name.startswith("digest-") or f.name.startswith("daily-digest")]
     task_files     = [f for f in inbox_files if f.name.startswith("TASK-") or f.name.startswith("task-")]
     session_files  = [f for f in inbox_files if f.name.startswith("chad-session-")]
-    other_files    = [f for f in inbox_files if f not in report_files + digest_files + task_files + session_files]
+    other_files    = [f for f in inbox_files if f not in report_files + forger_files + digest_files + task_files + session_files]
 
-    log.info(f"[inbox] Found: {len(report_files)} reports, {len(digest_files)} digests, {len(task_files)} tasks, {len(session_files)} chad-sessions, {len(other_files)} other")
+    log.info(f"[inbox] Found: {len(report_files)} reports, {len(forger_files)} forger-status, {len(digest_files)} digests, {len(task_files)} tasks, {len(session_files)} chad-sessions, {len(other_files)} other")
 
     # Process Helios reports — latest only to avoid repeating old data
     # But archive ALL of them after reading the latest
@@ -911,6 +914,27 @@ def run_cycle():
         for f in report_files:
             archive_file(f)
             processed += 1
+
+    # Process Forger status reports — update state with build queue info
+    for f in forger_files:
+        try:
+            data = json.loads(f.read_text())
+            builds = data.get("builds", {})
+            pending = sum(1 for b in builds.values() if b.get("status") == "pending")
+            ready   = sum(1 for b in builds.values() if b.get("status") == "ready_for_review")
+            state.setdefault("agents", {})["forger"] = {
+                "last_seen": data.get("timestamp", sgt_str()),
+                "status": "running",
+                "silence_hours": 0,
+                "notes": data.get("summary", f"{pending} pending, {ready} ready"),
+                "builds_pending": pending,
+                "builds_ready": ready,
+            }
+            log.info(f"[forger] Build queue: {data.get('summary', 'updated')}")
+        except Exception as e:
+            log.warning(f"[forger] Failed parsing {f.name}: {e}")
+        archive_file(f)
+        processed += 1
 
     # Process digests — just archive them (content already sent to Telegram)
     for f in digest_files:

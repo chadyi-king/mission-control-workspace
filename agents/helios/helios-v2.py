@@ -62,8 +62,9 @@ HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onr
 # - chad-yi (The Face) - OpenClaw interface
 # - helios (The Spine) - This agent, coordinator
 # - cerebronn (The Brain) - VS Code/Claude, being built
+# - forger (The Builder) - Website builder agent
 # OTHER AGENTS (quanta, escritor, autour, mensamusa) - NOT ACTIVE YET
-WATCH_AGENTS     = ["cerebronn"]
+WATCH_AGENTS     = ["cerebronn", "forger"]
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8693482792:AAGNa21qo-fNGuPSDE5j5-828QAn7JSubdU")
 TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "8583017204")
