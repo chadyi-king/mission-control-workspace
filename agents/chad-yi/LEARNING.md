@@ -296,7 +296,34 @@ Blockers
 ## Last Updated
 
 **2026-03-01:** Created from MEMORY.md patterns and lessons  
+**2026-03-02:** Added Quanta check method (heartbeat.json)  
 **Next Review:** Weekly, or immediately after significant mistakes/successes
+
+---
+
+## Appendix: Quick Reference
+
+### Check If Quanta Is Running
+**Method:** Check heartbeat.json (source of truth)
+
+```bash
+cat /home/chad-yi/.openclaw/workspace/agents/quanta-v3/heartbeat.json
+```
+
+**Status Indicators:**
+| Condition | Meaning |
+|-----------|---------|
+| File doesn't exist | ⛔ Quanta is DOWN |
+| Timestamp > 2 min old | ⛔ Quanta is DOWN |
+| status: "running" + dry_run: false | ✅ Live and trading |
+| status: "running" + dry_run: true | ⚠️ Running in test mode |
+
+**Wrong ways:**
+- ❌ pgrep (process might exist but not functioning)
+- ❌ tail logs (might be stale)
+
+**Right way:**
+- ✅ heartbeat.json timestamp only
 
 ---
 
