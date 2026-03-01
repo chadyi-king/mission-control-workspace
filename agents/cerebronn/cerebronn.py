@@ -415,8 +415,49 @@ def rewrite_briefing(state: dict):
     for d in pending3[-5:]:
         pending3_lines.append(f"- 🚨 [{d['ts']}] {d['desc']}")
 
+    # Scan chad-yi inbox for unread messages
+    inbox_urgent = []
+    inbox_medium = []
+    inbox_digest = []
+    inbox_other = []
+    if CHAD_INBOX.exists():
+        for f in sorted(CHAD_INBOX.iterdir()):
+            if not f.suffix == ".md":
+                continue
+            name = f.name
+            if "urgent" in name.lower():
+                inbox_urgent.append(name)
+            elif "medium" in name.lower() or "inform" in name.lower():
+                inbox_medium.append(name)
+            elif "digest" in name.lower():
+                inbox_digest.append(name)
+            else:
+                inbox_other.append(name)
+
+    inbox_lines = []
+    for fn in inbox_urgent[-3:]:
+        inbox_lines.append(f"- 🚨 URGENT: {fn}")
+    for fn in inbox_medium[-3:]:
+        inbox_lines.append(f"- ⚠️  MEDIUM: {fn}")
+    if inbox_digest:
+        inbox_lines.append(f"- 📋 {len(inbox_digest)} daily digest(s) waiting")
+    for fn in inbox_other[-3:]:
+        inbox_lines.append(f"- 📄 {fn}")
+    if not inbox_lines:
+        inbox_lines = ["- Inbox clear ✓"]
+
+    inbox_total = len(inbox_urgent) + len(inbox_medium) + len(inbox_digest) + len(inbox_other)
+    inbox_header = f"## 📬 Chad-Yi Inbox ({inbox_total} messages)"
+
     content = f"""# BRIEFING — For Chad (Session Start)
 *Auto-updated by Cerebronn. Last: {sgt_str()} | Cycle #{state.get('cycle_count', 0)}*
+
+---
+
+{inbox_header}
+{chr(10).join(inbox_lines)}
+
+*Path: /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox/*
 
 ---
 
@@ -446,14 +487,11 @@ def rewrite_briefing(state: dict):
 
 ---
 
-## How to Use This Briefing
-1. READ THIS FIRST every session.
-2. Address any Tier 3 items immediately.
-3. Review Tier 2 items and respond by dropping a .md file in cerebronn/inbox/.
-4. Check agent statuses before delegating any tasks.
-
-*Edit tasks in: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md*
-*Helios reads ACTIVE.md every 15 min → dashboard auto-deploys.*
+## Session Start Checklist
+1. Read inbox messages above (urgent first).
+2. Address Tier 3 items — these need Caleb.
+3. Review agent silences before delegating.
+4. Edit tasks: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md
 """
     write_file(BRIEFING_FILE, content)
     log.info("[briefing] Rewritten")
