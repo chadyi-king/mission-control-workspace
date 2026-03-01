@@ -1265,6 +1265,242 @@
             .main-container { padding: 16px; }
             #categories-section .row { grid-template-columns: 1fr !important; }
         }
+
+        /* ============================================================ */
+        /* RED SUN THEME — New Home Page                                */
+        /* ============================================================ */
+
+        /* Solar corona radial background overlay */
+        .solar-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+            background: radial-gradient(ellipse 80% 50% at 50% -10%,
+                rgba(139,0,0,0.18) 0%, rgba(80,0,0,0.08) 40%, transparent 70%);
+        }
+
+        /* Agent status rail */
+        .agent-rail {
+            background: rgba(8,4,4,0.92);
+            border-bottom: 1px solid rgba(139,0,0,0.25);
+            padding: 6px 24px 6px 84px;
+            display: flex; gap: 10px; overflow-x: auto;
+            scrollbar-width: none; position: sticky; top: 65px; z-index: 90;
+        }
+        .agent-rail::-webkit-scrollbar { display: none; }
+        .agent-pill {
+            display: flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 3px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            font-size: 10px; white-space: nowrap; cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            font-family: var(--tech-font); letter-spacing: 0.5px;
+        }
+        .agent-pill:hover { border-color: var(--crimson-bright); background: var(--crimson-glow); }
+        .pill-dot {
+            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+        }
+        .pill-dot.active { background: #DC143C; box-shadow: 0 0 6px #DC143C; animation: pulse-dot 2s ease-in-out infinite; }
+        .pill-dot.idle   { background: #FF6B00; }
+        .pill-dot.blocked{ background: #ff4444; }
+        .pill-dot.offline{ background: #555; }
+        @keyframes pulse-dot {
+            0%,100% { box-shadow: 0 0 4px #DC143C; } 50% { box-shadow: 0 0 10px #DC143C; }
+        }
+        .pill-seen { color: var(--text-muted); font-size: 9px; }
+
+        /* Enhanced stat bar */
+        .stat-card-v2 {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 8px 16px; border-right: 1px solid rgba(255,255,255,0.05);
+            min-width: 90px;
+        }
+        .stat-card-v2:last-child { border-right: none; }
+        .stat-card-v2 .sv-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; }
+        .stat-card-v2 .sv-value { font-family: var(--display-font); font-size: 20px; color: var(--text-primary); line-height: 1.1; }
+        .stat-card-v2 .sv-sub   { font-size: 9px; color: var(--crimson-bright); text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card-v2.alert .sv-value { color: #ff4444; }
+        .stat-card-v2.good .sv-value  { color: #DC143C; }
+
+        /* 3-column home grid */
+        .home-grid {
+            display: grid;
+            grid-template-columns: 28% 28% 1fr;
+            gap: 14px;
+            padding: 14px 14px 14px 84px;
+        }
+        @media (max-width: 1200px) { .home-grid { grid-template-columns: 1fr 1fr; padding-left: 14px; } }
+        @media (max-width: 900px)  { .home-grid { grid-template-columns: 1fr; padding-left: 14px; } }
+
+        .home-col { display: flex; flex-direction: column; gap: 14px; }
+
+        /* Solar card */
+        .s-card {
+            background: rgba(10,5,5,0.9);
+            border: 1px solid rgba(139,0,0,0.3);
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .s-card:hover { border-color: rgba(220,20,60,0.5); }
+        .s-card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(139,0,0,0.2);
+            background: rgba(139,0,0,0.06);
+        }
+        .s-card-title {
+            font-family: var(--display-font); font-size: 10px; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase; color: #DC143C;
+        }
+        .s-card-meta { font-size: 10px; color: var(--text-muted); }
+        .s-card-body { padding: 12px 14px; }
+
+        /* Alert queue items */
+        .alert-row {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .alert-row:last-child { border-bottom: none; }
+        .alert-prio {
+            font-family: var(--display-font); font-size: 8px; padding: 3px 6px;
+            text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; margin-top: 2px;
+        }
+        .alert-prio.overdue { background: rgba(255,0,0,0.15); color: #ff4444; border: 1px solid #ff4444; animation: pulse-dot 1.5s infinite; }
+        .alert-prio.critical { background: rgba(220,20,60,0.15); color: #DC143C; border: 1px solid #DC143C; }
+        .alert-prio.high     { background: rgba(255,107,0,0.12); color: #FF6B00; border: 1px solid #FF6B00; }
+        .alert-title  { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+        .alert-meta   { font-size: 10px; color: var(--text-muted); }
+        .alert-deadline { color: #ff4444; margin-left: 8px; }
+
+        /* Live feed terminal */
+        .feed-line {
+            display: flex; gap: 8px; padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            font-family: 'Courier New', monospace; font-size: 10px;
+        }
+        .feed-time  { color: var(--text-muted); flex-shrink: 0; }
+        .feed-agent { color: #DC143C; flex-shrink: 0; font-weight: bold; }
+        .feed-event { color: var(--text-secondary); }
+        .feed-event.success { color: #FFD700; }
+        .feed-event.error   { color: #ff4444; }
+        .feed-ws-badge {
+            font-size: 9px; padding: 2px 6px; border-radius: 2px;
+            background: rgba(0,255,0,0.08); color: #00ff88; border: 1px solid #00ff88;
+        }
+        .feed-ws-badge.disconnected { background: rgba(255,255,255,0.05); color: #555; border-color: #555; }
+
+        /* Agent fleet rows */
+        .fleet-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .fleet-row:last-child { border-bottom: none; }
+        .fleet-status-bar { width: 3px; height: 32px; flex-shrink: 0; border-radius: 1px; }
+        .fleet-status-bar.active  { background: #DC143C; box-shadow: 0 0 6px rgba(220,20,60,0.5); }
+        .fleet-status-bar.idle    { background: #FF6B00; }
+        .fleet-status-bar.blocked { background: #ff4444; }
+        .fleet-status-bar.offline { background: #333; }
+        .fleet-name   { font-size: 12px; font-weight: 600; flex: 1; }
+        .fleet-role   { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .fleet-seen   { font-size: 9px; color: var(--text-muted); text-align: right; }
+        .fleet-tasks  {
+            font-family: var(--display-font); font-size: 13px; color: #DC143C;
+            min-width: 20px; text-align: right;
+        }
+
+        /* Workflow counts */
+        .wf-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
+        .wf-stage { text-align: center; padding: 10px 6px; background: rgba(255,255,255,0.02); border-top: 2px solid rgba(255,255,255,0.06); }
+        .wf-stage.wf-active { border-top-color: #DC143C; background: rgba(139,0,0,0.08); }
+        .wf-count { font-family: var(--display-font); font-size: 22px; font-weight: 700; color: #DC143C; }
+        .wf-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; }
+
+        /* Today's Focus column */
+        .focus-col { display: flex; flex-direction: column; height: 100%; min-height: 500px; }
+        .focus-filters { display: flex; gap: 6px; margin-bottom: 12px; }
+        .focus-filter-btn {
+            padding: 4px 10px; font-size: 9px; text-transform: uppercase;
+            letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.1);
+            background: transparent; color: var(--text-muted); cursor: pointer;
+            font-family: var(--tech-font); transition: all 0.2s;
+        }
+        .focus-filter-btn.active { border-color: #DC143C; color: #DC143C; background: rgba(220,20,60,0.08); }
+        .focus-filter-btn:hover  { border-color: #DC143C; color: #DC143C; }
+
+        .focus-task-card {
+            background: rgba(255,255,255,0.025);
+            border-left: 3px solid rgba(139,0,0,0.4);
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: grab;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .focus-task-card:hover { border-left-color: #DC143C; background: rgba(139,0,0,0.07); }
+        .focus-task-card.overdue { border-left-color: #ff4444; }
+        .focus-task-card.high    { border-left-color: #FF6B00; }
+        .focus-task-card.critical{ border-left-color: #DC143C; }
+
+        .focus-task-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .focus-task-id  { font-family: var(--display-font); font-size: 9px; color: var(--text-muted); }
+        .focus-task-prio-badge {
+            font-size: 8px; padding: 2px 5px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .focus-task-prio-badge.overdue  { color: #ff4444; border: 1px solid #ff4444; }
+        .focus-task-prio-badge.critical { color: #DC143C; border: 1px solid #DC143C; }
+        .focus-task-prio-badge.high     { color: #FF6B00; border: 1px solid #FF6B00; }
+        .focus-task-prio-badge.medium   { color: #c9a962; border: 1px solid #c9a962; }
+        .focus-task-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+        .focus-task-desc  { font-size: 10px; color: var(--text-muted); margin-bottom: 8px; }
+        .focus-task-bottom { display: flex; align-items: center; justify-content: space-between; }
+        .focus-task-agent {
+            font-size: 9px; padding: 2px 7px; border-radius: 2px;
+            background: rgba(220,20,60,0.1); color: #DC143C; border: 1px solid rgba(220,20,60,0.3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .focus-task-actions { display: flex; gap: 6px; }
+        .focus-task-btn {
+            font-size: 9px; padding: 3px 8px; border: 1px solid rgba(255,255,255,0.1);
+            background: transparent; color: var(--text-muted); cursor: pointer;
+            font-family: var(--tech-font); text-transform: uppercase; letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+        .focus-task-btn:hover         { border-color: #DC143C; color: #DC143C; }
+        .focus-task-btn.done-btn:hover { border-color: #FFD700; color: #FFD700; }
+
+        /* Weekly calendar zone */
+        .week-zone {
+            padding: 0 14px 20px 84px;
+        }
+        .week-header {
+            display: flex; align-items: center; gap: 14px; padding: 12px 0 10px;
+            border-top: 1px solid rgba(139,0,0,0.25);
+        }
+        .week-title { font-family: var(--display-font); font-size: 10px; color: #DC143C; letter-spacing: 2px; }
+        .week-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; }
+        .week-day-col {
+            background: rgba(10,5,5,0.8);
+            border: 1px solid rgba(139,0,0,0.2);
+            border-top: 2px solid rgba(139,0,0,0.2);
+            padding: 10px 8px; min-height: 120px;
+        }
+        .week-day-col.today { border-top-color: #DC143C; background: rgba(139,0,0,0.07); }
+        .week-day-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .week-day-num   { font-family: var(--display-font); font-size: 18px; color: var(--text-primary); margin-bottom: 8px; }
+        .week-day-col.today .week-day-num { color: #DC143C; }
+        .week-task-chip {
+            font-size: 9px; padding: 3px 6px; margin-bottom: 4px;
+            border-left: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.03); overflow: hidden;
+            white-space: nowrap; text-overflow: ellipsis;
+        }
+        .week-task-chip.overdue { border-left-color: #ff4444; color: var(--text-secondary); }
+        .week-task-chip.today   { border-left-color: #FFD700; color: var(--text-secondary); }
+        .week-task-chip.future  { border-left-color: rgba(220,20,60,0.4); color: var(--text-muted); }
+        .week-overflow { font-size: 9px; color: var(--text-muted); margin-top: 4px; }
+
+        /* Decisions below-fold */
+        .below-fold { padding: 0 14px 30px 84px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+        @media (max-width: 1200px) { .below-fold { grid-template-columns: 1fr 1fr; padding-left: 14px; } }
     </style>
 </head>
 <body>
@@ -1438,42 +1674,59 @@
         </a>
     </div>
 
-    <!-- COMPACT STATS BAR -->
-    <div class="stats-bar">
-        <div class="stat-card">
-            <div class="stat-label">Active</div>
-            <div class="stat-value">3</div>
-            <div class="stat-sub">Agents</div>
-        </div>
+    <!-- SOLAR CORONA BACKGROUND -->
+    <div class="solar-bg"></div>
 
-        <div class="stat-card">
-            <div class="stat-label">Spawned</div>
-            <div class="stat-value">5</div>
-            <div class="stat-sub">Today</div>
+    <!-- STATS BAR v2 -->
+    <div class="stats-bar" style="display:flex; gap:0; padding:0; height:56px; align-items:stretch;">
+        <div class="stat-card-v2 good">
+            <div class="sv-label">Active Agents</div>
+            <div class="sv-value" id="stat-active-agents">—</div>
+            <div class="sv-sub">Online Now</div>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Done</div>
-            <div class="stat-value">7</div>
-            <div class="stat-sub">Tasks</div>
+        <div class="stat-card-v2">
+            <div class="sv-label">Tasks Active</div>
+            <div class="sv-value" id="stat-tasks-active">—</div>
+            <div class="sv-sub">In Progress</div>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Time</div>
-            <div class="stat-value">4:23</div>
-            <div class="stat-sub">Active</div>
+        <div class="stat-card-v2 good">
+            <div class="sv-label">Done Today</div>
+            <div class="sv-value" id="stat-done">—</div>
+            <div class="sv-sub">Completed</div>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-label">Focus</div>
-            <div class="stat-value">A2</div>
-            <div class="stat-sub">Project</div>
+        <div class="stat-card-v2 alert">
+            <div class="sv-label">Overdue</div>
+            <div class="sv-value" id="stat-overdue">—</div>
+            <div class="sv-sub">Needs Attention</div>
         </div>
+        <div class="stat-card-v2 alert">
+            <div class="sv-label">Urgent</div>
+            <div class="sv-value" id="stat-urgent">—</div>
+            <div class="sv-sub">Critical</div>
+        </div>
+        <div class="stat-card-v2">
+            <div class="sv-label">Backlog</div>
+            <div class="sv-value" id="stat-backlog">—</div>
+            <div class="sv-sub">Pending</div>
+        </div>
+        <div class="stat-card-v2">
+            <div class="sv-label">Events</div>
+            <div class="sv-value" id="stat-events">—</div>
+            <div class="sv-sub">Today</div>
+        </div>
+        <div class="stat-card-v2" style="border-right:none;">
+            <div class="sv-label">Last Audit</div>
+            <div class="sv-value" style="font-size:13px;" id="stat-last-audit">—</div>
+            <div class="sv-sub">Helios</div>
+        </div>
+    </div>
 
-        <div class="stat-card">
-            <div class="stat-label">Events</div>
-            <div class="stat-value">12</div>
-            <div class="stat-sub">Today</div>
+    <!-- AGENT STATUS RAIL -->
+    <div class="agent-rail" id="agent-rail">
+        <!-- Populated by JS from /api/sync -->
+        <div class="agent-pill">
+            <span class="pill-dot offline"></span>
+            <span>Loading agents...</span>
         </div>
     </div>
 
@@ -1483,321 +1736,124 @@
         <!-- HOME SECTION -->
         <div class="section active" id="home-section">
 
-        <!-- ROW 1: WORKFLOW + PROJECTS -->
-        <div class="row">
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Workflow Pipeline</span>
-                    <span class="panel-value">12 Total</span>
+        <!-- 3-COLUMN GRID -->
+        <div class="home-grid">
+
+            <!-- COL 1: Alert Queue + Live Feed -->
+            <div class="home-col">
+                <!-- Alert Queue -->
+                <div class="s-card">
+                    <div class="s-card-header">
+                        <span class="s-card-title">Alert Queue</span>
+                        <span class="s-card-meta" id="alert-queue-count">0 issues</span>
+                    </div>
+                    <div class="s-card-body" id="alert-queue-body" style="max-height:280px;overflow-y:auto;">
+                        <div style="color:var(--text-muted);font-size:11px;padding:20px 0;text-align:center;">Loading alerts...</div>
+                    </div>
                 </div>
-                <div class="panel-content">
-                    <div class="pipeline">
-                        <div class="pipeline-stage">
-                            <div class="pipeline-count">5</div>
-                            <div class="pipeline-label">Pending</div>
-                        </div>
-                        <div class="workflow-arrow">→</div>
-                        <div class="pipeline-stage active">
-                            <div class="pipeline-count">3</div>
-                            <div class="pipeline-label">Active</div>
-                        </div>
-                        <div class="workflow-arrow">→</div>
-                        <div class="pipeline-stage">
-                            <div class="pipeline-count">2</div>
-                            <div class="pipeline-label">Review</div>
-                        </div>
-                        <div class="workflow-arrow">→</div>
-                        <div class="pipeline-stage">
-                            <div class="pipeline-count">7</div>
-                            <div class="pipeline-label">Done</div>
-                        </div>
+
+                <!-- Live Feed -->
+                <div class="s-card" style="flex:1;">
+                    <div class="s-card-header">
+                        <span class="s-card-title">Live Feed</span>
+                        <span class="feed-ws-badge disconnected" id="ws-badge">WS: OFF</span>
                     </div>
-
-                    <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-bottom: 16px;">2 tasks blocked · 3 waiting for you</div>
-
-                    <!-- Recent Movement -->
-                    <div style="border-top: 1px solid var(--crystal-border); padding-top: 12px;">
-                        <div style="font-size: 9px; color: var(--crimson-bright); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Recent Movement</div>
-
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px;">
-                                <span style="color: #00ff88;">↑</span>
-                                <span style="color: var(--text-secondary);">Chapter 4</span>
-                                <span style="color: var(--text-muted); margin-left: auto;">2m ago</span>
-                            </div>
-
-                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px;">
-                                <span style="color: #00ff88;">↑</span>
-                                <span style="color: var(--text-secondary);">B3 Homepage</span>
-                                <span style="color: var(--text-muted); margin-left: auto;">15m ago</span>
-                            </div>
-
-                            <div style="display: flex; align-items: center; gap: 8px; font-size: 10px;">
-                                <span style="color: var(--crimson-bright);">→</span>
-                                <span style="color: var(--text-secondary);">Research Notes</span>
-                                <span style="color: var(--text-muted); margin-left: auto;">1h ago</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Throughput Metrics -->
-                    <div style="border-top: 1px solid var(--crystal-border); padding-top: 12px; margin-top: 12px;">
-                        <div style="font-size: 9px; color: var(--crimson-bright); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">Throughput</div>
-
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center;">
-                            <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 4px;">
-                                <div style="font-family: var(--display-font); font-size: 16px; color: var(--crimson-bright);">12</div>
-                                <div style="font-size: 8px; color: var(--text-muted); text-transform: uppercase;">Today</div>
-                            </div>
-
-                            <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 4px;">
-                                <div style="font-family: var(--display-font); font-size: 16px; color: var(--crimson-bright);">2.4</div>
-                                <div style="font-size: 8px; color: var(--text-muted); text-transform: uppercase;">/hr</div>
-                            </div>
-
-                            <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 4px;">
-                                <div style="font-family: var(--display-font); font-size: 16px; color: var(--crimson-bright);">85%</div>
-                                <div style="font-size: 8px; color: var(--text-muted); text-transform: uppercase;">Velocity</div>
+                    <div class="s-card-body" style="padding:6px 10px;">
+                        <div id="live-feed" style="max-height:300px;overflow-y:auto;display:flex;flex-direction:column-reverse;">
+                            <div class="feed-line">
+                                <span class="feed-time">--:--:--</span>
+                                <span class="feed-agent">SYS</span>
+                                <span class="feed-event">Connecting to Helios WebSocket...</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Project Progress</span>
-                    <span class="panel-value">6 Active</span>
+            <!-- COL 2: Agent Fleet + Workflow -->
+            <div class="home-col">
+                <!-- Agent Fleet -->
+                <div class="s-card">
+                    <div class="s-card-header">
+                        <span class="s-card-title">Agent Fleet</span>
+                        <span class="s-card-meta" id="fleet-active-count">— active</span>
+                    </div>
+                    <div class="s-card-body" id="fleet-body" style="max-height:300px;overflow-y:auto;">
+                        <div style="color:var(--text-muted);font-size:11px;padding:20px 0;text-align:center;">Loading fleet...</div>
+                    </div>
                 </div>
-                <div class="panel-content">
-                    <div class="project-card" style="border-left-color: #00ff88;">
-                        <div class="project-header">
-                            <span class="project-name">A6 · Mission Control</span>
-                            <span class="project-percent" style="color: #00ff88;">46%</span>
-                        </div>
-                        <div class="project-progress">
-                            <div class="project-progress-fill" style="width: 46%; background: linear-gradient(90deg, #00ff88, #00cc6a);"></div>
-                        </div>
-                        <div class="project-meta">12/26 tasks · Dashboard building</div>
-                    </div>
 
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-name">A2 · RE:UNITE</span>
-                            <span class="project-percent">25%</span>
-                        </div>
-                        <div class="project-progress">
-                            <div class="project-progress-fill" style="width: 25%"></div>
-                        </div>
-                        <div class="project-meta">3/12 chapters · 2 tasks active</div>
+                <!-- Workflow Status -->
+                <div class="s-card">
+                    <div class="s-card-header">
+                        <span class="s-card-title">Workflow Status</span>
+                        <span class="s-card-meta" id="wf-total">— tasks</span>
                     </div>
+                    <div class="s-card-body">
+                        <div class="wf-grid">
+                            <div class="wf-stage">
+                                <div class="wf-count" id="wf-pending">—</div>
+                                <div class="wf-label">Pending</div>
+                            </div>
+                            <div class="wf-stage wf-active">
+                                <div class="wf-count" id="wf-active">—</div>
+                                <div class="wf-label">Active</div>
+                            </div>
+                            <div class="wf-stage">
+                                <div class="wf-count" id="wf-review">—</div>
+                                <div class="wf-label">Review</div>
+                            </div>
+                            <div class="wf-stage">
+                                <div class="wf-count" id="wf-done">—</div>
+                                <div class="wf-label">Done</div>
+                            </div>
+                        </div>
 
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-name">B3 · Team Elevate</span>
-                            <span class="project-percent">10%</span>
+                        <!-- Decisions Required -->
+                        <div style="border-top:1px solid rgba(139,0,0,0.2);padding-top:10px;">
+                            <div style="font-size:9px;color:#DC143C;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Blocked / Awaiting Input</div>
+                            <div id="decisions-body" style="max-height:180px;overflow-y:auto;">
+                                <div style="color:var(--text-muted);font-size:11px;text-align:center;padding:12px 0;">Loading...</div>
+                            </div>
                         </div>
-                        <div class="project-progress">
-                            <div class="project-progress-fill" style="width: 10%"></div>
-                        </div>
-                        <div class="project-meta">1/10 tasks · 1 task active</div>
-                    </div>
-
-                    <div class="project-card">
-                        <div class="project-header">
-                            <span class="project-name">A4 · Streaming</span>
-                            <span class="project-percent">5%</span>
-                        </div>
-                        <div class="project-progress">
-                            <div class="project-progress-fill" style="width: 5%"></div>
-                        </div>
-                        <div class="project-meta">Research phase · 1 task active</div>
                     </div>
                 </div>
             </div>
+
+            <!-- COL 3: Today's Focus -->
+            <div class="home-col home-col-focus">
+                <div class="s-card" style="flex:1;display:flex;flex-direction:column;">
+                    <div class="s-card-header">
+                        <span class="s-card-title">Today's Focus</span>
+                        <span class="s-card-meta" id="focus-count">— tasks</span>
+                    </div>
+                    <div class="s-card-body" style="flex:1;display:flex;flex-direction:column;padding-bottom:0;">
+                        <!-- Filter Tabs -->
+                        <div class="focus-filters">
+                            <button class="focus-filter-btn active" onclick="setFocusFilter('urgent',this)">URGENT</button>
+                            <button class="focus-filter-btn" onclick="setFocusFilter('high',this)">HIGH</button>
+                            <button class="focus-filter-btn" onclick="setFocusFilter('all',this)">ALL</button>
+                            <button class="focus-filter-btn" onclick="setFocusFilter('active',this)">ACTIVE</button>
+                        </div>
+                        <!-- Task List -->
+                        <div id="focus-tasks-list" style="flex:1;overflow-y:auto;padding-bottom:14px;">
+                            <div style="color:var(--text-muted);font-size:11px;text-align:center;padding:30px 0;">Loading tasks...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        <!-- END 3-COLUMN GRID -->
 
-        <!-- ROW 2: CALENDAR + DECISIONS -->
-        <div class="row">
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Calendar</span>
-                    <span class="panel-value">Past · Present · Future</span>
-                </div>
-                <div class="panel-content">
-                    <div class="calendar-section">
-                        <div class="calendar-header">Past</div>
-                        <div class="calendar-item">
-                            <div class="calendar-date">
-                                <div class="calendar-day">05</div>
-                                <div class="calendar-month">FEB</div>
-                            </div>
-                            <div class="calendar-content">
-                                <h4>7 Tasks Completed</h4>
-                                <p>A2: 3 chapters uploaded</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="calendar-section">
-                        <div class="calendar-header">Today</div>
-                        <div class="calendar-item">
-                            <div class="calendar-date">
-                                <div class="calendar-day">05</div>
-                                <div class="calendar-month">FEB</div>
-                            </div>
-                            <div class="calendar-content">
-                                <h4>3 Tasks Active</h4>
-                                <p>5 agents spawned · 12 events</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="calendar-section">
-                        <div class="calendar-header">Upcoming</div>
-                        <div class="calendar-item">
-                            <div class="calendar-date">
-                                <div class="calendar-day">28</div>
-                                <div class="calendar-month">FEB</div>
-                            </div>
-                            <div class="calendar-content">
-                                <h4>B3 Homepage Due</h4>
-                                <p>23 days remaining</p>
-                            </div>
-                        </div>
-
-                        <div class="calendar-item">
-                            <div class="calendar-date">
-                                <div class="calendar-day">13</div>
-                                <div class="calendar-month">DEC</div>
-                            </div>
-                            <div class="calendar-content">
-                                <h4>💍 Wedding Day</h4>
-                                <p>311 days remaining</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- WEEKLY CALENDAR ZONE -->
+        <div class="week-zone">
+            <div class="week-header">
+                <span class="week-title">Weekly Radar</span>
+                <span style="font-size:10px;color:var(--text-muted);">Tasks by deadline</span>
             </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Decisions Required</span>
-                    <span class="panel-value">3 Pending</span>
-                </div>
-                <div class="panel-content">
-                    <div class="decision-item blocked">
-                        <div class="decision-type blocked">⚠ Blocked</div>
-                        <div class="decision-title">Setup Shopify Store</div>
-                        <div class="decision-reason">B9 · Cannot proceed without API key</div>
-                        <button class="decision-btn">Provide API Key</button>
-                    </div>
-
-                    <div class="decision-item input">
-                        <div class="decision-type input">❓ Input Needed</div>
-                        <div class="decision-title">Choose Homepage Color Scheme</div>
-                        <div class="decision-reason">B3 · Awaiting your design preference</div>
-                        <button class="decision-btn">Select Colors</button>
-                    </div>
-
-                    <div class="decision-item blocked">
-                        <div class="decision-type blocked">⚠ Blocked</div>
-                        <div class="decision-title">Chapter 13 Outline Approval</div>
-                        <div class="decision-reason">A2 · Agent waiting for your approval</div>
-                        <button class="decision-btn">Review Outline</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ROW 3: ACTIVITY + QUEUE -->
-        <div class="row">
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Activity Feed</span>
-                    <span class="panel-value">12 Events</span>
-                </div>
-                <div class="panel-content">
-                    <div class="activity-item">
-                        <div class="activity-time">[14:32:15]</div>
-                        <div class="activity-content">
-                            <h4>Task Completed</h4>
-                            <p>K2.5-WRITER uploaded to Royal Road</p>
-                        </div>
-                    </div>
-
-                    <div class="activity-item">
-                        <div class="activity-time">[14:28:42]</div>
-                        <div class="activity-content">
-                            <h4>Task Added</h4>
-                            <p>New task added to B3 queue by you</p>
-                        </div>
-                    </div>
-
-                    <div class="activity-item">
-                        <div class="activity-time">[14:15:08]</div>
-                        <div class="activity-content">
-                            <h4>Agent Spawned</h4>
-                            <p>GPT-4-CODER started on B3 homepage</p>
-                        </div>
-                    </div>
-
-                    <div class="activity-item">
-                        <div class="activity-time">[13:52:33]</div>
-                        <div class="activity-content">
-                            <h4>GitHub Push</div>
-                            <p>Updated mission-control-dashboard</p>
-                        </div>
-                    </div>
-
-                    <div class="activity-item">
-                        <div class="activity-time">[12:15:00]</div>
-                        <div class="activity-content">
-                            <h4>Milestone Reached</h4>
-                            <p>A2: 25% complete (3/12 chapters)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <span class="panel-title">Task Queue</span>
-                    <span class="panel-value">12 Total</span>
-                </div>
-                <div class="panel-content">
-                    <div class="queue-item high">
-                        <div class="queue-info">
-                            <h4>Upload RE:UNITE Chapters</h4>
-                            <p>A2 · ✎ Writing · Active 45m</p>
-                        </div>
-                        <span class="queue-priority high">High</span>
-                    </div>
-
-                    <div class="queue-item medium">
-                        <div class="queue-info">
-                            <h4>Design Team Elevate Homepage</h4>
-                            <p>B3 · </ > Coding · Pending</p>
-                        </div>
-                        <span class="queue-priority medium">Med</span>
-                    </div>
-
-                    <div class="queue-item medium">
-                        <div class="queue-info">
-                            <h4>Research Kick Platform</h4>
-                            <p>A4 · 🔍 Research · Active 2h</p>
-                        </div>
-                        <span class="queue-priority medium">Med</span>
-                    </div>
-
-                    <div class="queue-item low">
-                        <div class="queue-info">
-                            <h4>Update Documentation</h4>
-                            <p>A6 · ✎ Writing · Backlog</p>
-                        </div>
-                        <span class="queue-priority low">Low</span>
-                    </div>
-                </div>
+            <div class="week-grid" id="week-calendar">
+                <!-- Populated by JS -->
             </div>
         </div>
 
@@ -2814,236 +2870,407 @@
         window.addTaskToCurrentProject = addTaskToCurrentProject;
 
         // ==========================================
-        // LIVE DATA SYSTEM (Tasks 1-5)
+        // RED SUN LIVE DATA SYSTEM
         // ==========================================
 
-        let dashboardData = null;
+        const API = 'https://helios-api-xfvi.onrender.com';
+        const DATA_FILE = 'DATA/data.json';
+        const POLL_INTERVAL_MS = 5 * 60 * 1000; // 5 min (safe for free tier)
+        const HEALTH_INTERVAL_MS = 60 * 1000;    // 60s health check
 
-        async function loadData() {
+        let allTasks = {};         // id → task object (from DATA/data.json)
+        let workflowData = {};     // { pending, active, review, done }
+        let statsData = {};        // { totalTasks, active, done, urgent, ... }
+        let agentStatuses = [];    // from /api/sync
+        let focusFilter = 'urgent';
+        let wsSocket = null;
+        let lastAuditTs = null;
+
+        // ---- Bootstrap ----
+        async function init() {
+            await Promise.all([loadTaskData(), loadAgentSync()]);
+            connectWebSocket();
+            setInterval(loadTaskData, POLL_INTERVAL_MS);
+            setInterval(loadAgentSync, POLL_INTERVAL_MS);
+            setInterval(checkHealth, HEALTH_INTERVAL_MS);
+        }
+
+        // ---- Task Data (DATA/data.json) ----
+        async function loadTaskData() {
             try {
-                // Try localStorage first
-                const saved = localStorage.getItem('missionControlData');
-                if (saved) {
-                    dashboardData = JSON.parse(saved);
-                } else {
-                    // Load from file
-                    const response = await fetch('data.json?t=' + Date.now());
-                    dashboardData = await response.json();
+                const r = await fetch(DATA_FILE + '?t=' + Date.now());
+                if (!r.ok) throw new Error(r.status);
+                const d = await r.json();
+                allTasks = d.tasks || {};
+                workflowData = d.workflow || {};
+                statsData = d.stats || {};
+                renderAll();
+            } catch (e) {
+                addFeedLine('SYS', 'data.json load failed: ' + e.message, 'error');
+            }
+        }
+
+        // ---- Agent Sync (/api/sync) ----
+        async function loadAgentSync() {
+            try {
+                const r = await fetch(API + '/api/sync');
+                if (!r.ok) throw new Error(r.status);
+                const d = await r.json();
+                agentStatuses = d.agents || [];
+                renderAgentRail();
+                renderFleet();
+                updateStatBar('stat-active-agents', agentStatuses.filter(a => a.status === 'active').length);
+                updateStatBar('stat-last-audit', d.last_audit ? formatTime(d.last_audit) : '—');
+                lastAuditTs = d.last_audit;
+                const wsBadge = document.getElementById('ws-badge');
+                if (wsBadge) { wsBadge.textContent = 'API: OK'; wsBadge.className = 'feed-ws-badge'; }
+            } catch (e) {
+                addFeedLine('SYS', '/api/sync failed: ' + e.message, 'error');
+            }
+        }
+
+        // ---- Health check ----
+        async function checkHealth() {
+            try {
+                const r = await fetch(API + '/api/health');
+                if (r.ok) {
+                    const d = await r.json();
+                    updateStatBar('stat-last-audit', d.last_heartbeat ? formatTime(d.last_heartbeat) : '—');
                 }
-                updateDashboard();
-                console.log('✅ Data loaded:', new Date().toLocaleTimeString());
-            } catch (error) {
-                console.error('❌ Failed to load data:', error);
+            } catch(e) {}
+        }
+
+        // ---- WebSocket ----
+        function connectWebSocket() {
+            try {
+                wsSocket = new WebSocket('wss://' + API.replace('https://','') + '/ws/dashboard');
+                wsSocket.onopen  = () => {
+                    const b = document.getElementById('ws-badge');
+                    if (b) { b.textContent = 'WS: LIVE'; b.className = 'feed-ws-badge'; }
+                    addFeedLine('SYS', 'WebSocket connected', 'success');
+                };
+                wsSocket.onmessage = (ev) => {
+                    try {
+                        const msg = JSON.parse(ev.data);
+                        handleWsMessage(msg);
+                    } catch(e) {}
+                };
+                wsSocket.onclose = () => {
+                    const b = document.getElementById('ws-badge');
+                    if (b) { b.textContent = 'WS: OFF'; b.className = 'feed-ws-badge disconnected'; }
+                    setTimeout(connectWebSocket, 15000);
+                };
+                wsSocket.onerror = () => wsSocket.close();
+            } catch(e) {
+                addFeedLine('SYS', 'WebSocket unavailable', 'error');
             }
         }
 
-        function updateDashboard() {
-            if (!dashboardData) return;
-
-            // Update Stats Bar (Task 2)
-            const stats = dashboardData.stats;
-            const statValues = document.querySelectorAll('.stat-value');
-            if (statValues.length >= 6) {
-                statValues[0].textContent = stats.activeAgents;
-                statValues[1].textContent = stats.spawnedToday;
-                statValues[2].textContent = stats.tasksDone;
-                statValues[3].textContent = stats.timeActive;
-                statValues[4].textContent = stats.focusProject;
-                statValues[5].textContent = stats.eventsToday;
+        function handleWsMessage(msg) {
+            const t = msg.event_type || msg.type || 'event';
+            const agent = (msg.data && msg.data.agent) || 'SYS';
+            const detail = (msg.data && msg.data.message) || t;
+            addFeedLine(agent.toUpperCase(), detail, t === 'error' ? 'error' : 'success');
+            // Refresh data on snapshot events
+            if (t === 'dashboard_snapshot') {
+                loadTaskData();
+                loadAgentSync();
             }
-
-            // Update Workflow Pipeline (Task 3)
-            const workflow = dashboardData.workflow;
-            const pipelineCounts = document.querySelectorAll('.pipeline-count');
-            if (pipelineCounts.length >= 4) {
-                pipelineCounts[0].textContent = workflow.pending.length;
-                pipelineCounts[1].textContent = workflow.active.length;
-                pipelineCounts[2].textContent = workflow.review.length;
-                pipelineCounts[3].textContent = workflow.done.length;
-            }
-
-            // Update Activity Feed
-            updateActivityFeed();
-
-            // Update Task Queue
-            updateTaskQueue();
         }
 
-        function updateActivityFeed() {
-            if (!dashboardData || !dashboardData.activity) return;
+        function addFeedLine(agent, text, cls) {
+            const feed = document.getElementById('live-feed');
+            if (!feed) return;
+            const ts = new Date().toTimeString().slice(0,8);
+            const line = document.createElement('div');
+            line.className = 'feed-line';
+            line.innerHTML = `<span class="feed-time">${ts}</span><span class="feed-agent">${agent}</span><span class="feed-event ${cls||''}">${text}</span>`;
+            feed.prepend(line);
+            // Keep max 80 lines
+            while (feed.children.length > 80) feed.removeChild(feed.lastChild);
+        }
 
-            const container = document.querySelector('.panel:has(.panel-title:contains("Activity Feed")) .panel-content');
-            if (!container) return;
+        // ---- Render all panels ----
+        function renderAll() {
+            renderStatsBar();
+            renderAlertQueue();
+            renderWorkflowCounts();
+            renderFocusTasks();
+            renderWeekCalendar();
+            renderDecisions();
+        }
 
-            container.innerHTML = dashboardData.activity.slice(0, 5).map(event => `
-                <div class="activity-item">
-                    <div class="activity-time">[${formatTime(event.timestamp)}]</div>
-                    <div class="activity-content">
-                        <h4>${event.title}</h4>
-                        <p>${event.description}</p>
-                    </div>
+        // ---- Stats bar ----
+        function renderStatsBar() {
+            const tasks = Object.values(allTasks);
+            const now = Date.now();
+            const overdue  = tasks.filter(t => t.status !== 'done' && t.deadline && new Date(t.deadline) < now).length;
+            const urgent   = tasks.filter(t => t.priority === 'critical' && t.status !== 'done').length;
+            const active   = (workflowData.active || []).length;
+            const done     = (workflowData.done || []).length;
+            const pending  = (workflowData.pending || []).length;
+            updateStatBar('stat-tasks-active', active);
+            updateStatBar('stat-done',         done);
+            updateStatBar('stat-overdue',      overdue);
+            updateStatBar('stat-urgent',       urgent);
+            updateStatBar('stat-backlog',      pending);
+            updateStatBar('stat-events',       statsData.totalTasks ? statsData.totalTasks : tasks.length);
+        }
+
+        function updateStatBar(id, val) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
+        }
+
+        // ---- Agent Rail ----
+        function renderAgentRail() {
+            const rail = document.getElementById('agent-rail');
+            if (!rail) return;
+            if (!agentStatuses.length) return;
+            rail.innerHTML = agentStatuses.map(a => `
+                <div class="agent-pill" title="${a.name} — ${a.role||''}">
+                    <span class="pill-dot ${a.status||'offline'}"></span>
+                    <span>${a.name.toUpperCase()}</span>
+                    <span class="pill-seen">${a.last_seen ? relTime(a.last_seen) : '—'}</span>
                 </div>
             `).join('');
         }
 
-        function updateTaskQueue() {
-            if (!dashboardData || !dashboardData.tasks) return;
-
-            const container = document.querySelector('.panel:has(.panel-title:contains("Task Queue")) .panel-content');
-            if (!container) return;
-
-            const activeTasks = dashboardData.tasks
-                .filter(t => t.status !== 'done')
-                .sort((a, b) => priorityWeight(b.priority) - priorityWeight(a.priority))
-                .slice(0, 5);
-
-            container.innerHTML = activeTasks.map(task => `
-                <div class="queue-item ${task.priority}" onclick="viewTask('${task.id}')">
-                    <div class="queue-info">
-                        <h4>${task.title}</h4>
-                        <p>${task.project} · ${formatStatus(task.status)}</p>
+        // ---- Fleet panel ----
+        function renderFleet() {
+            const body = document.getElementById('fleet-body');
+            if (!body) return;
+            if (!agentStatuses.length) { body.innerHTML = '<div style="color:var(--text-muted);font-size:11px;text-align:center;padding:20px 0;">No agent data</div>'; return; }
+            const tasksByAgent = {};
+            Object.values(allTasks).forEach(t => {
+                if (t.agent && t.status !== 'done') tasksByAgent[t.agent] = (tasksByAgent[t.agent]||0) + 1;
+            });
+            const active = agentStatuses.filter(a=>a.status==='active').length;
+            const cnt = document.getElementById('fleet-active-count');
+            if (cnt) cnt.textContent = active + ' active';
+            body.innerHTML = agentStatuses.map(a => `
+                <div class="fleet-row">
+                    <div class="fleet-status-bar ${a.status||'offline'}"></div>
+                    <div style="flex:1;">
+                        <div class="fleet-name">${a.name}</div>
+                        <div class="fleet-role">${a.role||''}</div>
                     </div>
-                    <span class="queue-priority ${task.priority}">${task.priority}</span>
+                    <div class="fleet-tasks">${tasksByAgent[a.name.toLowerCase()]||0}</div>
+                    <div class="fleet-seen">${a.last_seen ? relTime(a.last_seen) : '—'}</div>
                 </div>
             `).join('');
-
-            // Update count
-            const countEl = document.querySelector('.panel:has(.panel-title:contains("Task Queue")) .panel-value');
-            if (countEl) countEl.textContent = activeTasks.length + ' Total';
         }
 
-        function priorityWeight(p) {
-            return { high: 3, medium: 2, low: 1 }[p] || 0;
+        // ---- Workflow counts ----
+        function renderWorkflowCounts() {
+            const wf = workflowData;
+            setText('wf-pending', (wf.pending||[]).length);
+            setText('wf-active',  (wf.active||[]).length);
+            setText('wf-review',  (wf.review||[]).length);
+            setText('wf-done',    (wf.done||[]).length);
+            const total = Object.values(wf).reduce((s,a) => s + (a||[]).length, 0);
+            setText('wf-total', total + ' tasks');
         }
 
-        function formatStatus(s) {
-            return { pending: 'Pending', active: 'Active', review: 'Review', done: 'Done' }[s] || s;
+        // ---- Alert queue ----
+        function renderAlertQueue() {
+            const body = document.getElementById('alert-queue-body');
+            if (!body) return;
+            const now = Date.now();
+            const alerts = Object.values(allTasks)
+                .filter(t => t.status !== 'done' && (
+                    (t.deadline && new Date(t.deadline) < now) ||
+                    t.status === 'blocked' ||
+                    t.priority === 'critical'
+                ))
+                .sort((a,b) => {
+                    const scoreA = (a.deadline && new Date(a.deadline) < now) ? 3 : (a.status==='blocked' ? 2 : 1);
+                    const scoreB = (b.deadline && new Date(b.deadline) < now) ? 3 : (b.status==='blocked' ? 2 : 1);
+                    return scoreB - scoreA;
+                })
+                .slice(0, 10);
+            
+            const cnt = document.getElementById('alert-queue-count');
+            if (cnt) cnt.textContent = alerts.length + ' issues';
+
+            if (!alerts.length) { body.innerHTML = '<div style="color:var(--text-muted);font-size:11px;text-align:center;padding:20px 0;">No alerts</div>'; return; }
+            body.innerHTML = alerts.map(t => {
+                const isOverdue = t.deadline && new Date(t.deadline) < now;
+                const cls = isOverdue ? 'overdue' : (t.priority === 'critical' ? 'critical' : 'high');
+                const label = isOverdue ? 'OVERDUE' : (t.status === 'blocked' ? 'BLOCKED' : t.priority.toUpperCase());
+                return `<div class="alert-row">
+                    <span class="alert-prio ${cls}">${label}</span>
+                    <div>
+                        <div class="alert-title">${t.title}</div>
+                        <div class="alert-meta">${t.id} · ${t.project||''} · ${t.agent||'unassigned'}
+                            ${t.deadline ? '<span class="alert-deadline">Due '+fmtDate(t.deadline)+'</span>' : ''}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ---- Decisions ----
+        function renderDecisions() {
+            const body = document.getElementById('decisions-body');
+            if (!body) return;
+            const blocked = Object.values(allTasks).filter(t => t.status === 'blocked' || (t.status !== 'done' && t.notes && t.notes.toLowerCase().includes('blocked')));
+            if (!blocked.length) { body.innerHTML = '<div style="color:var(--text-muted);font-size:11px;text-align:center;padding:8px 0;">No blocked tasks</div>'; return; }
+            body.innerHTML = blocked.slice(0,5).map(t => `
+                <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+                    <div style="font-size:10px;color:#ff4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;">BLOCKED</div>
+                    <div style="font-size:12px;font-weight:600;margin-bottom:2px;">${t.title}</div>
+                    <div style="font-size:10px;color:var(--text-muted);">${t.id} · ${t.project||''}</div>
+                </div>
+            `).join('');
+        }
+
+        // ---- Focus tasks ----
+        window.setFocusFilter = function(f, btn) {
+            focusFilter = f;
+            document.querySelectorAll('.focus-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderFocusTasks();
+        };
+
+        function renderFocusTasks() {
+            const body = document.getElementById('focus-tasks-list');
+            if (!body) return;
+            let tasks = Object.values(allTasks).filter(t => t.status !== 'done');
+            const now = Date.now();
+            if (focusFilter === 'urgent')  tasks = tasks.filter(t => t.priority === 'critical' || (t.deadline && new Date(t.deadline) < now));
+            else if (focusFilter === 'high')   tasks = tasks.filter(t => ['critical','high'].includes(t.priority));
+            else if (focusFilter === 'active') tasks = tasks.filter(t => t.status === 'active');
+            // Sort: overdue first, then by priority
+            tasks.sort((a,b) => {
+                const od = d => d.deadline && new Date(d.deadline) < now;
+                if (od(a) && !od(b)) return -1;
+                if (!od(a) && od(b)) return 1;
+                const pw = {critical:4,high:3,medium:2,low:1};
+                return (pw[b.priority]||0) - (pw[a.priority]||0);
+            });
+            setText('focus-count', tasks.length + ' tasks');
+            if (!tasks.length) { body.innerHTML = '<div style="color:var(--text-muted);font-size:11px;text-align:center;padding:30px 0;">No tasks in this filter</div>'; return; }
+            body.innerHTML = tasks.map(t => {
+                const isOverdue = t.deadline && new Date(t.deadline) < now;
+                const cls = isOverdue ? 'overdue' : (t.priority === 'critical' ? 'critical' : (t.priority === 'high' ? 'high' : 'medium'));
+                const badgeLabel = isOverdue ? 'OVERDUE' : t.priority.toUpperCase();
+                return `<div class="focus-task-card ${cls}" draggable="true">
+                    <div class="focus-task-top">
+                        <span class="focus-task-id">${t.id}</span>
+                        <span class="focus-task-prio-badge ${cls}">${badgeLabel}</span>
+                    </div>
+                    <div class="focus-task-title">${t.title}</div>
+                    ${t.description ? `<div class="focus-task-desc">${t.description.slice(0,80)}${t.description.length>80?'…':''}</div>` : ''}
+                    <div class="focus-task-bottom">
+                        <span class="focus-task-agent">${t.agent||'unassigned'}</span>
+                        <div class="focus-task-actions">
+                            <button class="focus-task-btn" onclick="viewTask('${t.id}')">DETAIL</button>
+                            <button class="focus-task-btn done-btn" onclick="markDone('${t.id}')">DONE ✓</button>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // Mark task done locally
+        window.markDone = function(taskId) {
+            if (!allTasks[taskId]) return;
+            allTasks[taskId].status = 'done';
+            // Remove from workflow active/pending/review
+            ['pending','active','review'].forEach(s => {
+                if (workflowData[s]) workflowData[s] = workflowData[s].filter(id => id !== taskId && (typeof id !== 'object' || id.id !== taskId));
+            });
+            if (!workflowData.done) workflowData.done = [];
+            workflowData.done.push(taskId);
+            addFeedLine('YOU', 'Marked done: ' + allTasks[taskId].title, 'success');
+            renderAll();
+        };
+
+        // ---- Weekly calendar ----
+        function renderWeekCalendar() {
+            const cal = document.getElementById('week-calendar');
+            if (!cal) return;
+            const now = new Date();
+            const dow = now.getDay(); // 0=Sun
+            // Build Mon-Sun of current week
+            const days = [];
+            for (let i=0;i<7;i++) {
+                const d = new Date(now);
+                d.setDate(now.getDate() - (dow===0?6:dow-1) + i);
+                days.push(d);
+            }
+            const dayLabels = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+            const tasks = Object.values(allTasks).filter(t => t.deadline && t.status !== 'done');
+            cal.innerHTML = days.map((day,i) => {
+                const isToday = day.toDateString() === now.toDateString();
+                const dayTasks = tasks.filter(t => {
+                    const td = new Date(t.deadline);
+                    return td.toDateString() === day.toDateString();
+                });
+                const overdueTasks = tasks.filter(t => {
+                    const td = new Date(t.deadline);
+                    return td < now && td.toDateString() === day.toDateString();
+                });
+                const chips = dayTasks.slice(0,4).map(t => {
+                    const cls = new Date(t.deadline) < now ? 'overdue' : (isToday ? 'today' : 'future');
+                    return `<div class="week-task-chip ${cls}" title="${t.title}">${t.id}</div>`;
+                }).join('');
+                const overflow = dayTasks.length > 4 ? `<div class="week-overflow">+${dayTasks.length-4} more</div>` : '';
+                return `<div class="week-day-col ${isToday?'today':''}">
+                    <div class="week-day-label">${dayLabels[i]}</div>
+                    <div class="week-day-num">${day.getDate()}</div>
+                    ${chips}${overflow}
+                </div>`;
+            }).join('');
+        }
+
+        // ---- Helpers ----
+        function setText(id, val) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = val;
         }
 
         function formatTime(iso) {
-            const d = new Date(iso);
-            return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+            try {
+                const d = new Date(iso);
+                return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+            } catch(e) { return '—'; }
         }
 
-        // Complete Task (Task 8)
-        function completeTask(taskId) {
-            if (!dashboardData) return;
-
-            const task = dashboardData.tasks.find(t => t.id === taskId);
-            if (task) {
-                task.status = 'done';
-                task.completedAt = new Date().toISOString();
-
-                // Move from workflow
-                ['pending', 'active', 'review'].forEach(stage => {
-                    dashboardData.workflow[stage] = dashboardData.workflow[stage].filter(t => t.id !== taskId);
-                });
-                dashboardData.workflow.done.push(task);
-
-                // Update stats
-                dashboardData.stats.tasksDone++;
-
-                // Add activity
-                dashboardData.activity.unshift({
-                    timestamp: new Date().toISOString(),
-                    title: 'Task Completed',
-                    description: `${task.title} in ${task.project}`
-                });
-
-                saveData();
-                updateDashboard();
-                alert('✅ Task completed!');
-            }
+        function fmtDate(iso) {
+            try {
+                const d = new Date(iso);
+                return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+            } catch(e) { return iso; }
         }
 
-        // Delete Task (Task 9)
-        function deleteTask(taskId) {
-            if (!confirm('Are you sure you want to delete this task?')) return;
-
-            if (!dashboardData) return;
-
-            dashboardData.tasks = dashboardData.tasks.filter(t => t.id !== taskId);
-            ['pending', 'active', 'review', 'done'].forEach(stage => {
-                dashboardData.workflow[stage] = dashboardData.workflow[stage].filter(t => t.id !== taskId);
-            });
-
-            saveData();
-            updateDashboard();
-            alert('🗑️ Task deleted');
+        function relTime(iso) {
+            try {
+                const diff = Date.now() - new Date(iso).getTime();
+                if (diff < 60000) return 'just now';
+                if (diff < 3600000) return Math.floor(diff/60000) + 'm';
+                if (diff < 86400000) return Math.floor(diff/3600000) + 'h';
+                return Math.floor(diff/86400000) + 'd';
+            } catch(e) { return '—'; }
         }
 
-        // View/Edit Task (Task 10)
-        function viewTask(taskId) {
-            if (!dashboardData) return;
+        // ---- Legacy compatibility ----
+        window.viewTask = function(taskId) {
+            const t = allTasks[taskId];
+            if (!t) return;
+            alert(`${t.id}: ${t.title}\nStatus: ${t.status}\nPriority: ${t.priority}\nAgent: ${t.agent||'unassigned'}\nProject: ${t.project||''}\n${t.description||''}`);
+        };
 
-            const task = dashboardData.tasks.find(t => t.id === taskId);
-            if (!task) return;
+        window.loadData = init;
 
-            // Populate edit modal (reuse add modal with values)
-            document.getElementById('taskTitle').value = task.title;
-            document.getElementById('taskProject').value = task.project;
-            document.getElementById('taskStatus').value = task.status;
-            document.getElementById('taskNotes').value = task.notes || '';
+        // Boot
+        init();
 
-            // Set priority
-            document.querySelectorAll('.priority-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector(`[data-priority="${task.priority}"]`).classList.add('active');
-            selectedPriority = task.priority;
-
-            // Change submit to update
-            const submitBtn = document.querySelector('.modal-footer .btn-primary');
-            submitBtn.textContent = 'Update Task';
-            submitBtn.onclick = () => updateTask(taskId);
-
-            openModal();
-        }
-
-        function updateTask(taskId) {
-            if (!dashboardData) return;
-
-            const task = dashboardData.tasks.find(t => t.id === taskId);
-            if (!task) return;
-
-            const oldStatus = task.status;
-            const newStatus = document.getElementById('taskStatus').value;
-
-            task.title = document.getElementById('taskTitle').value;
-            task.project = document.getElementById('taskProject').value;
-            task.status = newStatus;
-            task.priority = selectedPriority;
-            task.notes = document.getElementById('taskNotes').value;
-
-            // Move between workflow stages if status changed
-            if (oldStatus !== newStatus) {
-                dashboardData.workflow[oldStatus] = dashboardData.workflow[oldStatus].filter(t => t.id !== taskId);
-                dashboardData.workflow[newStatus].push(task);
-            }
-
-            saveData();
-            updateDashboard();
-            closeModal();
-
-            // Reset submit button
-            const submitBtn = document.querySelector('.modal-footer .btn-primary');
-            submitBtn.textContent = 'Add Task';
-            submitBtn.onclick = submitTask;
-
-            alert('✅ Task updated');
-        }
-
-        // Save data helper
-        function saveData() {
-            localStorage.setItem('missionControlData', JSON.stringify(dashboardData));
-        }
-
-        // Auto-refresh every 30 seconds (Task 5)
-        setInterval(loadData, 30000);
-
-        // Initial load
-        loadData();
-
-        // Make loadData available globally
-        window.loadData = loadData;
+        // Also keep refresh on tab focus
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) loadAgentSync();
+        });
     </script>
 </body>
 </html>

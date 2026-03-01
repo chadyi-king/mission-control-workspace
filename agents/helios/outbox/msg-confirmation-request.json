@@ -1,0 +1,10 @@
+{
+  "message_id": "helios-confirmation-request-20260219",
+  "from": "helios",
+  "to": "chad-yi",
+  "type": "confirmation_request",
+  "timestamp": "2026-02-19T05:50:00+08:00",
+  "content": {
+    "message": "CHAD - PLEASE CONFIRM YOU CAN READ THIS. Send me a test message back. Use channel 'chad-helios' (with dash, not arrow). - Helios"
+  }
+}

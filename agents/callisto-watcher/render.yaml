@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: callisto-watcher
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python watcher.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: REDIS_URL
+        sync: false  # Set in Render dashboard
+      - key: TELEGRAM_SESSION
+        sync: false  # Set in Render dashboard (from session.txt)
+      - key: TARGET_CHANNEL
+        value: "🚀 CallistoFx Premium Channel 🚀"
+    healthCheckPath: /health
+    autoDeploy: true

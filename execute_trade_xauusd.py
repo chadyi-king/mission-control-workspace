@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
-"""Execute XAUUSD BUY trade via OANDA"""
+"""Execute XAUUSD BUY trade via OANDA (uses secrets loader)"""
 import requests
 import json
 from datetime import datetime
+from utils.secrets import get_secret
 
-# OANDA credentials
-ACCOUNT_ID = "001-003-8520002-001"
-API_KEY = "8d4ff0fbea2b109c515a956784596208-be028efcd5faae816357345ff32c3bac"
 BASE_URL = "https://api-fxtrade.oanda.com/v3"
+
+# Load credentials from environment or .env
+ACCOUNT_ID = get_secret("OANDA_ACCOUNT_ID")
+API_KEY = get_secret("OANDA_API_KEY")
+if not ACCOUNT_ID or not API_KEY:
+    raise RuntimeError("OANDA_ACCOUNT_ID and OANDA_API_KEY must be set in environment or .env")
 
 headers = {
     "Authorization": f"Bearer {API_KEY}",
@@ -41,7 +45,7 @@ print(f"SL: {SL}")
 print(f"TPs: {TPS}")
 print(f"Risk: ${RISK_USD}")
 print(f"Position Size: {POSITION_SIZE} lots total")
-print(f"")
+print("")
 print(f"Tier 1: {TIER_1_SIZE} lots @ {ENTRY_HIGH}")
 print(f"Tier 2: {TIER_2_SIZE} lots @ {ENTRY_MID}")
 print(f"Tier 3: {TIER_3_SIZE} lots @ {ENTRY_LOW}")
@@ -141,4 +145,4 @@ log_entry = {
 with open("/home/chad-yi/.openclaw/workspace/agents/quanta/trade_log_20260213.json", "w") as f:
     json.dump(log_entry, f, indent=2)
 
-print(f"\n📊 Trade logged. Monitoring for fills...")
+print("\n📊 Trade logged. Monitoring for fills...")
