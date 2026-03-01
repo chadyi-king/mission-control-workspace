@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 """
 CHAD_YI Heartbeat & Reporting System
-Runs every 2 hours to compile status and send reports to Caleb.
+Task-focused reports for Caleb.
+
+Schedule:
+- 08:00 - Morning Digest
+- 10:00, 12:00, 14:00, 16:00, 18:00, 20:00 - Heartbeats (every 2h)
+- 22:00 - Evening Digest
+- 03:00 - Overnight Heartbeat (5h after evening)
+
+Usage: python chad-yi-heartbeat.py --type [morning|evening|heartbeat]
 """
 
 import json
 import os
 import subprocess
+import argparse
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -14,7 +23,6 @@ WORKSPACE = Path("/home/chad-yi/.openclaw/workspace")
 AGENTS_DIR = WORKSPACE / "agents"
 HELIOS_OUTBOX = AGENTS_DIR / "helios" / "outbox"
 DASHBOARD_DATA = WORKSPACE / "mission-control-dashboard" / "data.json"
-REPORTS_DIR = AGENTS_DIR / "chad-yi" / "reports"
 
 def now_sgt():
     """Get current time in Singapore timezone"""
@@ -23,7 +31,7 @@ def now_sgt():
 
 def format_time(dt):
     """Format datetime for display"""
-    return dt.strftime("%H:%M %Z")
+    return dt.strftime("%H:%M")
 
 def read_dashboard_data():
     """Read data.json and return stats"""
@@ -31,173 +39,211 @@ def read_dashboard_data():
         with open(DASHBOARD_DATA) as f:
             return json.load(f)
     except:
-        return {"stats": {}, "tasks": {}, "agents": {}}
+        return {"stats": {}, "tasks": {}, "agents": {}, "workflow": {}}
 
-def read_helios_last_audit():
-    """Read most recent Helios audit report"""
-    try:
-        audit_files = sorted(HELIOS_OUTBOX.glob("audit-*.json"), reverse=True)
-        if audit_files:
-            with open(audit_files[0]) as f:
-                return json.load(f)
-    except:
-        pass
-    return {}
-
-def count_tasks_by_status(data):
-    """Count tasks by their actual status"""
+def get_tasks_by_status(data):
+    """Get tasks organized by status"""
     tasks = data.get("tasks", {})
-    counts = {"pending": 0, "active": 0, "review": 0, "done": 0, "blocked": 0}
+    workflow = data.get("workflow", {})
     
-    for task_id, task in tasks.items():
-        status = task.get("status", "pending")
-        if status in counts:
-            counts[status] += 1
+    # Get tasks from workflow arrays
+    pending = [tasks.get(tid) for tid in workflow.get("pending", []) if tid in tasks]
+    active = [tasks.get(tid) for tid in workflow.get("active", []) if tid in tasks]
+    review = [tasks.get(tid) for tid in workflow.get("review", []) if tid in tasks]
+    done = [tasks.get(tid) for tid in workflow.get("done", []) if tid in tasks]
     
-    return counts
+    # Also check for blocked tasks
+    blocked = [t for t in tasks.values() if t.get("status") == "blocked"]
+    
+    return {
+        "pending": pending,
+        "active": active,
+        "review": review,
+        "done": done,
+        "blocked": blocked
+    }
 
-def get_urgent_tasks(data):
-    """Get tasks with deadlines approaching"""
-    tasks = data.get("tasks", {})
+def get_urgent_tasks(tasks_by_status):
+    """Get tasks that need immediate attention"""
     urgent = []
-    now = now_sgt()
+    now = now_sgt().replace(tzinfo=None)
     
-    for task_id, task in tasks.items():
-        deadline = task.get("deadline")
-        if deadline:
-            try:
-                deadline_dt = datetime.strptime(deadline, "%Y-%m-%d")
-                days_until = (deadline_dt - now.replace(tzinfo=None)).days
-                
-                if days_until < 0:
-                    urgent.append((task_id, task, "OVERDUE", days_until))
-                elif days_until <= 2:
-                    urgent.append((task_id, task, f"{days_until} days", days_until))
-            except:
-                pass
+    # Check all non-done tasks
+    for status in ["pending", "active", "review", "blocked"]:
+        for task in tasks_by_status.get(status, []):
+            deadline = task.get("deadline")
+            if deadline:
+                try:
+                    deadline_dt = datetime.strptime(deadline, "%Y-%m-%d")
+                    days_until = (deadline_dt - now).days
+                    
+                    if days_until < 0:
+                        urgent.append((task, "🔴 OVERDUE", days_until))
+                    elif days_until <= 2:
+                        urgent.append((task, f"🟡 {days_until}d", days_until))
+                except:
+                    pass
     
-    # Sort by urgency (most urgent first)
-    urgent.sort(key=lambda x: x[3])
+    # Sort by urgency
+    urgent.sort(key=lambda x: x[2])
     return urgent
 
-def get_active_agents(data):
-    """Get status of core agents"""
-    agents = {
-        "chad-yi": {"status": "active", "task": "Monitoring & reporting"},
-        "helios": {"status": "active", "task": "Running 15-min audits"},
-        "cerebronn": {"status": "building", "task": "In development (VS Code)"}
-    }
+def get_tasks_needing_input(tasks_by_status):
+    """Get tasks that need Caleb's input/decision"""
+    needing_input = []
     
-    # Check Helios last audit
-    last_audit = read_helios_last_audit()
-    if last_audit:
-        audit_time = last_audit.get("timestamp", "unknown")
-        agents["helios"]["last_audit"] = audit_time
+    # Pending tasks need assignment/decision
+    for task in tasks_by_status.get("pending", []):
+        if task.get("needs_input") or task.get("assignee") == "Caleb":
+            needing_input.append(task)
     
-    return agents
+    # Blocked tasks need unblock
+    for task in tasks_by_status.get("blocked", []):
+        needing_input.append(task)
+    
+    return needing_input
 
-def generate_heartbeat_report():
-    """Generate 2-hour heartbeat report"""
+def format_task_line(task, include_deadline=True):
+    """Format a single task for display"""
+    task_id = task.get("id", "unknown")
+    title = task.get("title", "Untitled")
+    assignee = task.get("assignee", "Unassigned")
+    deadline = task.get("deadline", "")
+    status = task.get("status", "pending")
+    
+    # Truncate title if too long
+    title_display = title[:50] + "..." if len(title) > 50 else title
+    
+    line = f"**{task_id}** — {title_display}"
+    
+    if assignee and assignee != "Unassigned":
+        line += f" *(→ {assignee})*"
+    
+    if include_deadline and deadline:
+        line += f" `[{deadline}]`"
+    
+    return line
+
+def generate_task_focused_report(report_type="heartbeat"):
+    """Generate task-focused report with icons"""
     data = read_dashboard_data()
-    stats = data.get("stats", {})
-    task_counts = count_tasks_by_status(data)
-    urgent = get_urgent_tasks(data)
-    agents = get_active_agents(data)
+    tasks_by_status = get_tasks_by_status(data)
+    urgent = get_urgent_tasks(tasks_by_status)
+    needing_input = get_tasks_needing_input(tasks_by_status)
     now = now_sgt()
     
-    report = f"""**Heartbeat — {format_time(now)}**
-
-**Dashboard Overview**
-• Total: {stats.get('total', 0)} tasks
-• Pending: {task_counts['pending']} | Active: {task_counts['active']} | Review: {task_counts['review']} | Done: {task_counts['done']}
-
-**Agent Status**
-• CHAD_YI — {agents['chad-yi']['status']} | {agents['chad-yi']['task']}
-• Helios — {agents['helios']['status']} | {agents['helios']['task']}
-• Cerebronn — {agents['cerebronn']['status']} | {agents['cerebronn']['task']}
-"""
+    is_morning = report_type == "morning"
+    is_evening = report_type == "evening"
     
-    # Add urgent tasks if any
-    if urgent:
-        report += "\n**Urgent Deadlines**\n"
-        for task_id, task, urgency, _ in urgent[:5]:  # Top 5
-            title = task.get('title', 'Untitled')
-            report += f"• {task_id}: {title} — **{urgency}**\n"
-    
-    # Add blockers if any
-    blocked_tasks = [t for t in data.get("tasks", {}).values() if t.get("status") == "blocked"]
-    if blocked_tasks:
-        report += "\n**Blockers**\n"
-        for task in blocked_tasks[:3]:
-            task_id = task.get('id', 'unknown')
-            title = task.get('title', 'Untitled')
-            report += f"• {task_id}: {title}\n"
-    
-    return report
-
-def generate_digest_report(is_morning=True):
-    """Generate morning or evening digest"""
-    data = read_dashboard_data()
-    stats = data.get("stats", {})
-    task_counts = count_tasks_by_status(data)
-    urgent = get_urgent_tasks(data)
-    agents = get_active_agents(data)
-    now = now_sgt()
-    
-    period = "Morning" if is_morning else "Evening"
-    
-    report = f"""# {period} Digest — {now.strftime('%A, %B %d')}
-
-## Summary
-**Tasks:** {stats.get('total', 0)} total | {task_counts['pending']} pending | {task_counts['active']} active | {task_counts['review']} review | {task_counts['done']} done
-
-## Core Agents
-| Agent | Status | Current Focus |
-|-------|--------|---------------|
-| CHAD_YI | {agents['chad-yi']['status']} | {agents['chad-yi']['task']} |
-| Helios | {agents['helios']['status']} | {agents['helios']['task']} |
-| Cerebronn | {agents['cerebronn']['status']} | {agents['cerebronn']['task']} |
-
-## Urgent Items ({len(urgent)} found)
-"""
-    
-    if urgent:
-        report += "| Task | Status | Deadline |\n|------|--------|----------|\n"
-        for task_id, task, urgency, _ in urgent[:10]:
-            title = task.get('title', 'Untitled')[:40]
-            status = task.get('status', 'unknown')
-            report += f"| {task_id} | {title} | {urgency} |\n"
-    else:
-        report += "_No urgent deadlines._\n"
-    
-    # Recent activity
-    report += "\n## Recent Activity\n"
-    report += "_Check Helios audit reports for detailed activity._\n"
-    
-    # Next actions
+    # Header
     if is_morning:
-        report += "\n## Today's Focus\n"
-        report += "• Review urgent tasks\n"
-        report += "• Monitor Cerebronn build progress\n"
-        report += "• Check for blockers\n"
+        header = f"🌅 **Morning Digest** — {now.strftime('%A, %B %d')}"
+    elif is_evening:
+        header = f"🌙 **Evening Digest** — {now.strftime('%A, %B %d')}"
     else:
-        report += "\n## Tomorrow's Priorities\n"
-        report += "• Review completed tasks\n"
-        report += "• Plan next agent build (Quanta)\n"
-        report += "• Archive completed work\n"
+        header = f"💓 **Heartbeat** — {format_time(now)}"
+    
+    report = f"{header}\n\n"
+    
+    # ─────────────────────────────────────────
+    # URGENT DEADLINES
+    # ─────────────────────────────────────────
+    if urgent:
+        report += "## ⚠️ Urgent Deadlines\n\n"
+        for task, urgency, _ in urgent[:8]:  # Top 8
+            task_line = format_task_line(task)
+            report += f"{urgency} {task_line}\n"
+        report += "\n"
+    
+    # ─────────────────────────────────────────
+    # NEEDS YOUR INPUT
+    # ─────────────────────────────────────────
+    if needing_input:
+        report += "## 👤 Needs Your Input\n\n"
+        for task in needing_input[:5]:
+            task_line = format_task_line(task)
+            reason = ""
+            if task.get("status") == "blocked":
+                reason = " *(blocked)*"
+            report += f"☐ {task_line}{reason}\n"
+        report += "\n"
+    
+    # ─────────────────────────────────────────
+    # IN REVIEW (Needs Your Review)
+    # ─────────────────────────────────────────
+    if tasks_by_status["review"]:
+        report += "## 👀 In Review (Check & Approve)\n\n"
+        for task in tasks_by_status["review"][:5]:
+            task_line = format_task_line(task, include_deadline=False)
+            report += f"☐ {task_line}\n"
+        report += "\n"
+    
+    # ─────────────────────────────────────────
+    # ACTIVE TODAY
+    # ─────────────────────────────────────────
+    if tasks_by_status["active"]:
+        report += "## ▶️ Active Today\n\n"
+        for task in tasks_by_status["active"][:5]:
+            task_line = format_task_line(task, include_deadline=False)
+            report += f"▶ {task_line}\n"
+        report += "\n"
+    
+    # ─────────────────────────────────────────
+    # QUICK STATS
+    # ─────────────────────────────────────────
+    total = len(data.get("tasks", {}))
+    report += "## 📊 Quick Stats\n\n"
+    report += f"```\n"
+    report += f"Total:    {total:3d} tasks\n"
+    report += f"Pending:  {len(tasks_by_status['pending']):3d}\n"
+    report += f"Active:   {len(tasks_by_status['active']):3d}\n"
+    report += f"Review:   {len(tasks_by_status['review']):3d}\n"
+    report += f"Blocked:  {len(tasks_by_status['blocked']):3d}\n"
+    report += f"Done:     {len(tasks_by_status['done']):3d}\n"
+    report += f"```\n\n"
+    
+    # ─────────────────────────────────────────
+    # AGENT STATUS (Secondary)
+    # ─────────────────────────────────────────
+    report += "## 🤖 Agent Status\n\n"
+    report += "• ✅ **CHAD_YI** — Active | Task-focused reporting\n"
+    report += "• ✅ **Helios** — Auditing every 15 min\n"
+    report += "• 🔧 **Cerebronn** — Building in VS Code\n"
+    report += "\n"
+    
+    # ─────────────────────────────────────────
+    # TODAY'S FOCUS (Morning only)
+    # ─────────────────────────────────────────
+    if is_morning:
+        report += "## 🎯 Today's Focus\n\n"
+        if urgent:
+            report += "1. Address urgent/overdue deadlines\n"
+        if needing_input:
+            report += "2. Review tasks needing your input\n"
+        if tasks_by_status["review"]:
+            report += "3. Approve items in review\n"
+        report += "4. Monitor Cerebronn build progress\n"
+        report += "\n"
+    
+    # ─────────────────────────────────────────
+    # TOMORROW PREVIEW (Evening only)
+    # ─────────────────────────────────────────
+    if is_evening:
+        report += "## 📅 Tomorrow\n\n"
+        report += "_Review today's progress. Plan tomorrow's priorities._\n\n"
     
     return report
 
 def send_report(report, report_type="heartbeat"):
-    """Send report to Caleb via file-based messaging"""
-    timestamp = now_sgt().strftime("%Y%m%d-%H%M%S")
+    """Send report to Caleb"""
+    timestamp = now_sgt().strftime("%Y%m%d-%H%M")
     
-    # Write to my outbox (for tracking)
+    # Write to outbox for tracking
     outbox_file = AGENTS_DIR / "chad-yi" / "outbox" / f"{report_type}-{timestamp}.md"
     outbox_file.parent.mkdir(parents=True, exist_ok=True)
     outbox_file.write_text(report)
     
-    # For now, print to stdout (will be sent via message tool in production)
+    # Print for now (will integrate with messaging)
     print(f"\n{'='*60}")
     print(f"CHAD_YI {report_type.upper()} REPORT")
     print(f"{'='*60}")
@@ -207,21 +253,13 @@ def send_report(report, report_type="heartbeat"):
     return outbox_file
 
 def main():
-    """Main entry point for cron job"""
-    now = now_sgt()
-    hour = now.hour
+    parser = argparse.ArgumentParser(description="CHAD_YI Heartbeat System")
+    parser.add_argument("--type", choices=["morning", "evening", "heartbeat"], 
+                       default="heartbeat", help="Type of report to generate")
+    args = parser.parse_args()
     
-    # Determine report type based on time
-    if hour == 8:  # 8 AM SGT - Morning Digest
-        report = generate_digest_report(is_morning=True)
-        send_report(report, "morning-digest")
-    elif hour == 21:  # 9 PM SGT - Evening Digest
-        report = generate_digest_report(is_morning=False)
-        send_report(report, "evening-digest")
-    else:
-        # Regular 2-hour heartbeat
-        report = generate_heartbeat_report()
-        send_report(report, "heartbeat")
+    report = generate_task_focused_report(args.type)
+    send_report(report, args.type)
 
 if __name__ == "__main__":
     main()
