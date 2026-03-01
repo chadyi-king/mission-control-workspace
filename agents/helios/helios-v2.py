@@ -6,12 +6,14 @@ Runs as a background process. Mission Control Engineer.
 Responsibilities (never stops):
   - Every 15 min : audit all agents (check inbox/outbox activity)
   - Every 15 min : POST heartbeat to Helios API
-  - Every 15 min : sync live agent status -> data.json -> git push -> dashboard auto-deploys
-  - Every 1 hour : compile report -> write to cerebronn inbox + update briefing.md
-  - Every 8 PM SGT : write daily digest -> chad-yi inbox
-  - On silence >30 min : nudge the agent
+  - Every 15 min : parse ACTIVE.md -> update data.json -> git push -> dashboard auto-deploys
+  - Every 1 hour : compile full report (with outbox content + tasks) -> cerebronn inbox
+  - On silence >30 min : nudge the agent (drop file in their inbox)
+  - On silence >2h    : Telegram alert to Chad (once per agent until they recover)
+  - 9AM SGT  : Morning Briefing -> Telegram + chad-yi inbox + cerebronn inbox
+  - 10PM SGT : Evening Digest   -> Telegram + chad-yi inbox + cerebronn inbox
 
-Chad talks to Helios by dropping a .md or .json file in:
+Chad talks to Helios by dropping a .md, .json, or .txt file in:
   /home/chad-yi/.openclaw/workspace/agents/helios/inbox/
 Helios writes back to:
   /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox/
@@ -43,16 +45,24 @@ CHAD_INBOX       = AGENTS_DIR / "chad-yi" / "inbox"
 HELIOS_INBOX     = AGENTS_DIR / "helios" / "inbox"
 DASHBOARD_REPO   = WORKSPACE / "mission-control-dashboard"
 DASHBOARD_DATA   = DASHBOARD_REPO / "data.json"
+ACTIVE_MD        = WORKSPACE / "mission-control-workspace" / "ACTIVE.md"
 HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onrender.com")
 
-WATCH_AGENTS     = ["chad-yi", "escritor", "autour", "quanta", "mensamusa"]
+# chad-yi is the OpenClaw gateway (not a file-writing process) — excluded from silent alerts
+# CURRENT ACTIVE AGENTS: Only 3 core agents exist right now
+# - chad-yi (The Face) - OpenClaw interface
+# - helios (The Spine) - This agent, coordinator
+# - cerebronn (The Brain) - VS Code/Claude, being built
+# OTHER AGENTS (quanta, escritor, autour, mensamusa) - NOT ACTIVE YET
+WATCH_AGENTS     = ["cerebronn"]
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8693482792:AAGNa21qo-fNGuPSDE5j5-828QAn7JSubdU")
 TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "8583017204")
 
-AUDIT_INTERVAL   = 15 * 60   # 15 minutes
-REPORT_INTERVAL  = 60 * 60   # 1 hour
-SILENCE_LIMIT    = 30 * 60   # 30 minutes = nudge threshold
+AUDIT_INTERVAL      = 15 * 60    # 15 minutes
+REPORT_INTERVAL     = 60 * 60    # 1 hour
+SILENCE_LIMIT       = 30 * 60    # 30 min = nudge threshold
+SILENCE_ALERT_LIMIT = 2 * 60 * 60  # 2 hours = Telegram alert threshold
 
 logging.basicConfig(
     level=logging.INFO,
@@ -82,6 +92,110 @@ def write_md(path: Path, content: str) -> None:
 
 def ms() -> int:
     return int(time.time() * 1000)
+
+# ---------------------------------------------------------------------------
+# ACTIVE.md parser
+# ---------------------------------------------------------------------------
+
+def parse_active_md() -> dict:
+    """Parse ACTIVE.md → returns {tasks, agents, summary}."""
+    result: dict = {"tasks": {}, "agents": {}, "summary": {}}
+    if not ACTIVE_MD.exists():
+        log.warning("  [active.md] File not found")
+        return result
+    try:
+        lines = ACTIVE_MD.read_text().splitlines()
+    except Exception as e:
+        log.warning(f"  [active.md] Read error: {e}")
+        return result
+
+    current_section = ""
+    section_map = {
+        "CRITICAL": "critical", "URGENT": "urgent",
+        "ACTIVE": "active", "IN REVIEW": "review", "DONE": "done",
+    }
+    in_agent_table = False
+
+    for line in lines:
+        # Detect section headings
+        upper = line.upper()
+        for label, prio in section_map.items():
+            if label in upper and line.startswith("#"):
+                current_section = prio
+                in_agent_table = False
+                break
+        if "AGENT STATUS" in upper and line.startswith("#"):
+            in_agent_table = True
+            current_section = ""
+
+        if not line.startswith("|"):
+            continue
+        cols = [c.strip() for c in line.strip("|").split("|")]
+        if len(cols) < 2:
+            continue
+        first = cols[0]
+        if not first or first.startswith("-") or first in ("ID", "Agent"):
+            continue
+
+        if in_agent_table:
+            # | Agent | Status | Current Task | Notes |
+            agent_name = first
+            current_task = cols[2] if len(cols) > 2 else ""
+            if agent_name and len(agent_name) < 20:
+                result["agents"][agent_name] = {"currentTask": current_task}
+        elif current_section and "-" in first and len(first) < 12:
+            task_id = first
+            title   = cols[1] if len(cols) > 1 else ""
+            raw     = cols[-1].upper()
+            if "BLOCKED" in raw:
+                status = "blocked"
+            elif "PROGRESS" in raw:
+                status = "active"
+            elif current_section == "done":
+                status = "done"
+            elif current_section == "review":
+                status = "review"
+            else:
+                status = "pending"
+            result["tasks"][task_id] = {
+                "id": task_id, "title": title,
+                "agent": cols[2] if len(cols) > 2 else "",
+                "priority": current_section, "status": status,
+            }
+
+    s = result["tasks"]
+    result["summary"] = {
+        "critical": sum(1 for t in s.values() if t["priority"] == "critical" and t["status"] != "done"),
+        "urgent":   sum(1 for t in s.values() if t["priority"] == "urgent"   and t["status"] != "done"),
+        "active":   sum(1 for t in s.values() if t["status"] == "active"),
+        "blocked":  sum(1 for t in s.values() if t["status"] == "blocked"),
+        "done":     sum(1 for t in s.values() if t["status"] == "done"),
+    }
+    sm = result["summary"]
+    log.info(f"  [active.md] {len(s)} tasks — {sm['critical']} critical, "
+             f"{sm['urgent']} urgent, {sm['blocked']} blocked")
+    return result
+
+
+def read_agent_outboxes() -> dict:
+    """Return latest outbox snippet for each watched agent."""
+    outboxes: dict = {}
+    for name in WATCH_AGENTS + ["helios"]:
+        outbox = AGENTS_DIR / name / "outbox"
+        if not outbox.exists():
+            continue
+        files = sorted(
+            list(outbox.glob("*.json")) + list(outbox.glob("*.md")),
+            key=lambda f: f.stat().st_mtime, reverse=True
+        )
+        if files:
+            try:
+                outboxes[name] = {"file": files[0].name,
+                                  "content": files[0].read_text()[:500]}
+            except Exception:
+                pass
+    return outboxes
+
 
 # ---------------------------------------------------------------------------
 # Helios API
@@ -212,11 +326,49 @@ Update your outbox with a status report when done.
 # Inbox reader - Chad/Cerebronn can talk to Helios
 # ---------------------------------------------------------------------------
 
+def process_chad_outbox() -> None:
+    """Read messages Chad-yi agent left in its outbox, ack them, move to processed."""
+    chad_outbox = AGENTS_DIR / "chad-yi" / "outbox"
+    if not chad_outbox.exists():
+        return
+    messages = [
+        f for f in list(chad_outbox.glob("*.json")) + list(chad_outbox.glob("*.md"))
+        if "processed" not in f.name
+    ]
+    for msg_file in messages:
+        try:
+            content = msg_file.read_text()[:800]
+            log.info(f"  [chad-outbox] Reading: {msg_file.name}")
+            ack_path = CHAD_INBOX / f"helios-read-{ms()}.md"
+            CHAD_INBOX.mkdir(parents=True, exist_ok=True)
+            write_md(ack_path, f"""# Helios Read Your Outbox Message
+**Time:** {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}
+**File:** {msg_file.name}
+
+Helios has read and acknowledged this message.
+
+Content preview:
+```
+{content}
+```
+
+- Helios
+""")
+            msg_file.rename(msg_file.parent / f"processed-{msg_file.name}")
+            log.info(f"  [chad-outbox] Processed: {msg_file.name}")
+        except Exception as e:
+            log.warning(f"  [chad-outbox] Error: {msg_file.name}: {e}")
+
+
 def process_helios_inbox() -> None:
     if not HELIOS_INBOX.exists():
         return
     messages = [
-        f for f in list(HELIOS_INBOX.glob("*.md")) + list(HELIOS_INBOX.glob("*.json"))
+        f for f in (
+            list(HELIOS_INBOX.glob("*.md")) +
+            list(HELIOS_INBOX.glob("*.json")) +
+            list(HELIOS_INBOX.glob("*.txt"))
+        )
         if "processed" not in f.name
     ]
     for msg_file in messages:
@@ -266,11 +418,21 @@ def build_agent_report() -> dict:
         status = check_agent(name)
         report["agents"][name] = status
         if status["health"] == "silent":
+            silence_secs = 0.0
+            if status["last_activity"]:
+                try:
+                    last = datetime.fromisoformat(status["last_activity"])
+                    silence_secs = (datetime.now(timezone.utc) - last).total_seconds()
+                except Exception:
+                    pass
+            status["silence_seconds"] = silence_secs
             nudge_agent(name, f"No activity in outbox for >{SILENCE_LIMIT//60} min")
             report["alerts"].append({
                 "type": "agent_silent",
                 "agent": name,
                 "last_activity": status["last_activity"],
+                "silence_hours": round(silence_secs / 3600, 1),
+                "needs_telegram_alert": silence_secs >= SILENCE_ALERT_LIMIT,
             })
 
     active = [n for n, s in report["agents"].items() if s["health"] == "active"]
@@ -300,6 +462,14 @@ def sync_dashboard_data(report: dict) -> None:
     sgt_now = now_sgt()
     data["lastUpdated"] = sgt_now.isoformat()
     data["updatedBy"] = "helios-v2"
+
+    # Merge task statuses from ACTIVE.md
+    active_data = parse_active_md()
+    if active_data["tasks"] and "tasks" in data:
+        for task_id, task_info in active_data["tasks"].items():
+            if task_id in data["tasks"]:
+                data["tasks"][task_id]["status"] = task_info["status"]
+        data["taskSummary"] = active_data["summary"]
 
     agent_map = {
         "chad-yi":   "chad-yi",
@@ -373,9 +543,14 @@ def sync_dashboard_data(report: dict) -> None:
 
 def write_cerebronn_report(report: dict) -> None:
     ts = int(time.time())
+    full_report = {
+        **report,
+        "agent_outboxes": read_agent_outboxes(),
+        "tasks_from_active_md": parse_active_md(),
+    }
     path = CEREBRONN_INBOX / f"helios-report-{ts}.json"
     CEREBRONN_INBOX.mkdir(parents=True, exist_ok=True)
-    write_json(path, report)
+    write_json(path, full_report)
     log.info(f"  Cerebronn report: {path.name}")
 
 def update_cerebronn_briefing(report: dict) -> None:
@@ -410,30 +585,85 @@ Helios reads it every 15 min and pushes to dashboard automatically.
     log.info("  Briefing updated")
 
 # ---------------------------------------------------------------------------
-# Daily digest
+# Digest — 9AM morning briefing + 10PM evening report
 # ---------------------------------------------------------------------------
 
-def write_daily_digest() -> None:
+def build_digest_text(label: str) -> tuple:
+    """Build digest as (telegram_short, full_md)."""
     report = build_agent_report()
-    ts = int(time.time())
-    path = CHAD_INBOX / f"daily-digest-{ts}.md"
-    CHAD_INBOX.mkdir(parents=True, exist_ok=True)
-    agent_lines = ""
+    active_data = parse_active_md()
+    outboxes = read_agent_outboxes()
+    sgt = now_sgt()
+    date_str = sgt.strftime("%Y-%m-%d")
+    time_str = sgt.strftime("%H:%M SGT")
+
+    # Agent section
+    agent_md_rows = ""
+    tg_agents = ""
     for name, status in report["agents"].items():
-        icon = {"active": "OK", "idle": "IDLE", "silent": "SILENT"}.get(status["health"], "?")
-        agent_lines += f"- {icon} {name}: {status['health']}\n"
-    write_md(path, f"""# Daily Digest - {now_sgt().strftime('%Y-%m-%d')}
-Generated: {now_sgt().strftime('%H:%M SGT')} by Helios
+        health = status["health"]
+        icon = {"active": "\u2705", "idle": "\u26aa", "silent": "\u26a0\ufe0f"}.get(health, "\u26aa")
+        snippet = outboxes.get(name, {}).get("content", "")[:80].strip().replace("\n", " ")
+        agent_md_rows += f"| {icon} {name} | {health} | {snippet} |\n"
+        tg_agents += f"{icon} {name}: {health}\n"
 
-## Agent Status
-{agent_lines.rstrip()}
+    # Task section — skip done tasks
+    task_md_rows = ""
+    tg_needs_attention = ""
+    for task_id, task in active_data["tasks"].items():
+        if task["status"] == "done":
+            continue
+        picon = {
+            "critical": "\U0001f534", "urgent": "\U0001f7e1",
+            "blocked": "\u26d4", "review": "\U0001f4cc", "active": "\U0001f7e2",
+        }.get(task["priority"], "\u26aa")
+        task_md_rows += f"| {picon} {task_id} | {task['title']} | {task['agent']} | {task['status']} |\n"
+        if task["priority"] in ("critical", "urgent", "blocked"):
+            tg_needs_attention += f"{picon} {task_id}: {task['title']}\n"
 
-## Summary
-{report['summary']}
+    sm = active_data["summary"]
+    summary_line = (f"{sm.get('critical',0)} crit, {sm.get('urgent',0)} urgent, "
+                    f"{sm.get('active',0)} active, {sm.get('blocked',0)} blocked")
+
+    tg_text = (
+        f"{'🌞' if 'Morning' in label else '🌙'} *{label} — {date_str}*\n"
+        f"_{time_str}_\n\n"
+        f"*Agents:*\n{tg_agents}\n"
+        f"*Tasks:* {summary_line}\n"
+        + (f"\n*Needs attention:*\n{tg_needs_attention}" if tg_needs_attention else "") +
+        f"\nDashboard: https://red-sun-mission-control.onrender.com"
+    )
+
+    full_md = f"""# {label} — {date_str}
+Generated: {time_str} by Helios
+
+## Agents
+| Agent | Health | Latest Output |
+|-------|--------|---------------|
+{agent_md_rows.rstrip()}
+| helios | active | running |
+
+## Tasks ({summary_line})
+| # | Title | Owner | Status |
+|---|-------|-------|--------|
+{task_md_rows.rstrip() or "| — | No tasks parsed | — | — |"}
 
 Dashboard: https://red-sun-mission-control.onrender.com
-""")
-    log.info(f"  Daily digest: {path.name}")
+Edit tasks: {ACTIVE_MD}
+"""
+    return tg_text, full_md
+
+
+def send_digest(label: str) -> None:
+    tg_text, full_md = build_digest_text(label)
+    ts = int(time.time())
+    path = CHAD_INBOX / f"digest-{ts}.md"
+    CHAD_INBOX.mkdir(parents=True, exist_ok=True)
+    write_md(path, full_md)
+    CEREBRONN_INBOX.mkdir(parents=True, exist_ok=True)
+    write_md(CEREBRONN_INBOX / f"digest-{ts}.md", full_md)
+    send_telegram(tg_text)
+    log.info(f"  Digest sent: {label}")
 
 # ---------------------------------------------------------------------------
 # Main loop - runs forever
@@ -452,7 +682,9 @@ def main() -> None:
 
     last_audit  = 0.0
     last_report = 0.0
-    digest_sent_today = ""
+    morning_sent_today = ""
+    evening_sent_today = ""
+    alerted_agents: set = set()  # agents already Telegram-alerted for 2h silence
 
     # Boot sequence
     post_heartbeat()
@@ -476,8 +708,9 @@ def main() -> None:
         now    = time.time()
         now_dt = now_sgt()
 
-        # Check Helios inbox (Chad talking to Helios)
+        # Check Helios inbox (Chad talking to Helios) + chad-yi outbox
         process_helios_inbox()
+        process_chad_outbox()
 
         # Every 15 min: audit + heartbeat + dashboard sync
         if now - last_audit >= AUDIT_INTERVAL:
@@ -492,23 +725,40 @@ def main() -> None:
             sync_dashboard_data(report)
             last_audit = now
 
+            # Telegram alert for agents silent >2h (once per agent until they recover)
+            for alert in report["alerts"]:
+                if alert.get("needs_telegram_alert") and alert["agent"] not in alerted_agents:
+                    send_telegram(
+                        f"\u26a0\ufe0f *Agent silent >2h: {alert['agent']}*\n"
+                        f"Last seen: {alert.get('last_activity', 'unknown')}\n"
+                        f"Silent for: {alert.get('silence_hours', '?')}h\n\n"
+                        f"Check their outbox or assign a new task."
+                    )
+                    alerted_agents.add(alert["agent"])
+                    log.info(f"  [alert] Telegram sent — silent agent: {alert['agent']}")
+            # Clear alert for agents that recovered
+            for name, status in report["agents"].items():
+                if status["health"] != "silent" and name in alerted_agents:
+                    alerted_agents.discard(name)
+
             if now - last_report >= REPORT_INTERVAL:
                 write_cerebronn_report(report)
                 update_cerebronn_briefing(report)
                 last_report = now
 
-        # 8 PM SGT daily digest
         today_str = now_dt.strftime("%Y-%m-%d")
-        if now_dt.hour == 20 and digest_sent_today != today_str:
-            log.info("Writing daily digest...")
-            write_daily_digest()
-            digest_report = build_agent_report()
-            send_telegram(
-                f"\U0001f4cb *Daily Digest — {today_str}*\n"
-                f"{digest_report['summary']}\n\n"
-                f"Dashboard: https://red-sun-mission-control.onrender.com"
-            )
-            digest_sent_today = today_str
+
+        # 9 AM SGT morning briefing
+        if now_dt.hour == 9 and morning_sent_today != today_str:
+            log.info("Sending morning briefing...")
+            send_digest("Morning Briefing")
+            morning_sent_today = today_str
+
+        # 10 PM SGT evening digest
+        if now_dt.hour == 22 and evening_sent_today != today_str:
+            log.info("Sending evening digest...")
+            send_digest("Evening Digest")
+            evening_sent_today = today_str
 
         time.sleep(60)
 
