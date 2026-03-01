@@ -122,68 +122,122 @@ def parse_active_md() -> dict:
     current_section = ""
     section_map = {
         "CRITICAL": "critical", "URGENT": "urgent",
-        "ACTIVE": "active", "IN REVIEW": "review", "DONE": "done",
+        "ACTIVE": "active", "IN REVIEW": "review", "DONE": "done", "PENDING": "pending"
     }
     in_agent_table = False
+    in_task_table = False
 
-    for line in lines:
+    for i, line in enumerate(lines):
         # Detect section headings
         upper = line.upper()
         for label, prio in section_map.items():
             if label in upper and line.startswith("#"):
                 current_section = prio
                 in_agent_table = False
+                in_task_table = False
                 break
+        
+        # Detect Agent Status table
         if "AGENT STATUS" in upper and line.startswith("#"):
             in_agent_table = True
+            in_task_table = False
             current_section = ""
+            continue
+            
+        # Detect task tables (sections with task rows)
+        if current_section and not in_agent_table:
+            # Check if next lines contain task-like rows
+            in_task_table = True
 
         if not line.startswith("|"):
             continue
+            
         cols = [c.strip() for c in line.strip("|").split("|")]
         if len(cols) < 2:
             continue
+            
         first = cols[0]
-        if not first or first.startswith("-") or first in ("ID", "Agent"):
+        if not first or first.startswith("-") or first in ("ID", "Agent", "**Agent**"):
             continue
 
         if in_agent_table:
-            # | Agent | Status | Current Task | Notes |
-            agent_name = first
-            current_task = cols[2] if len(cols) > 2 else ""
-            if agent_name and len(agent_name) < 20:
-                result["agents"][agent_name] = {"currentTask": current_task}
-        elif current_section and "-" in first and len(first) < 12:
-            task_id = first
-            title   = cols[1] if len(cols) > 1 else ""
-            raw     = cols[-1].upper()
-            if "BLOCKED" in raw:
+            # | **chad-yi** | **active** | Task... | Notes |
+            agent_name = first.replace("**", "").strip().lower()
+            status_col = cols[1].replace("**", "").strip().lower() if len(cols) > 1 else ""
+            current_task = cols[2].replace("**", "").strip() if len(cols) > 2 else ""
+            
+            # Extract status (first word before any description)
+            status = "offline"  # default
+            if status_col:
+                if status_col.startswith("active"):
+                    status = "active"
+                elif status_col.startswith("idle"):
+                    status = "idle"
+                elif status_col.startswith("blocked"):
+                    status = "blocked"
+                elif status_col.startswith("offline"):
+                    status = "offline"
+            
+            if agent_name and len(agent_name) < 30 and not agent_name.startswith("-"):
+                result["agents"][agent_name] = {
+                    "status": status,
+                    "currentTask": current_task
+                }
+                log.info(f"  [active.md] Agent: {agent_name} = {status}")
+                
+        elif in_task_table and current_section:
+            # | A1-6 | Sign contract | CHAD_YI | 2026-03-02 | **BLOCKED** - Due... |
+            task_id = first.replace("**", "").strip()
+            
+            # Skip non-task rows (like "-", "No pending tasks", etc.)
+            if not task_id or task_id in ("-", "_") or not ("-" in task_id and len(task_id) < 15):
+                continue
+                
+            title = cols[1].replace("**", "").strip() if len(cols) > 1 else ""
+            owner = cols[2].replace("**", "").strip() if len(cols) > 2 else ""
+            status_col = cols[-1].upper() if len(cols) > 4 else ""
+            
+            # Extract status from last column (handles **BLOCKED** - description)
+            status = "pending"  # default
+            if "BLOCKED" in status_col:
                 status = "blocked"
-            elif "PROGRESS" in raw:
+            elif "PROGRESS" in status_col:
                 status = "active"
+            elif "DONE" in status_col:
+                status = "done"
+            elif "REVIEW" in status_col:
+                status = "review"
             elif current_section == "done":
                 status = "done"
             elif current_section == "review":
                 status = "review"
-            else:
-                status = "pending"
+            elif current_section == "active":
+                status = "active"
+            elif current_section in ["critical", "urgent"]:
+                status = "blocked"
+            
             result["tasks"][task_id] = {
-                "id": task_id, "title": title,
-                "agent": cols[2] if len(cols) > 2 else "",
-                "priority": current_section, "status": status,
+                "id": task_id, 
+                "title": title,
+                "agent": owner,
+                "priority": current_section, 
+                "status": status,
             }
+            log.info(f"  [active.md] Task: {task_id} = {status}")
 
+    # Calculate summary
     s = result["tasks"]
     result["summary"] = {
         "critical": sum(1 for t in s.values() if t["priority"] == "critical" and t["status"] != "done"),
-        "urgent":   sum(1 for t in s.values() if t["priority"] == "urgent"   and t["status"] != "done"),
+        "urgent":   sum(1 for t in s.values() if t["priority"] == "urgent" and t["status"] != "done"),
         "active":   sum(1 for t in s.values() if t["status"] == "active"),
         "blocked":  sum(1 for t in s.values() if t["status"] == "blocked"),
         "done":     sum(1 for t in s.values() if t["status"] == "done"),
     }
+    
     sm = result["summary"]
-    log.info(f"  [active.md] {len(s)} tasks — {sm['critical']} critical, "
-             f"{sm['urgent']} urgent, {sm['blocked']} blocked")
+    log.info(f"  [active.md] Parsed: {len(result['agents'])} agents, {len(s)} tasks")
+    log.info(f"  [active.md] Summary: {sm['critical']} critical, {sm['urgent']} urgent, {sm['active']} active, {sm['blocked']} blocked, {sm['done']} done")
     return result
 
 
