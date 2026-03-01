@@ -1,9 +1,17 @@
-.env
-*.env
-*.session
-*.pyc
-__pycache__/
-.pytest_cache/
-agents/quanta-v3/.env
-agents/quanta-v3/*.session
-agents/quanta-v3/__pycache__/
+# Auto-generated nudge spam
+agents/*/inbox/nudge-*.md
+
+# Helios runtime logs
+agents/helios/helios.log
+
+# Live Cerebronn reports (Helios writes these every 15min — too noisy for git)
+agents/cerebronn/inbox/helios-report-*.json
+agents/cerebronn/inbox/digest-*.md
+
+# Helios ack/read receipts (operational noise)
+agents/*/inbox/helios-ack-*.md
+agents/*/inbox/helios-read-*.md
+
+# Processed outbox markers
+agents/*/outbox/processed-*.json
+agents/*/outbox/processed-*.md

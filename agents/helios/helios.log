@@ -73,3 +73,373 @@ nohup: ignoring input
 [2026-03-01T12:27:36] INFO   Cerebronn report: helios-report-1772339256.json
 [2026-03-01T12:27:36] INFO   Briefing updated
 [2026-03-01T12:27:36] INFO   [telegram] Message sent to Chad
+[2026-03-01T12:32:51] INFO   [inbox] Processing: query-role-communication-20260301.md
+[2026-03-01T12:32:51] INFO   [inbox] Acked: query-role-communication-20260301.md
+[2026-03-01T12:32:52] INFO   [telegram] Message sent to Chad
+[2026-03-01T12:43:25] INFO Running audit...
+[2026-03-01T12:43:25] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T12:43:25] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T12:43:25] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T12:43:25] INFO + Helios API heartbeat accepted
+[2026-03-01T12:43:25] INFO   [sync] data.json written — 2026-03-01T12:43:25.416735+08:00
+[2026-03-01T12:43:26] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T12:59:15] INFO Running audit...
+[2026-03-01T12:59:15] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T12:59:15] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T12:59:15] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T12:59:15] INFO + Helios API heartbeat accepted
+[2026-03-01T12:59:16] INFO   [sync] data.json written — 2026-03-01T12:59:16.062139+08:00
+[2026-03-01T12:59:17] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T13:15:07] INFO Running audit...
+[2026-03-01T13:15:07] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T13:15:07] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T13:15:07] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T13:15:07] INFO + Helios API heartbeat accepted
+[2026-03-01T13:15:08] INFO   [sync] data.json written — 2026-03-01T13:15:08.070209+08:00
+[2026-03-01T13:15:09] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T13:30:59] INFO Running audit...
+[2026-03-01T13:30:59] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T13:30:59] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T13:30:59] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T13:30:59] INFO + Helios API heartbeat accepted
+[2026-03-01T13:30:59] INFO   [sync] data.json written — 2026-03-01T13:30:59.441060+08:00
+[2026-03-01T13:31:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T13:31:00] INFO   Cerebronn report: helios-report-1772343060.json
+[2026-03-01T13:31:00] INFO   Briefing updated
+[2026-03-01T13:46:49] INFO Running audit...
+[2026-03-01T13:46:49] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T13:46:49] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T13:46:49] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T13:46:49] INFO + Helios API heartbeat accepted
+[2026-03-01T13:46:49] INFO   [sync] data.json written — 2026-03-01T13:46:49.171430+08:00
+[2026-03-01T13:46:50] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T14:02:37] INFO Running audit...
+[2026-03-01T14:02:37] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T14:02:37] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T14:02:37] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T14:02:37] INFO + Helios API heartbeat accepted
+[2026-03-01T14:02:37] INFO   [sync] data.json written — 2026-03-01T14:02:37.990225+08:00
+[2026-03-01T14:02:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T14:18:27] INFO Running audit...
+[2026-03-01T14:18:27] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T14:18:27] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T14:18:27] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T14:18:28] INFO + Helios API heartbeat accepted
+[2026-03-01T14:18:28] INFO   [sync] data.json written — 2026-03-01T14:18:28.099064+08:00
+[2026-03-01T14:18:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T14:34:20] INFO Running audit...
+[2026-03-01T14:34:20] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T14:34:20] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T14:34:20] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T14:34:20] INFO + Helios API heartbeat accepted
+[2026-03-01T14:34:20] INFO   [sync] data.json written — 2026-03-01T14:34:20.564680+08:00
+[2026-03-01T14:34:21] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T14:34:21] INFO   Cerebronn report: helios-report-1772346861.json
+[2026-03-01T14:34:21] INFO   Briefing updated
+[2026-03-01T14:50:14] INFO Running audit...
+[2026-03-01T14:50:14] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T14:50:14] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T14:50:14] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T14:50:14] INFO + Helios API heartbeat accepted
+[2026-03-01T14:50:14] INFO   [sync] data.json written — 2026-03-01T14:50:14.396534+08:00
+[2026-03-01T14:50:15] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T15:06:09] INFO Running audit...
+[2026-03-01T15:06:09] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T15:06:09] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T15:06:09] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T15:06:09] INFO + Helios API heartbeat accepted
+[2026-03-01T15:06:09] INFO   [sync] data.json written — 2026-03-01T15:06:09.196461+08:00
+[2026-03-01T15:06:10] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T15:22:01] INFO Running audit...
+[2026-03-01T15:22:01] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T15:22:01] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T15:22:01] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T15:22:01] INFO + Helios API heartbeat accepted
+[2026-03-01T15:22:02] INFO   [sync] data.json written — 2026-03-01T15:22:02.062394+08:00
+[2026-03-01T15:22:03] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T15:37:56] INFO Running audit...
+[2026-03-01T15:37:56] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T15:37:56] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T15:37:56] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T15:37:56] INFO + Helios API heartbeat accepted
+[2026-03-01T15:37:56] INFO   [sync] data.json written — 2026-03-01T15:37:56.402190+08:00
+[2026-03-01T15:37:57] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T15:37:57] INFO   Cerebronn report: helios-report-1772350677.json
+[2026-03-01T15:37:57] INFO   Briefing updated
+[2026-03-01T15:53:52] INFO Running audit...
+[2026-03-01T15:53:52] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T15:53:52] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T15:53:52] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T15:53:52] INFO + Helios API heartbeat accepted
+[2026-03-01T15:53:52] INFO   [sync] data.json written — 2026-03-01T15:53:52.265355+08:00
+[2026-03-01T15:53:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T16:09:48] INFO Running audit...
+[2026-03-01T16:09:48] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T16:09:48] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T16:09:48] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T16:09:48] INFO + Helios API heartbeat accepted
+[2026-03-01T16:09:48] INFO   [sync] data.json written — 2026-03-01T16:09:48.378313+08:00
+[2026-03-01T16:09:49] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T16:25:44] INFO Running audit...
+[2026-03-01T16:25:44] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T16:25:44] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T16:25:44] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T16:25:44] INFO + Helios API heartbeat accepted
+[2026-03-01T16:25:44] INFO   [sync] data.json written — 2026-03-01T16:25:44.567551+08:00
+[2026-03-01T16:25:45] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T16:41:37] INFO Running audit...
+[2026-03-01T16:41:37] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T16:41:37] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T16:41:37] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T16:41:37] INFO + Helios API heartbeat accepted
+[2026-03-01T16:41:37] INFO   [sync] data.json written — 2026-03-01T16:41:37.885865+08:00
+[2026-03-01T16:41:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T16:41:39] INFO   Cerebronn report: helios-report-1772354499.json
+[2026-03-01T16:41:39] INFO   Briefing updated
+[2026-03-01T16:57:37] INFO Running audit...
+[2026-03-01T16:57:37] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T16:57:37] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T16:57:37] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T16:57:37] INFO + Helios API heartbeat accepted
+[2026-03-01T16:57:37] INFO   [sync] data.json written — 2026-03-01T16:57:37.415336+08:00
+[2026-03-01T16:57:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T17:13:34] INFO Running audit...
+[2026-03-01T17:13:34] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T17:13:34] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T17:13:34] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T17:13:34] INFO + Helios API heartbeat accepted
+[2026-03-01T17:13:34] INFO   [sync] data.json written — 2026-03-01T17:13:34.580356+08:00
+[2026-03-01T17:13:35] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T17:29:32] INFO Running audit...
+[2026-03-01T17:29:32] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T17:29:32] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T17:29:32] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T17:29:34] INFO + Helios API heartbeat accepted
+[2026-03-01T17:29:34] INFO   [sync] data.json written — 2026-03-01T17:29:34.446564+08:00
+[2026-03-01T17:29:35] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T17:45:27] INFO Running audit...
+[2026-03-01T17:45:27] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T17:45:27] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T17:45:27] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T17:45:27] INFO + Helios API heartbeat accepted
+[2026-03-01T17:45:27] INFO   [sync] data.json written — 2026-03-01T17:45:27.228704+08:00
+[2026-03-01T17:45:30] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T17:45:30] INFO   Cerebronn report: helios-report-1772358330.json
+[2026-03-01T17:45:30] INFO   Briefing updated
+[2026-03-01T18:00:27] INFO Running audit...
+[2026-03-01T18:00:27] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T18:00:27] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T18:00:27] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T18:00:27] INFO + Helios API heartbeat accepted
+[2026-03-01T18:00:27] INFO   [sync] data.json written — 2026-03-01T18:00:27.835184+08:00
+[2026-03-01T18:00:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T18:16:28] INFO Running audit...
+[2026-03-01T18:16:28] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T18:16:28] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T18:16:28] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T18:16:28] INFO + Helios API heartbeat accepted
+[2026-03-01T18:16:28] INFO   [sync] data.json written — 2026-03-01T18:16:28.435509+08:00
+[2026-03-01T18:16:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T18:32:28] INFO Running audit...
+[2026-03-01T18:32:28] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T18:32:28] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T18:32:28] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T18:32:28] INFO + Helios API heartbeat accepted
+[2026-03-01T18:32:28] INFO   [sync] data.json written — 2026-03-01T18:32:28.680712+08:00
+[2026-03-01T18:32:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T18:47:33] INFO Running audit...
+[2026-03-01T18:47:33] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T18:47:33] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T18:47:33] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T18:47:33] INFO + Helios API heartbeat accepted
+[2026-03-01T18:47:33] INFO   [sync] data.json written — 2026-03-01T18:47:33.218013+08:00
+[2026-03-01T18:47:34] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T18:47:34] INFO   Cerebronn report: helios-report-1772362054.json
+[2026-03-01T18:47:34] INFO   Briefing updated
+[2026-03-01T19:02:36] INFO Running audit...
+[2026-03-01T19:02:36] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T19:02:36] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T19:02:36] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T19:02:37] INFO + Helios API heartbeat accepted
+[2026-03-01T19:02:37] INFO   [sync] data.json written — 2026-03-01T19:02:37.079784+08:00
+[2026-03-01T19:02:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T19:17:41] INFO Running audit...
+[2026-03-01T19:17:41] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T19:17:41] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T19:17:41] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T19:17:41] INFO + Helios API heartbeat accepted
+[2026-03-01T19:17:41] INFO   [sync] data.json written — 2026-03-01T19:17:41.420081+08:00
+[2026-03-01T19:17:42] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T19:32:50] INFO Running audit...
+[2026-03-01T19:32:50] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T19:32:50] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T19:32:50] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T19:32:50] INFO + Helios API heartbeat accepted
+[2026-03-01T19:32:51] INFO   [sync] data.json written — 2026-03-01T19:32:51.042107+08:00
+[2026-03-01T19:32:52] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T19:47:56] INFO Running audit...
+[2026-03-01T19:47:56] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T19:47:56] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T19:47:56] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T19:47:56] INFO + Helios API heartbeat accepted
+[2026-03-01T19:47:56] INFO   [sync] data.json written — 2026-03-01T19:47:56.742604+08:00
+[2026-03-01T19:47:57] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T19:47:57] INFO   Cerebronn report: helios-report-1772365677.json
+[2026-03-01T19:47:57] INFO   Briefing updated
+[2026-03-01T20:00:53] INFO Writing daily digest...
+[2026-03-01T20:00:53] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:00:53] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:00:53] INFO   Daily digest: daily-digest-1772366453.md
+[2026-03-01T20:00:53] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:00:53] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:00:53] INFO   [telegram] Message sent to Chad
+[2026-03-01T20:03:04] INFO Running audit...
+[2026-03-01T20:03:04] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:03:04] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:03:04] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T20:03:04] INFO + Helios API heartbeat accepted
+[2026-03-01T20:03:04] INFO   [sync] data.json written — 2026-03-01T20:03:04.318557+08:00
+[2026-03-01T20:03:05] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T20:18:12] INFO Running audit...
+[2026-03-01T20:18:12] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:18:12] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:18:12] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T20:18:12] INFO + Helios API heartbeat accepted
+[2026-03-01T20:18:12] INFO   [sync] data.json written — 2026-03-01T20:18:12.848907+08:00
+[2026-03-01T20:18:14] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T20:33:21] INFO Running audit...
+[2026-03-01T20:33:21] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:33:21] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:33:21] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T20:33:21] INFO + Helios API heartbeat accepted
+[2026-03-01T20:33:21] INFO   [sync] data.json written — 2026-03-01T20:33:21.753253+08:00
+[2026-03-01T20:33:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T20:48:32] INFO Running audit...
+[2026-03-01T20:48:32] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T20:48:32] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T20:48:32] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T20:48:32] INFO + Helios API heartbeat accepted
+[2026-03-01T20:48:32] INFO   [sync] data.json written — 2026-03-01T20:48:32.939244+08:00
+[2026-03-01T20:48:34] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T20:48:34] INFO   Cerebronn report: helios-report-1772369314.json
+[2026-03-01T20:48:34] INFO   Briefing updated
+[2026-03-01T21:03:42] INFO Running audit...
+[2026-03-01T21:03:42] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T21:03:42] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T21:03:42] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T21:03:42] INFO + Helios API heartbeat accepted
+[2026-03-01T21:03:42] INFO   [sync] data.json written — 2026-03-01T21:03:42.319573+08:00
+[2026-03-01T21:03:43] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T21:19:08] INFO Running audit...
+[2026-03-01T21:19:08] INFO   Nudge sent -> chad-yi: No activity in outbox for >30 min
+[2026-03-01T21:19:08] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T21:19:08] INFO   0 active, 3 idle, 2 silent. Alerts: 2.
+[2026-03-01T21:19:08] INFO + Helios API heartbeat accepted
+[2026-03-01T21:19:08] INFO   [sync] data.json written — 2026-03-01T21:19:08.694998+08:00
+[2026-03-01T21:19:09] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T21:25:11] INFO ============================================================
+[2026-03-01T21:25:11] INFO HELIOS V2 - Mission Control Engineer - STARTING
+[2026-03-01T21:25:11] INFO   Workspace:      /home/chad-yi/.openclaw/workspace
+[2026-03-01T21:25:11] INFO   Helios API:     https://helios-api-xfvi.onrender.com
+[2026-03-01T21:25:11] INFO   Dashboard repo: /home/chad-yi/.openclaw/workspace/mission-control-dashboard
+[2026-03-01T21:25:11] INFO   Audit interval: 900s (15 min)
+[2026-03-01T21:25:11] INFO   Chad inbox:     /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox
+[2026-03-01T21:25:11] INFO   Helios inbox:   /home/chad-yi/.openclaw/workspace/agents/helios/inbox
+[2026-03-01T21:25:11] INFO ============================================================
+[2026-03-01T21:25:11] INFO + Helios API heartbeat accepted
+[2026-03-01T21:25:11] INFO Boot: running startup audit + dashboard sync...
+[2026-03-01T21:25:11] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T21:25:11] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T21:25:11] INFO   [sync] data.json written — 2026-03-01T21:25:11.846492+08:00
+[2026-03-01T21:25:13] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T21:25:13] INFO   Cerebronn report: helios-report-1772371513.json
+[2026-03-01T21:25:13] INFO   Briefing updated
+[2026-03-01T21:25:13] INFO   [telegram] Message sent to Chad
+[2026-03-01T21:25:13] INFO   [inbox] Processing: redis-test-failed.txt
+[2026-03-01T21:25:13] INFO   [inbox] Acked: redis-test-failed.txt
+[2026-03-01T21:25:14] INFO   [telegram] Message sent to Chad
+[2026-03-01T21:25:14] INFO   [inbox] Processing: READ_THIS.txt
+[2026-03-01T21:25:14] INFO   [inbox] Acked: READ_THIS.txt
+[2026-03-01T21:25:15] INFO   [telegram] Message sent to Chad
+[2026-03-01T21:25:15] INFO   [inbox] Processing: FINAL-REQUEST.txt
+[2026-03-01T21:25:15] INFO   [inbox] Acked: FINAL-REQUEST.txt
+[2026-03-01T21:25:16] INFO   [telegram] Message sent to Chad
+[2026-03-01T21:25:16] INFO   [chad-outbox] Reading: msg-urgent-to-helios.json
+[2026-03-01T21:25:16] INFO   [chad-outbox] Processed: msg-urgent-to-helios.json
+[2026-03-01T21:25:16] INFO   [chad-outbox] Reading: msg-helios-redis-broken.json
+[2026-03-01T21:25:16] INFO   [chad-outbox] Processed: msg-helios-redis-broken.json
+[2026-03-01T21:25:16] INFO   [chad-outbox] Reading: msg-to-helios-infra-plan.json
+[2026-03-01T21:25:16] INFO   [chad-outbox] Processed: msg-to-helios-infra-plan.json
+[2026-03-01T21:40:16] INFO Running audit...
+[2026-03-01T21:40:16] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T21:40:16] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T21:40:16] INFO + Helios API heartbeat accepted
+[2026-03-01T21:40:17] INFO   [sync] data.json written — 2026-03-01T21:40:17.037356+08:00
+[2026-03-01T21:40:18] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T21:55:19] INFO Running audit...
+[2026-03-01T21:55:19] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T21:55:19] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T21:55:19] INFO + Helios API heartbeat accepted
+[2026-03-01T21:55:19] INFO   [sync] data.json written — 2026-03-01T21:55:19.400914+08:00
+[2026-03-01T21:55:20] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T22:10:21] INFO Running audit...
+[2026-03-01T22:10:21] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T22:10:21] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T22:10:21] INFO + Helios API heartbeat accepted
+[2026-03-01T22:10:21] INFO   [sync] data.json written — 2026-03-01T22:10:21.528091+08:00
+[2026-03-01T22:10:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T22:25:23] INFO Running audit...
+[2026-03-01T22:25:23] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T22:25:23] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T22:25:23] INFO + Helios API heartbeat accepted
+[2026-03-01T22:25:23] INFO   [sync] data.json written — 2026-03-01T22:25:23.817539+08:00
+[2026-03-01T22:25:24] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T22:25:24] INFO   Cerebronn report: helios-report-1772375124.json
+[2026-03-01T22:25:24] INFO   Briefing updated
+[2026-03-01T22:40:25] INFO Running audit...
+[2026-03-01T22:40:25] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T22:40:25] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T22:40:25] INFO + Helios API heartbeat accepted
+[2026-03-01T22:40:25] INFO   [sync] data.json written — 2026-03-01T22:40:25.866087+08:00
+[2026-03-01T22:40:26] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T22:47:33] INFO ============================================================
+[2026-03-01T22:47:33] INFO HELIOS V2 - Mission Control Engineer - STARTING
+[2026-03-01T22:47:33] INFO   Workspace:      /home/chad-yi/.openclaw/workspace
+[2026-03-01T22:47:33] INFO   Helios API:     https://helios-api-xfvi.onrender.com
+[2026-03-01T22:47:33] INFO   Dashboard repo: /home/chad-yi/.openclaw/workspace/mission-control-dashboard
+[2026-03-01T22:47:33] INFO   Audit interval: 900s (15 min)
+[2026-03-01T22:47:33] INFO   Chad inbox:     /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox
+[2026-03-01T22:47:33] INFO   Helios inbox:   /home/chad-yi/.openclaw/workspace/agents/helios/inbox
+[2026-03-01T22:47:33] INFO ============================================================
+[2026-03-01T22:47:33] INFO + Helios API heartbeat accepted
+[2026-03-01T22:47:34] INFO Boot: running startup audit + dashboard sync...
+[2026-03-01T22:47:34] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T22:47:34] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T22:47:34] INFO   [active.md] 22 tasks — 0 critical, 2 urgent, 2 blocked
+[2026-03-01T22:47:34] INFO   [sync] data.json written — 2026-03-01T22:47:34.022673+08:00
+[2026-03-01T22:47:35] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T22:47:35] INFO   [active.md] 22 tasks — 0 critical, 2 urgent, 2 blocked
+[2026-03-01T22:47:35] INFO   Cerebronn report: helios-report-1772376455.json
+[2026-03-01T22:47:35] INFO   Briefing updated
+[2026-03-01T22:47:35] INFO   [telegram] Message sent to Chad
+[2026-03-01T22:47:35] INFO Sending evening digest...
+[2026-03-01T22:47:35] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T22:47:35] INFO   [active.md] 22 tasks — 0 critical, 2 urgent, 2 blocked
+[2026-03-01T22:47:36] INFO   [telegram] Message sent to Chad
+[2026-03-01T22:47:36] INFO   Digest sent: Evening Digest
+[2026-03-01T23:02:37] INFO Running audit...
+[2026-03-01T23:02:37] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T23:02:37] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T23:02:37] INFO + Helios API heartbeat accepted
+[2026-03-01T23:02:37] INFO   [active.md] 22 tasks — 0 critical, 2 urgent, 2 blocked
+[2026-03-01T23:02:37] INFO   [sync] data.json written — 2026-03-01T23:02:37.578348+08:00
+[2026-03-01T23:02:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-01T23:02:39] INFO   [telegram] Message sent to Chad
+[2026-03-01T23:02:39] INFO   [alert] Telegram sent — silent agent: escritor
+[2026-03-01T23:17:40] INFO Running audit...
+[2026-03-01T23:17:40] INFO   Nudge sent -> escritor: No activity in outbox for >30 min
+[2026-03-01T23:17:40] INFO   0 active, 3 idle, 1 silent. Alerts: 1.
+[2026-03-01T23:17:40] INFO + Helios API heartbeat accepted
+[2026-03-01T23:17:40] INFO   [active.md] 22 tasks — 0 critical, 2 urgent, 2 blocked
+[2026-03-01T23:17:40] INFO   [sync] data.json written — 2026-03-01T23:17:40.339891+08:00
+[2026-03-01T23:17:41] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
