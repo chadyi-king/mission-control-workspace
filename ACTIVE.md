@@ -1,7 +1,7 @@
 # ACTIVE.md - Currently Active Tasks
 
-**Source of Truth for Mission Control Dashboard**  
-**Last Updated:** 2026-03-02 01:00 SGT  
+**Source of Truth for Mission Control Dashboard**
+**Last Updated:** 2026-03-02 01:00 SGT
 **Updated By:** CHAD_YI
 
 > ⚠️ **EDIT THIS FILE** to update tasks. Helios reads this every 15 min → updates data.json → pushes to GitHub → Render deploys → Dashboard updates.
@@ -42,7 +42,7 @@
 
 | ID | Title | Owner | Notes |
 |----|-------|-------|-------|
-| — | No pending tasks | — | — |
+| - | No pending tasks | - | - |
 
 ---
 
@@ -87,8 +87,8 @@ All Escritor tasks on hold until agent is properly built. Caleb has manually com
 
 ### B1-B9 - Business Websites (45 Tasks)
 All website/SEO/ads/social/CRM tasks for B companies:
-- Waiting for **FORGER** agent (website builder) to be built
-- Forger is next after Quanta is complete
+- **FORGER not yet built** - Will be next agent after Quanta stabilizes
+- Currently: Cerebronn (Brain) or manual work for websites
 
 ### Other Backlog
 - A1-3: Disney cruise → Check March 15 if rebooking done by other person
@@ -111,20 +111,20 @@ All website/SEO/ads/social/CRM tasks for B companies:
 
 ---
 
-## 🤖 Agent Status (3 Core Agents Only)
+## 🤖 Agent Status (4 Core Agents)
 
 | Agent | Status | Current Task | Notes |
 |-------|--------|--------------|-------|
 | **CHAD_YI** | 🟢 Active | Task coordination & reporting | The Face - Primary interface |
 | **Helios** | 🟢 Active | 15-min audit + dashboard sync | The Spine - COO |
-| **Cerebronn** | 🔧 Building | VS Code development | The Brain - Being built |
+| **Cerebronn** | 🟢 Active | 30-min memory + decision cycles | The Brain - Persistent memory |
+| **Quanta** | 🟢 Live Trading | XAUUSD execution on OANDA | Final validation phase |
 
 ### Agents Not Yet Built
-- **Quanta** — In final testing (not fully active yet)
-- **Escritor** — Not built (you completed Ch 1-12 manually)
-- **Forger** — Next to build (website builder for B-companies)
+- **Escritor** — ON HOLD (you completed Ch 1-12 manually, agent not needed yet)
 - **MensaMusa** — Deferred to April/May
 - **Autour** — Future (A3 KOE content)
+- **Forger** — Next to build (website builder for B-companies)
 
 ---
 
@@ -141,6 +141,6 @@ All website/SEO/ads/social/CRM tasks for B companies:
 ## 📝 Notes
 
 - Total tasks in system: ~85
-- Only 3 core agents currently operational
-- Next agent build: **FORGER** (after Quanta testing complete)
+- 4 agents currently operational: CHAD_YI, Helios, Cerebronn, Quanta
+- Next priority: Stabilize Quanta, then build Forger
 - Helios auto-syncs every 15 minutes
