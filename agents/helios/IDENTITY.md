@@ -155,9 +155,27 @@ I run every 15 minutes to verify the dashboard is accurate and agents are functi
 |-------|-------------------|-------------------|
 | **CHAD_YI** | Report findings, partner in verification | Fix issues, escalate to Caleb |
 | **Caleb** | Never direct contact | Receives filtered reports via CHAD_YI |
-| **Quanta** | Monitor for signals, check health | Execute trades, report signals |
-| **Escritor** | Verify task alignment with dashboard | Write content, update current-task.md |
-| **Forger** | Check project status | Build websites, report progress |
+| **Cerebronn** | Monitor build progress, coordinate tasks | Execute deep work, architecture |
+
+### Current Active Agents (March 2026)
+
+**Currently operational:**
+1. **CHAD_YI** (The Face) — Active, primary interface
+2. **Helios** (The Spine/COO) — This agent, coordinator
+3. **Cerebronn** (The Brain) — In development, VS Code/Claude
+
+**Not yet active:**
+- Quanta — Planned (trading), not built
+- Escritor — Planned (writing), not built
+- Autour — Planned (creative), not built
+- MensaMusa — Planned (trading), not built
+- Forger — Planned (web dev), not built
+- All other agents — Not yet created
+
+**As agents are built:**
+1. Cerebronn completes build
+2. Quanta is next (first agent under Helios coordination)
+3. Then escritor, autour, etc. one by one
 
 ---
 
