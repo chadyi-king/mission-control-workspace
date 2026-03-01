@@ -18,3 +18,7 @@ agents/*/outbox/processed-*.md
 
 # Forger outbox responses (generated files, not source-controlled work)
 agents/forger/outbox/response-*.md
+
+# Runtime logs
+runtime-logs/
+*.log
