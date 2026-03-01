@@ -31,6 +31,7 @@ OUTBOX (Cerebronn writes strategic notes):
 import json
 import os
 import shutil
+import subprocess
 import time
 import logging
 from datetime import datetime, timezone, timedelta
@@ -55,12 +56,28 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 SLEEP_INTERVAL  = 30 * 60   # 30 minutes
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
-# Agents intentionally stopped — suppress all silence alerts for these
-DORMANT_AGENTS = {"escritor", "mensamusa"}
+# Agent heartbeat.json paths — Cerebronn reads these directly every cycle
+AGENT_HEARTBEATS = {
+    "quanta": Path("/home/chad-yi/mission-control-workspace/agents/quanta-v3/heartbeat.json"),
+}
+
+# Systemd service names — used to auto-detect dormant agents
+AGENT_SERVICES = {
+    "escritor":  "escritor.service",
+    "mensamusa": "mensamusa.service",
+    "autour":    "autour.service",
+    "quanta":    "quanta-v3.service",
+    "helios":    "helios.service",
+    "cerebronn": "cerebronn.service",
+}
+
+# Runtime dormant set — refreshed each cycle by auto-detection
+DORMANT_AGENTS: set = set()
 
 SEARCH_INDEX    = MEMORY / "search-index.json"
 CALEB_PROFILE   = MEMORY / "caleb-profile.md"
 COMPANY_VISION  = MEMORY / "company-vision.md"
+CHAD_SESSIONS_LOG = MEMORY / "decisions" / "chad-sessions.md"
 
 # Words to skip when building search index
 STOP_WORDS = {
@@ -76,6 +93,76 @@ logging.basicConfig(
     datefmt="%Y-%m-%dT%H:%M:%S"
 )
 log = logging.getLogger("cerebronn")
+
+# ---------------------------------------------------------------------------
+# Auto dormant detection + heartbeat readers
+# ---------------------------------------------------------------------------
+
+def refresh_dormant_agents() -> set:
+    """Check systemctl for each known agent. Return set of inactive agent names."""
+    dormant = set()
+    for agent, service in AGENT_SERVICES.items():
+        if agent in ("helios", "cerebronn"):  # these drive themselves
+            continue
+        try:
+            result = subprocess.run(
+                ["systemctl", "--user", "is-active", service],
+                capture_output=True, text=True, timeout=3
+            )
+            if result.returncode != 0:  # inactive / failed / not-found
+                dormant.add(agent)
+        except Exception:
+            pass  # if systemctl fails, don't false-positive
+    log.info(f"[dormant] Auto-detected dormant agents: {dormant or 'none'}")
+    return dormant
+
+
+def read_agent_heartbeats(state: dict):
+    """Read heartbeat.json files from agents that don't report via Helios."""
+    for agent_name, path in AGENT_HEARTBEATS.items():
+        if not path.exists():
+            continue
+        try:
+            data = json.loads(path.read_text())
+            ts_str   = data.get("timestamp", "")
+            status   = data.get("status", "unknown")
+            task     = data.get("currentTask", "")
+            blocker  = data.get("blockers")
+            silence_h = 0.0
+            if ts_str:
+                try:
+                    ts = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+                    diff = sgt_now() - ts.astimezone(timezone(timedelta(hours=8)))
+                    silence_h = max(0.0, diff.total_seconds() / 3600)
+                except Exception:
+                    pass
+            state["agents"][agent_name] = {
+                "last_seen":     ts_str[:16] if ts_str else "—",
+                "status":        status,
+                "silence_hours": round(silence_h, 1),
+                "notes":         task or "",
+                "blockers":      blocker,
+            }
+            log.info(f"[heartbeat] {agent_name}: {status} | task: {str(task)[:60]}")
+        except Exception as e:
+            log.warning(f"[heartbeat] Failed reading {agent_name}: {e}")
+
+
+def process_chad_session_report(f) -> str:
+    """Extract summary from a chad-session-*.md file and append to sessions log."""
+    try:
+        content = f.read_text()
+        # Append to persistent sessions log
+        CHAD_SESSIONS_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with open(CHAD_SESSIONS_LOG, "a") as fh:
+            fh.write(f"\n---\n*Received: {sgt_str()}*\n\n")
+            fh.write(content[:2000])  # cap at 2000 chars per session
+            fh.write("\n")
+        log.info(f"[chad-session] Logged to sessions log: {f.name}")
+        return content
+    except Exception as e:
+        log.warning(f"[chad-session] Failed reading {f.name}: {e}")
+        return ""
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -779,6 +866,7 @@ def run_monthly_compression():
 # ---------------------------------------------------------------------------
 
 def run_cycle():
+    global DORMANT_AGENTS
     log.info(f"[cycle] Starting cycle — {sgt_str()}")
 
     # Load or initialise state
@@ -786,19 +874,26 @@ def run_cycle():
     all_decisions = []
     processed = 0
 
+    # Auto-detect dormant agents (uses systemctl — no LLM)
+    DORMANT_AGENTS = refresh_dormant_agents()
+
     # Ensure dirs exist
     INBOX.mkdir(parents=True, exist_ok=True)
     OUTBOX.mkdir(parents=True, exist_ok=True)
     CHAD_INBOX.mkdir(parents=True, exist_ok=True)
 
+    # Read agent heartbeat files directly (Quanta + others)
+    read_agent_heartbeats(state)
+
     # Collect inbox files sorted oldest→newest
     inbox_files = sorted(INBOX.iterdir()) if INBOX.exists() else []
-    report_files = [f for f in inbox_files if f.suffix == ".json" and f.name.startswith("helios-report")]
-    digest_files = [f for f in inbox_files if f.name.startswith("digest-") or f.name.startswith("daily-digest")]
-    task_files  = [f for f in inbox_files if f.name.startswith("TASK-") or f.name.startswith("task-")]
-    other_files = [f for f in inbox_files if f not in report_files + digest_files + task_files]
+    report_files   = [f for f in inbox_files if f.suffix == ".json" and f.name.startswith("helios-report")]
+    digest_files   = [f for f in inbox_files if f.name.startswith("digest-") or f.name.startswith("daily-digest")]
+    task_files     = [f for f in inbox_files if f.name.startswith("TASK-") or f.name.startswith("task-")]
+    session_files  = [f for f in inbox_files if f.name.startswith("chad-session-")]
+    other_files    = [f for f in inbox_files if f not in report_files + digest_files + task_files + session_files]
 
-    log.info(f"[inbox] Found: {len(report_files)} reports, {len(digest_files)} digests, {len(task_files)} tasks, {len(other_files)} other")
+    log.info(f"[inbox] Found: {len(report_files)} reports, {len(digest_files)} digests, {len(task_files)} tasks, {len(session_files)} chad-sessions, {len(other_files)} other")
 
     # Process Helios reports — latest only to avoid repeating old data
     # But archive ALL of them after reading the latest
@@ -835,6 +930,18 @@ def run_cycle():
             ))
         except Exception:
             pass
+        archive_file(f)
+        processed += 1
+
+    # Chad session reports — log into persistent sessions memory
+    for f in session_files:
+        session_content = process_chad_session_report(f)
+        if session_content:
+            all_decisions.append(make_decision(
+                f"Chad session report received: {f.name}",
+                TIER1_LABEL,
+                action="Logged to chad-sessions.md for memory."
+            ))
         archive_file(f)
         processed += 1
 

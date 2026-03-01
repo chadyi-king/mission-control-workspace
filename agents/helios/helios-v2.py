@@ -566,35 +566,10 @@ def write_cerebronn_report(report: dict) -> None:
     log.info(f"  Cerebronn report: {path.name}")
 
 def update_cerebronn_briefing(report: dict) -> None:
-    briefing_path = Path("/home/chad-yi/.openclaw/agents/cerebronn/memory/briefing.md")
-    agent_rows = ""
-    for name, status in report["agents"].items():
-        icon = {"active": "OK", "idle": "IDLE", "silent": "SILENT", "unknown": "?"}.get(status["health"], "?")
-        last = status.get("last_activity", "-")
-        if last and last != "-":
-            last = last[:16].replace("T", " ")
-        agent_rows += f"| {name} | {last} | {icon} |\n"
-
-    content = f"""# BRIEFING - For Chad (Session Start)
-*Auto-updated by Helios every hour. Last: {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}*
-
-## Agent Status
-| Agent | Last Active | Status |
-|-------|-------------|--------|
-{agent_rows.rstrip()}
-| helios | now | RUNNING |
-| cerebronn | - | RUNNING |
-
-## Summary
-{report['summary']}
-
-## Edit Tasks
-File: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md
-Helios reads it every 15 min and pushes to dashboard automatically.
-"""
-    briefing_path.parent.mkdir(parents=True, exist_ok=True)
-    briefing_path.write_text(content)
-    log.info("  Briefing updated")
+    # Cerebronn owns briefing.md — it rewrites from memory every 30min.
+    # Helios only writes JSON reports to cerebronn/inbox/.
+    # Do NOT write here: it would overwrite Cerebronn's richer version.
+    log.info("  [briefing] Skipped — Cerebronn owns briefing.md")
 
 # ---------------------------------------------------------------------------
 # Digest — 9AM morning briefing + 10PM evening report
