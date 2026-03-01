@@ -1,6 +1,9 @@
 # CHAD_YI Heartbeat Cron Jobs
 # Schedule: 2-hour intervals during day, 5-hour intervals overnight
 
+# Quanta Trade Monitor - Every 5 minutes (check for trade alerts)
+*/5 * * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/quanta-monitor-cron.py >> /tmp/quanta-monitor.log 2>&1
+
 # Morning Digest - 8:00 AM SGT
 0 8 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py --type morning >> /tmp/chad-yi-morning.log 2>&1
 

@@ -55,6 +55,21 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 SLEEP_INTERVAL  = 30 * 60   # 30 minutes
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
+# Agents intentionally stopped — suppress all silence alerts for these
+DORMANT_AGENTS = {"escritor", "mensamusa"}
+
+SEARCH_INDEX    = MEMORY / "search-index.json"
+CALEB_PROFILE   = MEMORY / "caleb-profile.md"
+COMPANY_VISION  = MEMORY / "company-vision.md"
+
+# Words to skip when building search index
+STOP_WORDS = {
+    "the","a","an","and","or","but","in","on","at","to","for","of","is","it",
+    "by","as","be","if","no","so","do","we","he","she","my","you","are","was",
+    "has","had","not","all","from","this","with","that","have","will","can",
+    "its","our","they","their","been","into","than","also","when","then","only"
+}
+
 logging.basicConfig(
     level=logging.INFO,
     format="[%(asctime)s] %(levelname)s %(message)s",
@@ -192,6 +207,10 @@ def run_decision_engine(state: dict, report: dict) -> list:
     alerts = report.get("alerts", [])
 
     for agent_name, agent_data in agents.items():
+        # Skip intentionally dormant agents
+        if agent_name.lower() in DORMANT_AGENTS:
+            continue
+
         silence_h = 0
         if isinstance(agent_data, dict):
             # Try to get silence from the report structure
@@ -385,9 +404,11 @@ def rewrite_briefing(state: dict):
     pending2 = state.get("pending_tier2", [])
     pending3 = state.get("pending_tier3", [])
 
-    # Agent status table
+    # Agent status table (skip intentionally dormant agents)
     agent_rows = []
     for name, info in sorted(agents.items()):
+        if name.lower() in DORMANT_AGENTS:
+            continue
         status = info.get("status", "unknown").upper()
         last_seen = info.get("last_seen") or "—"
         silence = info.get("silence_hours", 0)
@@ -403,8 +424,49 @@ def rewrite_briefing(state: dict):
     for d in pending3[-5:]:
         pending3_lines.append(f"- 🚨 [{d['ts']}] {d['desc']}")
 
+    # Scan chad-yi inbox for unread messages
+    inbox_urgent = []
+    inbox_medium = []
+    inbox_digest = []
+    inbox_other = []
+    if CHAD_INBOX.exists():
+        for f in sorted(CHAD_INBOX.iterdir()):
+            if not f.suffix == ".md":
+                continue
+            name = f.name
+            if "urgent" in name.lower():
+                inbox_urgent.append(name)
+            elif "medium" in name.lower() or "inform" in name.lower():
+                inbox_medium.append(name)
+            elif "digest" in name.lower():
+                inbox_digest.append(name)
+            else:
+                inbox_other.append(name)
+
+    inbox_lines = []
+    for fn in inbox_urgent[-3:]:
+        inbox_lines.append(f"- 🚨 URGENT: {fn}")
+    for fn in inbox_medium[-3:]:
+        inbox_lines.append(f"- ⚠️  MEDIUM: {fn}")
+    if inbox_digest:
+        inbox_lines.append(f"- 📋 {len(inbox_digest)} daily digest(s) waiting")
+    for fn in inbox_other[-3:]:
+        inbox_lines.append(f"- 📄 {fn}")
+    if not inbox_lines:
+        inbox_lines = ["- Inbox clear ✓"]
+
+    inbox_total = len(inbox_urgent) + len(inbox_medium) + len(inbox_digest) + len(inbox_other)
+    inbox_header = f"## 📬 Chad-Yi Inbox ({inbox_total} messages)"
+
     content = f"""# BRIEFING — For Chad (Session Start)
 *Auto-updated by Cerebronn. Last: {sgt_str()} | Cycle #{state.get('cycle_count', 0)}*
+
+---
+
+{inbox_header}
+{chr(10).join(inbox_lines)}
+
+*Path: /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox/*
 
 ---
 
@@ -434,14 +496,11 @@ def rewrite_briefing(state: dict):
 
 ---
 
-## How to Use This Briefing
-1. READ THIS FIRST every session.
-2. Address any Tier 3 items immediately.
-3. Review Tier 2 items and respond by dropping a .md file in cerebronn/inbox/.
-4. Check agent statuses before delegating any tasks.
-
-*Edit tasks in: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md*
-*Helios reads ACTIVE.md every 15 min → dashboard auto-deploys.*
+## Session Start Checklist
+1. Read inbox messages above (urgent first).
+2. Address Tier 3 items — these need Caleb.
+3. Review agent silences before delegating.
+4. Edit tasks: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md
 """
     write_file(BRIEFING_FILE, content)
     log.info("[briefing] Rewritten")
@@ -531,6 +590,191 @@ def update_index_timestamp():
 
 
 # ---------------------------------------------------------------------------
+# Search index — keyword → file path map (anti token-bloat)
+# ---------------------------------------------------------------------------
+
+def build_search_index():
+    """Scan all memory .md files, extract keywords, write search-index.json.
+    Cerebronn reads this before opening any file — avoids full scans."""
+    index: dict[str, list[str]] = {}
+    scan_dirs = [
+        MEMORY,
+        MEMORY / "agents",
+        MEMORY / "decisions",
+        MEMORY / "projects",
+        MEMORY / "tasks",
+    ]
+
+    files_scanned = 0
+    for d in scan_dirs:
+        if not d.exists():
+            continue
+        for f in d.iterdir():
+            if f.suffix not in (".md", ".json") or f.name.startswith("_"):
+                continue
+            if f == SEARCH_INDEX:
+                continue
+            try:
+                text = f.read_text(errors="ignore").lower()
+                # Extract meaningful words (≥4 chars, alpha-only)
+                import re
+                words = set(re.findall(r"[a-z]{4,}", text))
+                words -= STOP_WORDS
+                rel_path = str(f.relative_to(MEMORY))
+                for word in words:
+                    if word not in index:
+                        index[word] = []
+                    if rel_path not in index[word]:
+                        index[word].append(rel_path)
+                files_scanned += 1
+            except Exception:
+                pass
+
+    # Keep index lean: drop keywords that match all files (too common to be useful)
+    max_useful = max(1, files_scanned - 2)
+    index = {k: v for k, v in index.items() if len(v) <= max_useful}
+
+    save_json(SEARCH_INDEX, {"built": sgt_str(), "files_indexed": files_scanned, "index": index})
+    log.info(f"[search-index] Built — {files_scanned} files, {len(index)} keywords")
+
+
+# ---------------------------------------------------------------------------
+# Learning loop — append observed patterns to caleb-profile.md
+# ---------------------------------------------------------------------------
+
+def append_caleb_observation(observation: str):
+    """Add a timestamped observation line to caleb-profile.md Observed Patterns section."""
+    if not CALEB_PROFILE.exists():
+        return
+    marker = "## Observed Patterns"
+    try:
+        text = CALEB_PROFILE.read_text()
+        if marker not in text:
+            return
+        line = f"- {sgt_str()[:10]}: {observation}"
+        # Insert after the marker line
+        text = text.replace(marker + "\n", marker + "\n" + line + "\n", 1)
+        CALEB_PROFILE.write_text(text)
+        log.info(f"[learn] Caleb profile updated: {observation[:60]}")
+    except Exception as e:
+        log.warning(f"[learn] Could not update caleb-profile: {e}")
+
+
+def run_learning_loop(state: dict, all_decisions: list):
+    """Detect patterns from this cycle's data and update caleb-profile.md."""
+    observations = []
+
+    # Pattern: same agent repeatedly silent across cycles
+    for agent, info in state.get("agents", {}).items():
+        silence_h = info.get("silence_hours", 0)
+        if silence_h > 24:
+            observations.append(
+                f"{agent} has been silent for {silence_h:.0f}h — may be an inactive/unbuilt agent"
+            )
+
+    # Pattern: high blocked task count
+    blocked = state.get("tasks", {}).get("blocked", 0)
+    if blocked >= 3:
+        observations.append(
+            f"System has {blocked} blocked tasks — Caleb typically unblocks with credential/access decisions"
+        )
+
+    # Pattern: recurring Tier 3 decisions (urgent escalations)
+    tier3_count = len([d for d in all_decisions if d["tier"] == TIER3_LABEL])
+    if tier3_count >= 2:
+        observations.append(
+            f"{tier3_count} urgent escalations in one cycle — review whether Tier 3 threshold needs adjusting"
+        )
+
+    # Write new observations (deduplicate against recent profile content)
+    if CALEB_PROFILE.exists():
+        existing = CALEB_PROFILE.read_text()
+        for obs in observations:
+            # Avoid exact duplicates from same day
+            short_key = obs[:40]
+            if short_key not in existing:
+                append_caleb_observation(obs)
+
+
+# ---------------------------------------------------------------------------
+# Monthly compression — distil decisions into patterns.md
+# ---------------------------------------------------------------------------
+
+def run_monthly_compression():
+    """On the 1st of each month: compress last month's decision log into patterns.md.
+    Archives the raw log after extracting lessons. Keeps patterns.md ≤ 60 lines."""
+    today = sgt_now()
+    if today.day != 1:
+        return  # only run on 1st of month
+
+    # Identify last month
+    first_of_this_month = today.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    last_month_dt = first_of_this_month - timedelta(days=1)
+    last_month_str = last_month_dt.strftime("%Y-%m")
+    log_file = MEMORY / "decisions" / f"{last_month_str}.md"
+
+    if not log_file.exists():
+        return
+
+    try:
+        text = log_file.read_text()
+        lines = text.splitlines()
+
+        # Count decision types from the raw log
+        tier_counts = {TIER1_LABEL: 0, TIER2_LABEL: 0, TIER3_LABEL: 0}
+        agents_flagged: dict[str, int] = {}
+        for line in lines:
+            for tier in tier_counts:
+                if tier in line:
+                    tier_counts[tier] += 1
+            # Extract agent names mentioned
+            import re
+            agent_matches = re.findall(r"Agent: (\w+)", line)
+            for a in agent_matches:
+                agents_flagged[a] = agents_flagged.get(a, 0) + 1
+
+        total = sum(tier_counts.values())
+        top_agents = sorted(agents_flagged.items(), key=lambda x: x[1], reverse=True)[:3]
+
+        # Build compressed pattern entry
+        month_label = last_month_dt.strftime("%B %Y")
+        pattern_entry = [
+            f"\n## {month_label} — Compressed ({total} decisions)",
+            f"- Auto (Tier 1): {tier_counts[TIER1_LABEL]} | Inform Chad (Tier 2): {tier_counts[TIER2_LABEL]} | Needs Caleb (Tier 3): {tier_counts[TIER3_LABEL]}",
+        ]
+        if top_agents:
+            agents_str = ", ".join(f"{a}({c}x)" for a, c in top_agents)
+            pattern_entry.append(f"- Most flagged agents: {agents_str}")
+        if tier_counts[TIER3_LABEL] > 5:
+            pattern_entry.append(
+                f"- ⚠️ High Tier 3 count ({tier_counts[TIER3_LABEL]}) — review escalation thresholds"
+            )
+        pattern_entry.append(f"- Raw log archived to memory/archive/{last_month_str}/")
+        pattern_entry.append("")
+
+        # Append to patterns.md
+        PATTERNS_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(PATTERNS_FILE, "a") as f:
+            f.write("\n".join(pattern_entry))
+
+        # Trim patterns.md to 80 lines max (keep recent)
+        if PATTERNS_FILE.exists():
+            all_lines = PATTERNS_FILE.read_text().splitlines()
+            if len(all_lines) > 80:
+                PATTERNS_FILE.write_text("\n".join(all_lines[-80:]))
+
+        # Archive the raw log
+        archive_dir = ARCHIVE_BASE / last_month_str
+        archive_dir.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(log_file), str(archive_dir / log_file.name))
+
+        log.info(f"[compress] {month_label} compressed into patterns.md — {total} decisions")
+
+    except Exception as e:
+        log.warning(f"[compress] Monthly compression failed: {e}")
+
+
+# ---------------------------------------------------------------------------
 # Main processing cycle
 # ---------------------------------------------------------------------------
 
@@ -612,6 +856,15 @@ def run_cycle():
     # Update INDEX.md timestamp
     update_index_timestamp()
 
+    # Rebuild search index (fast keyword scan of all memory files)
+    build_search_index()
+
+    # Learning loop — detect patterns, update caleb-profile.md
+    run_learning_loop(state, all_decisions)
+
+    # Monthly compression (only runs on 1st of month)
+    run_monthly_compression()
+
     # Purge old archives
     purge_old_archives()
 
@@ -621,7 +874,7 @@ def run_cycle():
     log.info(
         f"[cycle] Done — {processed} files processed, "
         f"{len(all_decisions)} decisions, "
-        f"state saved, briefing updated"
+        f"state saved, briefing + search-index updated"
     )
 
 

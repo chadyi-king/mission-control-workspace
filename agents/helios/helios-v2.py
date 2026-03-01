@@ -9,9 +9,18 @@ Responsibilities (never stops):
   - Every 15 min : parse ACTIVE.md -> update data.json -> git push -> dashboard auto-deploys
   - Every 1 hour : compile full report (with outbox content + tasks) -> cerebronn inbox
   - On silence >30 min : nudge the agent (drop file in their inbox)
-  - On silence >2h    : Telegram alert to Chad (once per agent until they recover)
-  - 9AM SGT  : Morning Briefing -> Telegram + chad-yi inbox + cerebronn inbox
-  - 10PM SGT : Evening Digest   -> Telegram + chad-yi inbox + cerebronn inbox
+  - On silence >2h    : Write alert to CHAD_YI inbox (CHAD_YI reports to Caleb)
+  - 9AM SGT  : Morning Briefing -> CHAD_YI inbox (CHAD_YI reports to Caleb)
+  - 10PM SGT : Evening Digest   -> CHAD_YI inbox (CHAD_YI reports to Caleb)
+
+COMMUNICATION FLOW:
+  Helios writes to CHAD_YI inbox
+    ↓
+  CHAD_YI reads, compiles, filters
+    ↓
+  CHAD_YI reports to Caleb (Telegram)
+
+Helios NEVER sends Telegram messages directly to Caleb.
 
 Chad talks to Helios by dropping a .md, .json, or .txt file in:
   /home/chad-yi/.openclaw/workspace/agents/helios/inbox/
@@ -391,13 +400,16 @@ System status:
 """)
             msg_file.rename(msg_file.parent / f"processed-{msg_file.name}")
             log.info(f"  [inbox] Acked: {msg_file.name}")
-            send_telegram(
-                f"\u2705 *Helios received your message*\n"
-                f"File: `{msg_file.name}`\n"
-                f"Time: {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}\n\n"
+            # DISABLED: Direct Telegram to Caleb. Helios routes through CHAD_YI only.
+            # Write acknowledgment to CHAD_YI inbox instead
+            ack_file = CHAD_INBOX / f"helios-ack-{ms()}.md"
+            write_md(ack_file,
+                f"# Helios Acknowledgment\n\n"
+                f"**Received:** {msg_file.name}\n"
+                f"**Time:** {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}\n\n"
                 f"Next dashboard sync in <15 min.\n"
-                f"Dashboard: https://red-sun-mission-control.onrender.com"
             )
+            log.info(f"  [inbox] Wrote ack to chad-yi inbox: {ack_file.name}")
         except Exception as e:
             log.warning(f"  [inbox] Error processing {msg_file.name}: {e}")
 
@@ -662,8 +674,9 @@ def send_digest(label: str) -> None:
     write_md(path, full_md)
     CEREBRONN_INBOX.mkdir(parents=True, exist_ok=True)
     write_md(CEREBRONN_INBOX / f"digest-{ts}.md", full_md)
-    send_telegram(tg_text)
-    log.info(f"  Digest sent: {label}")
+    # DISABLED: Direct Telegram to Caleb. Route through CHAD_YI only.
+    # CHAD_YI will read digest from inbox and report to Caleb.
+    log.info(f"  Digest sent to chad-yi inbox: {label}")
 
 # ---------------------------------------------------------------------------
 # Main loop - runs forever
@@ -697,12 +710,16 @@ def main() -> None:
     update_cerebronn_briefing(boot_report)
     last_audit  = time.time()
     last_report = time.time()
-    send_telegram(
-        f"\U0001f7e2 *Helios is online*\n"
-        f"Time: {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}\n"
-        f"{boot_report['summary']}\n\n"
-        f"Dashboard: https://red-sun-mission-control.onrender.com"
+    # DISABLED: Direct Telegram to Caleb. Helios routes through CHAD_YI only.
+    # Write boot notification to CHAD_YI inbox instead.
+    boot_file = CHAD_INBOX / f"helios-boot-{int(time.time())}.md"
+    write_md(boot_file,
+        f"# Helios Online\n\n"
+        f"**Time:** {now_sgt().strftime('%Y-%m-%d %H:%M SGT')}\n"
+        f"**Status:** {boot_report['summary']}\n\n"
+        f"Helios is running and monitoring agents."
     )
+    log.info(f"  Boot notification written to chad-yi inbox")
 
     while True:
         now    = time.time()
@@ -726,16 +743,20 @@ def main() -> None:
             last_audit = now
 
             # Telegram alert for agents silent >2h (once per agent until they recover)
+            # DISABLED: Direct Telegram to Caleb. Route through CHAD_YI instead.
             for alert in report["alerts"]:
                 if alert.get("needs_telegram_alert") and alert["agent"] not in alerted_agents:
-                    send_telegram(
-                        f"\u26a0\ufe0f *Agent silent >2h: {alert['agent']}*\n"
-                        f"Last seen: {alert.get('last_activity', 'unknown')}\n"
-                        f"Silent for: {alert.get('silence_hours', '?')}h\n\n"
+                    # Write alert to CHAD_YI inbox
+                    alert_file = CHAD_INBOX / f"helios-alert-{alert['agent']}-{int(time.time())}.md"
+                    write_md(alert_file,
+                        f"# Agent Silent Alert\n\n"
+                        f"**Agent:** {alert['agent']}\n"
+                        f"**Last seen:** {alert.get('last_activity', 'unknown')}\n"
+                        f"**Silent for:** {alert.get('silence_hours', '?')}h\n\n"
                         f"Check their outbox or assign a new task."
                     )
                     alerted_agents.add(alert["agent"])
-                    log.info(f"  [alert] Telegram sent — silent agent: {alert['agent']}")
+                    log.info(f"  [alert] Written to chad-yi inbox — silent agent: {alert['agent']}")
             # Clear alert for agents that recovered
             for name, status in report["agents"].items():
                 if status["health"] != "silent" and name in alerted_agents:
