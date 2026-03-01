@@ -384,6 +384,195 @@ agents/helios/inbox/{agent-name}-response-{timestamp}.json
 - **Next cycle:** Read response, update dashboard if needed
 - **Report:** "Escritor status corrected: Chapter 12 complete, idle awaiting assignment"
 
+### How I "Poke" Agents to Wake Up
+
+**During every 15-minute audit, I check if agents need to be activated.**
+
+**When do I poke an agent?**
+
+| Scenario | Action |
+|----------|--------|
+| Agent is `idle` but has task in inbox | **POKE** — Wake them up |
+| Agent is `blocked` >48h | Report to CHAD_YI (don't poke) |
+| Agent is `active` but stale >24h | **POKE** — Check if still working |
+| Agent has unread message from me | **POKE** — They need to respond |
+
+**How I poke:**
+
+```python
+def poke_agent(agent_name, reason):
+    """
+    Wake up an agent to check their inbox and work.
+    Called during every 15-minute audit cycle.
+    """
+    
+    # Method 1: Try systemd service (if configured)
+    result = run(f"sudo systemctl start {agent_name}")
+    if result.returncode == 0:
+        log(f"Poked {agent_name} via systemd (reason: {reason})")
+        return "systemd"
+    
+    # Method 2: Run agent script directly (background)
+    result = run(f"cd agents/{agent_name} && python3 {agent_name}-agent.py --check-inbox &")
+    if result.returncode == 0:
+        log(f"Poked {agent_name} via direct script (reason: {reason})")
+        return "script"
+    
+    # Method 3: Write poke file (agent checks on their own schedule)
+    write_json(f"agents/{agent_name}/inbox/helios-poke-{timestamp}.json", {
+        "from": "helios",
+        "type": "poke",
+        "reason": reason,
+        "timestamp": timestamp,
+        "reply_to": "agents/helios/inbox/"
+    })
+    log(f"Poked {agent_name} via inbox file (reason: {reason})")
+    return "file"
+```
+
+**Poke flow:**
+
+```
+1. Helios detects agent needs to wake up
+2. Helios writes to agent inbox: "You have work" or "Status check needed"
+3. Helios triggers agent to wake up (systemd/script)
+4. Agent wakes up, reads inbox
+5. Agent processes task/responds
+6. Agent writes response to outbox and Helios inbox
+7. Agent goes back to sleep/idle
+8. Helios sees response in next 15-min cycle
+```
+
+**Example poke scenarios:**
+
+**Scenario 1: Escritor has new writing task**
+```python
+# Helios detects:
+# - Escritor status = "idle"
+# - CHAD_YI wrote task to escritor/inbox/
+# - Task not yet acknowledged
+
+helios_action:
+  1. Write to agents/escritor/inbox/helios-poke-1430.json:
+     {
+       "from": "helios",
+       "type": "poke",
+       "reason": "new_task_assigned",
+       "message": "CHAD_YI assigned A2-14 Chapter 14. Please acknowledge."
+     }
+  
+  2. Poke: sudo systemctl start escritor
+     # OR: python3 agents/escritor/escritor-agent.py &
+  
+  3. Escritor wakes up, reads inbox, sees poke + task
+  
+  4. Escritor updates state.json: "active", current-task.md: "A2-14"
+  
+  5. Escritor writes response to helios inbox
+  
+  6. Escritor goes idle (waits for next poke or cron)
+```
+
+**Scenario 2: Quanta has trading signal**
+```python
+# Helios detects:
+# - Quanta status = "blocked" (waiting for credentials)
+# - But Telegram signal detected in quanta/inbox/
+# - This is urgent!
+
+helios_action:
+  1. Write URGENT poke to quanta inbox
+  2. Try to wake quanta: sudo systemctl start quanta
+  3. If quanta can't start (no credentials), mark as "blocked"
+  4. Write URGENT to CHAD_YI inbox: "Quanta has signal but blocked"
+```
+
+**Scenario 3: Agent hasn't responded to my poll**
+```python
+# Helios detects:
+# - Wrote status poll 30 min ago
+# - Agent hasn't responded
+# - Agent not marked as "blocked"
+
+helios_action:
+  1. Poke agent again
+  2. Write to agent inbox: "Second request for status update"
+  3. If still no response in next cycle:
+     - Mark as "stale" in dashboard
+     - Report to CHAD_YI: "Agent unresponsive"
+```
+
+**Agent Poke Handling:**
+
+When an agent receives a poke, they should:
+
+```python
+# In agent's main loop:
+def handle_poke(poke_message):
+    if poke_message['reason'] == 'new_task_assigned':
+        # Read task from inbox
+        task = read_inbox_for_tasks()
+        # Acknowledge to Helios
+        write_to_helios_inbox({
+            "from": "escritor",
+            "type": "task_acknowledged",
+            "task_id": task['id'],
+            "status": "active"
+        })
+        # Start working
+        process_task(task)
+    
+    elif poke_message['reason'] == 'status_check':
+        # Report current status
+        write_to_helios_inbox({
+            "from": "escritor",
+            "type": "status_response",
+            "status": get_current_status(),
+            "progress": get_progress(),
+            "blockers": get_blockers()
+        })
+    
+    elif poke_message['reason'] == 'stale_check':
+        # Explain why idle
+        write_to_helios_inbox({
+            "from": "escritor",
+            "type": "stale_explanation",
+            "reason": "waiting_for_chapter_review",
+            "expected_resume": "2026-03-02"
+        })
+```
+
+**Poke Priority Levels:**
+
+| Priority | Trigger | Response Time |
+|----------|---------|---------------|
+| 🚨 **URGENT** | Trading signal, critical deadline | Immediate (within 5 min) |
+| ⚡ **HIGH** | New task assigned, blocker resolved | Next cycle (within 15 min) |
+| 📋 **NORMAL** | Status check, routine poll | Next cycle (within 15 min) |
+| 💤 **LOW** | Stale check, verification | Next cycle (within 15 min) |
+
+**No Response Protocol:**
+
+If agent doesn't respond to poke:
+
+```
+Cycle 1: Poke sent
+Cycle 2: No response → Second poke
+Cycle 3: No response → Mark as "unresponsive" in dashboard
+Cycle 4: No response → Escalate to CHAD_YI
+```
+
+**I DO:**
+- ✅ Poke agents every 15 min if they have work
+- ✅ Wake them up via systemd or script
+- ✅ Track response times
+- ✅ Escalate unresponsive agents
+
+**I DO NOT:**
+- ❌ Spawn agents that don't exist yet (CHAD_YI does this)
+- ❌ Keep agents running 24/7 (they wake, work, sleep)
+- ❌ Fix agent errors (I report, they fix)
+
 ---
 
 ## Decision Rules
