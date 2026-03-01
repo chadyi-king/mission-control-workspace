@@ -25,7 +25,8 @@
 
 ### C - Callings (Side Jobs)
 **C1 - Real Estate:** RES exam June 2026  
-**C2 - Side Sales:** Remote high-commission sales, they provide leads
+**C2 - Side Sales:** Remote high-commission sales, they provide leads  
+**C3 - Vibe Code Games:** Building games and interactive experiences, starting with Gather Town (since Feb 13, 2026)
 
 ---
 
