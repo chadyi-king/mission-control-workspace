@@ -1,0 +1,11 @@
+# CHAD_YI Heartbeat Cron Jobs
+# Add these to crontab with: crontab -e
+
+# Heartbeat every 2 hours (excludes 8am and 9pm for digests)
+0 */2 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py >> /tmp/chad-yi-heartbeat.log 2>&1
+
+# Morning Digest - 8 AM SGT
+0 8 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py >> /tmp/chad-yi-morning.log 2>&1
+
+# Evening Digest - 9 PM SGT  
+0 21 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py >> /tmp/chad-yi-evening.log 2>&1
