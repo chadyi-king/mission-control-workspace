@@ -4,7 +4,7 @@
 
 ---
 
-## The Four-File Structure
+## The Four-File Structure + Protocol
 
 Every agent has exactly these four files:
 
@@ -15,6 +15,9 @@ agents/{your-name}/
 ├── LEARNING.md     # What you've learned (patterns, mistakes, preferences)
 └── OPERATIONS.md   # How you work (protocols, tools, communication)
 ```
+
+**PLUS: You MUST read `AGENT_PROTOCOL.md`** — This document explains HOW to use your files.  
+**Failure to follow the protocol = Caleb will be upset.**
 
 ### SOUL.md — Your Becoming
 **Purpose:** Define who you are, not just what you do. Your personality, your values, your vibe.
