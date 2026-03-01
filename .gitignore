@@ -22,3 +22,6 @@ agents/forger/outbox/response-*.md
 # Runtime logs
 runtime-logs/
 *.log
+
+# Cerebronn runtime log
+agents/cerebronn/cerebronn.log
