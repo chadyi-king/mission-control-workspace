@@ -25,11 +25,32 @@
 
 ### C - Callings (Side Jobs)
 **C1 - Real Estate:** RES exam June 2026  
-**C2 - Side Sales:** Remote high-commission sales, they provide leads
+**C2 - Side Sales:** Remote high-commission sales, they provide leads  
+**C3 - Vibe Code Games:** Building games and interactive experiences, starting with Gather Town (since Feb 13, 2026)
 
 ---
 
 ## Key Decisions
+
+### Feb 24, 2026: Agent Architecture Restructure — The Face + The Brain
+**Decision:** Split agent responsibilities into two distinct roles:
+
+- **CHAD_YI = The Face** — Interface, communication, coordination, heartbeat monitoring
+  - Location: OpenClaw (Telegram)
+  - Handles: Quick edits, status checks, task tracking, user chat
+  - Does NOT do: Complex architecture, multi-file coding
+
+- **Cerebronn = The Brain** — Architecture, deep reasoning, complex coding
+  - Location: VS Code Studio (Claude interface)
+  - Models: Opus + Sonnet 4.6, multi-model synthesis
+  - Handles: System design, refactoring, heavy coding projects
+  - Does NOT do: Casual chat, real-time monitoring
+
+**Why:** Clean separation of concerns. CHAD_YI (Kimi K2.5) is fast and efficient for coordination. Cerebronn (Claude family) has better reasoning for complex work and can leverage multiple models.
+
+**Communication:** File-based bridge (GitHub, shared workspace). CHAD_YI escalates to Cerebronn when deep work is needed.
+
+---
 
 **Dashboard Hosting:** GitHub Pages → Render.com (30s updates vs 10min)
 

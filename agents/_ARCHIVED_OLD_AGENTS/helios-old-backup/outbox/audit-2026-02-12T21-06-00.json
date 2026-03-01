@@ -1,0 +1,86 @@
+{
+  "auditId": "helios-2026-02-12T21-06-00",
+  "timestamp": "2026-02-12T21:06:00+08:00",
+  "agentId": "helios",
+  "auditType": "15_minute_dashboard_audit",
+  "dataSourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "summary": {
+    "totalTasks": 8,
+    "agentsChecked": 6,
+    "issuesFound": 3,
+    "autoFixesApplied": 0,
+    "urgentMessagesSent": 1
+  },
+  "consistencyChecks": {
+    "escritor": {
+      "status": "CONSISTENT",
+      "dataJsonStatus": "active",
+      "currentTaskMd": "A2-13 Study Phase (90 questions)",
+      "memoryMd": "A2-13 Study Phase (90 questions)",
+      "notes": "All sources align - agent is actively studying"
+    },
+    "dataJsonFreshness": {
+      "status": "ACCEPTABLE",
+      "lastUpdated": "2026-02-12T20:30:00+08:00",
+      "minutesSinceUpdate": 36,
+      "thresholdMinutes": 60
+    },
+    "taskCounts": {
+      "status": "CONSISTENT",
+      "dataJsonTotal": 8,
+      "workflowSum": 8,
+      "tasksObjectCount": 8
+    }
+  },
+  "issues": [
+    {
+      "severity": "critical",
+      "type": "deadline_approaching",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18,
+      "owner": "CHAD_YI",
+      "actionRequired": "User must complete travel modifications"
+    },
+    {
+      "severity": "critical",
+      "type": "deadline_approaching",
+      "taskId": "B6-4",
+      "title": "MENDAKI Program Flow & Scavenger Hunt Brief",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 17,
+      "owner": "UNASSIGNED",
+      "actionRequired": "Task is pending - needs to be assigned and started immediately"
+    },
+    {
+      "severity": "warning",
+      "type": "agent_blocked_long_term",
+      "agents": ["Quanta", "MensaMusa"],
+      "idleHours": 102,
+      "blocker": "API credentials needed",
+      "actionRequired": "CHAD_YI decision: provide credentials or deprioritize tasks"
+    }
+  ],
+  "agentStatus": {
+    "chad_yi": { "status": "active", "task": "A6-3", "idleHours": 0 },
+    "helios": { "status": "active", "task": "15-min audit", "idleHours": 0 },
+    "escritor": { "status": "active", "task": "A2-13 Study Phase", "idleHours": 0 },
+    "quanta": { "status": "blocked", "task": "A5-1", "idleHours": 102 },
+    "mensamusa": { "status": "blocked", "task": "A5-2", "idleHours": 102 },
+    "autour": { "status": "not_spawned", "task": null, "idleHours": null }
+  },
+  "autoFixesApplied": [],
+  "notes": [
+    "Escritor: Consistent across all data sources - actively working on study phase",
+    "A1-1: Critical deadline tomorrow - user action required",
+    "B6-4: NEW critical task - MENDAKI event due tomorrow, currently pending",
+    "Quanta/MensaMusa: Blocked 102h - decision needed on credentials"
+  ]
+}

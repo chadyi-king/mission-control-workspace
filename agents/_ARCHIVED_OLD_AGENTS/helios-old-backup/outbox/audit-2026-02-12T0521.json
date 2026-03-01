@@ -1,0 +1,102 @@
+{
+  "auditId": "helios-2026-02-12T0521",
+  "timestamp": "2026-02-12T05:21:00+08:00",
+  "auditor": "helios",
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "summary": {
+    "totalIssues": 1,
+    "autoFixesApplied": 0,
+    "warnings": 1,
+    "critical": 0,
+    "agentsAudited": 5
+  },
+  "findings": [
+    {
+      "agent": "escritor",
+      "issueType": "idle_timeout",
+      "severity": "warning",
+      "details": "Agent idle for 78+ hours (last active Feb 9) with task assigned (A2 RE:UNITE)",
+      "dataJsonStatus": "waiting_for_input",
+      "actualWorkStatus": "Waiting for input - needs chapter outline",
+      "consistency": "MATCH",
+      "recommendation": "Ping agent to check if chapter outline is ready"
+    },
+    {
+      "agent": "quanta",
+      "issueType": "blocked",
+      "severity": "info",
+      "details": "Blocked - OANDA credentials needed",
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "mensamusa",
+      "issueType": "blocked", 
+      "severity": "info",
+      "details": "Blocked - Moomoo credentials needed",
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "chad_yi",
+      "issueType": "none",
+      "severity": "ok",
+      "details": "Active on A6-3 dashboard audit setup",
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "autour",
+      "issueType": "not_spawned",
+      "severity": "info",
+      "details": "Agent configured but never spawned for A3 KOE",
+      "consistency": "N/A"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 49,
+      "escalationRequired": false,
+      "note": "Within 48h threshold but not yet critical (<24h)"
+    },
+    {
+      "id": "B6-1",
+      "title": "Elluminate proposal - School A",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "escalationRequired": false
+    },
+    {
+      "id": "B6-3",
+      "title": "Elluminate pitch deck",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "escalationRequired": false
+    }
+  ],
+  "dataFreshness": {
+    "dataJson": {
+      "lastUpdated": "2026-02-12T04:51:00+08:00",
+      "ageMinutes": 30,
+      "status": "stale"
+    },
+    "escritorCurrentTask": "current",
+    "escritorMemory": "current",
+    "activeMd": "current"
+  },
+  "actionsTaken": [
+    {
+      "rule": "agent_idle > 48h AND task_assigned",
+      "triggered": true,
+      "action": "ping_agent",
+      "target": "escritor",
+      "note": "Escritor idle since Feb 9, needs chapter outline direction"
+    }
+  ],
+  "requiresChadYiAttention": false
+}

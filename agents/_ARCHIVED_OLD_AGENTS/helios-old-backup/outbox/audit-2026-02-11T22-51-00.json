@@ -1,0 +1,49 @@
+{
+  "auditId": "helios-2026-02-11T22-51-00",
+  "timestamp": "2026-02-11T22:51:00+08:00",
+  "agent": "helios",
+  "auditNumber": 18,
+  "duration": "2.3s",
+  "sourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "issuesFound": [
+    {
+      "severity": "high",
+      "rule": "agent_idle_over_24h",
+      "agent": "escritor",
+      "details": "Agent idle for 60+ hours (last active: 2026-02-09T12:00:00+08:00)",
+      "actionTaken": "flagged_for_chad_yi"
+    },
+    {
+      "severity": "low",
+      "rule": "stale_data_timestamp",
+      "details": "data.json lastUpdated was 45 min stale",
+      "actionTaken": "auto_fixed"
+    }
+  ],
+  "consistencyChecks": {
+    "escritor_status_match": true,
+    "quanta_blocker_match": true,
+    "mensamusa_blocker_match": true,
+    "chad_yi_status_match": true
+  },
+  "agentStatuses": {
+    "chad_yi": {"status": "active", "currentTask": "A6-3: Dashboard audit"},
+    "escritor": {"status": "waiting_for_input", "idleHours": 60, "needs": "chapter outline"},
+    "quanta": {"status": "blocked", "blocker": "OANDA credentials"},
+    "mensamusa": {"status": "blocked", "blocker": "Moomoo credentials"},
+    "autour": {"status": "not_spawned"}
+  },
+  "deadlines": {
+    "urgent": [
+      {"id": "A1-1", "deadline": "2026-02-13", "hoursLeft": 49},
+      {"id": "B6-1", "deadline": "2026-02-17", "hoursLeft": 121},
+      {"id": "B6-3", "deadline": "2026-02-17", "hoursLeft": 121}
+    ]
+  },
+  "nextAudit": "2026-02-11T23:06:00+08:00"
+}

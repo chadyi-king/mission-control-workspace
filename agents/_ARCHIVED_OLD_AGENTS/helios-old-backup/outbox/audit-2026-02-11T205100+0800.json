@@ -1,0 +1,104 @@
+{
+  "auditId": "helios-audit-2026-02-11T205100+0800",
+  "timestamp": "2026-02-11T20:51:00+08:00",
+  "auditor": "helios",
+  "auditNumber": 10,
+  "duration": "15min",
+  "checks": {
+    "dataJson": {
+      "status": "read_ok",
+      "lastUpdated": "2026-02-11T18:36:00+08:00",
+      "ageMinutes": 135,
+      "stale": true
+    },
+    "escritorCurrentTask": {
+      "status": "read_ok",
+      "agentState": "waiting_for_input"
+    },
+    "escritorMemory": {
+      "status": "read_ok",
+      "project": "A2 - RE:UNITE"
+    },
+    "activeMd": {
+      "status": "read_ok"
+    }
+  },
+  "consistency": {
+    "chad_yi": {
+      "status": "mismatch",
+      "dataJsonTask": "A6-3: Dashboard audit infrastructure setup",
+      "actualWork": "Helios cron audit execution",
+      "action": "sync_required"
+    },
+    "escritor": {
+      "status": "match",
+      "dataJsonStatus": "waiting_for_input",
+      "actualStatus": "waiting_for_input",
+      "idleHours": 52,
+      "action": "ping_agent_triggered"
+    },
+    "quanta": {
+      "status": "match",
+      "blocker": "OANDA credentials"
+    },
+    "mensamusa": {
+      "status": "match",
+      "blocker": "Moomoo credentials"
+    },
+    "autour": {
+      "status": "match",
+      "state": "not_spawned"
+    }
+  },
+  "issues": [
+    {
+      "severity": "high",
+      "rule": "agent_idle_over_24h",
+      "agent": "escritor",
+      "details": "Escritor idle for 52+ hours (last active Feb 9). Status: waiting_for_input. Needs chapter outline for A2 RE:UNITE."
+    },
+    {
+      "severity": "medium", 
+      "rule": "agent_status_mismatch",
+      "agent": "chad_yi",
+      "details": "Task in data.json (A6-3 infrastructure) doesn't match actual work (Helios audit execution)"
+    },
+    {
+      "severity": "low",
+      "rule": "stale_data",
+      "details": "data.json lastUpdated is 135 minutes old, should update more frequently"
+    }
+  ],
+  "deadlines": {
+    "urgent": [
+      {
+        "id": "A1-1",
+        "title": "Travel booking - Japan trip",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 49
+      }
+    ],
+    "upcoming": [
+      {
+        "id": "B6-1",
+        "title": "Elluminate proposal - School A",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      },
+      {
+        "id": "B6-3",
+        "title": "Elluminate pitch deck",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle_over_24h",
+      "action": "flag_for_ping",
+      "target": "escritor"
+    }
+  ],
+  "notificationsSent": ["urgent_deadline_warning"]
+}

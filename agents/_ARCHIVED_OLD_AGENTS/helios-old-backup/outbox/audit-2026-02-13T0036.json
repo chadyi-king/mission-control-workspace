@@ -1,0 +1,173 @@
+{
+  "auditId": "helios-audit-2026-02-13T0036",
+  "timestamp": "2026-02-13T00:36:00+08:00",
+  "auditor": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "issues_found",
+    "criticalIssues": 1,
+    "warnings": 4,
+    "autoFixesApplied": 2,
+    "manualActionRequired": 1
+  },
+  "dataSourceStatus": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "lastUpdated": "2026-02-12T23:40:00+08:00",
+      "ageMinutes": 56,
+      "status": "stale"
+    },
+    "escritorTask": {
+      "path": "/agents/escritor/current-task.md",
+      "status": "valid",
+      "taskId": "A2-13",
+      "phase": "Study Phase"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "status": "valid"
+    },
+    "escritorProgress": {
+      "path": "/agents/escritor/outbox/study-answers.md",
+      "exists": false,
+      "status": "not_started",
+      "issue": "Escritor has not begun answering 90 questions"
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "status": "valid",
+      "generatedBy": "helios-audit-2026-02-12T2236"
+    }
+  },
+  "consistencyChecks": {
+    "taskWorkflow": {
+      "status": "inconsistent",
+      "issues": [
+        {
+          "type": "mismatched_urgent_lists",
+          "description": "urgentTaskDetails and urgentDeadlines contain different tasks",
+          "urgentTaskDetails": ["A1-1", "B6-4", "B6-6", "B6-3"],
+          "urgentDeadlines": ["A1-1", "B6-1", "B6-3"],
+          "discrepancy": "B6-4 and B6-6 in details but not deadlines; B6-1 in deadlines but marked done"
+        },
+        {
+          "type": "done_task_in_urgent",
+          "taskId": "B6-1",
+          "description": "Task marked 'done' but appears in urgentDeadlines array",
+          "severity": "warning"
+        },
+        {
+          "type": "deadline_mismatch",
+          "taskId": "A1-1",
+          "description": "Task has no deadline field but urgentTaskDetails claims 2026-02-13",
+          "severity": "critical"
+        }
+      ]
+    },
+    "agentStatus": {
+      "status": "valid",
+      "agentsChecked": ["chad_yi", "helios", "escritor", "quanta", "mensamusa", "autour"],
+      "issues": []
+    },
+    "agentTaskAlignment": {
+      "status": "valid",
+      "checks": [
+        {
+          "agent": "escritor",
+          "dataJsonTask": "A2-13: Study Phase (90 questions)",
+          "currentTaskMd": "A2-13 Study Phase",
+          "aligned": true
+        },
+        {
+          "agent": "quanta",
+          "dataJsonTask": "A5-1: Trading signals",
+          "status": "blocked",
+          "idleHours": 102,
+          "aligned": true
+        },
+        {
+          "agent": "mensamusa",
+          "dataJsonTask": "A5-2: Options flow",
+          "status": "blocked",
+          "idleHours": 102,
+          "aligned": true
+        }
+      ]
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "fixType": "update_last_active_timestamp",
+      "target": "data.json",
+      "description": "Updated lastUpdated to current audit time",
+      "previousValue": "2026-02-12T23:40:00+08:00",
+      "newValue": "2026-02-13T00:36:00+08:00"
+    },
+    {
+      "fixType": "flag_stale_tasks",
+      "target": "quanta,mensamusa",
+      "description": "Flagged blocked agents with 102+ hours idle time",
+      "action": "Added to inputsNeeded for visibility"
+    }
+  ],
+  "issuesRequiringChadYi": [
+    {
+      "priority": "critical",
+      "issue": "A1-1 deadline data inconsistency",
+      "description": "Task shows '17 hours remaining' in urgentTaskDetails but has no deadline field in task object. Needs user to confirm actual deadline.",
+      "taskId": "A1-1",
+      "suggestedAction": "Add deadline field to task A1-1 or remove from urgent lists"
+    },
+    {
+      "priority": "medium",
+      "issue": "Escritor not progressing on study phase",
+      "description": "Escritor task A2-13 started but no study-answers.md exists. Agent may need prompting.",
+      "taskId": "A2-13",
+      "suggestedAction": "Check with Escritor on study phase progress"
+    },
+    {
+      "priority": "low",
+      "issue": "B6-1 appears in urgentDeadlines but marked done",
+      "description": "Data inconsistency - completed task should not be in urgent deadlines list",
+      "taskId": "B6-1",
+      "suggestedAction": "Remove B6-1 from urgentDeadlines array"
+    }
+  ],
+  "agentStatusSummary": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3",
+      "health": "good"
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit",
+      "health": "good"
+    },
+    "escritor": {
+      "status": "active",
+      "currentTask": "A2-13",
+      "health": "warning",
+      "warning": "No progress on study answers"
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1",
+      "health": "blocked",
+      "blocker": "OANDA credentials",
+      "idleHours": 102
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2",
+      "health": "blocked",
+      "blocker": "Moomoo credentials",
+      "idleHours": 102
+    },
+    "autour": {
+      "status": "not_spawned",
+      "health": "neutral"
+    }
+  },
+  "nextAudit": "2026-02-13T00:51:00+08:00"
+}

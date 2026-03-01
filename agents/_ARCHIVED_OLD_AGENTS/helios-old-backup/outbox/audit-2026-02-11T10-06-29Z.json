@@ -1,0 +1,66 @@
+{
+  "auditId": "helios-audit-2026-02-11T10-06-29Z",
+  "timestamp": "2026-02-11T10:06:29Z",
+  "agent": "Helios",
+  "auditCount": 17,
+  "findings": {
+    "critical": [
+      {
+        "type": "URGENT_DEADLINE",
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 30,
+        "assignedTo": "CHAD_YI",
+        "action": "ESCALATE_TO_CHAD_YI"
+      }
+    ],
+    "warnings": [
+      {
+        "type": "STALE_DATA",
+        "source": "data.json",
+        "lastUpdated": "2026-02-11T08:36:00Z",
+        "ageMinutes": 90,
+        "thresholdMinutes": 60,
+        "action": "PING_CHAD_YI_TO_UPDATE"
+      },
+      {
+        "type": "NO_ACTIVE_WORK",
+        "description": "No agents currently in 'active' status - all idle or blocked",
+        "agentsIdle": ["Escritor", "Quanta", "MensaMusa", "Autour"],
+        "action": "CHAD_YI_TO_ASSIGN_TASKS"
+      }
+    ],
+    "info": [
+      {
+        "type": "UPCOMING_DEADLINES",
+        "tasks": [
+          {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 126},
+          {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 126}
+        ]
+      }
+    ]
+  },
+  "consistencyChecks": {
+    "escritorStatus": {"dataJson": "not_spawned", "taskFile": "NOT_INITIALIZED", "memoryFile": "empty", "result": "CONSISTENT"},
+    "taskCounts": {"dataJson": 73, "pending": 7, "active": 0, "review": 0, "done": 2, "result": "VALID"},
+    "activeMdSync": {"lastUpdated": "2026-02-11T09:30:00Z", "result": "CURRENT"}
+  },
+  "autoFixesApplied": [
+    "No fixes applied - data consistent, action required by CHAD_YI"
+  ],
+  "escalations": [
+    {
+      "type": "agent_blocked",
+      "agent": "Escritor",
+      "reason": "Not spawned - waiting for CHAD_YI",
+      "action": "Message sent to broadcast"
+    },
+    {
+      "type": "urgent_deadline",
+      "task": "A1-1",
+      "reason": "Due tomorrow, 30 hours remaining",
+      "action": "Message sent to broadcast"
+    }
+  ]
+}

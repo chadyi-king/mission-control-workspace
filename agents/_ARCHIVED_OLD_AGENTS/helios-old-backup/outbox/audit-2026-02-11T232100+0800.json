@@ -1,0 +1,65 @@
+{
+  "auditId": "audit-2026-02-11T232100+0800",
+  "timestamp": "2026-02-11T23:21:00+08:00",
+  "auditor": "helios",
+  "auditType": "15min-dashboard-check",
+  "totalAuditsRun": 20,
+  "findings": {
+    "consistency": {
+      "status": "PASS",
+      "checks": [
+        {"check": "escritor_status_match", "dataJson": "waiting_for_input", "currentTask": "Waiting for input", "result": "PASS"},
+        {"check": "chad_yi_status_match", "dataJson": "active (A6-3)", "activeMd": "A6-3 Dashboard audit", "result": "PASS"},
+        {"check": "quanta_status_match", "dataJson": "blocked (OANDA)", "activeMd": "blocked (OANDA)", "result": "PASS"},
+        {"check": "mensamusa_status_match", "dataJson": "blocked (Moomoo)", "activeMd": "blocked (Moomoo)", "result": "PASS"}
+      ]
+    },
+    "dataFreshness": {
+      "dataJsonLastUpdated": "2026-02-11T22:51:00+08:00",
+      "minutesSinceUpdate": 30,
+      "status": "STALE_EXPECTED"
+    },
+    "agentActivity": {
+      "escritor": {
+        "lastActive": "2026-02-09T12:00:00+08:00",
+        "hoursIdle": 59.35,
+        "status": "IDLE_OVER_24H",
+        "severity": "HIGH",
+        "action": "PING_AGENT"
+      },
+      "chad_yi": {
+        "lastActive": "2026-02-11T22:06:00+08:00",
+        "hoursIdle": 1.25,
+        "status": "ACTIVE"
+      },
+      "quanta": {"status": "BLOCKED", "blocker": "OANDA credentials"},
+      "mensamusa": {"status": "BLOCKED", "blocker": "Moomoo credentials"},
+      "autour": {"status": "NOT_SPAWNED"}
+    },
+    "deadlines": {
+      "urgent": [
+        {"id": "A1-1", "deadline": "2026-02-13", "hoursRemaining": 49, "status": "TRACKED"},
+        {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "TRACKED"},
+        {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "TRACKED"}
+      ],
+      "within24h": false
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle_over_24h",
+      "target": "escritor",
+      "action": "flag_for_ping",
+      "timestamp": "2026-02-11T23:21:00+08:00"
+    }
+  ],
+  "urgentIssues": [
+    {
+      "type": "agent_idle",
+      "agent": "escritor",
+      "hoursIdle": 59.35,
+      "message": "Escritor has been idle for 59+ hours waiting for chapter outline from CHAD_YI"
+    }
+  ],
+  "notificationSent": false
+}

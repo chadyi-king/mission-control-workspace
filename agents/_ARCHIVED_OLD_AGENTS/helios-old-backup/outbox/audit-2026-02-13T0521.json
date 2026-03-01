@@ -1,0 +1,155 @@
+{
+  "auditId": "helios-audit-2026-02-13T0521",
+  "timestamp": "2026-02-13T05:21:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "durationMs": 45000,
+  "summary": {
+    "status": "issues_found",
+    "totalIssues": 4,
+    "critical": 1,
+    "warnings": 3,
+    "autoFixesApplied": 1,
+    "requiresChadYi": true
+  },
+  "dataSourcesChecked": [
+    {
+      "path": "agents/helios/AGENT_STATE.json",
+      "status": "ok",
+      "lastAudit": "2026-02-13T05:06:00+08:00",
+      "nextAudit": "2026-02-13T05:21:00+08:00"
+    },
+    {
+      "path": "mission-control-dashboard/data.json",
+      "status": "stale",
+      "lastUpdated": "2026-02-13T03:30:00+08:00",
+      "ageMinutes": 111,
+      "tasks": 71,
+      "pending": 2,
+      "active": 5,
+      "review": 1,
+      "done": 3
+    },
+    {
+      "path": "ACTIVE.md",
+      "status": "ok",
+      "generated": "2026-02-13T02:51:00+08:00",
+      "matchesDataJson": true
+    },
+    {
+      "path": "agents/escritor/AGENT_STATE.json",
+      "status": "inconsistent",
+      "issues": ["status_mismatch", "task_id_mismatch"]
+    },
+    {
+      "path": "agents/escritor/current-task.md",
+      "status": "ok",
+      "taskId": "A2-13",
+      "phase": "Study Phase"
+    }
+  ],
+  "consistencyChecks": {
+    "escritor": {
+      "dataJsonStatus": "active",
+      "dataJsonTask": "A2-13",
+      "agentStateStatus": "not_spawned",
+      "agentStateTask": "A2-12",
+      "currentTaskMd": "A2-13",
+      "issue": "CRITICAL: Task ID mismatch and status inconsistency. AGENT_STATE shows A2-12/review/not_spawned but data.json and current-task.md show A2-13/active/Study Phase",
+      "recommendation": "CHAD_YI must resolve: either update AGENT_STATE to match A2-13, or correct data.json if A2-12 is still the actual task"
+    },
+    "taskCounts": {
+      "dataJsonStats": {
+        "total": 71,
+        "pending": 2,
+        "active": 5,
+        "review": 1,
+        "done": 3,
+        "backlog": 53
+      },
+      "workflowArrayCounts": {
+        "pending": 2,
+        "active": 5,
+        "review": 1,
+        "done": 3
+      },
+      "match": true
+    },
+    "agentStatuses": {
+      "chad_yi": "consistent",
+      "helios": "consistent",
+      "escritor": "INCONSISTENT",
+      "quanta": "consistent (blocked)",
+      "mensamusa": "consistent (blocked)",
+      "autour": "consistent (not_spawned)"
+    }
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 18.5,
+      "severity": "critical",
+      "agent": "CHAD_YI",
+      "actionRequired": "USER_ACTION"
+    },
+    {
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 94,
+      "severity": "high",
+      "agent": "CHAD_YI"
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 94,
+      "severity": "high",
+      "agent": "CHAD_YI"
+    }
+  ],
+  "blockedAgents": [
+    {
+      "agent": "Quanta",
+      "task": "A5-1",
+      "blocker": "OANDA API credentials",
+      "idleHours": 120,
+      "severity": "medium"
+    },
+    {
+      "agent": "MensaMusa",
+      "task": "A5-2",
+      "blocker": "Moomoo account credentials",
+      "idleHours": 120,
+      "severity": "medium"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "type": "update_last_audit_timestamp",
+      "description": "Updated AGENT_STATE.json lastAudit to current timestamp",
+      "success": true
+    }
+  ],
+  "autoFixesBlocked": [
+    {
+      "type": "update_escritor_status",
+      "reason": "Change task status blocked by rule - requires CHAD_YI decision",
+      "wouldHaveDone": "Update escritor status from 'not_spawned' to 'active' to match data.json"
+    },
+    {
+      "type": "resolve_task_id_mismatch",
+      "reason": "Reassignment blocked by rule - requires CHAD_YI decision",
+      "wouldHaveDone": "Align A2-12 vs A2-13 task assignment"
+    }
+  ],
+  "recommendations": [
+    "CRITICAL: Resolve escritor task ID mismatch (A2-12 vs A2-13) - CHAD_YI decision required",
+    "URGENT: User action needed on A1-1 (Taiwan flights) - due today",
+    "Consider providing credentials to unblock Quanta/MensaMusa (120h idle)",
+    "Update data.json timestamp after next change"
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-02-12T05:36:00+08:00",
+  "auditId": "helios-audit-2026-02-12T053600",
+  "agentId": "helios",
+  "auditCount": 8,
+  "durationMs": 1240,
+  "summary": {
+    "totalIssues": 1,
+    "critical": 0,
+    "warning": 1,
+    "info": 0,
+    "autoFixesApplied": 1,
+    "escalations": 0
+  },
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyChecks": {
+    "agentStatusMatch": {
+      "passed": true,
+      "details": "All agent statuses match their actual work files"
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-12T04:51:00+08:00",
+      "ageMinutes": 45,
+      "status": "stale_warning",
+      "note": "Data not updated in last 15min interval"
+    },
+    "deadlineTracking": {
+      "urgentTasks": 3,
+      "dueWithin24h": 0,
+      "dueWithin48h": 1
+    }
+  },
+  "issuesFound": [
+    {
+      "id": "ISSUE-001",
+      "severity": "warning",
+      "category": "agent_idle",
+      "agent": "escritor",
+      "description": "Agent idle for 65+ hours with task assigned",
+      "condition": "agent_idle > 48h AND task_assigned",
+      "detectedAt": "2026-02-12T05:36:00+08:00",
+      "autoFixApplied": {
+        "action": "ping_agent",
+        "status": "completed",
+        "note": "Added to ping queue - no critical escalation needed"
+      }
+    }
+  ],
+  "agentHealth": {
+    "chad_yi": {
+      "status": "active",
+      "lastActive": "2026-02-11T22:06:00+08:00",
+      "hoursIdle": 7.5,
+      "health": "healthy"
+    },
+    "escritor": {
+      "status": "waiting_for_input",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "hoursIdle": 65.6,
+      "health": "stale",
+      "blocker": "Awaiting chapter outline from CHAD_YI"
+    },
+    "quanta": {
+      "status": "blocked",
+      "health": "blocked",
+      "blocker": "OANDA credentials needed"
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "health": "blocked",
+      "blocker": "Moomoo credentials needed"
+    },
+    "autour": {
+      "status": "not_spawned",
+      "health": "inactive"
+    }
+  },
+  "deadlines": {
+    "A1-1": {
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 42.4,
+      "urgency": "high"
+    },
+    "B6-1": {
+      "title": "Elluminate proposal - School A",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 114.4,
+      "urgency": "medium"
+    },
+    "B6-3": {
+      "title": "Elluminate pitch deck",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 114.4,
+      "urgency": "medium"
+    }
+  },
+  "actionsTaken": [
+    {
+      "time": "05:36:00",
+      "action": "ping_agent",
+      "target": "escritor",
+      "reason": "Idle > 48h with assigned task"
+    }
+  ],
+  "nextAudit": "2026-02-12T05:51:00+08:00"
+}

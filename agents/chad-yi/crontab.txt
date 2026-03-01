@@ -1,0 +1,14 @@
+# CHAD_YI Heartbeat Cron Jobs
+# Schedule: 2-hour intervals during day, 5-hour intervals overnight
+
+# Morning Digest - 8:00 AM SGT
+0 8 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py --type morning >> /tmp/chad-yi-morning.log 2>&1
+
+# Daytime Heartbeats - Every 2 hours (10am, 12pm, 2pm, 4pm, 6pm, 8pm)
+0 10,12,14,16,18,20 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py --type heartbeat >> /tmp/chad-yi-heartbeat.log 2>&1
+
+# Evening Digest - 10:00 PM SGT
+0 22 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py --type evening >> /tmp/chad-yi-evening.log 2>&1
+
+# Overnight Heartbeats - Every 5 hours (3am)
+0 3 * * * /home/chad-yi/.venv/bin/python /home/chad-yi/.openclaw/workspace/agents/chad-yi/chad-yi-heartbeat.py --type heartbeat >> /tmp/chad-yi-heartbeat.log 2>&1

@@ -1,0 +1,11 @@
+{
+  "oanda_api_key": "8d4ff0fbea2b109c515a956784596208-be028efcd5faae816357345ff32c3bac",
+  "oanda_account_id": "001-003-8520002-001",
+  "oanda_environment": "live",
+  "balance_sgd": 2004.57,
+  "risk_percent": 1.0,
+  "max_positions": 5,
+  "telegram_channel": "CALLISTOFX",
+  "auto_execute": false,
+  "notify_on_signal": true
+}

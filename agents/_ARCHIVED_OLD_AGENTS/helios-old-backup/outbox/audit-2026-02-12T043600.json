@@ -1,0 +1,81 @@
+{
+  "auditId": "helios-2026-02-12T043600",
+  "timestamp": "2026-02-12T04:36:00+08:00",
+  "auditor": "helios",
+  "results": {
+    "dataSourcesChecked": [
+      "/agents/helios/AGENT_STATE.json",
+      "/mission-control-dashboard/data.json",
+      "/agents/escritor/current-task.md",
+      "/agents/escritor/MEMORY.md",
+      "/ACTIVE.md"
+    ],
+    "consistencyChecks": {
+      "escritor": {
+        "status": "MISMATCH_FOUND",
+        "details": {
+          "data.json": "not_spawned",
+          "actualWork": "Waiting for input (A2 RE:UNITE)",
+          "idleSince": "2026-02-09T12:00:00+08:00",
+          "idleHours": 64.6
+        }
+      },
+      "chad_yi": {
+        "status": "OK",
+        "details": {
+          "data.json": "active",
+          "actualWork": "A6-3: Dashboard audit infrastructure",
+          "lastActive": "2026-02-11T22:06:00+08:00",
+          "idleHours": 6.5
+        }
+      },
+      "quanta": {
+        "status": "OK",
+        "details": {
+          "data.json": "blocked",
+          "blocker": "OANDA credentials needed",
+          "matchesActual": true
+        }
+      },
+      "mensamusa": {
+        "status": "OK",
+        "details": {
+          "data.json": "blocked",
+          "blocker": "Moomoo credentials needed",
+          "matchesActual": true
+        }
+      },
+      "autour": {
+        "status": "OK",
+        "details": {
+          "data.json": "not_spawned",
+          "hasTaskFiles": false,
+          "matchesActual": true
+        }
+      }
+    },
+    "deadlines": {
+      "checked": 3,
+      "critical": 0,
+      "warning": 3,
+      "items": [
+        {"id": "A1-1", "deadline": "2026-02-13", "hoursRemaining": 49, "status": "warning"},
+        {"id": "B6-1", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "normal"},
+        {"id": "B6-3", "deadline": "2026-02-17", "hoursRemaining": 121, "status": "normal"}
+      ]
+    },
+    "issuesFound": 1,
+    "autoFixesApplied": 1,
+    "fixes": [
+      {
+        "rule": "agent_status mismatch actual_work",
+        "target": "escritor",
+        "action": "Recommend status update to 'waiting_for_input'",
+        "severity": "info"
+      }
+    ],
+    "requiresAttention": [
+      "Escritor idle 64.6h with assigned A2 task - needs chapter outline from user"
+    ]
+  }
+}

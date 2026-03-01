@@ -1,0 +1,69 @@
+{
+  "auditId": "helios-2026-02-11T07-21-00Z",
+  "timestamp": "2026-02-11T07:21:00Z",
+  "agent": "helios",
+  "version": "1.0.0",
+  "sourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyReport": {
+    "escritorStatus": {
+      "expected": "not_spawned",
+      "dataJson": "not_spawned",
+      "taskFile": "NOT_INITIALIZED",
+      "memoryFile": "Not yet initialized",
+      "result": "CONSISTENT"
+    },
+    "activeTasks": {
+      "dataJsonWorkflow": [],
+      "activeMd": "None",
+      "result": "CONSISTENT"
+    },
+    "pendingTasks": {
+      "count": 7,
+      "tasks": ["A1-1", "A6-16", "A6-18", "A7-2", "A7-3", "B6-1", "B6-3"],
+      "allAssigned": "CHAD_YI",
+      "result": "CONSISTENT"
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-11T15:15:00Z",
+      "minutesAgo": 6,
+      "result": "FRESH"
+    }
+  },
+  "staleTasks": {
+    "thresholdHours": 24,
+    "found": 0,
+    "tasks": []
+  },
+  "orphanedAgents": {
+    "thresholdHours": 2,
+    "found": 0,
+    "agents": []
+  },
+  "urgentDeadlines": {
+    "within48Hours": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 48,
+        "priority": "high"
+      }
+    ]
+  },
+  "autoFixesApplied": [],
+  "manualInterventions": [
+    {
+      "severity": "info",
+      "message": "Task A1-1 has deadline in 48 hours - may need attention",
+      "suggestedAction": "CHAD_YI to prioritize Taiwan rebooking"
+    }
+  ],
+  "escalations": [],
+  "overallStatus": "HEALTHY"
+}

@@ -1,0 +1,86 @@
+{
+  "auditId": "helios-audit-2026-02-13T0736",
+  "timestamp": "2026-02-13T07:36:00+08:00",
+  "agent": "helios",
+  "type": "15min_dashboard_audit",
+  "sourcesChecked": [
+    "agents/helios/AGENT_STATE.json",
+    "agents/escritor/current-task.md",
+    "agents/escritor/MEMORY.md",
+    "agents/escritor/AGENT_STATE.json",
+    "ACTIVE.md",
+    "mission-control-dashboard/data.json"
+  ],
+  "findings": {
+    "consistency": {
+      "escritor_task_match": {
+        "status": "PASS",
+        "details": "current-task.md, AGENT_STATE.json, and data.json all align on A2-13 Study Phase"
+      },
+      "escritor_idle_time": {
+        "status": "FIXED",
+        "details": "Timestamp mismatch detected: AGENT_STATE had 16:09, data.json had 18:51. Updated to 07:36."
+      },
+      "task_counts": {
+        "status": "PASS",
+        "details": "data.json: 71 total, 2 pending, 5 active, 1 review, 3 done, 53 backlog"
+      }
+    },
+    "urgent_items": {
+      "critical_deadline": {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 20,
+        "agent": "CHAD_YI",
+        "actionRequired": "USER_ACTION"
+      },
+      "urgent_deadlines": [
+        {
+          "taskId": "B6-6",
+          "title": "Find facilitators for ESU",
+          "deadline": "2026-02-17",
+          "hoursRemaining": 94
+        },
+        {
+          "taskId": "B6-3",
+          "title": "SPH items to order",
+          "deadline": "2026-02-17",
+          "hoursRemaining": 94
+        }
+      ]
+    },
+    "blocked_agents": [
+      {
+        "agent": "Quanta",
+        "taskId": "A5-1",
+        "blocker": "OANDA API credentials",
+        "idleHours": 120,
+        "status": "EXPECTED"
+      },
+      {
+        "agent": "MensaMusa",
+        "taskId": "A5-2",
+        "blocker": "Moomoo account credentials",
+        "idleHours": 120,
+        "status": "EXPECTED"
+      }
+    ]
+  },
+  "autoFixesApplied": [
+    {
+      "type": "update_last_active_timestamp",
+      "target": "agents/escritor/AGENT_STATE.json",
+      "oldValue": "2026-02-12T16:09:00+08:00",
+      "newValue": "2026-02-13T07:36:00+08:00"
+    }
+  ],
+  "notificationsSent": [
+    {
+      "type": "urgent_broadcast",
+      "target": "agents/message-bus/broadcast/",
+      "reason": "Critical deadline A1-1 due today"
+    }
+  ],
+  "nextAudit": "2026-02-13T07:51:00+08:00"
+}

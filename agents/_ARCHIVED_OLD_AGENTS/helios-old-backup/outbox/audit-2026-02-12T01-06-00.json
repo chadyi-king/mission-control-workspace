@@ -1,0 +1,91 @@
+{
+  "auditId": "helios-2026-02-12T01-06-00",
+  "timestamp": "2026-02-12T01:06:00+08:00",
+  "auditor": "helios",
+  "durationMinutes": 15,
+  "sourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyResults": {
+    "escritor": {
+      "data.jsonStatus": "waiting_for_input",
+      "actualStatus": "waiting_for_input",
+      "match": true,
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "idleHours": 61
+    },
+    "quanta": {
+      "data.jsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "match": true,
+      "blocker": "OANDA credentials needed"
+    },
+    "mensamusa": {
+      "data.jsonStatus": "blocked",
+      "actualStatus": "blocked",
+      "match": true,
+      "blocker": "Moomoo credentials needed"
+    },
+    "autour": {
+      "data.jsonStatus": "not_spawned",
+      "actualStatus": "not_spawned",
+      "match": true
+    },
+    "chad_yi": {
+      "data.jsonStatus": "active",
+      "actualStatus": "active",
+      "match": true,
+      "currentTask": "A6-3: Dashboard audit infrastructure setup"
+    }
+  },
+  "issuesFound": [
+    {
+      "severity": "high",
+      "type": "agent_idle_over_24h",
+      "agent": "escritor",
+      "idleHours": 61,
+      "message": "Escritor has been idle for 61 hours (since Feb 9). Awaiting chapter outline from CHAD_YI for A2 RE:UNITE.",
+      "autoFixApplied": "ping_agent"
+    },
+    {
+      "severity": "medium",
+      "type": "stale_data",
+      "message": "data.json lastUpdated is 2026-02-11T22:51:00+08:00 (2h 15m stale)",
+      "recommendation": "Update timestamp after each audit"
+    }
+  ],
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 23,
+      "alert": true
+    },
+    {
+      "id": "B6-1",
+      "title": "Elluminate proposal - School A",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "alert": false
+    },
+    {
+      "id": "B6-3",
+      "title": "Elluminate pitch deck",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 121,
+      "alert": false
+    }
+  ],
+  "summary": {
+    "totalAgents": 5,
+    "consistentAgents": 5,
+    "inconsistentAgents": 0,
+    "urgentIssues": 1,
+    "deadlinesWithin24h": 1
+  }
+}

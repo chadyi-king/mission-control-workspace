@@ -1,0 +1,91 @@
+{
+  "auditId": "helios-audit-2026-02-12T150600",
+  "timestamp": "2026-02-12T15:06:00+08:00",
+  "auditor": "helios",
+  "duration": "~15min",
+  "dataSourcesChecked": [
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "consistencyChecks": {
+    "agentStatusVsWork": {
+      "chad_yi": "PASS - Active, matches ACTIVE.md",
+      "helios": "PASS - Active (this audit)",
+      "escritor": "FIXED - Was 'being_built', now 'active' (editing Chapter 13)",
+      "quanta": "PASS - Active (awaiting credentials)",
+      "mensamusa": "PASS - Not spawned (blocked)",
+      "autour": "PASS - Not spawned"
+    },
+    "dataFreshness": {
+      "lastUpdated": "2026-02-12T14:54:32.230054",
+      "ageMinutes": 12,
+      "status": "FRESH"
+    }
+  },
+  "autoFixesApplied": [
+    {
+      "agent": "escritor",
+      "field": "status",
+      "oldValue": "being_built",
+      "newValue": "active",
+      "reason": "Agent actively writing Chapter 13 per current-task.md"
+    },
+    {
+      "agent": "escritor",
+      "field": "currentTask",
+      "oldValue": "A2-13: Story knowledge base construction",
+      "newValue": "A2-13: Editing Chapter 13 'Captivity' - Ryfel prison arc",
+      "reason": "Task description did not match actual work"
+    },
+    {
+      "agent": "escritor",
+      "field": "lastActive",
+      "oldValue": "2026-02-12T14:54:32.230052",
+      "newValue": "2026-02-12T15:06:00+08:00",
+      "reason": "Updated to audit timestamp"
+    }
+  ],
+  "issuesFound": {
+    "critical": [
+      {
+        "type": "deadline",
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 26,
+        "action": "URGENT - Due tomorrow"
+      }
+    ],
+    "warnings": [
+      {
+        "type": "blocked_agent",
+        "agent": "quanta",
+        "taskId": "A5-3",
+        "reason": "Awaiting OANDA credentials / CALLISTOFX auth",
+        "daysBlocked": 0
+      },
+      {
+        "type": "blocked_agent",
+        "agent": "mensamusa",
+        "taskId": "A5-2",
+        "reason": "Not spawned - needs Moomoo credentials",
+        "daysBlocked": 0
+      }
+    ],
+    "info": []
+  },
+  "stats": {
+    "totalTasks": 80,
+    "pending": 13,
+    "active": 3,
+    "review": 0,
+    "done": 2,
+    "backlog": 63,
+    "agentsActive": 4,
+    "agentsBlocked": 2,
+    "agentsNotSpawned": 4
+  },
+  "nextAudit": "2026-02-12T15:21:00+08:00"
+}

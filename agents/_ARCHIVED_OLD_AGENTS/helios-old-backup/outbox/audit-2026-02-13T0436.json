@@ -1,0 +1,142 @@
+{
+  "auditId": "helios-audit-2026-02-13T0436",
+  "timestamp": "2026-02-13T04:36:00+08:00",
+  "auditor": "helios",
+  "status": "completed",
+  "issuesFound": 4,
+  "autoFixesApplied": 1,
+  "requiresChadYiAttention": true,
+  "findings": [
+    {
+      "severity": "critical",
+      "type": "deadline_urgent",
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 13,
+      "owner": "CHAD_YI",
+      "description": "Task due TODAY (Feb 13). No progress logged in last 24h.",
+      "recommendation": "USER_ACTION_REQUIRED: Reschedule flights and accommodation immediately"
+    },
+    {
+      "severity": "high",
+      "type": "agent_idle",
+      "agent": "escritor",
+      "task": "A2-13 Study Phase",
+      "hoursIdle": 9.5,
+      "lastActive": "2026-02-12T19:06:00+08:00",
+      "description": "Escritor has not reported progress in 9.5 hours. Study Phase (90 questions) may be stuck.",
+      "recommendation": "Ping Escritor for status update on question completion progress"
+    },
+    {
+      "severity": "medium",
+      "type": "agent_blocked",
+      "agents": ["quanta", "mensamusa"],
+      "hoursBlocked": 102,
+      "blockers": ["OANDA credentials", "Moomoo credentials"],
+      "description": "Both trading agents blocked for 102+ hours waiting for API credentials",
+      "recommendation": "Decision needed: Provide credentials or deprioritize A5 project"
+    },
+    {
+      "severity": "low",
+      "type": "data_inconsistency",
+      "description": "Helios lastAudit timestamp mismatch between AGENT_STATE.json files",
+      "details": {
+        "rootAgentState": "helios-2026-02-13T0136",
+        "heliosAgentState": "2026-02-13T04:21:00+08:00"
+      },
+      "autoFixed": true,
+      "fixApplied": "Standardized to ISO 8601 format in helios/AGENT_STATE.json"
+    }
+  ],
+  "dataConsistency": {
+    "dataJson": {
+      "status": "consistent",
+      "taskCount": 71,
+      "lastUpdated": "2026-02-13T03:30:00+08:00",
+      "ageMinutes": 66
+    },
+    "activeMd": {
+      "status": "consistent",
+      "matchesDataJson": true
+    },
+    "escritorTask": {
+      "status": "consistent",
+      "taskMatches": "A2-13",
+      "phase": "Study and Answer Questions"
+    }
+  },
+  "agentStatus": {
+    "chad_yi": {
+      "status": "active",
+      "currentTask": "A6-3 Dashboard audit infrastructure",
+      "lastActive": "2026-02-13T04:30:00+08:00",
+      "issues": ["A1-1 due today"]
+    },
+    "helios": {
+      "status": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastAudit": "2026-02-13T04:36:00+08:00",
+      "nextAudit": "2026-02-13T04:51:00+08:00"
+    },
+    "escritor": {
+      "status": "active_but_idle",
+      "currentTask": "A2-13 Study Phase (90 questions)",
+      "lastActive": "2026-02-12T19:06:00+08:00",
+      "hoursIdle": 9.5,
+      "progress": "unknown"
+    },
+    "quanta": {
+      "status": "blocked",
+      "currentTask": "A5-1 Trading signals",
+      "blocker": "OANDA credentials",
+      "hoursBlocked": 102
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "currentTask": "A5-2 Options flow",
+      "blocker": "Moomoo credentials",
+      "hoursBlocked": 102
+    },
+    "autour": {
+      "status": "not_spawned",
+      "currentTask": null,
+      "note": "Configured for A3 KOE but never spawned"
+    }
+  },
+  "urgentDeadlines": [
+    {
+      "id": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 13,
+      "severity": "critical"
+    },
+    {
+      "id": "B6-3",
+      "title": "SPH items to order",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 85,
+      "severity": "high"
+    },
+    {
+      "id": "B6-6",
+      "title": "Find facilitators for ESU",
+      "deadline": "2026-02-17",
+      "hoursRemaining": 85,
+      "severity": "high"
+    }
+  ],
+  "summary": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 5,
+    "review": 1,
+    "done": 3,
+    "blocked": 2,
+    "criticalIssues": 1,
+    "highIssues": 1,
+    "mediumIssues": 1,
+    "lowIssues": 1
+  }
+}

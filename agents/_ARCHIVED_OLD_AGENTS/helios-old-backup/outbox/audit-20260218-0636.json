@@ -1,0 +1,169 @@
+{
+  "timestamp": "2026-02-18T06:36:05.998559",
+  "auditor": "helios",
+  "audit_id": "audit-20260218-0636",
+  "summary": {
+    "total_findings": 4,
+    "critical": 0,
+    "warning": 4,
+    "agents_audited": 7,
+    "urgent_deadlines": 1
+  },
+  "data_integrity": {
+    "passed": false,
+    "issues": [
+      "Overdue tasks: B6-3, B6-6, B6-7"
+    ]
+  },
+  "agents": {
+    "chad-yi": {
+      "name": "chad-yi",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0,
+      "role": "CEO/Brain",
+      "daily_log_exists": true,
+      "build_tracking_fresh": false
+    },
+    "quanta": {
+      "name": "quanta",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 1,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    },
+    "escritor": {
+      "name": "escritor",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 6,
+      "inbox_has_recent": true,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    },
+    "mensamusa": {
+      "name": "mensamusa",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    },
+    "helios": {
+      "name": "helios",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 0,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    },
+    "forger": {
+      "name": "forger",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 4,
+      "inbox_has_recent": false,
+      "no_response": false,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    },
+    "autour": {
+      "name": "autour",
+      "service_running": false,
+      "state_fresh": false,
+      "memory_current": false,
+      "inbox_unread": 1,
+      "inbox_has_recent": true,
+      "no_response": true,
+      "git_active_24h": true,
+      "git_commits": 93,
+      "log_errors": 0
+    }
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Overdue tasks: B6-3, B6-6, B6-7"
+    },
+    {
+      "severity": "warning",
+      "category": "agent_health",
+      "agent": "quanta",
+      "issue": "Service not running: "
+    },
+    {
+      "severity": "warning",
+      "category": "agent_health",
+      "agent": "helios",
+      "issue": "Service not running: "
+    },
+    {
+      "severity": "warning",
+      "category": "agent_comms",
+      "agent": "autour",
+      "issue": "Has unread inbox messages but no outbox activity"
+    },
+    {
+      "severity": "warning",
+      "category": "data_integrity",
+      "issue": "Overdue tasks: B6-3, B6-6, B6-7"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Overdue tasks: B6-3, B6-6, B6-7"
+    },
+    {
+      "priority": "soon",
+      "category": "agent_health",
+      "agent": "quanta",
+      "action": "Service not running: "
+    },
+    {
+      "priority": "soon",
+      "category": "agent_health",
+      "agent": "helios",
+      "action": "Service not running: "
+    },
+    {
+      "priority": "soon",
+      "category": "agent_comms",
+      "agent": "autour",
+      "action": "Has unread inbox messages but no outbox activity"
+    },
+    {
+      "priority": "soon",
+      "category": "data_integrity",
+      "agent": "system",
+      "action": "Overdue tasks: B6-3, B6-6, B6-7"
+    }
+  ]
+}

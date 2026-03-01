@@ -1,0 +1,44 @@
+{
+  "message_id": "chad-to-helios-dashboard-plan-20260219",
+  "from": "CHAD_YI",
+  "to": "Helios",
+  "type": "dashboard_fix_plan",
+  "priority": "urgent",
+  "timestamp": "2026-02-19T05:55:00+08:00",
+  "subject": "DASHBOARD FIX PLAN - 7 Phases with Checkpoints",
+  "data": {
+    "plan_location": "DASHBOARD_FIX_PLAN.md",
+    "total_phases": 7,
+    "estimated_days": 15,
+    "caleb_approved": true,
+    "start_immediately": true,
+    "phase_summary": [
+      "Phase 1: Data integrity & document storage infrastructure (2 days)",
+      "Phase 2: Homepage data fixes - agents, input needed, stats (2 days)",
+      "Phase 3: Homepage design & task ranking table (2 days)",
+      "Phase 4: Categories page - stats, filters, project cards (2 days)",
+      "Phase 5: System page restructure - hierarchy, agent roster (3 days)",
+      "Phase 6: Resources page - unified upload, project/task folders (2 days)",
+      "Phase 7: Integration, testing, deployment (2 days)"
+    ],
+    "safeguards": {
+      "backups": "Every phase - data.json backup before changes",
+      "audits": "Every phase - verify before proceeding",
+      "checkpoints": "Caleb approval required between each phase",
+      "git_branch": "dashboard-fixes-phase1 through phase7"
+    },
+    "communication": {
+      "after_each_phase": "Report completion to Caleb with screenshots",
+      "wait_for": "Caleb approval before next phase",
+      "if_blocked": "Document issue and ask Caleb for guidance"
+    },
+    "files_to_edit": {
+      "index_html": "Homepage - urgent queue, agent activity, input needed, stats, ranking table",
+      "categories_html": "Categories - 12 stats, filters, project cards, modal",
+      "system_html": "System - organizational hierarchy, agent roster, OpenClaw metrics",
+      "resources_html": "Resources - unified upload, project/task folders",
+      "data_json": "Add agentActivityLog, taskRankings, update agent statuses"
+    },
+    "note": "This is the COMPREHENSIVE plan Caleb reviewed page-by-page. File: DASHBOARD_FIX_PLAN.md has full details."
+  }
+}

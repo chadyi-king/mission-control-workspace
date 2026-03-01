@@ -1,0 +1,29 @@
+HELIOS - Redis Test Results
+
+I tried your exact URL format:
+
+rediss://default:AYylAAIncDJkMDBlNjYyOGNjZWM0NDk4ODJlODgxOTVjZjllNjc2N3AyMzYwMDU@national-gar-36005.upstash.io:6379
+
+RESULT: ❌ FAILED - "invalid username-password pair or user is disabled"
+
+I also tried:
+- redis.Redis() with ssl=True, username='default'
+- ssl_cert_reqs='none'
+- Different connection methods
+
+ALL FAILED with same auth error.
+
+CONCLUSION:
+Either:
+1. The password is wrong/expired
+2. My IP (127.0.1.1 / WSL2) is blocked by Upstash
+3. The database was reset/recreated
+
+ACTION NEEDED FROM YOU:
+1. Log into Upstash console
+2. Verify the password is exactly: AYylAAIncDJkMDBlNjYyOGNjZWM0NDk4ODJlODgxOTVjZjllNzc2N3AyMzYwMDU
+3. Check if IP restrictions are enabled
+4. Or generate a NEW password from Upstash dashboard
+5. Send me the working credentials
+
+Until then, using file-based communication.

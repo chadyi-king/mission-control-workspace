@@ -1,0 +1,125 @@
+{
+  "auditId": "helios-audit-2026-02-13T0806",
+  "timestamp": "2026-02-13T08:06:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "status": "completed",
+  "summary": {
+    "dataSourcesChecked": 5,
+    "issuesFound": 3,
+    "autoFixesApplied": 1,
+    "urgentNotifications": 1,
+    "overallHealth": "needs_attention"
+  },
+  "dataSourceStatus": {
+    "AGENT_STATE.json": {
+      "status": "ok",
+      "lastAudit": "2026-02-13T07:51:00+08:00",
+      "nextAudit": "2026-02-13T08:06:00+08:00",
+      "onSchedule": true
+    },
+    "data.json": {
+      "status": "ok",
+      "lastUpdated": "2026-02-13T06:36:00+08:00",
+      "dataFreshnessHours": 1.5,
+      "taskCount": 71,
+      "statsConsistency": "verified"
+    },
+    "escritor/current-task.md": {
+      "status": "ok",
+      "currentTask": "A2-13",
+      "phase": "Study Phase (90 questions)"
+    },
+    "escritor/MEMORY.md": {
+      "status": "ok",
+      "matchesCurrentTask": true
+    },
+    "ACTIVE.md": {
+      "status": "ok",
+      "syncedWithDataJson": true,
+      "timestamp": "2026-02-13T02:51:00+08:00"
+    }
+  },
+  "consistencyChecks": {
+    "escritorStatus": {
+      "expected": "active",
+      "actual": "active",
+      "taskMatch": true,
+      "details": "Escritor correctly listed as active with A2-13 Study Phase"
+    },
+    "taskCounts": {
+      "expectedPending": 2,
+      "actualPending": 2,
+      "expectedActive": 5,
+      "actualActive": 5,
+      "expectedReview": 1,
+      "actualReview": 1,
+      "expectedDone": 3,
+      "actualDone": 3,
+      "verified": true
+    },
+    "agentStatuses": {
+      "chad_yi": "active - verified",
+      "helios": "active - verified",
+      "escritor": "active - verified",
+      "quanta": "blocked - verified",
+      "mensamusa": "blocked - verified",
+      "autour": "not_spawned - verified"
+    }
+  },
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "critical",
+      "type": "deadline_at_risk",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 16,
+      "status": "pending",
+      "owner": "CHAD_YI",
+      "actionRequired": "USER_ACTION_REQUIRED",
+      "description": "Task due TODAY (Feb 13) and still in pending status. Requires immediate user attention."
+    },
+    {
+      "id": "ISSUE-002",
+      "severity": "medium",
+      "type": "agent_blocked",
+      "agent": "Quanta",
+      "taskId": "A5-1",
+      "blocker": "OANDA API credentials needed",
+      "idleHours": 102,
+      "actionRequired": "Provide OANDA API credentials to unblock agent"
+    },
+    {
+      "id": "ISSUE-003",
+      "severity": "medium",
+      "type": "agent_blocked",
+      "agent": "MensaMusa",
+      "taskId": "A5-2",
+      "blocker": "Moomoo account credentials needed",
+      "idleHours": 102,
+      "actionRequired": "Provide Moomoo account credentials to unblock agent"
+    }
+  ],
+  "autoFixes": [
+    {
+      "fixId": "FIX-001",
+      "type": "update_last_active_timestamp",
+      "target": "helios",
+      "applied": true,
+      "oldValue": "2026-02-13T06:51:00+08:00",
+      "newValue": "2026-02-13T08:06:00+08:00"
+    }
+  ],
+  "notificationsSent": [
+    {
+      "type": "urgent_broadcast",
+      "recipient": "chad_yi",
+      "reason": "critical_deadline",
+      "taskId": "A1-1",
+      "messagePath": "/agents/message-bus/broadcast/urgent-2026-02-13T0806.md"
+    }
+  ],
+  "nextAudit": "2026-02-13T08:21:00+08:00"
+}

@@ -1,0 +1,85 @@
+{
+  "auditId": "helios-audit-20260212T073600",
+  "timestamp": "2026-02-12T07:36:00+08:00",
+  "agent": "helios",
+  "auditCount": 13,
+  "sourcesChecked": [
+    "/agents/helios/AGENT_STATE.json",
+    "/mission-control-dashboard/data.json",
+    "/agents/escritor/current-task.md",
+    "/agents/escritor/MEMORY.md",
+    "/ACTIVE.md"
+  ],
+  "dataFreshness": {
+    "data.json_lastUpdated": "2026-02-12T07:06:00+08:00",
+    "minutesSinceUpdate": 30,
+    "status": "fresh"
+  },
+  "consistencyChecks": {
+    "escritor": {
+      "data_json_status": "waiting_for_input",
+      "actual_status": "waiting_for_input",
+      "current_task_md": "Waiting for input",
+      "memory_status": "Not yet activated",
+      "consistent": true
+    },
+    "chad_yi": {
+      "data_json_status": "active",
+      "active_md_task": "A6-3 Dashboard audit infrastructure",
+      "current_task": "A6-3: Dashboard audit infrastructure setup",
+      "consistent": true
+    },
+    "quanta": {
+      "status": "blocked",
+      "blocker": "OANDA credentials needed",
+      "consistent": true
+    },
+    "mensamusa": {
+      "status": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "consistent": true
+    }
+  },
+  "issuesFound": [
+    {
+      "severity": "warning",
+      "rule": "agent_idle > 48h AND task_assigned",
+      "agent": "escritor",
+      "description": "Escritor has been idle for 67 hours with assigned task A2",
+      "lastActive": "2026-02-09T12:00:00+08:00",
+      "hoursIdle": 67,
+      "action": "ping_agent"
+    },
+    {
+      "severity": "info",
+      "type": "deadline_approaching",
+      "task": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 30,
+      "note": "Not critical yet (threshold: 24h)"
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "rule": "agent_idle > 48h AND task_assigned",
+      "action": "ping_agent",
+      "target": "escritor",
+      "message": "Escritor pinged: Idle 67 hours on A2 RE:UNITE task",
+      "timestamp": "2026-02-12T07:36:00+08:00"
+    }
+  ],
+  "stats": {
+    "totalTasks": 47,
+    "pending": 35,
+    "active": 8,
+    "review": 2,
+    "done": 2
+  },
+  "urgentDeadlines": [
+    {"id": "A1-1", "hoursRemaining": 30},
+    {"id": "B6-1", "hoursRemaining": 121},
+    {"id": "B6-3", "hoursRemaining": 121}
+  ],
+  "summary": "Data consistent across all sources. Escritor idle >48h flagged for ping. A1-1 approaching 24h threshold."
+}

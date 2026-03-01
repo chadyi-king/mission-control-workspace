@@ -1,0 +1,13 @@
+[Unit]
+Description=Quanta Trading Monitor
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/quanta
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/quanta/quanta_monitor.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

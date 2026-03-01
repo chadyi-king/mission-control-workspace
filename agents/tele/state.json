@@ -1,0 +1,35 @@
+{
+  "agent": "tele",
+  "status": "active",
+  "created": "2026-02-28T08:16:00Z",
+  "last_active": "2026-02-28T08:33:00Z",
+  "telegram": {
+    "bot_username": "chad_yi_bot",
+    "bot_token_set": true,
+    "webhook_url": null,
+    "polling_active": true,
+    "chat_id": null,
+    "account_reset": {
+      "previous_account_issues": "Monitoring system conflict caused Telegram user account reset",
+      "new_bot_connected": "2026-02-28T08:16:00Z",
+      "memory_status": "FULLY_PRESERVED - All workspace files intact"
+    }
+  },
+  "stats": {
+    "messages_received": 0,
+    "messages_sent": 0,
+    "commands_processed": 0,
+    "errors": 0
+  },
+  "onboarding": {
+    "new_bot_checklist": [
+      "Read NEW_BOT_ONBOARDING.md",
+      "Read SOUL.md - Core identity",
+      "Read IDENTITY.md - Role as The Face",
+      "Read MEMORY.md - Full project context",
+      "Read AGENTS.md - Architecture and procedures"
+    ],
+    "completed": ["bot_token_configured", "commands_set"]
+  },
+  "version": "1.0.0"
+}

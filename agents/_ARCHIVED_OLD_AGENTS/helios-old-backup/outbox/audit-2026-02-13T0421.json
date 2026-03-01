@@ -1,0 +1,128 @@
+{
+  "auditId": "helios-audit-2026-02-13T0421",
+  "timestamp": "2026-02-13T04:21:00+08:00",
+  "agent": "Helios",
+  "version": "1.0.0",
+  "summary": {
+    "status": "ISSUES_FOUND",
+    "criticalIssues": 1,
+    "warnings": 2,
+    "autoFixesApplied": 2,
+    "dataConsistency": "PASS"
+  },
+  "dataSourcesChecked": [
+    {
+      "source": "/mission-control-dashboard/data.json",
+      "status": "OK",
+      "lastUpdated": "2026-02-13T03:30:00+08:00",
+      "tasksCount": 71,
+      "agentsCount": 6
+    },
+    {
+      "source": "/agents/escritor/current-task.md",
+      "status": "OK",
+      "taskId": "A2-13",
+      "phase": "Study Phase",
+      "matchesDataJson": true
+    },
+    {
+      "source": "/agents/escritor/MEMORY.md",
+      "status": "OK",
+      "project": "A2-RE:UNITE",
+      "continuity": "consistent"
+    },
+    {
+      "source": "/ACTIVE.md",
+      "status": "OK",
+      "generatedBy": "helios-audit-2026-02-13T0251",
+      "matchesDataJson": true
+    }
+  ],
+  "agentConsistencyCheck": [
+    {
+      "agent": "CHAD_YI",
+      "dataJsonTask": "A6-3: Dashboard audit infrastructure",
+      "actualStatus": "active",
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "Escritor",
+      "dataJsonTask": "A2-13: Study Phase (90 questions)",
+      "actualStatus": "in_study_phase",
+      "currentTaskFile": "A2-13 Study Phase",
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "Quanta",
+      "dataJsonTask": "A5-1: Trading signals",
+      "actualStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 126,
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "MensaMusa",
+      "dataJsonTask": "A5-2: Options flow",
+      "actualStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 126,
+      "consistency": "MATCH"
+    },
+    {
+      "agent": "Autour",
+      "dataJsonTask": null,
+      "actualStatus": "not_spawned",
+      "consistency": "MATCH"
+    }
+  ],
+  "criticalIssues": [
+    {
+      "severity": "CRITICAL",
+      "type": "DEADLINE_TODAY",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "deadline": "2026-02-13",
+      "hoursRemaining": 0,
+      "owner": "CHAD_YI",
+      "actionRequired": "USER_ACTION",
+      "message": "Task A1-1 is due TODAY (Feb 13). This requires user action to change Taiwan flights and hotel."
+    }
+  ],
+  "warnings": [
+    {
+      "severity": "WARNING",
+      "type": "AGENT_BLOCKED_LONG",
+      "agent": "Quanta",
+      "taskId": "A5-1",
+      "blocker": "OANDA API credentials",
+      "idleHours": 126,
+      "threshold": 48,
+      "message": "Quanta has been blocked for 126 hours (>48h threshold). Needs OANDA credentials to proceed."
+    },
+    {
+      "severity": "WARNING",
+      "type": "AGENT_BLOCKED_LONG",
+      "agent": "MensaMusa",
+      "taskId": "A5-2",
+      "blocker": "Moomoo account credentials",
+      "idleHours": 126,
+      "threshold": 48,
+      "message": "MensaMusa has been blocked for 126 hours (>48h threshold). Needs Moomoo credentials to proceed."
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "fix": "UPDATE_LAST_ACTIVE_TIMESTAMP",
+      "target": "AGENT_STATE.json",
+      "oldValue": "2026-02-13T04:06:00+08:00",
+      "newValue": "2026-02-13T04:21:00+08:00"
+    },
+    {
+      "fix": "UPDATE_NEXT_AUDIT_TIMESTAMP",
+      "target": "AGENT_STATE.json",
+      "oldValue": "2026-02-13T04:21:00+08:00",
+      "newValue": "2026-02-13T04:36:00+08:00"
+    }
+  ],
+  "nextAudit": "2026-02-13T04:36:00+08:00"
+}

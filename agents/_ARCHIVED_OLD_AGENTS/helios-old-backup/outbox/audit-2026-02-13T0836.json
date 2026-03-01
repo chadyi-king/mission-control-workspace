@@ -1,0 +1,165 @@
+{
+  "auditId": "helios-audit-2026-02-13T0836",
+  "timestamp": "2026-02-13T08:36:00+08:00",
+  "agentId": "helios",
+  "auditType": "15_minute_dashboard_audit",
+  "summary": {
+    "status": "ISSUES_FOUND",
+    "totalIssues": 3,
+    "criticalIssues": 1,
+    "warnings": 2,
+    "autoFixesApplied": 1,
+    "requiresChadYiAttention": true
+  },
+  "dataSourceStatus": {
+    "dataJson": {
+      "path": "/mission-control-dashboard/data.json",
+      "readable": true,
+      "lastUpdated": "2026-02-13T06:36:00+08:00",
+      "dataAgeMinutes": 120,
+      "status": "STALE"
+    },
+    "escritorTask": {
+      "path": "/agents/escritor/current-task.md",
+      "readable": true,
+      "currentTaskId": "A2-13",
+      "status": "VERIFIED"
+    },
+    "escritorMemory": {
+      "path": "/agents/escritor/MEMORY.md",
+      "readable": true,
+      "status": "VERIFIED"
+    },
+    "activeMd": {
+      "path": "/ACTIVE.md",
+      "readable": true,
+      "generatedBy": "helios-audit-2026-02-13T0251",
+      "status": "VERIFIED"
+    }
+  },
+  "consistencyChecks": {
+    "escritor": {
+      "dataJsonStatus": "active",
+      "actualTask": "A2-13",
+      "taskMatch": true,
+      "lastActive": "2026-02-12T18:51:00+08:00",
+      "idleHours": 13.75,
+      "idleThreshold": 24,
+      "statusCorrect": true,
+      "notes": "Escritor idle for 13.75 hours but within threshold. Study phase task matches."
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "idleHours": 120,
+      "staleThreshold": 48,
+      "statusCorrect": true,
+      "notes": "Blocked status accurate. 120h idle exceeds 48h threshold but status correctly shows blocked."
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "idleHours": 120,
+      "staleThreshold": 48,
+      "statusCorrect": true,
+      "notes": "Blocked status accurate. 120h idle exceeds 48h threshold but status correctly shows blocked."
+    },
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "currentTask": "A6-3: Dashboard audit infrastructure",
+      "lastActive": "2026-02-12T15:51:00+08:00",
+      "idleHours": 16.75,
+      "statusCorrect": true,
+      "notes": "Within normal operating threshold."
+    },
+    "helios": {
+      "dataJsonStatus": "active",
+      "currentTask": "15-minute audit cycle",
+      "lastActive": "2026-02-13T06:51:00+08:00",
+      "idleHours": 1.75,
+      "statusCorrect": true,
+      "notes": "Audit cycle operating normally."
+    }
+  },
+  "deadlineAnalysis": {
+    "critical": [
+      {
+        "taskId": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 15.4,
+        "agent": "CHAD_YI",
+        "status": "pending",
+        "severity": "CRITICAL"
+      }
+    ],
+    "urgent": [
+      {
+        "taskId": "B6-6",
+        "title": "Find facilitators for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 103.4,
+        "agent": "CHAD_YI",
+        "status": "pending"
+      },
+      {
+        "taskId": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 103.4,
+        "agent": "CHAD_YI",
+        "status": "active"
+      }
+    ]
+  },
+  "issuesFound": [
+    {
+      "id": "ISSUE-001",
+      "severity": "CRITICAL",
+      "type": "DEADLINE_IMMIMENT",
+      "taskId": "A1-1",
+      "title": "Change Taiwan flights and hotel",
+      "description": "Task A1-1 is due TODAY (2026-02-13) with only 15.4 hours remaining. Status is still 'pending' and requires user action.",
+      "recommendation": "URGENT: Caleb needs to complete Taiwan flight/hotel changes today.",
+      "notified": true
+    },
+    {
+      "id": "ISSUE-002",
+      "severity": "WARNING",
+      "type": "DATA_STALE",
+      "description": "data.json was last updated 120 minutes ago (06:36 SGT). Current time is 08:36 SGT.",
+      "recommendation": "Dashboard data may not reflect recent changes. Consider refreshing if updates were made.",
+      "autoFix": false
+    },
+    {
+      "id": "ISSUE-003",
+      "severity": "WARNING",
+      "type": "AGENT_BLOCKED_LONGTERM",
+      "agents": ["Quanta", "MensaMusa"],
+      "description": "Both trading agents have been blocked for 120+ hours (5 days) waiting for API credentials.",
+      "recommendation": "Consider if A5 trading tasks should be deprioritized or if credentials should be obtained.",
+      "notified": false
+    }
+  ],
+  "autoFixesApplied": [
+    {
+      "type": "UPDATE_LAST_AUDIT_TIMESTAMP",
+      "target": "AGENT_STATE.json",
+      "description": "Updated lastAudit timestamp to current time",
+      "success": true
+    }
+  ],
+  "blockedAutoFixes": [],
+  "stats": {
+    "totalTasks": 71,
+    "pending": 2,
+    "active": 5,
+    "review": 1,
+    "done": 3,
+    "backlog": 53,
+    "blocked": 2,
+    "agentsActive": 3,
+    "agentsBlocked": 2,
+    "agentsIdle": 0
+  }
+}

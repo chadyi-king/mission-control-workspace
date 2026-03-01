@@ -1,0 +1,162 @@
+{
+  "auditId": "helios-audit-20260212-142100",
+  "timestamp": "2026-02-12T14:21:00+08:00",
+  "agent": "helios",
+  "version": "1.0.0",
+  "dataSourcesChecked": [
+    "/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json",
+    "/home/chad-yi/.openclaw/workspace/ACTIVE.md"
+  ],
+  "summary": {
+    "status": "issues_found",
+    "totalIssues": 3,
+    "critical": 1,
+    "warning": 2,
+    "info": 0
+  },
+  "agentStatusVerification": {
+    "chad_yi": {
+      "dataJsonStatus": "active",
+      "activeMdStatus": "In Progress",
+      "currentTask": "A6-3: Dashboard audit infrastructure setup",
+      "consistency": "MATCH",
+      "notes": "Currently working on Helios infrastructure (this audit system)"
+    },
+    "helios": {
+      "dataJsonStatus": "active",
+      "dataJsonLastActive": "2026-02-12T11:38:00+08:00",
+      "actualLastActive": "2026-02-12T14:21:00+08:00",
+      "stalenessHours": 2.7,
+      "consistency": "STALE_TIMESTAMP",
+      "notes": "lastActive timestamp is 2h 43m old - needs update after this audit"
+    },
+    "escritor": {
+      "dataJsonStatus": "waiting_for_input",
+      "dataJsonLastActive": "2026-02-09T12:00:00+08:00",
+      "stalenessDays": 3.1,
+      "consistency": "STALE",
+      "notes": "Idle for 3+ days. Task A2-13 (Edit Chapter 13) in backlog. No current-task.md found."
+    },
+    "quanta": {
+      "dataJsonStatus": "blocked",
+      "blocker": "OANDA credentials needed",
+      "consistency": "MATCH",
+      "notes": "Blocked on A5-3 (OANDA setup). A5-4 also pending for Telegram integration."
+    },
+    "mensamusa": {
+      "dataJsonStatus": "blocked",
+      "blocker": "Moomoo credentials needed",
+      "consistency": "MATCH",
+      "notes": "Blocked on A5-2 (Options flow monitoring)"
+    },
+    "autour": {
+      "dataJsonStatus": "not_spawned",
+      "consistency": "MATCH",
+      "notes": "Ready to spawn for A3 KOE scripts when needed"
+    }
+  },
+  "taskVerification": {
+    "totalTasks": 80,
+    "workflow": {
+      "pending": 14,
+      "active": 1,
+      "review": 0,
+      "done": 2,
+      "backlog": 63
+    },
+    "urgentDeadlines": [
+      {
+        "id": "A1-1",
+        "title": "Change Taiwan flights and hotel",
+        "deadline": "2026-02-13",
+        "hoursRemaining": 26,
+        "risk": "CRITICAL",
+        "assignedTo": "CHAD_YI"
+      },
+      {
+        "id": "A5-3",
+        "title": "Set up OANDA account and API credentials",
+        "deadline": "2026-02-15",
+        "hoursRemaining": 74,
+        "risk": "HIGH",
+        "blocks": ["A5-1", "quanta"]
+      },
+      {
+        "id": "A6-19",
+        "title": "Connect agent to Telegram group/channel",
+        "deadline": "2026-02-15",
+        "hoursRemaining": 74,
+        "risk": "HIGH"
+      },
+      {
+        "id": "B6-1",
+        "title": "Find facilitator for ESU",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "risk": "HIGH",
+        "notes": "Need 120 facilitators"
+      },
+      {
+        "id": "B6-3",
+        "title": "SPH items to order",
+        "deadline": "2026-02-17",
+        "hoursRemaining": 121,
+        "risk": "HIGH"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "severity": "CRITICAL",
+      "category": "deadline",
+      "target": "A1-1",
+      "message": "Task A1-1 (Change Taiwan flights) due in 26 hours - TOMORROW",
+      "recommendation": "CHAD_YI should prioritize this today",
+      "autoFixApplied": false
+    },
+    {
+      "id": "ISSUE-002",
+      "severity": "WARNING",
+      "category": "agent_stale",
+      "target": "escritor",
+      "message": "Escritor idle for 3+ days (last active Feb 9)",
+      "recommendation": "Ping Escritor or spawn for A2-13 chapter work",
+      "autoFixApplied": false
+    },
+    {
+      "id": "ISSUE-003",
+      "severity": "WARNING",
+      "category": "timestamp_stale",
+      "target": "helios",
+      "message": "Helios lastActive timestamp is 2h 43m stale",
+      "recommendation": "Update timestamp after this audit completes",
+      "autoFixApplied": false
+    }
+  ],
+  "autoFixesApplied": [],
+  "actionsRequired": [
+    {
+      "priority": 1,
+      "action": "URGENT: Complete A1-1 (Taiwan flights) - due tomorrow",
+      "assignee": "CHAD_YI"
+    },
+    {
+      "priority": 2,
+      "action": "Update Helios lastActive timestamp in data.json",
+      "assignee": "CHAD_YI"
+    },
+    {
+      "priority": 3,
+      "action": "Check if Escritor should be spawned for A2-13",
+      "assignee": "CHAD_YI"
+    }
+  ],
+  "dataIntegrity": {
+    "status": "healthy",
+    "lastUpdated": "2026-02-12T14:15:56+08:00",
+    "updatedBy": "chad_yi",
+    "minutesSinceUpdate": 5,
+    "notes": "Data freshly updated, all structures present"
+  }
+}

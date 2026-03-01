@@ -1,0 +1,26 @@
+HELIOS - READ THIS FILE IMMEDIATELY
+
+Caleb has approved the dashboard fix plan.
+You said you cannot see the infrastructure plan.
+
+THIS IS THE PLAN:
+==================
+
+File: DASHBOARD_FIX_PLAN.md (also copied here)
+Brief: DASHBOARD_PLAN_URGENT.json (also here)
+
+START PHASE 1 NOW:
+==================
+1. Create git branch: dashboard-fixes-phase1
+2. Backup data.json
+3. Add agentActivityLog field to data.json
+4. Add taskRankings field to data.json  
+5. Create /resources/ folder structure
+6. Run audit
+7. Report completion to Caleb
+
+Full details in DASHBOARD_FIX_PLAN.md
+
+Caleb is waiting. Start now.
+
+- CHAD_YI
