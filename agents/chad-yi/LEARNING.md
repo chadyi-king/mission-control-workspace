@@ -301,6 +301,53 @@ Blockers
 
 ---
 
+## Anti-Patterns (March 2, 2026 Dashboard Fix)
+
+### 6. ACTIVE.md STATUS KEYWORDS (CRITICAL)
+**What happened:** ACTIVE.md used emoji status like "🔴 DUE TOMORROW" and "🟢 FINAL TESTING". Helios parser couldn't recognize these. Dashboard showed wrong task statuses and counts. Data never synced correctly. Caleb extremely frustrated.
+
+**Root cause:** Helios parser looks for specific keywords, not emojis or descriptions.
+
+**Helios Parser Status Keywords:**
+| Status | Correct Format | Wrong Format |
+|--------|---------------|--------------|
+| Blocked | **BLOCKED** - description | 🔴 DUE TOMORROW |
+| Active | **IN PROGRESS** - description | 🟢 FINAL TESTING |
+| Done | **DONE** | ✅ Completed |
+| Review | **REVIEW** | 👀 AWAITING REVIEW |
+| Pending | **PENDING** | ⏳ Waiting |
+
+**Agent Status Keywords:**
+| Status | Correct Format |
+|--------|---------------|
+| Active | **active** |
+| Idle | **idle** |
+| Blocked | **blocked** |
+| Offline | **offline** |
+
+**When updating ACTIVE.md:**
+1. ✅ Use BLOCKED, IN PROGRESS, DONE, REVIEW, PENDING for tasks
+2. ✅ Use lowercase: active, idle, blocked, offline for agents
+3. ❌ Never use emojis in status column
+4. ❌ Never use descriptive text only
+5. ✅ Always include keyword first, then description after dash
+
+**Example CORRECT row:**
+```
+| A1-6 | Sign contract | CHAD_YI | 2026-03-02 | **BLOCKED** - Due tomorrow |
+| **chad-yi** | **active** | Task coordination | The Face |
+```
+
+**Example WRONG row:**
+```
+| A1-6 | Sign contract | CHAD_YI | 2026-03-02 | 🔴 DUE TOMORROW |
+| **CHAD_YI** | 🟢 Active | Task coordination | The Face |
+```
+
+**Source:** Caleb — March 2, 2026 (dashboard sync issues)
+
+---
+
 ## Appendix: Quick Reference
 
 ### Check If Quanta Is Running
