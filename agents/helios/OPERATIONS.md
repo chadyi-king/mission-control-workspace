@@ -38,13 +38,26 @@ Total: ~1.5 minutes before operational
 
 ### Step 1: Data Integrity Check (2 min)
 
-**Files to read:**
-- `/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json`
-- All agent `state.json` files
-- All agent `current-task.md` files
-- Recent inbox/outbox activity
+**⚠️ CRITICAL: CHAD_YI MUST NEVER EDIT DATA.JSON DIRECTLY**
 
-**Purpose:** Ensure dashboard reflects reality across all agents and tasks
+**Source of Truth Hierarchy:**
+1. **ACTIVE.md** — Human-editable source of truth (Caleb/CHAD_YI edit this)
+2. **data.json** — Generated file (Helios manages this automatically)
+3. **Dashboard** — Renders from data.json
+
+**CHAD_YI's Role:**
+- ✅ Updates ACTIVE.md when Caleb gives task changes
+- ✅ Commits and pushes ACTIVE.md
+- ✅ Lets Helios sync data.json automatically
+
+**Helios's Role:**
+- ✅ Reads ACTIVE.md every 15 minutes
+- ✅ Updates data.json to match ACTIVE.md
+- ✅ Handles all data.json edits automatically
+
+**Files to read:**
+- `/home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md` (source of truth)
+- `/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json` (generated, for verification only)
 
 **Critical Check: Dashboard Reflects All Updates**
 

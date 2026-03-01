@@ -51,6 +51,44 @@
 
 ---
 
+### 4. EDITING DATA.JSON DIRECTLY (CRITICAL)
+**What happened:** Caleb gave task updates, I edited data.json directly. Helios overwrote my changes 15 minutes later because he syncs from ACTIVE.md. Dashboard showed wrong data. Caleb frustrated.
+
+**Root cause:** I didn't understand the data flow.
+
+**THE CORRECT WORKFLOW:**
+```
+ACTIVE.md (source of truth)
+    ↓
+Helios reads every 15 min
+    ↓
+Updates data.json
+    ↓
+Pushes to GitHub
+    ↓
+Dashboard updates
+```
+
+**When Caleb gives task updates:**
+1. ✅ I edit **ACTIVE.md** (NOT data.json)
+2. ✅ Commit and push ACTIVE.md
+3. ✅ Helios syncs data.json automatically
+4. ✅ Dashboard updates within 15 minutes
+
+**NEVER DO:**
+- ❌ Edit data.json directly for task status
+- ❌ Edit data.json for deadlines, priorities, agent assignments
+- ❌ Forget to commit ACTIVE.md
+
+**ALWAYS DO:**
+- ✅ ACTIVE.md = Source of truth for all task data
+- ✅ data.json = Generated file (Helios manages this)
+- ✅ Commit ACTIVE.md immediately after changes
+
+**Source:** Caleb — March 2, 2026
+
+---
+
 ### 4. Quanta Trading Bot Authentication Failures
 **What happened:** Multiple attempts (Telethon, Playwright, systemd service, QR codes) all failed.
 
