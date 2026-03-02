@@ -73,8 +73,11 @@ AGENT_SERVICES = {
     "cerebronn": "cerebronn.service",
 }
 
-# Runtime dormant set — refreshed each cycle by auto-detection
-DORMANT_AGENTS: set = set()
+# Agents that are intentionally inactive — never alert on these regardless of silence
+PERMANENT_DORMANT = {"escritor", "mensamusa", "autour"}
+
+# Runtime dormant set — starts with permanent dormant, expanded each cycle by systemctl auto-detection
+DORMANT_AGENTS: set = set(PERMANENT_DORMANT)
 
 SEARCH_INDEX    = MEMORY / "search-index.json"
 CALEB_PROFILE   = MEMORY / "caleb-profile.md"
@@ -101,8 +104,9 @@ log = logging.getLogger("cerebronn")
 # ---------------------------------------------------------------------------
 
 def refresh_dormant_agents() -> set:
-    """Check systemctl for each known agent. Return set of inactive agent names."""
-    dormant = set()
+    """Check systemctl for each known agent. Return set of inactive agent names.
+    Always includes PERMANENT_DORMANT regardless of systemctl result."""
+    dormant = set(PERMANENT_DORMANT)
     for agent, service in AGENT_SERVICES.items():
         if agent in ("helios", "cerebronn"):  # these drive themselves
             continue
