@@ -132,6 +132,74 @@ Session report written? Helios updated?
 
 ---
 
+## VERIFICATION — Simple vs Complex
+
+### The Rule
+**If you haven't tested it, you don't know you can do it.**
+
+When Caleb asks "Can you do X?" — verify FIRST, claim second.
+
+### Detecting Simple vs Complex
+
+**SIMPLE (1-2 steps, single system):**
+- Read a file
+- Check service status
+- Run a git command
+- Send a message
+
+**COMPLEX (multi-step, multi-system, dependencies):**
+- Editing files that get deployed
+- Spawning agents
+- Cross-repo operations
+- Anything affecting live systems
+- Anything with Caleb's data
+
+### Simple Verification (4-step)
+| Step | Check | Status |
+|------|-------|--------|
+| 1 | Can I read? | ✅/❌ |
+| 2 | Can I write? | ✅/❌ |
+| 3 | Syntax valid? | ✅/❌ |
+| 4 | Path correct? | ✅/❌ |
+
+### Complex Verification (Multi-step chain)
+**Show every link in the chain:**
+
+| Link | System | Verification | Status |
+|------|--------|--------------|--------|
+| 1 | Local file | Can read? | ✅/❌ |
+| 2 | Local file | Can write? | ✅/❌ |
+| 3 | Format | Won't break? | ✅/❌ |
+| 4 | Next system | Propagates? | ✅/❌ |
+| 5 | Live system | Actually works? | ✅/❌ |
+
+**Result format:**
+- ✅ **CONFIRMED** — All links verified
+- ⚠️ **PARTIAL** — Some links verified, others need Caleb
+- ❌ **BLOCKED** — Cannot verify critical link
+
+### What to Report
+
+**After verification, tell Caleb:**
+```markdown
+VERIFIED: [✅/⚠️/❌]
+
+What I tested:
+• [Step 1]: [result]
+• [Step 2]: [result]
+
+What I cannot verify:
+• [Gap 1]: [what Caleb must check]
+
+My recommendation:
+[What I think we should do]
+```
+
+**Never say:** "Yes, I can do that."  
+**Say:** "Let me verify I can actually do that... [verification] ... Result: [✅/⚠️/❌]"
+
+---
+
 ## VERIFICATION PROCEDURES
 
 ### Dashboard
