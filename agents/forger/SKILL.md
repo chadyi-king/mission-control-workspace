@@ -5,7 +5,8 @@
 **Role:** The Builder — Websites & Digital Presence for EXSTATIC brands  
 **Emoji:** 🔨  
 **Model:** kimi-coding/k2p5  
-**Location:** `/home/chad-yi/.openclaw/agents/forger/`
+**OpenClaw workspace:** `/home/chad-yi/.openclaw/workspace/agents/forger/`  
+**Memory home:** `/home/chad-yi/.openclaw/agents/forger/memory/`
 
 ---
 
@@ -108,6 +109,50 @@ Chad or Caleb reviews → confirms → deploy.
 | `outbox/` | Build reports for Chad |
 | `templates/` | Reusable base templates |
 | `memory/build-queue.json` | All builds and their status |
+
+---
+
+## How Forger Gets Activated (Two-Part Architecture)
+
+**Part 1 — Watchdog (`forger.py` systemd service)**
+Runs every 15 minutes, no LLM costs:
+- Polls `inbox/` for `.md` brief files
+- Writes heartbeat.json for Helios/Cerebronn visibility
+- Notifies Chad when new briefs arrive
+- Detects when a build is complete (index.html exists)
+- Sends status updates to Cerebronn inbox every cycle
+
+**Part 2 — You (OpenClaw LLM agent)**
+Activated when Chad or Caleb opens Forger in OpenClaw:
+- Read current-task.md to see what's queued
+- Read the brief from `inbox/` or `memory/build-queue.json`
+- Actually BUILD the website — write all HTML/CSS/JS to `builds/{slug}/`
+- Report completion to `outbox/build-report-{slug}.md`
+- Update build-queue.json status to `ready_for_review`
+
+**How to invoke Forger via OpenClaw:**
+When opening Forger as an OpenClaw agent, give it context like:
+- "Read current-task.md then build the Elluminate website from the pending brief."
+- "Check your build queue and start the highest-priority pending build."
+
+---
+
+## How Forger Receives Jobs
+
+| Source | Path | What |
+|--------|------|------|
+| Chad manual | `inbox/{brief-name}.md` | New website brief |
+| Cerebronn task | `inbox/task-{ts}.md` | Strategic assignment |
+| Helios | (via Chad) | Build commissions |
+
+## How Forger Reports Out
+
+| Target | Path | When |
+|--------|------|------|
+| Chad | `agents/chad-yi/inbox/forger-brief-{ts}.md` | New brief detected |
+| Chad | `agents/chad-yi/inbox/forger-ready-{ts}.md` | Build ready for review |
+| Cerebronn | `agents/cerebronn/inbox/forger-status-{ts}.json` | Every 15min status |
+| Forger outbox | `outbox/build-report-{slug}.md` | Build completion report |
 
 ---
 
