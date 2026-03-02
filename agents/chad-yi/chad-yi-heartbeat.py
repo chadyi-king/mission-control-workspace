@@ -267,6 +267,21 @@ def send_telegram(text: str) -> bool:
         return False
 
 
+def drop_cerebronn_session_note(report: str, report_type: str, timestamp: str):
+    """Write a compact session note to Cerebronn's inbox so the brain learns what Chad reported."""
+    cerebronn_inbox = AGENTS_DIR / "cerebronn" / "inbox"
+    cerebronn_inbox.mkdir(parents=True, exist_ok=True)
+    note_path = cerebronn_inbox / f"chad-session-{report_type}-{timestamp}.md"
+    # Keep it short — just first 1200 chars of report to avoid inbox bloat
+    snippet = report[:1200] + ("\n…(truncated)" if len(report) > 1200 else "")
+    note = f"# Chad-Yi Session Note — {report_type} {timestamp}\n\nChad sent this {report_type} report to Caleb at {timestamp} SGT.\n\n---\n\n{snippet}\n"
+    try:
+        note_path.write_text(note)
+        print(f"  [cerebronn] Session note dropped: {note_path.name}")
+    except Exception as e:
+        print(f"  [cerebronn] Could not drop session note: {e}")
+
+
 def send_report(report, report_type="heartbeat"):
     """Send report to Caleb via Telegram and write to outbox for tracking."""
     timestamp = now_sgt().strftime("%Y%m%d-%H%M")
@@ -275,6 +290,9 @@ def send_report(report, report_type="heartbeat"):
     outbox_file = AGENTS_DIR / "chad-yi" / "outbox" / f"{report_type}-{timestamp}.md"
     outbox_file.parent.mkdir(parents=True, exist_ok=True)
     outbox_file.write_text(report)
+
+    # Drop a compact note in Cerebronn's inbox — keeps the brain informed
+    drop_cerebronn_session_note(report, report_type, timestamp)
 
     # Trim to Telegram char limit if needed
     tg_text = report if len(report) <= TELEGRAM_MAX_CHARS else report[:TELEGRAM_MAX_CHARS] + "\n…_(truncated)_"

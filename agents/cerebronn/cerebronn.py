@@ -67,7 +67,7 @@ AGENT_SERVICES = {
     "escritor":  "escritor.service",
     "mensamusa": "mensamusa.service",
     "autour":    "autour.service",
-    "quanta":    "quanta-v3.service",
+    # quanta excluded — runs via nohup, monitored via AGENT_HEARTBEATS["quanta"]
     "forger":    "forger.service",
     "helios":    "helios.service",
     "cerebronn": "cerebronn.service",
@@ -246,11 +246,13 @@ def parse_helios_report(path: Path) -> dict | None:
         data = load_json(path)
         if not data:
             return None
+        tasks_block = data.get("tasks_from_active_md", {})
         return {
-            "ts": data.get("timestamp") or data.get("ts") or str(path.stem.split("-")[-1]),
+            "ts": data.get("generated_at") or data.get("timestamp") or data.get("ts") or str(path.stem.split("-")[-1]),
             "agents": data.get("agents", {}),
-            "tasks": data.get("tasks") or data.get("active_md", {}).get("summary", {}),
-            "active_md": data.get("active_md", {}),
+            "tasks": tasks_block.get("summary", {}),
+            "active_md": tasks_block,
+            "tasks_detail": tasks_block.get("tasks", {}),
             "alerts": data.get("alerts", []),
             "dashboard_pushed": data.get("dashboard_pushed", False),
             "raw_path": str(path),
@@ -463,23 +465,27 @@ def update_state_from_report(state: dict, report: dict):
             "last_updated": sgt_str()
         }
 
-    # Update task summary
+    # Update task summary — uses tasks_from_active_md.summary (populated by parse_helios_report)
     tasks = report.get("tasks", {})
-    active_md = report.get("active_md", {})
-    summary = active_md.get("summary", {}) if isinstance(active_md, dict) else {}
-    if summary:
+    if isinstance(tasks, dict) and (tasks.get("critical") or tasks.get("active") or tasks.get("blocked")):
+        computed_total = sum([
+            tasks.get("critical", 0),
+            tasks.get("urgent", 0),
+            tasks.get("active", 0),
+            tasks.get("blocked", 0),
+            tasks.get("done", 0),
+        ])
         state["tasks"] = {
-            "total": summary.get("total", state["tasks"]["total"]),
-            "active": summary.get("in_progress", state["tasks"]["active"]),
-            "blocked": summary.get("blocked", state["tasks"]["blocked"]),
-            "critical": summary.get("critical", state["tasks"]["critical"]),
-            "urgent": summary.get("urgent", state["tasks"]["urgent"]),
-            "completed_today": state["tasks"].get("completed_today", 0)
+            "total": computed_total,
+            "active": tasks.get("active", state["tasks"].get("active", 0)),
+            "blocked": tasks.get("blocked", state["tasks"].get("blocked", 0)),
+            "critical": tasks.get("critical", state["tasks"].get("critical", 0)),
+            "urgent": tasks.get("urgent", state["tasks"].get("urgent", 0)),
+            "completed_today": tasks.get("done", state["tasks"].get("completed_today", 0))
         }
-    elif isinstance(tasks, dict):
-        for k in ["total", "active", "blocked", "critical", "urgent"]:
-            if k in tasks:
-                state["tasks"][k] = tasks[k]
+        # Persist task detail for briefing (task names)
+        if report.get("tasks_detail"):
+            state["tasks_detail"] = report["tasks_detail"]
 
     state["last_report_ts"] = report.get("ts")
     state["last_updated"] = sgt_str()
@@ -494,6 +500,7 @@ def rewrite_briefing(state: dict):
     """Rewrite briefing.md from current state. Always ≤80 lines."""
     agents = state.get("agents", {})
     tasks = state.get("tasks", {})
+    tasks_detail = state.get("tasks_detail", {})
     pending2 = state.get("pending_tier2", [])
     pending3 = state.get("pending_tier3", [])
 
@@ -551,6 +558,20 @@ def rewrite_briefing(state: dict):
     inbox_total = len(inbox_urgent) + len(inbox_medium) + len(inbox_digest) + len(inbox_other)
     inbox_header = f"## 📬 Chad-Yi Inbox ({inbox_total} messages)"
 
+    # Build critical/urgent task name list from tasks_detail
+    critical_task_lines = []
+    if tasks_detail:
+        priority_order = ["critical", "urgent"]
+        for priority in priority_order:
+            for tid, tinfo in sorted(tasks_detail.items()):
+                if isinstance(tinfo, dict) and tinfo.get("priority") == priority:
+                    status = tinfo.get("status", "?")
+                    title = tinfo.get("title", tid)
+                    icon = "🚨" if priority == "critical" else "⚠️ "
+                    critical_task_lines.append(f"- {icon} [{tid}] {title} `{status}`")
+    if not critical_task_lines:
+        critical_task_lines = ["- (task detail not yet loaded — next cycle will populate)"]
+
     content = f"""# BRIEFING — For Chad (Session Start)
 *Auto-updated by Cerebronn. Last: {sgt_str()} | Cycle #{state.get('cycle_count', 0)}*
 
@@ -578,6 +599,9 @@ def rewrite_briefing(state: dict):
 | Blocked    | {tasks.get('blocked', 0)} |
 | Critical   | {tasks.get('critical', 0)} |
 | Urgent     | {tasks.get('urgent', 0)} |
+
+### Critical & Urgent Tasks
+{chr(10).join(critical_task_lines)}
 
 ---
 
