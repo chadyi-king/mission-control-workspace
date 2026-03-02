@@ -22,58 +22,87 @@
 
 ---
 
-## Each Heartbeat — What Happens
+## Each Heartbeat — What Actually Happens
 
-### Step 1: Prompt Helios to Poke All Agents
+### Understanding Helios's Role
+
+**Helios already runs 15-minute audits automatically where he:**
+1. Pokes all agents (checks if they're alive)
+2. Updates dashboard (ACTIVE.md → data.json → git push)
+3. Detects discrepancies and silences
+4. Writes audit reports
+
+**My heartbeat prompts Helios to do a COMPREHENSIVE audit and REPORT BACK.**
+
+### Step 1: I Prompt Helios for Full Report
 
 I send to Helios inbox:
 ```bash
-/home/chad-yi/.openclaw/workspace/agents/helios/inbox/poke-request-{timestamp}.json
+/home/chad-yi/.openclaw/workspace/agents/helios/inbox/heartbeat-request-{timestamp}.json
 ```
 
 Content:
 ```json
 {
-  "type": "agent_poke",
+  "type": "comprehensive_audit",
   "from": "chad-yi",
   "timestamp": "ISO-8601",
-  "request": "Check all agent health and task status",
-  "agents_to_check": ["cerebronn", "forger", "quanta", "escritor", "autour", "mensamusa"],
-  "report_to": ["chad-yi", "cerebronn"]
+  "request": "Run full system audit and compile report",
+  "scope": [
+    "agent_health_status",
+    "dashboard_data_integrity", 
+    "task_progress_check",
+    "blocker_identification",
+    "quanta_trade_monitoring"
+  ],
+  "report_to": ["chad-yi", "cerebronn"],
+  "priority": "normal"
 }
 ```
 
-### Step 2: Helios Executes
+### Step 2: Helios Does His Job
 
-Helios:
-1. Checks systemd status for each agent
-2. Reads their current-task.md / state files
-3. Verifies they're making progress
-4. Detects blockers or silences
-5. Generates report
+**Helios executes his standard 15-minute cycle PLUS comprehensive checks:**
 
-### Step 3: Reports Generated
+1. **Pokes all agents** (his normal job)
+   - Checks systemd status
+   - Reads current-task.md files
+   - Verifies progress
 
-**Helios sends to my inbox:**
-- `helios-report-{timestamp}.json` — Full technical data
+2. **Updates dashboard** (his normal job)
+   - Reads ACTIVE.md
+   - Writes data.json
+   - Git commit + push
+   - Render deploys
+
+3. **Compiles comprehensive report** (triggered by my request)
+   - All agent statuses
+   - Task blockers
+   - Dashboard sync status
+   - Quanta trade alerts (if any)
+
+### Step 3: Helios Sends Reports
+
+**To my inbox:**
+- `helios-audit-{timestamp}.json` — Full technical data
 - `helios-summary-{timestamp}.md` — Human-readable summary
 
-**Helios sends to Cerebronn inbox:**
+**To Cerebronn inbox:**
 - `helios-briefing-{timestamp}.md` — Strategic overview for Brain
 
-### Step 4: I Process Reports
+### Step 4: I Format for Caleb
 
 **Quick Check (12pm, 2pm, 4pm, 6pm, 8pm):**
-- Read summary
-- If all green → HEARTBEAT_OK (or silent)
-- If issues → Format concise report for Caleb
+- Read Helios summary
+- If all green → Silent or brief acknowledgment
+- If issues → Concise report for Caleb
 
 **Digest (10am, 10pm):**
-- Full analysis
-- Task-by-task breakdown
-- Agent status section
-- Blockers requiring decisions
-- Escalations if needed
+- Full analysis of Helios report
+- Task breakdown
+- Agent status
+- Blockers
+- Escalations
 
 ---
 
@@ -196,23 +225,25 @@ None — all blockers listed above. Reply if you want me to action any.
 
 ### How It Works
 
-**Current:** Quanta logs to `logs/quanta.log`
-**New:** Quanta also writes to `outbox/trade-alert-{timestamp}.json`
+**Helios checks Quanta during his 15-minute audits:**
 
-**Flow:**
 ```
-Quanta enters trade
+Helios 15-min audit cycle
     ↓
-Writes: outbox/trade-alert-{timestamp}.json
+Checks Quanta service status
     ↓
-Helios detects (during audit) OR I poll every 20 min
+Reads Quanta outbox for trade alerts
     ↓
-I read alert immediately
+If trade alert found → Flags as URGENT
     ↓
-Report to Caleb: "Quanta entered XAUUSD BUY at 2950.50"
+Sends to my inbox immediately
+    ↓
+I report to Caleb: "Quanta entered XAUUSD BUY at 2950.50"
 ```
 
-### Quanta Alert File Format
+### Quanta Trade Alert Format
+
+Quanta writes to: `agents/quanta/outbox/trade-alert-{timestamp}.json`
 
 ```json
 {
@@ -233,6 +264,14 @@ Report to Caleb: "Quanta entered XAUUSD BUY at 2950.50"
 }
 ```
 
+### Helios Detection
+
+**During 15-min audit, Helios:**
+1. Checks if `quanta/outbox/trade-alert-*.json` exists
+2. If found → Reads and validates
+3. Writes URGENT alert to my inbox: `URGENT-quanta-trade-{timestamp}.md`
+4. Includes in next audit report
+
 ### My Immediate Report to Caleb
 
 **Format:**
@@ -245,30 +284,23 @@ SL: 2945.00 | TP: 2960.00 / 2970.00
 Risk: 1% of account
 Signal: CallistoFX (message 53385)
 Time: 22:15 SGT
+Trade ID: Q-20260302-001
 
 Monitoring for exit...
 ```
 
-### Implementation Options
+### Timeline
 
-**Option A: Helios detects (recommended)**
-- Helios checks Quanta outbox during audits
-- If trade alert found → flags as URGENT to me
-- I report to Caleb immediately
+| Event | Time |
+|-------|------|
+| Quanta enters trade | T+0 |
+| Quanta writes alert | T+0 |
+| Helios detects (next 15-min audit) | T+0 to T+15 min |
+| Helios sends URGENT to me | T+0 to T+15 min |
+| I report to Caleb | Within 5 min of receiving |
+| **Max delay** | **~20 minutes** |
 
-**Option B: I poll every 20 min**
-- I check `quanta/outbox/` every 20 minutes
-- If new trade file → read and report
-- Simpler, no Helios changes needed
-
-**Option C: Quanta sends direct (not possible)**
-- Quanta can't message Telegram directly
-- Would need API integration
-
-**Recommendation: Option B (I poll)**
-- No Helios code changes needed
-- I control the reporting
-- Can verify before alerting (reduce noise)
+If immediate alert needed (< 5 min), I can poll Quanta outbox every 5 minutes during active trading sessions.
 
 ---
 
@@ -278,32 +310,48 @@ Monitoring for exit...
 ```
 Chad (me)
     ↓
-Send poke request to Helios inbox
+Send heartbeat request to Helios inbox
     ↓
-Helios checks all agents
+Helios runs comprehensive audit:
+    - Pokes all agents (his normal 15-min job)
+    - Updates dashboard (ACTIVE.md → data.json → git push)
+    - Checks for blockers
+    - Compiles report
     ↓
-Helios reports to:
-    → Chad inbox (summary)
-    → Cerebronn inbox (strategic)
+Helios sends reports:
+    → Chad inbox (summary for me)
+    → Cerebronn inbox (strategic for Brain)
     ↓
 I format report for Caleb
     ↓
-Caleb gets digest (if 10am/10pm) or quick check
+Caleb gets digest (10am/10pm) or quick check
 ```
 
-### Quanta Trade Alert (Immediate)
+### Quanta Trade Alert (Within 15 min)
 ```
 Quanta executes trade
     ↓
 Writes trade-alert.json to outbox
     ↓
-I poll every 20 min (or detect via Helios)
+Helios detects (during next 15-min audit)
     ↓
-I read alert
+Helios sends URGENT to my inbox
     ↓
-Report immediately to Caleb
+I report immediately to Caleb
     ↓
 Monitor trade until exit
+```
+
+### Routine Monitoring (Helios Auto)
+```
+Helios runs every 15 minutes automatically
+    ↓
+Pokes all agents
+Updates dashboard
+Checks Quanta for trades
+    ↓
+If issues found → URGENT to me
+If normal → logs only
 ```
 
 ### Cerebronn Coordination (Async)
@@ -325,8 +373,8 @@ I act on decision
 
 | Purpose | Path |
 |---------|------|
-| Send poke to Helios | `agents/helios/inbox/poke-request-{ts}.json` |
-| Receive Helios report | `agents/chad-yi/inbox/helios-report-{ts}.json` |
+| Send heartbeat to Helios | `agents/helios/inbox/heartbeat-request-{ts}.json` |
+| Receive Helios report | `agents/chad-yi/inbox/helios-audit-{ts}.json` |
 | Send brief to Cerebronn | `agents/cerebronn/inbox/task-{ts}.md` |
 | Receive Cerebronn response | `agents/chad-yi/inbox/response-{ts}.md` |
 | Quanta trade alerts | `agents/quanta/outbox/trade-alert-{ts}.json` |
@@ -339,7 +387,7 @@ I act on decision
 **Manual for now:** I send heartbeats manually based on schedule
 **Future:** Can set up OpenClaw cron for automatic heartbeats
 
-**Quanta polling:** Every 20 min during market hours (London/NY sessions)
+**Quanta trade detection:** Helios checks during 15-min audits (max 15 min delay)
 
 ---
 
