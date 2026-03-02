@@ -368,6 +368,51 @@ git push upstream master
 git log --oneline -3
 ```
 
+### Backup Verification (CRITICAL — Never Assume)
+**After EVERY file change, verify it's actually backed up:**
+
+```bash
+# 1. Check file was modified
+ls -lh agents/chad-yi/SOUL.md
+
+# 2. Stage the change
+git add agents/chad-yi/SOUL.md
+
+# 3. Commit with descriptive message
+git commit -m "type: what changed"
+
+# 4. Push to GitHub
+git push upstream master
+
+# 5. VERIFY the push worked
+git log --oneline -3
+git status  # Should show "nothing to commit, working tree clean"
+
+# 6. (Optional) Verify on GitHub
+curl -s https://api.github.com/repos/chadyi-king/mission-control-workspace/commits?path=agents/chad-yi/SOUL.md\&per_page=1 | grep -o '"sha": "[^"]*"' | head -1
+```
+
+**What the types mean:**
+- `docs:` — Documentation changes (SOUL.md, README)
+- `fix:` — Bug fixes
+- `feat:` — New features
+- `task:` — Task updates (data.json)
+
+**If files get deleted/corrupted:**
+```bash
+# Restore from last commit
+git checkout HEAD -- agents/chad-yi/SOUL.md
+
+# Or see all versions
+git log --oneline -- agents/chad-yi/SOUL.md
+
+# Restore from specific commit
+git checkout <commit-hash> -- agents/chad-yi/SOUL.md
+```
+
+**The Rule: VERIFY BEFORE CLAIMING SAVED**
+Never say "it's saved" until you've run `git log --oneline -3` and confirmed the commit hash matches.
+
 ### Two Repos (Know Which Is Which)
 | Repo | Path | Branch | Content |
 |------|------|--------|---------|
