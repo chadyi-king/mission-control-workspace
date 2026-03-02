@@ -19,10 +19,21 @@ import argparse
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+try:
+    import requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
+
 WORKSPACE = Path("/home/chad-yi/.openclaw/workspace")
 AGENTS_DIR = WORKSPACE / "agents"
 HELIOS_OUTBOX = AGENTS_DIR / "helios" / "outbox"
 DASHBOARD_DATA = WORKSPACE / "mission-control-dashboard" / "data.json"
+
+# Telegram credentials (same bot Helios uses to reach Caleb)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8693482792:AAGNa21qo-fNGuPSDE5j5-828QAn7JSubdU")
+TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID",   "8583017204")
+TELEGRAM_MAX_CHARS = 4000  # Telegram limit is 4096; keep headroom
 
 def now_sgt():
     """Get current time in Singapore timezone"""
@@ -234,22 +245,50 @@ def generate_task_focused_report(report_type="heartbeat"):
     
     return report
 
+def send_telegram(text: str) -> bool:
+    """Send a message to Caleb via the Mission Control Telegram bot."""
+    if not HAS_REQUESTS or not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("[telegram] requests not available or credentials missing — skipping")
+        return False
+    try:
+        r = requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+            json={"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "Markdown"},
+            timeout=15,
+        )
+        if r.ok:
+            print(f"  [telegram] Sent to Caleb — {r.status_code}")
+            return True
+        else:
+            print(f"  [telegram] Send failed: {r.status_code} {r.text[:120]}")
+            return False
+    except Exception as e:
+        print(f"  [telegram] Error: {e}")
+        return False
+
+
 def send_report(report, report_type="heartbeat"):
-    """Send report to Caleb"""
+    """Send report to Caleb via Telegram and write to outbox for tracking."""
     timestamp = now_sgt().strftime("%Y%m%d-%H%M")
-    
+
     # Write to outbox for tracking
     outbox_file = AGENTS_DIR / "chad-yi" / "outbox" / f"{report_type}-{timestamp}.md"
     outbox_file.parent.mkdir(parents=True, exist_ok=True)
     outbox_file.write_text(report)
-    
-    # Print for now (will integrate with messaging)
+
+    # Trim to Telegram char limit if needed
+    tg_text = report if len(report) <= TELEGRAM_MAX_CHARS else report[:TELEGRAM_MAX_CHARS] + "\n…_(truncated)_"
+
+    # Send to Caleb via Telegram
+    ok = send_telegram(tg_text)
+
+    # Always print to stdout (captured in cron log)
     print(f"\n{'='*60}")
-    print(f"CHAD_YI {report_type.upper()} REPORT")
+    print(f"CHAD_YI {report_type.upper()} REPORT — telegram={'sent' if ok else 'FAILED'}")
     print(f"{'='*60}")
     print(report)
     print(f"{'='*60}\n")
-    
+
     return outbox_file
 
 def main():
