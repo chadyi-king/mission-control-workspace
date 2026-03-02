@@ -586,3 +586,578 @@ nohup: ignoring input
 [2026-03-02T02:37:19] INFO   Cerebronn report: helios-report-1772390239.json
 [2026-03-02T02:37:19] INFO   [briefing] Skipped — Cerebronn owns briefing.md
 [2026-03-02T02:37:19] INFO   Boot notification written to chad-yi inbox
+[2026-03-02T02:52:37] INFO Running audit...
+[2026-03-02T02:52:37] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T02:52:37] INFO + Helios API heartbeat accepted
+[2026-03-02T02:52:38] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T02:52:38] INFO   [sync] data.json written — 2026-03-02T02:52:38.047397+08:00
+[2026-03-02T02:52:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T03:00:49] INFO   [chad-outbox] Reading: heartbeat-20260302-0300.md
+[2026-03-02T03:00:49] INFO   [chad-outbox] Processed: heartbeat-20260302-0300.md
+[2026-03-02T03:07:58] INFO Running audit...
+[2026-03-02T03:07:58] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T03:07:58] INFO + Helios API heartbeat accepted
+[2026-03-02T03:07:58] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T03:07:58] INFO   [sync] data.json written — 2026-03-02T03:07:58.316722+08:00
+[2026-03-02T03:07:59] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T03:23:18] INFO Running audit...
+[2026-03-02T03:23:18] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T03:23:18] INFO + Helios API heartbeat accepted
+[2026-03-02T03:23:18] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T03:23:18] INFO   [sync] data.json written — 2026-03-02T03:23:18.996162+08:00
+[2026-03-02T03:23:20] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T03:38:39] INFO Running audit...
+[2026-03-02T03:38:40] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T03:38:40] INFO + Helios API heartbeat accepted
+[2026-03-02T03:38:40] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T03:38:40] INFO   [sync] data.json written — 2026-03-02T03:38:40.250162+08:00
+[2026-03-02T03:38:41] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T03:38:41] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T03:38:41] INFO   Cerebronn report: helios-report-1772393921.json
+[2026-03-02T03:38:41] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T03:54:02] INFO Running audit...
+[2026-03-02T03:54:02] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T03:54:02] INFO + Helios API heartbeat accepted
+[2026-03-02T03:54:02] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T03:54:02] INFO   [sync] data.json written — 2026-03-02T03:54:02.687597+08:00
+[2026-03-02T03:54:03] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T04:09:26] INFO Running audit...
+[2026-03-02T04:09:26] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T04:09:26] INFO + Helios API heartbeat accepted
+[2026-03-02T04:09:26] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T04:09:26] INFO   [sync] data.json written — 2026-03-02T04:09:26.553576+08:00
+[2026-03-02T04:09:27] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T04:24:49] INFO Running audit...
+[2026-03-02T04:24:50] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T04:24:50] INFO + Helios API heartbeat accepted
+[2026-03-02T04:24:50] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T04:24:50] INFO   [sync] data.json written — 2026-03-02T04:24:50.172173+08:00
+[2026-03-02T04:24:52] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T04:40:14] INFO Running audit...
+[2026-03-02T04:40:14] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T04:40:15] INFO + Helios API heartbeat accepted
+[2026-03-02T04:40:15] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T04:40:15] INFO   [sync] data.json written — 2026-03-02T04:40:15.124746+08:00
+[2026-03-02T04:40:17] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T04:40:17] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T04:40:17] INFO   Cerebronn report: helios-report-1772397617.json
+[2026-03-02T04:40:17] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T04:55:40] INFO Running audit...
+[2026-03-02T04:55:40] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T04:55:41] INFO + Helios API heartbeat accepted
+[2026-03-02T04:55:41] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T04:55:41] INFO   [sync] data.json written — 2026-03-02T04:55:41.077834+08:00
+[2026-03-02T04:55:42] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T05:11:07] INFO Running audit...
+[2026-03-02T05:11:07] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T05:11:07] INFO + Helios API heartbeat accepted
+[2026-03-02T05:11:08] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T05:11:08] INFO   [sync] data.json written — 2026-03-02T05:11:08.005438+08:00
+[2026-03-02T05:11:09] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T05:26:34] INFO Running audit...
+[2026-03-02T05:26:35] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T05:26:35] INFO + Helios API heartbeat accepted
+[2026-03-02T05:26:35] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T05:26:35] INFO   [sync] data.json written — 2026-03-02T05:26:35.155000+08:00
+[2026-03-02T05:26:36] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T05:42:02] INFO Running audit...
+[2026-03-02T05:42:02] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T05:42:02] INFO + Helios API heartbeat accepted
+[2026-03-02T05:42:03] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T05:42:03] INFO   [sync] data.json written — 2026-03-02T05:42:03.041587+08:00
+[2026-03-02T05:42:04] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T05:42:04] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T05:42:04] INFO   Cerebronn report: helios-report-1772401324.json
+[2026-03-02T05:42:04] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T05:57:31] INFO Running audit...
+[2026-03-02T05:57:31] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T05:57:31] INFO + Helios API heartbeat accepted
+[2026-03-02T05:57:31] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T05:57:31] INFO   [sync] data.json written — 2026-03-02T05:57:31.693008+08:00
+[2026-03-02T05:57:32] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T06:13:01] INFO Running audit...
+[2026-03-02T06:13:01] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T06:13:01] INFO + Helios API heartbeat accepted
+[2026-03-02T06:13:01] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T06:13:01] INFO   [sync] data.json written — 2026-03-02T06:13:01.520688+08:00
+[2026-03-02T06:13:02] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T06:28:29] INFO Running audit...
+[2026-03-02T06:28:29] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T06:28:30] INFO + Helios API heartbeat accepted
+[2026-03-02T06:28:30] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T06:28:30] INFO   [sync] data.json written — 2026-03-02T06:28:30.139107+08:00
+[2026-03-02T06:28:31] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T06:43:59] INFO Running audit...
+[2026-03-02T06:43:59] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T06:43:59] INFO + Helios API heartbeat accepted
+[2026-03-02T06:43:59] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T06:43:59] INFO   [sync] data.json written — 2026-03-02T06:43:59.690890+08:00
+[2026-03-02T06:44:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T06:44:01] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T06:44:01] INFO   Cerebronn report: helios-report-1772405040.json
+[2026-03-02T06:44:01] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T06:59:30] INFO Running audit...
+[2026-03-02T06:59:30] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T06:59:30] INFO + Helios API heartbeat accepted
+[2026-03-02T06:59:30] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T06:59:30] INFO   [sync] data.json written — 2026-03-02T06:59:30.431817+08:00
+[2026-03-02T06:59:31] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T07:14:53] INFO Running audit...
+[2026-03-02T07:14:53] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T07:14:53] INFO + Helios API heartbeat accepted
+[2026-03-02T07:14:53] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T07:14:53] INFO   [sync] data.json written — 2026-03-02T07:14:53.772896+08:00
+[2026-03-02T07:14:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T07:30:21] INFO Running audit...
+[2026-03-02T07:30:21] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T07:30:21] INFO + Helios API heartbeat accepted
+[2026-03-02T07:30:21] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T07:30:21] INFO   [sync] data.json written — 2026-03-02T07:30:21.833073+08:00
+[2026-03-02T07:30:23] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T07:45:52] INFO Running audit...
+[2026-03-02T07:45:52] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T07:45:52] INFO + Helios API heartbeat accepted
+[2026-03-02T07:45:52] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T07:45:52] INFO   [sync] data.json written — 2026-03-02T07:45:52.752454+08:00
+[2026-03-02T07:45:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T07:45:54] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T07:45:54] INFO   Cerebronn report: helios-report-1772408753.json
+[2026-03-02T07:45:54] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T08:00:23] INFO   [chad-outbox] Reading: morning-20260302-0800.md
+[2026-03-02T08:00:23] INFO   [chad-outbox] Processed: morning-20260302-0800.md
+[2026-03-02T08:01:25] INFO Running audit...
+[2026-03-02T08:01:25] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T08:01:25] INFO + Helios API heartbeat accepted
+[2026-03-02T08:01:25] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T08:01:25] INFO   [sync] data.json written — 2026-03-02T08:01:25.853984+08:00
+[2026-03-02T08:01:27] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T08:16:59] INFO Running audit...
+[2026-03-02T08:16:59] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T08:16:59] INFO + Helios API heartbeat accepted
+[2026-03-02T08:16:59] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T08:16:59] INFO   [sync] data.json written — 2026-03-02T08:16:59.473840+08:00
+[2026-03-02T08:17:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T08:32:32] INFO Running audit...
+[2026-03-02T08:32:32] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T08:32:32] INFO + Helios API heartbeat accepted
+[2026-03-02T08:32:32] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T08:32:32] INFO   [sync] data.json written — 2026-03-02T08:32:32.456733+08:00
+[2026-03-02T08:32:33] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T08:48:06] INFO Running audit...
+[2026-03-02T08:48:06] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T08:48:06] INFO + Helios API heartbeat accepted
+[2026-03-02T08:48:06] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T08:48:06] INFO   [sync] data.json written — 2026-03-02T08:48:06.849842+08:00
+[2026-03-02T08:48:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T08:48:08] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T08:48:08] INFO   Cerebronn report: helios-report-1772412488.json
+[2026-03-02T08:48:08] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T09:00:35] INFO Sending morning briefing...
+[2026-03-02T09:00:35] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:00:35] INFO   Digest sent to chad-yi inbox: Morning Briefing
+[2026-03-02T09:03:43] INFO Running audit...
+[2026-03-02T09:03:43] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T09:03:43] INFO + Helios API heartbeat accepted
+[2026-03-02T09:03:43] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:03:43] INFO   [sync] data.json written — 2026-03-02T09:03:43.870790+08:00
+[2026-03-02T09:03:45] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T09:19:21] INFO Running audit...
+[2026-03-02T09:19:21] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T09:19:21] INFO + Helios API heartbeat accepted
+[2026-03-02T09:19:21] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:19:21] INFO   [sync] data.json written — 2026-03-02T09:19:21.962687+08:00
+[2026-03-02T09:19:23] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T09:34:58] INFO Running audit...
+[2026-03-02T09:34:58] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T09:34:58] INFO + Helios API heartbeat accepted
+[2026-03-02T09:34:59] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:34:59] INFO   [sync] data.json written — 2026-03-02T09:34:59.001940+08:00
+[2026-03-02T09:35:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T09:50:38] INFO Running audit...
+[2026-03-02T09:50:38] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T09:50:38] INFO + Helios API heartbeat accepted
+[2026-03-02T09:50:38] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:50:38] INFO   [sync] data.json written — 2026-03-02T09:50:38.382654+08:00
+[2026-03-02T09:50:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T09:50:39] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T09:50:39] INFO   Cerebronn report: helios-report-1772416239.json
+[2026-03-02T09:50:39] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T10:01:05] INFO   [chad-outbox] Reading: heartbeat-20260302-1000.md
+[2026-03-02T10:01:05] INFO   [chad-outbox] Processed: heartbeat-20260302-1000.md
+[2026-03-02T10:06:18] INFO Running audit...
+[2026-03-02T10:06:18] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T10:06:18] INFO + Helios API heartbeat accepted
+[2026-03-02T10:06:18] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T10:06:18] INFO   [sync] data.json written — 2026-03-02T10:06:18.348480+08:00
+[2026-03-02T10:06:19] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T10:21:56] INFO Running audit...
+[2026-03-02T10:21:56] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T10:21:57] INFO + Helios API heartbeat accepted
+[2026-03-02T10:21:57] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T10:21:57] INFO   [sync] data.json written — 2026-03-02T10:21:57.117516+08:00
+[2026-03-02T10:21:58] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T10:37:28] INFO Running audit...
+[2026-03-02T10:37:28] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T10:37:28] INFO + Helios API heartbeat accepted
+[2026-03-02T10:37:28] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T10:37:28] INFO   [sync] data.json written — 2026-03-02T10:37:28.223070+08:00
+[2026-03-02T10:37:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T10:53:02] INFO Running audit...
+[2026-03-02T10:53:02] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T10:53:02] INFO + Helios API heartbeat accepted
+[2026-03-02T10:53:02] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T10:53:02] INFO   [sync] data.json written — 2026-03-02T10:53:02.454231+08:00
+[2026-03-02T10:53:03] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T10:53:03] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T10:53:03] INFO   Cerebronn report: helios-report-1772419983.json
+[2026-03-02T10:53:03] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T11:08:41] INFO Running audit...
+[2026-03-02T11:08:42] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T11:08:42] INFO + Helios API heartbeat accepted
+[2026-03-02T11:08:42] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T11:08:42] INFO   [sync] data.json written — 2026-03-02T11:08:42.223371+08:00
+[2026-03-02T11:08:43] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T11:24:23] INFO Running audit...
+[2026-03-02T11:24:23] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T11:24:23] INFO + Helios API heartbeat accepted
+[2026-03-02T11:24:23] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T11:24:23] INFO   [sync] data.json written — 2026-03-02T11:24:23.802101+08:00
+[2026-03-02T11:24:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T11:40:03] INFO Running audit...
+[2026-03-02T11:40:03] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T11:40:03] INFO + Helios API heartbeat accepted
+[2026-03-02T11:40:03] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T11:40:03] INFO   [sync] data.json written — 2026-03-02T11:40:03.584826+08:00
+[2026-03-02T11:40:04] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T11:55:45] INFO Running audit...
+[2026-03-02T11:55:45] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T11:55:45] INFO + Helios API heartbeat accepted
+[2026-03-02T11:55:45] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T11:55:45] INFO   [sync] data.json written — 2026-03-02T11:55:45.593892+08:00
+[2026-03-02T11:55:46] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T11:55:46] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T11:55:46] INFO   Cerebronn report: helios-report-1772423746.json
+[2026-03-02T11:55:46] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T12:01:00] INFO   [chad-outbox] Reading: heartbeat-20260302-1200.md
+[2026-03-02T12:01:00] INFO   [chad-outbox] Processed: heartbeat-20260302-1200.md
+[2026-03-02T12:11:30] INFO Running audit...
+[2026-03-02T12:11:30] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T12:11:30] INFO + Helios API heartbeat accepted
+[2026-03-02T12:11:30] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T12:11:30] INFO   [sync] data.json written — 2026-03-02T12:11:30.273689+08:00
+[2026-03-02T12:11:31] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T12:27:15] INFO Running audit...
+[2026-03-02T12:27:15] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T12:27:15] INFO + Helios API heartbeat accepted
+[2026-03-02T12:27:16] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T12:27:16] INFO   [sync] data.json written — 2026-03-02T12:27:16.053127+08:00
+[2026-03-02T12:27:17] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T12:43:01] INFO Running audit...
+[2026-03-02T12:43:01] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T12:43:01] INFO + Helios API heartbeat accepted
+[2026-03-02T12:43:02] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T12:43:02] INFO   [sync] data.json written — 2026-03-02T12:43:02.001478+08:00
+[2026-03-02T12:43:03] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T12:58:49] INFO Running audit...
+[2026-03-02T12:58:49] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T12:58:49] INFO + Helios API heartbeat accepted
+[2026-03-02T12:58:49] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T12:58:49] INFO   [sync] data.json written — 2026-03-02T12:58:49.663665+08:00
+[2026-03-02T12:58:50] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T12:58:50] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T12:58:50] INFO   Cerebronn report: helios-report-1772427530.json
+[2026-03-02T12:58:50] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T13:14:37] INFO Running audit...
+[2026-03-02T13:14:37] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T13:14:37] INFO + Helios API heartbeat accepted
+[2026-03-02T13:14:37] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T13:14:37] INFO   [sync] data.json written — 2026-03-02T13:14:37.676358+08:00
+[2026-03-02T13:14:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T13:30:26] INFO Running audit...
+[2026-03-02T13:30:26] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T13:30:26] INFO + Helios API heartbeat accepted
+[2026-03-02T13:30:26] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T13:30:26] INFO   [sync] data.json written — 2026-03-02T13:30:26.292578+08:00
+[2026-03-02T13:30:27] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T13:46:15] INFO Running audit...
+[2026-03-02T13:46:15] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T13:46:15] INFO + Helios API heartbeat accepted
+[2026-03-02T13:46:15] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T13:46:15] INFO   [sync] data.json written — 2026-03-02T13:46:15.728533+08:00
+[2026-03-02T13:46:16] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T14:01:01] INFO   [chad-outbox] Reading: heartbeat-20260302-1400.md
+[2026-03-02T14:01:01] INFO   [chad-outbox] Processed: heartbeat-20260302-1400.md
+[2026-03-02T14:02:05] INFO Running audit...
+[2026-03-02T14:02:05] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T14:02:05] INFO + Helios API heartbeat accepted
+[2026-03-02T14:02:05] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T14:02:05] INFO   [sync] data.json written — 2026-03-02T14:02:05.389185+08:00
+[2026-03-02T14:02:06] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T14:02:06] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T14:02:06] INFO   Cerebronn report: helios-report-1772431326.json
+[2026-03-02T14:02:06] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T14:17:56] INFO Running audit...
+[2026-03-02T14:17:56] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T14:17:56] INFO + Helios API heartbeat accepted
+[2026-03-02T14:17:56] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T14:17:56] INFO   [sync] data.json written — 2026-03-02T14:17:56.785818+08:00
+[2026-03-02T14:17:58] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T14:33:48] INFO Running audit...
+[2026-03-02T14:33:48] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T14:33:48] INFO + Helios API heartbeat accepted
+[2026-03-02T14:33:48] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T14:33:48] INFO   [sync] data.json written — 2026-03-02T14:33:48.985597+08:00
+[2026-03-02T14:33:50] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T14:49:39] INFO Running audit...
+[2026-03-02T14:49:39] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T14:49:41] INFO + Helios API heartbeat accepted
+[2026-03-02T14:49:41] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T14:49:41] INFO   [sync] data.json written — 2026-03-02T14:49:41.974665+08:00
+[2026-03-02T14:49:43] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T15:05:30] INFO Running audit...
+[2026-03-02T15:05:30] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T15:05:30] INFO + Helios API heartbeat accepted
+[2026-03-02T15:05:31] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T15:05:31] INFO   [sync] data.json written — 2026-03-02T15:05:31.102245+08:00
+[2026-03-02T15:05:34] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T15:05:34] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T15:05:34] INFO   Cerebronn report: helios-report-1772435134.json
+[2026-03-02T15:05:34] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T15:21:20] INFO Running audit...
+[2026-03-02T15:21:20] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T15:21:20] INFO + Helios API heartbeat accepted
+[2026-03-02T15:21:21] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T15:21:21] INFO   [sync] data.json written — 2026-03-02T15:21:21.061068+08:00
+[2026-03-02T15:21:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T15:37:13] INFO Running audit...
+[2026-03-02T15:37:13] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T15:37:13] INFO + Helios API heartbeat accepted
+[2026-03-02T15:37:13] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T15:37:13] INFO   [sync] data.json written — 2026-03-02T15:37:13.604128+08:00
+[2026-03-02T15:37:14] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T15:53:07] INFO Running audit...
+[2026-03-02T15:53:07] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T15:53:07] INFO + Helios API heartbeat accepted
+[2026-03-02T15:53:07] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T15:53:07] INFO   [sync] data.json written — 2026-03-02T15:53:07.421738+08:00
+[2026-03-02T15:53:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T16:00:30] INFO   [chad-outbox] Reading: heartbeat-20260302-1600.md
+[2026-03-02T16:00:30] INFO   [chad-outbox] Processed: heartbeat-20260302-1600.md
+[2026-03-02T16:09:00] INFO Running audit...
+[2026-03-02T16:09:00] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T16:09:00] INFO + Helios API heartbeat accepted
+[2026-03-02T16:09:00] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T16:09:00] INFO   [sync] data.json written — 2026-03-02T16:09:00.450508+08:00
+[2026-03-02T16:09:01] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T16:09:01] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T16:09:01] INFO   Cerebronn report: helios-report-1772438941.json
+[2026-03-02T16:09:01] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T16:24:57] INFO Running audit...
+[2026-03-02T16:24:57] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T16:24:57] INFO + Helios API heartbeat accepted
+[2026-03-02T16:24:57] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T16:24:57] INFO   [sync] data.json written — 2026-03-02T16:24:57.511158+08:00
+[2026-03-02T16:24:58] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T16:40:53] INFO Running audit...
+[2026-03-02T16:40:53] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T16:40:53] INFO + Helios API heartbeat accepted
+[2026-03-02T16:40:54] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T16:40:54] INFO   [sync] data.json written — 2026-03-02T16:40:54.018893+08:00
+[2026-03-02T16:40:55] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T16:56:50] INFO Running audit...
+[2026-03-02T16:56:50] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T16:56:51] INFO + Helios API heartbeat accepted
+[2026-03-02T16:56:51] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T16:56:51] INFO   [sync] data.json written — 2026-03-02T16:56:51.121363+08:00
+[2026-03-02T16:56:52] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T17:12:48] INFO Running audit...
+[2026-03-02T17:12:49] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T17:12:49] INFO + Helios API heartbeat accepted
+[2026-03-02T17:12:49] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T17:12:49] INFO   [sync] data.json written — 2026-03-02T17:12:49.169154+08:00
+[2026-03-02T17:12:50] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T17:12:50] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T17:12:50] INFO   Cerebronn report: helios-report-1772442770.json
+[2026-03-02T17:12:50] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T17:28:30] INFO Running audit...
+[2026-03-02T17:28:30] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T17:28:30] INFO + Helios API heartbeat accepted
+[2026-03-02T17:28:30] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T17:28:30] INFO   [sync] data.json written — 2026-03-02T17:28:30.928078+08:00
+[2026-03-02T17:28:32] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T17:44:22] INFO Running audit...
+[2026-03-02T17:44:22] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T17:44:22] INFO + Helios API heartbeat accepted
+[2026-03-02T17:44:22] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T17:44:22] INFO   [sync] data.json written — 2026-03-02T17:44:22.708212+08:00
+[2026-03-02T17:44:23] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T18:00:19] INFO   [chad-outbox] Reading: heartbeat-20260302-1800.md
+[2026-03-02T18:00:19] INFO   [chad-outbox] Processed: heartbeat-20260302-1800.md
+[2026-03-02T18:00:19] INFO Running audit...
+[2026-03-02T18:00:19] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T18:00:19] INFO + Helios API heartbeat accepted
+[2026-03-02T18:00:19] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T18:00:19] INFO   [sync] data.json written — 2026-03-02T18:00:19.900416+08:00
+[2026-03-02T18:00:21] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T18:16:18] INFO Running audit...
+[2026-03-02T18:16:18] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T18:16:18] INFO + Helios API heartbeat accepted
+[2026-03-02T18:16:18] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T18:16:18] INFO   [sync] data.json written — 2026-03-02T18:16:18.987301+08:00
+[2026-03-02T18:16:20] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T18:16:20] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T18:16:20] INFO   Cerebronn report: helios-report-1772446580.json
+[2026-03-02T18:16:20] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T18:32:21] INFO Running audit...
+[2026-03-02T18:32:21] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T18:32:21] INFO + Helios API heartbeat accepted
+[2026-03-02T18:32:21] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T18:32:21] INFO   [sync] data.json written — 2026-03-02T18:32:21.650068+08:00
+[2026-03-02T18:32:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T18:48:24] INFO Running audit...
+[2026-03-02T18:48:24] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T18:48:24] INFO + Helios API heartbeat accepted
+[2026-03-02T18:48:24] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T18:48:24] INFO   [sync] data.json written — 2026-03-02T18:48:24.577568+08:00
+[2026-03-02T18:48:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T19:03:24] INFO Running audit...
+[2026-03-02T19:03:24] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T19:03:24] INFO + Helios API heartbeat accepted
+[2026-03-02T19:03:24] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T19:03:24] INFO   [sync] data.json written — 2026-03-02T19:03:24.744750+08:00
+[2026-03-02T19:03:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T19:18:24] INFO Running audit...
+[2026-03-02T19:18:24] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T19:18:24] INFO + Helios API heartbeat accepted
+[2026-03-02T19:18:24] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T19:18:24] INFO   [sync] data.json written — 2026-03-02T19:18:24.800297+08:00
+[2026-03-02T19:18:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T19:18:26] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T19:18:26] INFO   Cerebronn report: helios-report-1772450305.json
+[2026-03-02T19:18:26] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T19:33:24] INFO Running audit...
+[2026-03-02T19:33:24] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T19:33:24] INFO + Helios API heartbeat accepted
+[2026-03-02T19:33:24] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T19:33:24] INFO   [sync] data.json written — 2026-03-02T19:33:24.845316+08:00
+[2026-03-02T19:33:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T19:48:26] INFO Running audit...
+[2026-03-02T19:48:26] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T19:48:26] INFO + Helios API heartbeat accepted
+[2026-03-02T19:48:28] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T19:48:28] INFO   [sync] data.json written — 2026-03-02T19:48:28.555927+08:00
+[2026-03-02T19:48:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T20:00:16] INFO   [chad-outbox] Reading: heartbeat-20260302-2000.md
+[2026-03-02T20:00:16] INFO   [chad-outbox] Processed: heartbeat-20260302-2000.md
+[2026-03-02T20:03:29] INFO Running audit...
+[2026-03-02T20:03:29] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T20:03:29] INFO + Helios API heartbeat accepted
+[2026-03-02T20:03:29] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T20:03:29] INFO   [sync] data.json written — 2026-03-02T20:03:29.658578+08:00
+[2026-03-02T20:03:30] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T20:18:30] INFO Running audit...
+[2026-03-02T20:18:30] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T20:18:30] INFO + Helios API heartbeat accepted
+[2026-03-02T20:18:30] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T20:18:30] INFO   [sync] data.json written — 2026-03-02T20:18:30.872505+08:00
+[2026-03-02T20:18:32] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T20:18:32] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T20:18:32] INFO   Cerebronn report: helios-report-1772453912.json
+[2026-03-02T20:18:32] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T20:33:32] INFO Running audit...
+[2026-03-02T20:33:32] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T20:33:32] INFO + Helios API heartbeat accepted
+[2026-03-02T20:33:32] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T20:33:32] INFO   [sync] data.json written — 2026-03-02T20:33:32.751437+08:00
+[2026-03-02T20:33:33] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T20:48:35] INFO Running audit...
+[2026-03-02T20:48:35] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T20:48:35] INFO + Helios API heartbeat accepted
+[2026-03-02T20:48:35] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T20:48:35] INFO   [sync] data.json written — 2026-03-02T20:48:35.254249+08:00
+[2026-03-02T20:48:36] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T21:03:36] INFO Running audit...
+[2026-03-02T21:03:36] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T21:03:36] INFO + Helios API heartbeat accepted
+[2026-03-02T21:03:36] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T21:03:36] INFO   [sync] data.json written — 2026-03-02T21:03:36.738032+08:00
+[2026-03-02T21:03:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T21:19:24] INFO Running audit...
+[2026-03-02T21:19:24] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T21:19:24] INFO + Helios API heartbeat accepted
+[2026-03-02T21:19:24] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T21:19:24] INFO   [sync] data.json written — 2026-03-02T21:19:24.435933+08:00
+[2026-03-02T21:19:25] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T21:19:25] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T21:19:25] INFO   Cerebronn report: helios-report-1772457565.json
+[2026-03-02T21:19:25] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T21:34:42] INFO Running audit...
+[2026-03-02T21:34:42] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T21:34:42] INFO + Helios API heartbeat accepted
+[2026-03-02T21:34:42] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T21:34:42] INFO   [sync] data.json written — 2026-03-02T21:34:42.822946+08:00
+[2026-03-02T21:34:44] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T21:49:47] INFO Running audit...
+[2026-03-02T21:49:47] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T21:49:51] INFO + Helios API heartbeat accepted
+[2026-03-02T21:49:51] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T21:49:51] INFO   [sync] data.json written — 2026-03-02T21:49:51.166843+08:00
+[2026-03-02T21:49:52] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T22:00:53] INFO   [chad-outbox] Reading: evening-20260302-2200.md
+[2026-03-02T22:00:53] INFO   [chad-outbox] Processed: evening-20260302-2200.md
+[2026-03-02T22:00:53] INFO Sending evening digest...
+[2026-03-02T22:00:53] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:00:53] INFO   Digest sent to chad-yi inbox: Evening Digest
+[2026-03-02T22:04:53] INFO Running audit...
+[2026-03-02T22:04:53] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T22:04:53] INFO + Helios API heartbeat accepted
+[2026-03-02T22:04:53] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:04:53] INFO   [sync] data.json written — 2026-03-02T22:04:53.924542+08:00
+[2026-03-02T22:04:55] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T22:19:56] INFO Running audit...
+[2026-03-02T22:19:56] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T22:19:56] INFO + Helios API heartbeat accepted
+[2026-03-02T22:19:56] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:19:56] INFO   [sync] data.json written — 2026-03-02T22:19:56.270713+08:00
+[2026-03-02T22:19:57] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T22:19:57] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:19:57] INFO   Cerebronn report: helios-report-1772461197.json
+[2026-03-02T22:19:57] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T22:34:58] INFO Running audit...
+[2026-03-02T22:34:58] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T22:34:58] INFO + Helios API heartbeat accepted
+[2026-03-02T22:34:58] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:34:58] INFO   [sync] data.json written — 2026-03-02T22:34:58.728170+08:00
+[2026-03-02T22:34:59] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T22:42:00] INFO   [inbox] Processing: heartbeat-request-1772461320.json
+[2026-03-02T22:42:00] INFO   [inbox] Acked: heartbeat-request-1772461320.json
+[2026-03-02T22:42:00] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772462520196.md
+[2026-03-02T22:50:00] INFO Running audit...
+[2026-03-02T22:50:00] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T22:50:00] INFO + Helios API heartbeat accepted
+[2026-03-02T22:50:00] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T22:50:00] INFO   [sync] data.json written — 2026-03-02T22:50:00.763093+08:00
+[2026-03-02T22:50:01] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T23:05:02] INFO Running audit...
+[2026-03-02T23:05:02] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T23:05:02] INFO + Helios API heartbeat accepted
+[2026-03-02T23:05:02] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T23:05:02] INFO   [sync] data.json written — 2026-03-02T23:05:02.932703+08:00
+[2026-03-02T23:05:04] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T23:11:04] INFO   [chad-outbox] Reading: ARCHIVED-URGENT-verify-helios-1772334871.md
+[2026-03-02T23:11:04] INFO   [chad-outbox] Processed: ARCHIVED-URGENT-verify-helios-1772334871.md
+[2026-03-02T23:20:05] INFO Running audit...
+[2026-03-02T23:20:05] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T23:20:05] INFO + Helios API heartbeat accepted
+[2026-03-02T23:20:05] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T23:20:05] INFO   [sync] data.json written — 2026-03-02T23:20:05.321832+08:00
+[2026-03-02T23:20:06] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-02T23:20:06] INFO   [active.md] 17 tasks — 4 critical, 2 urgent, 6 blocked
+[2026-03-02T23:20:06] INFO   Cerebronn report: helios-report-1772464806.json
+[2026-03-02T23:20:06] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-02T23:35:07] INFO Running audit...
+[2026-03-02T23:35:07] INFO   1 active, 1 idle, 0 silent. Alerts: 0.
+[2026-03-02T23:35:07] INFO + Helios API heartbeat accepted
+[2026-03-02T23:35:07] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-02T23:35:07] INFO   [sync] data.json written — 2026-03-02T23:35:07.575350+08:00
+[2026-03-02T23:35:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
