@@ -1,0 +1,41 @@
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│           🎮 GATHER TOWN - VIRTUAL TEAM BUILDING 🎮          │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │                                                     │   │
+│  │    🌳        ☕ CAFE ☕        🌳                  │   │
+│  │         🚶‍♂️              🚶‍♀️                      │   │
+│  │                                                     │   │
+│  │         ┌─────────────────┐                        │   │
+│  │    🎯   │   MAIN LOBBY    │   🎲                   │   │
+│  │         │   (SPAWN HERE)  │                        │   │
+│  │         └────────┬────────┘                        │   │
+│  │                  │                                 │   │
+│  │    ┌─────────────┼─────────────┐                  │   │
+│  │    │             │             │                  │   │
+│  │    ▼             ▼             ▼                  │   │
+│  │ ┌──────┐    ┌────────┐    ┌────────┐            │   │
+│  │ │ GAME │    │MEETING │    │CREATIVE│            │   │
+│  │ │ROOM 🎮│    │ ROOM 🗣️ │    │ SPACE 🎨│            │   │
+│  │ │      │    │        │    │        │            │   │
+│  │ │•Trivia│    │•Whitebd│    │•Draw   │            │   │
+│  │ │•Poker │    │•Screen │    │•Build  │            │   │
+│  │ │•Chess │    │•Present│    │•Create │            │   │
+│  │ └──────┘    └────────┘    └────────┘            │   │
+│  │                                                     │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  🔊 PROXIMITY AUDIO:                                        │
+│     🟢 CLOSE → Full conversation                            │
+│     🟡 MEDIUM → Faint audio                                 │
+│     🔴 FAR → Silent (private conversations)                 │
+│                                                             │
+│  💡 PERFECT FOR:                                            │
+│     • Virtual escape rooms                                  │
+│     • Team scavenger hunts                                  │
+│     • Creative workshops                                    │
+│     • Networking events                                     │
+│     • Icebreaker games                                      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
