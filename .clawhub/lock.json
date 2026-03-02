@@ -104,6 +104,14 @@
     "browserautomation-skill": {
       "version": "1.0.2",
       "installedAt": 1770790499175
+    },
+    "shopify-admin-api": {
+      "version": "1.0.0",
+      "installedAt": 1772495880874
+    },
+    "website-seo": {
+      "version": "1.0.0",
+      "installedAt": 1772495886711
     }
   }
 }

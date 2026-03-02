@@ -3,7 +3,7 @@
 cerebronn.py — Cerebronn Heartbeat Script
 The Persistent Memory & Strategic Brain. Runs every 30 minutes.
 
-What this script does (NO LLM - pure Python):
+What this script does (Ollama LLM for planning, pure Python for watchdog):
   - Reads Helios reports from inbox → extracts structured data
   - Updates memory/state.json  → compact rolling state (anti-bloat)
   - Rewrites memory/briefing.md → clean every cycle, never grows
@@ -14,9 +14,11 @@ What this script does (NO LLM - pure Python):
   - Archives processed reports to memory/archive/YYYY-MM/
   - Keeps memory compact: briefing ≤ 80 lines, state.json ≤ 50 agents
 
-The LLM thinking (Kimi K2.5) happens when YOU open Cerebronn
-in VS Code / OpenClaw — not in this background loop. This keeps
-token costs at ZERO for routine memory management.
+The background loop now calls local Ollama (qwen3) for planning when tasks arrive
+or block. Context = caleb-profile + agent registry + patterns. Plans are routed
+to Chad inbox (summary) and the relevant agent inbox (full plan).
+
+Additional LLM thinking via OpenClaw happens when YOU open Cerebronn in VS Code.
 
 INBOX  (Helios drops here):
   /home/chad-yi/.openclaw/workspace/agents/cerebronn/inbox/
@@ -37,6 +39,12 @@ import logging
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+try:
+    import requests as _requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -55,6 +63,14 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 
 SLEEP_INTERVAL  = 30 * 60   # 30 minutes
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
+
+# Ollama — local LLM for architectural thinking (no token cost)
+OLLAMA_URL   = "http://localhost:11434/api/generate"
+THINK_MODEL  = "qwen3:latest"   # best reasoning model available
+FORGER_INBOX = WORKSPACE / "agents" / "forger" / "inbox"
+
+# How long before Cerebronn re-thinks the same task (avoid spam)
+THINK_COOLDOWN_CYCLES = 4   # ~2 hours at 30min intervals
 
 # Agent heartbeat.json paths — Cerebronn reads these directly every cycle
 AGENT_HEARTBEATS = {
@@ -756,6 +772,200 @@ def build_search_index():
 
 
 # ---------------------------------------------------------------------------
+# Ollama Thinking Engine — architecture planning, gap analysis, routing
+# ---------------------------------------------------------------------------
+
+def call_ollama(prompt: str, timeout: int = 90) -> str | None:
+    """Call local Ollama and return the response text. Returns None on failure."""
+    if not HAS_REQUESTS:
+        log.warning("[think] requests not installed — cannot call Ollama")
+        return None
+    try:
+        r = _requests.post(
+            OLLAMA_URL,
+            json={"model": THINK_MODEL, "prompt": prompt, "stream": False},
+            timeout=timeout,
+        )
+        if r.ok:
+            return r.json().get("response", "").strip()
+        else:
+            log.warning(f"[think] Ollama error {r.status_code}: {r.text[:120]}")
+            return None
+    except Exception as e:
+        log.warning(f"[think] Ollama unreachable: {e}")
+        return None
+
+
+def build_think_context(state: dict) -> str:
+    """Assemble rich context from memory for the LLM: profile, agents, tasks, patterns."""
+    parts = []
+
+    # Caleb's profile
+    if CALEB_PROFILE.exists():
+        parts.append("=== CALEB PROFILE ===\n" + CALEB_PROFILE.read_text()[:1500])
+
+    # Agent registry
+    registry = MEMORY / "agents" / "REGISTRY.md"
+    if registry.exists():
+        parts.append("=== AGENT REGISTRY ===\n" + registry.read_text()[:1200])
+
+    # Patterns
+    if PATTERNS_FILE.exists():
+        parts.append("=== KNOWN PATTERNS ===\n" + PATTERNS_FILE.read_text()[:800])
+
+    # Current system state summary
+    tasks = state.get("tasks", {})
+    agents_summary = ", ".join(
+        f"{n}:{i.get('status','?')}" for n, i in state.get("agents", {}).items()
+    )
+    parts.append(
+        f"=== CURRENT STATE ===\n"
+        f"Tasks — Total:{tasks.get('total',0)} Critical:{tasks.get('critical',0)} "
+        f"Urgent:{tasks.get('urgent',0)} Blocked:{tasks.get('blocked',0)} "
+        f"Active:{tasks.get('active',0)}\n"
+        f"Agents — {agents_summary}"
+    )
+
+    return "\n\n".join(parts)
+
+
+def think_on_task(task_id: str, task_info: dict, state: dict) -> str | None:
+    """Call Ollama to produce an architectural plan for a task. Returns plan text."""
+    context = build_think_context(state)
+    title   = task_info.get("title", task_id)
+    status  = task_info.get("status", "?")
+    priority = task_info.get("priority", "?")
+    agent   = task_info.get("agent", "unassigned")
+
+    prompt = f"""You are Cerebronn, the strategic brain of an AI agent system called Mission Control.
+Your job is to analyse tasks and produce clear, actionable plans for the team.
+
+{context}
+
+=== TASK TO ANALYSE ===
+ID: {task_id}
+Title: {title}
+Priority: {priority}
+Status: {status}
+Assigned to: {agent}
+
+Produce a structured analysis with these sections:
+1. ROOT CAUSE — Why is this task blocked or complex? Be specific.
+2. ARCHITECTURE — How should this be properly built/solved? What is the right structure?
+3. GAPS — What information, credentials, decisions, or research is missing?
+4. RESEARCH SOURCES — Where specifically should we look? (GitHub repos, Twitter accounts,
+   YouTube channels, docs, APIs, tools — be specific, not generic)
+5. EXECUTION PLAN — Numbered steps in the right order. Which agent does each step?
+   (Agents: Chad-Yi=coordinator/Caleb's voice, Helios=monitoring, Forger=website builder,
+   Quanta=forex trading bot, Cerebronn=memory/planning)
+6. BLOCKERS FOR CALEB — What specifically needs Caleb's decision or action?
+
+Be concise and direct. No fluff. Focus on what will actually unblock progress."""
+
+    log.info(f"[think] Calling Ollama for task {task_id}: {title[:50]}...")
+    plan = call_ollama(prompt)
+    if plan:
+        log.info(f"[think] Plan generated for {task_id} ({len(plan)} chars)")
+    return plan
+
+
+def route_plan(task_id: str, task_info: dict, plan_text: str):
+    """Write plan to Chad inbox (summary) and relevant agent inbox (full plan)."""
+    now_ts = sgt_str()
+    stamp  = str(int(time.time()))
+    title  = task_info.get("title", task_id)
+    agent  = task_info.get("agent", "").lower()
+    priority = task_info.get("priority", "?")
+
+    # --- Chad inbox: always gets a summary (first 600 chars + pointer)
+    chad_subject = f"Cerebronn Plan: [{task_id}] {title}"
+    plan_snippet = plan_text[:600]
+    overflow_note = "\n\n_...full plan sent to relevant agent inbox_" if len(plan_text) > 600 else ""
+    chad_content = f"""# {chad_subject}
+*Generated: {now_ts} | Priority: {priority}*
+
+{plan_snippet}{overflow_note}
+
+---
+*Auto-generated by Cerebronn (qwen3). Review and delegate as needed.*
+"""
+    chad_file = CHAD_INBOX / f"cerebronn-plan-{task_id.lower()}-{stamp}.md"
+    chad_file.parent.mkdir(parents=True, exist_ok=True)
+    chad_file.write_text(chad_content)
+    log.info(f"[route] Plan summary → Chad inbox: {chad_file.name}")
+
+    # --- Agent inbox: full plan routed by task type / assigned agent
+    full_content = f"""# Cerebronn Plan: [{task_id}] {title}
+*Generated: {now_ts} | Priority: {priority} | Assigned: {task_info.get('agent','?')}*
+
+{plan_text}
+
+---
+*Auto-generated by Cerebronn (qwen3). Act on this plan.*
+"""
+
+    targets = []
+    if "forger" in agent or any(kw in title.lower() for kw in ["website", "build", "design", "site", "page"]):
+        targets.append((FORGER_INBOX, "forger"))
+    if "helios" in agent or any(kw in title.lower() for kw in ["monitor", "track", "audit", "report"]):
+        targets.append((WORKSPACE / "agents" / "helios" / "inbox", "helios"))
+    if not targets:
+        # Default: write to cerebronn outbox for reference
+        targets.append((OUTBOX, "cerebronn-outbox"))
+
+    for inbox_dir, target_name in targets:
+        inbox_dir.mkdir(parents=True, exist_ok=True)
+        dest = inbox_dir / f"cerebronn-plan-{task_id.lower()}-{stamp}.md"
+        dest.write_text(full_content)
+        log.info(f"[route] Full plan → {target_name} inbox: {dest.name}")
+
+
+def run_think_loop(state: dict, new_task_ids: list):
+    """Think on tasks that need planning. Called every cycle.
+    Triggers on: new tasks, blocked critical tasks, explicit think-requests.
+    Uses cooldown to avoid re-thinking the same task every cycle."""
+    if not HAS_REQUESTS:
+        return
+
+    think_log = state.setdefault("think_log", {})   # task_id → cycle_count_last_thought
+    current_cycle = state.get("cycle_count", 0)
+    tasks_detail = state.get("tasks_detail", {})
+    candidates = []  # list of (task_id, task_info, reason)
+
+    # 1. New tasks that just arrived
+    for tid in new_task_ids:
+        info = tasks_detail.get(tid, {"title": tid, "priority": "unknown", "status": "new"})
+        candidates.append((tid, info, "new task"))
+
+    # 2. Blocked critical/urgent tasks (with cooldown)
+    for tid, tinfo in tasks_detail.items():
+        if tinfo.get("status") not in ("blocked", "active"):
+            continue
+        if tinfo.get("priority") not in ("critical", "urgent"):
+            continue
+        last_thought = think_log.get(tid, 0)
+        if current_cycle - last_thought >= THINK_COOLDOWN_CYCLES:
+            if tid not in [c[0] for c in candidates]:  # not already added
+                candidates.append((tid, tinfo, f"{tinfo['status']} {tinfo['priority']}"))
+
+    # 3. Explicit think-request files in inbox (already archived by now — check outbox log)
+    # (Users can drop think-request-TASKID.md to force a re-think)
+
+    if not candidates:
+        return
+
+    log.info(f"[think] {len(candidates)} task(s) queued for thinking")
+    for task_id, task_info, reason in candidates:
+        plan = think_on_task(task_id, task_info, state)
+        if plan:
+            route_plan(task_id, task_info, plan)
+            think_log[task_id] = current_cycle
+            append_caleb_observation(
+                f"Cerebronn planned [{task_id}] '{task_info.get('title','')}' — {reason}"
+            )
+
+
+# ---------------------------------------------------------------------------
 # Learning loop — append observed patterns to caleb-profile.md
 # ---------------------------------------------------------------------------
 
@@ -924,9 +1134,10 @@ def run_cycle():
     digest_files   = [f for f in inbox_files if f.name.startswith("digest-") or f.name.startswith("daily-digest")]
     task_files     = [f for f in inbox_files if f.name.startswith("TASK-") or f.name.startswith("task-")]
     session_files  = [f for f in inbox_files if f.name.startswith("chad-session-")]
-    other_files    = [f for f in inbox_files if f not in report_files + forger_files + digest_files + task_files + session_files]
+    think_req_files = [f for f in inbox_files if f.name.startswith("think-request-")]
+    other_files    = [f for f in inbox_files if f not in report_files + forger_files + digest_files + task_files + session_files + think_req_files]
 
-    log.info(f"[inbox] Found: {len(report_files)} reports, {len(forger_files)} forger-status, {len(digest_files)} digests, {len(task_files)} tasks, {len(session_files)} chad-sessions, {len(other_files)} other")
+    log.info(f"[inbox] Found: {len(report_files)} reports, {len(forger_files)} forger-status, {len(digest_files)} digests, {len(task_files)} tasks, {len(session_files)} chad-sessions, {len(think_req_files)} think-requests, {len(other_files)} other")
 
     # Process Helios reports — latest only to avoid repeating old data
     # But archive ALL of them after reading the latest
@@ -1004,6 +1215,23 @@ def run_cycle():
         log.info(f"[inbox] Unrecognised file archived: {f.name}")
         archive_file(f)
         processed += 1
+
+    # Thinking loop — call Ollama to plan tasks that need it
+    # new_task_ids: tasks from task_files dropped this cycle (force immediate think)
+    new_task_ids = [
+        f.stem.replace("TASK-", "").replace("task-", "")
+        for f in task_files
+    ]
+    # Also force re-think on any explicit think-request-TASKID.md files
+    for f in think_req_files:
+        tid = f.stem.replace("think-request-", "").strip()
+        if tid and tid not in new_task_ids:
+            new_task_ids.append(tid)
+            # Reset cooldown so it gets re-thought immediately
+            state.get("think_log", {}).pop(tid, None)
+        archive_file(f)
+        processed += 1
+    run_think_loop(state, new_task_ids)
 
     # Apply decisions
     apply_decisions(all_decisions, state)
