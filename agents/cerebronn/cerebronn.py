@@ -66,7 +66,7 @@ MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
 # Ollama — local LLM for architectural thinking (no token cost)
 OLLAMA_URL   = "http://localhost:11434/api/generate"
-THINK_MODEL  = "qwen3:latest"   # best reasoning model available
+THINK_MODEL  = "kimi-coding/k2p5"   # Kimi 2.5 for reasoning (changed from qwen3 per Caleb request)
 FORGER_INBOX = WORKSPACE / "agents" / "forger" / "inbox"
 
 # How long before Cerebronn re-thinks the same task (avoid spam)
