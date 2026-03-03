@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 cerebronn.py — Cerebronn Heartbeat Script
-The Persistent Memory & Strategic Brain. Runs every 30 minutes.
+The Persistent Memory & Strategic Brain. Runs every 5 minutes.
 
 What this script does (Ollama LLM for planning, pure Python for watchdog):
   - Reads Helios reports from inbox → extracts structured data
@@ -61,7 +61,7 @@ BRIEFING_FILE   = MEMORY / "briefing.md"
 INDEX_FILE      = MEMORY / "INDEX.md"
 PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 
-SLEEP_INTERVAL  = 30 * 60   # 30 minutes
+SLEEP_INTERVAL  = 5 * 60   # 5 minutes (increased frequency per Caleb request)
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
 # Ollama — local LLM for architectural thinking (no token cost)
