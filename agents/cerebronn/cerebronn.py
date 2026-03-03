@@ -3,7 +3,7 @@
 cerebronn.py — Cerebronn Heartbeat Script
 The Persistent Memory & Strategic Brain. Runs every 5 minutes.
 
-What this script does (Ollama LLM for planning, pure Python for watchdog):
+What this script does (OpenClaw Kimi 2.5 API for planning, pure Python for watchdog):
   - Reads Helios reports from inbox → extracts structured data
   - Updates memory/state.json  → compact rolling state (anti-bloat)
   - Rewrites memory/briefing.md → clean every cycle, never grows
@@ -64,9 +64,9 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 SLEEP_INTERVAL  = 5 * 60   # 5 minutes (increased frequency per Caleb request)
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
-# Ollama — local LLM for architectural thinking (no token cost)
-OLLAMA_URL   = "http://localhost:11434/api/generate"
-THINK_MODEL  = "kimi-coding/k2p5"   # Kimi 2.5 for reasoning (changed from qwen3 per Caleb request)
+# OpenClaw Gateway API (Kimi 2.5) for architectural thinking
+# Changed from Ollama to OpenClaw API per Caleb request
+THINK_MODEL  = "kimi-coding/k2p5"   # Uses OpenClaw Gateway API
 FORGER_INBOX = WORKSPACE / "agents" / "forger" / "inbox"
 
 # How long before Cerebronn re-thinks the same task (avoid spam)
@@ -772,28 +772,47 @@ def build_search_index():
 
 
 # ---------------------------------------------------------------------------
-# Ollama Thinking Engine — architecture planning, gap analysis, routing
+# OpenClaw Thinking Engine (Kimi 2.5) — architecture planning, gap analysis, routing
 # ---------------------------------------------------------------------------
 
 def call_ollama(prompt: str, timeout: int = 90) -> str | None:
-    """Call local Ollama and return the response text. Returns None on failure."""
+    """Call OpenClaw API (Kimi 2.5) for architectural reasoning. Returns None on failure."""
     if not HAS_REQUESTS:
-        log.warning("[think] requests not installed — cannot call Ollama")
+        log.warning("[think] requests not installed — cannot call API")
         return None
-    try:
-        r = _requests.post(
-            OLLAMA_URL,
-            json={"model": THINK_MODEL, "prompt": prompt, "stream": False},
-            timeout=timeout,
-        )
-        if r.ok:
-            return r.json().get("response", "").strip()
-        else:
-            log.warning(f"[think] Ollama error {r.status_code}: {r.text[:120]}")
-            return None
-    except Exception as e:
-        log.warning(f"[think] Ollama unreachable: {e}")
-        return None
+    
+    # OpenClaw Gateway API (Kimi 2.5)
+    # Try multiple possible endpoints
+    endpoints = [
+        os.environ.get("OPENCLAW_URL", "http://localhost:8080") + "/v1/chat/completions",
+        "http://localhost:8080/v1/chat/completions",
+        "http://127.0.0.1:8080/v1/chat/completions",
+    ]
+    
+    for url in endpoints:
+        try:
+            r = _requests.post(
+                url,
+                json={
+                    "model": "kimi-coding/k2p5",
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.7,
+                    "max_tokens": 2000
+                },
+                timeout=timeout,
+            )
+            if r.ok:
+                result = r.json()
+                content = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+                log.info(f"[think] OpenClaw/Kimi response received ({len(content)} chars)")
+                return content
+        except Exception as e:
+            log.debug(f"[think] Endpoint {url} failed: {e}")
+            continue
+    
+    # All endpoints failed - return error message so Cerebronn continues
+    log.warning("[think] All OpenClaw endpoints failed - using fallback")
+    return "[OpenClaw API unavailable - architectural decision queued for manual review]"
 
 
 def build_think_context(state: dict) -> str:
