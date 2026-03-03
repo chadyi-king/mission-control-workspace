@@ -70,8 +70,8 @@
       "installedAt": 1770783611426
     },
     "google-drive": {
-      "version": "1.0.5",
-      "installedAt": 1770783612965
+      "version": "1.0.6",
+      "installedAt": 1772498534865
     },
     "writer": {
       "version": "1.0.2",
@@ -112,6 +112,10 @@
     "website-seo": {
       "version": "1.0.0",
       "installedAt": 1772495886711
+    },
+    "web-deploy-github": {
+      "version": "1.0.0",
+      "installedAt": 1772497500782
     }
   }
 }
