@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elluminate | Singapore's Leading Team Building & Corporate Training</title>
+    <meta name="description" content="Transform your teams with Singapore's premier team building company. Corporate training, school programs, and government workshops that deliver results.">
+    <meta name="keywords" content="team building Singapore, corporate training, leadership development, school programs, government workshops">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Elluminate | Transform Teams, Build Leaders">
+    <meta property="og:description" content="Singapore's leading team building and corporate training company. Proven results for corporate, schools, and government.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elluminate.sg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5f4a;
+            --primary-dark: #124a39;
+            --accent: #f4a261;
+            --text: #2d3436;
+            --text-light: #636e72;
+            --bg: #ffffff;
+            --bg-light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding-top: 80px;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26,95,74,0.2);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image-placeholder {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 20px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        /* Trust Section */
+        .trust {
+            padding: 4rem 2rem;
+            background: white;
+        }
+        
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .trust h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+        
+        .client-logos {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+        
+        .client-logo {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: var(--bg-light);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        /* Why Us Section */
+        .why-us {
+            padding: 6rem 2rem;
+            background: white;
+        }
+        
+        .why-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .why-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .why-content p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .why-features {
+            list-style: none;
+        }
+        
+        .why-features li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .why-features li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .why-image {
+            background: var(--bg-light);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--text);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .footer-brand .logo {
+            color: white;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        
+        .footer-brand p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Ellumi<span>nate</span></a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#contact" class="nav-cta">Get In Touch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Transform Teams.<br><span>Build Leaders.</span><br>Deliver Results.</h1>
+                <p class="hero-subtitle">Singapore's premier team building and corporate training company. We design experiences that strengthen bonds, develop skills, and drive performance for corporate, schools, and government organizations.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Programs Delivered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50,000+</div>
+                        <div class="stat-label">Participants Trained</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="#contact" class="btn-primary">Book a Consultation</a>
+                    <a href="#services" class="btn-secondary">Explore Programs</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-placeholder">
+                    [Hero Image: Team building activity]<br>
+                    Suggested: Group collaboration photo
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="trust-container">
+            <h2>Trusted By Leading Organizations</h2>
+            <div class="client-logos">
+                <span class="client-logo">[Client Logo 1]</span>
+                <span class="client-logo">[Client Logo 2]</span>
+                <span class="client-logo">[Client Logo 3]</span>
+                <span class="client-logo">[Client Logo 4]</span>
+                <span class="client-logo">[Client Logo 5]</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Programs Tailored to Your Needs</h2>
+            <p>Whether you're building corporate teams, developing student leaders, or training government officers, we have the expertise to deliver transformative experiences.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Corporate Team Building</h3>
+                <p>Strengthen collaboration, communication, and leadership within your organization. From C-suite retreats to department workshops.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎓</div>
+                <h3>School & Youth Programs</h3>
+                <p>Develop leadership, resilience, and teamwork in students. MOE-aligned programs for primary, secondary, and tertiary institutions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏛️</div>
+                <h3>Government & Public Sector</h3>
+                <p>Specialized training for public officers. Build inter-agency collaboration, leadership capacity, and organizational excellence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us" id="about">
+        <div class="why-grid">
+            <div class="why-content">
+                <h2>Why Organizations Choose Elluminate</h2>
+                <p>We don't just run activities—we design transformational experiences backed by organizational psychology and proven methodologies.</p>
+                
+                <ul class="why-features">
+                    <li>Customized programs aligned with your objectives</li>
+                    <li>Experienced facilitators with industry expertise</li>
+                    <li>Measurable outcomes and ROI tracking</li>
+                    <li>Safe, inclusive, and engaging environments</li>
+                    <li>Flexible delivery: indoor, outdoor, or virtual</li>
+                    <li>Post-program support and follow-up</li>
+                </ul>
+            </div>
+            <div class="why-image">
+                [Image: Facilitator leading session]
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-container">
+            <h2>Ready to Transform Your Team?</h2>
+            <p>Let's discuss how we can design a program that delivers real results for your organization.</p>
+            <a href="mailto:hello@elluminate.sg" class="btn-white">Schedule a Free Consultation</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">Ellumi<span>nate</span></a>
+                <p>Singapore's leading team building and corporate training company. Transforming teams since 2020.</p>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Corporate Programs</a></li>
+                    <li><a href="#">School Programs</a></li>
+                    <li><a href="#">Government Training</a></li>
+                    <li><a href="#">Virtual Programs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@elluminate.sg">hello@elluminate.sg</a></li>
+                    <li><a href="tel:+6561234567">+65 6123 4567</a></li>
+                    <li><a href="#">Singapore</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Elluminate. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+</body>
+</html>
