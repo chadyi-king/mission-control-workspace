@@ -783,16 +783,22 @@ def call_ollama(prompt: str, timeout: int = 90) -> str | None:
     
     # OpenClaw Gateway API (Kimi 2.5)
     # Try multiple possible endpoints
+    gateway_port = os.environ.get("OPENCLAW_GATEWAY_PORT", "18789")
+    gateway_token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "")
+    
     endpoints = [
-        os.environ.get("OPENCLAW_URL", "http://localhost:8080") + "/v1/chat/completions",
-        "http://localhost:8080/v1/chat/completions",
-        "http://127.0.0.1:8080/v1/chat/completions",
+        f"http://localhost:{gateway_port}/v1/chat/completions",
+        f"http://127.0.0.1:{gateway_port}/v1/chat/completions",
+        "http://localhost:8080/v1/chat/completions",  # fallback
     ]
+    
+    headers = {"Authorization": f"Bearer {gateway_token}"} if gateway_token else {}
     
     for url in endpoints:
         try:
             r = _requests.post(
                 url,
+                headers=headers,
                 json={
                     "model": "kimi-coding/k2p5",
                     "messages": [{"role": "user", "content": prompt}],
