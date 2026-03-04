@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | TestCo</title>
+    <meta name="description" content="TestCo - Professional services">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --primary: #1a5f4a; --primary-dark: #124a39; --accent: #f4a261; 
+                --text: #2d3436; --text-light: #636e72; --bg: #ffffff; --bg-light: #f8f9fa; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.98); 
+                   backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); 
+                   z-index: 1000; padding: 1rem 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; 
+                         display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; 
+                color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-cta { background: var(--primary); color: white !important; padding: 0.75rem 1.5rem; 
+                   border-radius: 6px; }
+        .hero { padding: 10rem 2rem 6rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); 
+                color: white; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 6rem 0; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); 
+                         margin-bottom: 1rem; text-align: center; }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 3rem; }
+        .btn { display: inline-block; background: var(--accent); color: var(--text); padding: 1rem 2rem; 
+               border-radius: 6px; text-decoration: none; font-weight: 600; transition: transform 0.3s; }
+        .btn:hover { transform: translateY(-2px); }
+        .footer { background: var(--text); color: white; padding: 4rem 0 2rem; margin-top: 4rem; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .footer-logo span { color: var(--accent); }
+        .footer-links { list-style: none; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; 
+                         text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2.5rem; } 
+                                     .footer-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">TestCo<span>nate</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html" >Home</a></li>
+                <li><a href="../about/index.html" >About</a></li>
+                <li><a href="../services/index.html" >Services</a></li>
+                <li><a href="../programs/index.html" >Programs</a></li>
+                <li><a href="../contact/index.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" style="padding: 8rem 2rem 4rem;">
+        <div class="container">
+            <h1>Get in Touch</h1>
+            <p>Ready to transform your team? Let's talk.</p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                <div>
+                    <h2 style="color: var(--primary); margin-bottom: 2rem;">Contact Information</h2>
+                    <p style="margin-bottom: 1rem;"><strong>Email:</strong> team@testco.sg</p>
+                    <p style="margin-bottom: 1rem;"><strong>Phone:</strong> +65 XXXX XXXX</p>
+                    <p><strong>Location:</strong> Singapore</p>
+                </div>
+                <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px;">
+                    <form>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Name</label>
+                            <input type="text" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Email</label>
+                            <input type="email" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem;">Message</label>
+                            <textarea style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; min-height: 100px;"></textarea>
+                        </div>
+                        <button type="submit" style="background: var(--primary); color: white; padding: 0.75rem 2rem; border: none; border-radius: 6px; cursor: pointer;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">TestCo<span>nate</span></div>
+                    <p>Singapore's leading team building and corporate training company.</p>
+                </div>
+                <div>
+                    <h4>Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about/index.html">About</a></li>
+                        <li><a href="../services/index.html">Services</a></li>
+                        <li><a href="../contact/index.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TestCo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

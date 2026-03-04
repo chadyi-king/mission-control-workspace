@@ -1,9 +1,9 @@
 {
   "agent": "forger",
-  "timestamp": "2026-03-03T14:57:20Z",
+  "timestamp": "2026-03-03T23:36:40Z",
   "status": "awaiting_build",
-  "currentTask": "Briefed, awaiting build: forge---design-brief-template, b6-elluminate-visual-reference, task--b6-elluminate-website, task--create-hero-banner-visual, b3---b6-website-deployment-brief, task--rebuild-elluminate-sg-website",
-  "builds_pending": 6,
+  "currentTask": "Briefed, awaiting build: forge---design-brief-template, b6-elluminate-visual-reference, task--b6-elluminate-website, task--create-hero-banner-visual, b3---b6-website-deployment-brief, task--rebuild-elluminate-sg-website, task--complete-elluminate-sg-website---all-pages",
+  "builds_pending": 7,
   "builds_in_progress": 0,
   "builds_ready": 0,
   "builds_deployed": 0,

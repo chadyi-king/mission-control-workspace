@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Programs | Elluminate - Student Leadership & Development</title>
+    <meta name="description" content="Empower students with Elluminate's school programs. Leadership development, team building, and character education for Singapore schools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1a5f4a; --primary-dark: #124a39; --accent: #f4a261; --text: #2d3436; --text-light: #636e72; --bg: #ffffff; --bg-light: #f8f9fa; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--text); line-height: 1.6; }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; padding: 1rem 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { background: var(--primary); color: white !important; padding: 0.75rem 1.5rem; border-radius: 6px; }
+        .hero { padding: 10rem 2rem 6rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; text-align: center; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 6rem 0; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; text-align: center; }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 4rem; }
+        .program-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .program-card { background: var(--bg-light); padding: 2.5rem; border-radius: 12px; border-left: 4px solid var(--accent); }
+        .program-card h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 1rem; }
+        .program-card p { color: var(--text-light); margin-bottom: 1rem; }
+        .program-card ul { list-style: none; color: var(--text-light); }
+        .program-card li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
+        .program-card li:before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+        .cta-section { background: var(--primary); padding: 6rem 0; text-align: center; color: white; }
+        .btn { display: inline-block; background: var(--accent); color: var(--text); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; }
+        .footer { background: var(--text); color: white; padding: 4rem 0 2rem; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+        .footer-logo span { color: var(--accent); }
+        .footer-links { list-style: none; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.5); }
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2.5rem; } .program-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Ellumi<span>nate</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about/index.html">About</a></li>
+                <li><a href="../services/index.html">Services</a></li>
+                <li><a href="index.html">Programs</a></li>
+                <li><a href="../contact/index.html" class="nav-cta">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>School & Youth Programs</h1>
+            <p>Empowering the next generation of leaders through experiential learning and character development.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Programs for Students</h2>
+            <p class="section-subtitle">Building leadership, character, and teamwork skills in young people</p>
+
+            <div class="program-grid">
+                <div class="program-card">
+                    <h3>Student Leadership</h3>
+                    <p>Develop confident, responsible student leaders who can inspire their peers.</p>
+                    <ul>
+                        <li>Student council training</li>
+                        <li>Peer leadership skills</li>
+                        <li>Communication & public speaking</li>
+                        <li>Decision-making & problem solving</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <h3>CCA Team Training</h3>
+                    <p>Strengthen cohesion and performance in Co-Curricular Activities.</p>
+                    <ul>
+                        <li>Sports team building</li>
+                        <li>Performing arts cohesion</li>
+                        <li>Club committee alignment</li>
+                        <li>Competition preparation</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <h3>Values Education</h3>
+                    <p>Interactive programs that reinforce school values and character development.</p>
+                    <ul>
+                        <li>Integrity & ethics workshops</li>
+                        <li>Respect & empathy training</li>
+                        <li>Responsibility & accountability</li>
+                        <li>School values alignment</li>
+                    </ul>
+                </div>
+
+                <div class="program-card">
+                    <h3>Outdoor Learning</h3>
+                    <p>Experiential learning through adventure and outdoor challenges.</p>
+                    <ul>
+                        <li>Adventure camps</li>
+                        <li>Expedition learning</li>
+                        <li>Environmental education</li>
+                        <li>Resilience building</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Invest in Your Students' Future</h2>
+            <p>Partner with us to develop the next generation of leaders</p>
+            <a href="../contact/index.html" class="btn">Enquire for Schools</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">Ellumi<span>nate</span></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Elluminate</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

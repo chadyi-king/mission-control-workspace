@@ -1,52 +1,48 @@
 #!/bin/bash
-# CHAD_YI Report to Caleb
-# Sends formatted status report via message
-# Schedule: 10min after Helios reports (10:10, 12:10, 14:10, 16:10, 18:10, 20:10, 22:10)
+# CHAD_YI Report to Caleb - FIXED VERSION
+# Creates report files that CHAD_YI will actually read and send
 
-REPORT_TIME=$1  # morning, afternoon, evening
+REPORT_TIME=$1
+DATE=$(date '+%Y-%m-%d')
+TIME=$(date '+%H:%M')
 LOG="/home/chad-yi/.openclaw/workspace/agents/chad-yi/report-to-caleb.log"
 
-echo "[$(date '+%H:%M')] Generating $REPORT_TIME report to Caleb" >> "$LOG"
+echo "[$TIME] Generating $REPORT_TIME report" >> "$LOG"
 
-# Read latest digest
-LATEST_DIGEST=$(ls -1t /home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox/digest*.md 2>/dev/null | head -1)
-
-if [ -z "$LATEST_DIGEST" ]; then
-    echo "No digest found" >> "$LOG"
-    exit 1
-fi
-
-# Extract key info
-CRITICAL=$(grep "🔴" "$LATEST_DIGEST" | wc -l)
-URGENT=$(grep "🟡" "$LATEST_DIGEST" | wc -l)
-ACTIVE=$(grep "🟢" "$LATEST_DIGEST" | wc -l)
-BLOCKED=$(grep "📌\|blocked" "$LATEST_DIGEST" | wc -l)
+# Create report file for CHAD_YI to read
+REPORT_FILE="/home/chad-yi/.openclaw/workspace/agents/chad-yi/inbox/REPORT-${TIME}-${REPORT_TIME}.md"
 
 # Get agent status
-CEREBRONN_STATUS=$(systemctl --user is-active cerebronn 2>/dev/null || echo "unknown")
-HELIOS_STATUS=$(systemctl --user is-active helios 2>/dev/null || echo "unknown")
-FORGER_STATUS=$(systemctl --user is-active forger 2>/dev/null || echo "unknown")
-QUANTA_STATUS=$(systemctl --user is-active quanta-v3 2>/dev/null || echo "unknown")
+CEREBRONN=$(systemctl --user is-active cerebronn 2>/dev/null || echo "inactive")
+HELIOS=$(systemctl --user is-active helios 2>/dev/null || echo "inactive")
+FORGER=$(systemctl --user is-active forger 2>/dev/null || echo "inactive")
+QUANTA=$(systemctl --user is-active quanta-v3 2>/dev/null || echo "inactive")
 
-# Format report
-REPORT="Heartbeat — $(date '+%H:%M') SGT
+# Get latest data
+cd /home/chad-yi/.openclaw/workspace
 
-Task Overview
-• Critical: $CRITICAL | Urgent: $URGENT | Active: $ACTIVE | Blocked: $BLOCKED
+# Count tasks from data.json
+TOTAL=$(cat mission-control-dashboard/data.json 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d.get('tasks',{})))" 2>/dev/null || echo "unknown")
 
-Urgent Deadlines
-$(grep -E "^\| 🔴\|^\| 🟡" "$LATEST_DIGEST" | head -5)
+cat > "$REPORT_FILE" << EOF
+# 📊 Agent Status Report — ${TIME} SGT
 
-Agent Status
-• Cerebronn — ${CEREBRONN_STATUS^}
-• Helios — ${HELIOS_STATUS^}
-• Forger — ${FORGER_STATUS^}
-• Quanta — ${QUANTA_STATUS^}
+## Task Overview
+• **Total Tasks:** $TOTAL
 
-Dashboard: https://red-sun-mission-control.onrender.com
-"
+## Agent Status
+| Agent | Status | Details |
+|-------|--------|---------|
+| Cerebronn | ${CEREBRONN} | Deep reasoning / architecture |
+| Helios | ${HELIOS} | Mission Control auditing |
+| Forger | ${FORGER} | Website building |
+| Quanta | ${QUANTA} | Trading (XAUUSD) |
 
-# Send via OpenClaw message
-echo "$REPORT" | openclaw message --channel telegram --to Caleb 2>> "$LOG" || echo "Message sent (or queued)" >> "$LOG"
+## Current Time
+**${DATE} ${TIME} SGT**
 
-echo "[$REPORT_TIME] Report sent" >> "$LOG"
+---
+*Auto-generated report*
+EOF
+
+echo "[$TIME] Report created: $REPORT_FILE" >> "$LOG"
