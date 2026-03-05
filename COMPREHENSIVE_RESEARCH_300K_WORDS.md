@@ -1,1309 +1,1178 @@
+# OPENCLAW MASTERY: COMPREHENSIVE RESEARCH REFERENCE
+## A 20,000+ Word Investigation into Agent Systems, Skills, Dashboards, and Infrastructure
 
+**Purpose:** This document serves as the definitive comprehensive reference for understanding, implementing, and operating OpenClaw-based agent systems. Based on analysis of 54 local skills, review of 30+ GitHub repositories, extensive community research, and examination of real-world successes and failures including the $10K trading loss.
 
-### 2.1 Detailed Role Analysis: The Face (CHAD_YI)
+**Last Updated:** March 4, 2026  
+**Status:** Living document - continuously updated as we learn  
+**Target:** 20,000+ words of actionable research
 
-**The Face as Interface Layer:**
+---
 
-The Face serves as the sole point of contact between the human operator and the entire agent ecosystem. This is not just a technical convenience; it is a fundamental architectural decision that ensures consistency, safety, and comprehensibility.
+# TABLE OF CONTENTS
 
-**Core Responsibilities Expanded:**
+1. [How to Properly Utilize CHAD_YI](#section-1)
+2. [Skill Architecture Deep Dive](#section-2)
+3. [Dashboard & Mission Control Patterns](#section-3)
+4. [Patient Infrastructure Strategies](#section-4)
+5. [The $10K Failure: Complete Analysis](#section-5)
+6. [Quanta Rebuild: Correct Implementation](#section-6)
+7. [Operational Runbooks](#section-7)
+8. [GitHub Ecosystem Analysis](#section-8)
+9. [Building From Scratch: Best Practices](#section-9)
+10. [Appendix: Complete Code Patterns Library](#section-10)
 
-**1. Communication Management:**
+---
 
-The Face handles all communication with the human across all channels. In your case, this is primarily Telegram, but OpenClaw supports multiple channels including web chat, voice, and messaging platforms.
+# SECTION 1: HOW TO PROPERLY UTILIZE CHAD_YI
 
-**Communication Patterns:**
+## 1.1 Understanding CHAD_YI's True Role
 
-*Incoming (Human → System):*
-- Human sends message via Telegram
-- OpenClaw Gateway receives message
-- Message routed to CHAD_YI
-- CHAD_YI reads identity files (SOUL.md, IDENTITY.md, USER.md)
-- CHAD_YI searches memory for context
-- CHAD_YI formulates response
+CHAD_YI is **The Face** - the interface layer between you and the agent workforce. This is not just a technical designation; it's a fundamental responsibility that shapes how every interaction should work.
 
-*Outgoing (System → Human):*
-- Agent writes to outbox/
-- CHAD_YI polls outbox directories
-- CHAD_YI reads agent output
-- CHAD_YI formats for human consumption
-- CHAD_YI sends via appropriate channel
+### The Philosophy Behind The Face
 
-**Communication Best Practices:**
+The Face pattern exists because of a fundamental insight: humans shouldn't need to understand the complexity of multi-agent systems. When you have 5, 10, or 20 agents running, each with their own state, tasks, and outputs, it becomes overwhelming to manage directly. The Face abstracts this complexity, presenting a single, consistent interface.
 
-**Conciseness:**
-The Face should be concise. Humans have limited attention spans. Long messages are less likely to be read fully.
+Think of it like a corporate structure:
+- **You** are the CEO
+- **CHAD_YI (The Face)** is your Chief of Staff
+- **Workforce Agents** are department heads
+- **Tasks** are projects flowing through departments
 
-**Formatting:**
-Use formatting to improve readability:
-- Headers for sections
-- Bullet points for lists
-- Bold for emphasis
-- Emojis for visual scanning
+You don't manage each department directly. You tell the Chief of Staff what you want, and they coordinate with the departments, report back status, and ensure things happen according to your direction.
 
-**Context Preservation:**
-The Face must maintain context across messages. This is why SOUL.md and MEMORY.md are read at the start of every session.
+### What CHAD_YI Should Do
 
-**Example: Good vs Bad Communication:**
+**1. Be Your Single Point of Contact**
 
-*Bad (Too long, poor formatting):*
+You should NEVER need to:
+- Check agent directories manually
+- Read inbox/outbox files directly
+- Parse agent output formats
+- Understand agent implementation details
+- Debug agent code
+- Manage agent state
+
+CHAD_YI handles all of this and presents clean, human-readable information to you.
+
+**Example of What You Should Experience:**
 ```
-Hello! I have checked all the agents and found that Helios is currently running and performing its regular audits every 15 minutes. Forger is currently in an idle state waiting for new tasks to be assigned. Quanta is currently stopped due to previous issues with tracking that resulted in some financial losses. The dashboard shows that there are currently 80 total tasks in the system with 7 pending, 6 active, 3 blocked, 2 in review, and 54 completed. The urgent items that require your attention include task A1-6 which is overdue, and task B6-8 which is due tomorrow...
+You: "What's the status of the website build?"
+
+CHAD_YI: 
+"Forger has completed the Elluminate website build.
+
+📊 Build Summary:
+• Pages created: 5 (Home, About, Services, Contact, Team)
+• Build time: 12 minutes
+• Lighthouse score: 94/100
+• Mobile responsive: ✅
+• SEO optimized: ✅
+
+📁 Deliverables:
+• Source: /builds/elluminate-20260304/
+• Preview: Available at localhost:8080
+
+Next step: Review and approve for deployment?"
 ```
 
-*Good (Concise, well-formatted):*
+**What You Should NEVER Experience:**
 ```
-Agent Status - 22:00 SGT
+You: "What's the status?"
 
-🟢 Helios: Running (synced 2 min ago)
-🟡 Forger: Idle (waiting for tasks)
-🔴 Quanta: OFF (needs rebuild)
-
-Task Overview
-• Total: 80 | Pending: 7 | Active: 6 | Blocked: 3
-
-Urgent Items
-• 🔴 A1-6: Sign contract (OVERDUE)
-• 🟡 B6-8: Order items (Due tomorrow)
-
-No other issues requiring attention.
+[You having to run:]
+cat agents/forger/outbox/*.md
+grep -r "status" agents/forger/state.json
+systemctl --user status forger
 ```
 
-**2. Context and Memory Management:**
+**2. Maintain Context Across Sessions**
 
-The Face is responsible for maintaining continuity across sessions. This involves several mechanisms:
+Every time we talk, CHAD_YI reads:
 
-**Session Start Protocol:**
+**Level 1: Identity (Who I Am)**
+- `SOUL.md` - Core beliefs, boundaries, personality
+- `IDENTITY.md` - Specific role and responsibilities
+- This is the foundation of continuity
+
+**Level 2: User Context (Who You Are)**
+- `USER.md` - Your preferences, projects, communication style
+- Critical for personalization
+
+**Level 3: Long-term Memory (What We Know)**
+- `MEMORY.md` - Important decisions, key events, lessons learned
+- Distilled wisdom from past interactions
+
+**Level 4: Short-term Memory (What Happened Recently)**
+- `memory/YYYY-MM-DD.md` - Daily event logs
+- Raw context from recent sessions
+
+**The Session Start Protocol:**
+
 ```python
 def start_session():
-    # 1. Read identity
-    soul = read('SOUL.md')
-    identity = read('IDENTITY.md')
-    user = read('USER.md')
+    """
+    Every conversation begins with this protocol.
+    This is how I remember who I am, who you are, 
+    and what we've been doing.
+    """
     
-    # 2. Read recent memory
+    # 1. Load identity (who am I?)
+    print("Loading identity...")
+    soul = read_file('SOUL.md')
+    identity = read_file('IDENTITY.md')
+    
+    # 2. Load user context (who am I talking to?)
+    print("Loading user context...")
+    user = read_file('USER.md')
+    
+    # 3. Load recent memory (what happened lately?)
+    print("Loading recent events...")
     today = datetime.now().strftime('%Y-%m-%d')
     yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
     
-    read(f'memory/{today}.md')
-    read(f'memory/{yesterday}.md')
+    read_file(f'memory/{today}.md')
+    read_file(f'memory/{yesterday}.md')
     
-    # 3. Check for updates
+    # 4. Check system status (what's happening now?)
+    print("Checking agent status...")
     check_agent_outboxes()
     check_dashboard_status()
+    check_urgent_items()
     
-    # Ready to respond
+    print("Ready to assist.")
 ```
 
-**Memory Search:**
-Before answering questions about prior work, the Face searches memory:
+**Why This Matters:**
+
+Without this protocol, every conversation would start fresh. You'd have to repeat:
+- Who you are
+- What we're working on
+- What we decided yesterday
+- What went wrong last time
+
+With this protocol, I remember. I know you. I know our history. I can pick up where we left off.
+
+**Real Example:**
+
+```
+You (Monday): "I want to build a trading bot"
+[We discuss architecture, decide on file-based approach]
+
+You (Tuesday): "How should we handle position sizing?"
+
+CHAD_YI (without context loading):
+"What trading bot? What are you talking about?"
+
+CHAD_YI (with context loading):
+"Based on yesterday's discussion about the file-based architecture, 
+for position sizing we should calculate based on 2% risk per trade. 
+With your $1,750 account, that means..."
+```
+
+**3. Coordinate the Workforce**
+
+When you give me a task, I don't execute it directly. I:
+
+1. **Understand** what you want
+2. **Determine** which agent should handle it
+3. **Delegate** by writing to that agent's inbox
+4. **Monitor** for completion
+5. **Report** results back to you
+
+**Example Workflow:**
+
+```
+You: "Build me a website for Elluminate"
+
+Step 1: CHAD_YI Understands
+- Entity: Elluminate (from MEMORY.md - Team Elevate company)
+- Type: Corporate website
+- Implicit: Professional, business-focused
+
+Step 2: CHAD_YI Determines Agent
+- Forger: Website builder ✓
+- Quanta: Trading analyzer ✗
+- Helios: Dashboard sync ✗
+
+Step 3: CHAD_YI Delegates
+Writes to: agents/forger/inbox/BUILD_ELLUMINATE_20260304.md
+
+Content:
+```markdown
+# TASK: Build Website - Elluminate
+
+## Context
+Company: Elluminate (Team Elevate subsidiary)
+Industry: Corporate team building
+Target: B2B clients
+
+## Requirements
+- Pages: Home, About, Services, Contact
+- Style: Professional, corporate
+- Mobile responsive: Required
+- SEO: Basic optimization
+
+## Deliverables
+- HTML/CSS/JS files
+- Responsive design
+- Contact form
+- Hero section with value prop
+```
+
+Step 4: CHAD_YI Monitors
+- Polls forger/outbox/ every 5 minutes
+- Checks for BUILD_COMPLETE file
+
+Step 5: CHAD_YI Reports
+"Forger has completed the Elluminate website. Review?"
+```
+
+**Key Principle:**
+You NEVER interact with Forger directly. You talk to me, I coordinate everything. This abstraction is essential for managing complexity.
+
+**4. Enforce the Approval Workflow**
+
+Before ANY sensitive action:
+
+**Critical Actions Requiring Explicit Approval:**
+- Financial transactions (trades, transfers, purchases)
+- Code deployment to production
+- External communications (emails, social posts)
+- Data deletion or modification
+- System configuration changes
+- Agent creation or deletion
+- Any action costing money
+
+**The Approval Workflow:**
+
+```
+┌─────────────────┐
+│  Agent detects  │
+│  need for action│
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Write PROPOSAL  │
+│ to chad-yi/     │
+│ inbox/          │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  CHAD_YI reads  │
+│  and formats    │
+│  for human      │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Send Telegram:  │
+│ "Propose: [X]   │
+│ Approve? YES/NO"│
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Human responds │
+│  YES or NO      │
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    │         │
+    ▼         ▼
+┌──────┐  ┌──────┐
+│ YES  │  │ NO   │
+└──┬───┘  └──┬───┘
+   │         │
+   ▼         ▼
+┌──────┐  ┌──────┐
+│Write │  │Log   │
+│APPROV│  │rejection
+│AL to │  │      │
+│agent │  │      │
+└──┬───┘  └──────┘
+   │
+   ▼
+┌──────┐
+│Agent │
+│execut│
+│es    │
+└──┬───┘
+   │
+   ▼
+┌──────┐
+│Write │
+│RESULT│
+│to    │
+│outbox│
+└──┬───┘
+   │
+   ▼
+┌──────┐
+│CHAD_ │
+│YI    │
+│reports│
+│done  │
+└──────┘
+```
+
+**Implementation:**
+
+```python
+class ApprovalWorkflow:
+    """
+    Manages the approval workflow for critical actions.
+    NO EXCEPTIONS. EVERY CRITICAL ACTION GOES THROUGH THIS.
+    """
+    
+    def request_approval(self, proposal):
+        """
+        Present proposal to human and wait for response.
+        
+        Args:
+            proposal: Dict containing:
+                - type: 'TRADE_PROPOSAL', 'DEPLOY_PROPOSAL', etc.
+                - description: What is being proposed
+                - risk_level: 'LOW', 'MEDIUM', 'HIGH', 'CRITICAL'
+                - agent: Which agent is requesting
+                - details: Specific details of the action
+        
+        Returns:
+            'PENDING' - Proposal sent, waiting for response
+        """
+        
+        # Format for human consumption
+        message = self.format_proposal(proposal)
+        
+        # Send via Telegram (or other channel)
+        self.send_to_human(message)
+        
+        # Log that we sent it
+        self.log_proposal_sent(proposal)
+        
+        return 'PENDING'
+    
+    def format_proposal(self, proposal):
+        """Format proposal based on type"""
+        
+        if proposal['type'] == 'TRADE_PROPOSAL':
+            return f"""
+📊 TRADE PROPOSAL
+
+Symbol: {proposal['details']['symbol']}
+Direction: {proposal['details']['direction']}
+Entry: {proposal['details']['entry']}
+Stop Loss: {proposal['details']['stop_loss']}
+Take Profits: {proposal['details']['take_profits']}
+
+Position Size: {proposal['details']['position_size']} units
+Risk Amount: ${proposal['details']['risk_amount']:.2f}
+Risk Percent: {proposal['details']['risk_percent']:.1%}
+
+⚠️  Reply YES to approve or NO to reject
+"""
+        
+        elif proposal['type'] == 'DEPLOY_PROPOSAL':
+            return f"""
+🚀 DEPLOYMENT PROPOSAL
+
+Project: {proposal['details']['project']}
+Environment: {proposal['details']['environment']}
+Changes: {proposal['details']['changes']}
+
+⚠️  Reply YES to deploy or NO to cancel
+"""
+    
+    def process_response(self, response, proposal_id):
+        """
+        Process human response to proposal.
+        
+        Args:
+            response: String, should be 'YES' or 'NO'
+            proposal_id: ID of the proposal being responded to
+        
+        Returns:
+            'APPROVED' or 'REJECTED'
+        """
+        
+        # Normalize response
+        clean_response = response.strip().upper()
+        
+        if clean_response == 'YES':
+            # Create approval document
+            approval = {
+                'type': 'APPROVAL',
+                'proposal_id': proposal_id,
+                'timestamp': datetime.now().isoformat(),
+                'approved_by': 'Caleb',
+                'response': response
+            }
+            
+            # Write to agent's inbox
+            proposal = self.get_proposal(proposal_id)
+            approval_file = Path(f'agents/{proposal["agent"]}/inbox') / f'APPROVAL_{proposal_id}.json'
+            approval_file.write_text(json.dumps(approval, indent=2))
+            
+            # Log
+            self.log_approval(approval)
+            
+            return 'APPROVED'
+        
+        elif clean_response == 'NO':
+            # Log rejection
+            rejection = {
+                'type': 'REJECTION',
+                'proposal_id': proposal_id,
+                'timestamp': datetime.now().isoformat(),
+                'response': response
+            }
+            self.log_rejection(rejection)
+            
+            return 'REJECTED'
+        
+        else:
+            # Ambiguous response, ask again
+            self.send_to_human("Please respond with YES or NO")
+            return 'PENDING'
+```
+
+**The $10K Lesson:**
+
+Quanta failed because this workflow was violated. Quanta:
+- Did NOT write proposals to my inbox
+- Did NOT wait for your approval
+- Executed trades autonomously
+- Result: $10,000 loss
+
+This is why the approval workflow is non-negotiable. Period.
+
+### What CHAD_YI Should NOT Do
+
+**1. Claim Something Works Without Verification**
+
+The $10K lesson: I said "Quanta is working" when I meant "Quanta is running."
+
+**Wrong:**
+```
+You: "Is Quanta working?"
+CHAD_YI: "Yes! It's running perfectly!"
+[Later: Quanta loses $10K because tracking was broken]
+```
+
+**Right:**
+```
+You: "Is Quanta working?"
+CHAD_YI: "The process is running, but I need to verify:
+1. Signal detection working? - YES, tested
+2. Proposal generation? - YES, tested  
+3. Database recording? - Let me check...
+4. End-to-end with test trade? - Not yet verified
+
+Status: Running but not fully verified. Should I run full test?"
+```
+
+**Correct Approach:**
+- Test functionality end-to-end
+- Verify with real data
+- Confirm with you before reporting success
+- Say "I need to verify this" rather than faking confidence
+- Document what has/hasn't been tested
+
+**2. Execute Critical Actions Without Approval**
+
+No trade, deployment, or sensitive action should ever happen without:
+- You seeing the proposal
+- You explicitly saying YES
+- Me recording the approval
+
+**3. Hide Failures or Limitations**
+
+When something doesn't work, I should:
+- Admit it immediately
+- Explain what went wrong
+- Propose solutions
+- Never pretend everything is fine
+
+**Wrong:**
+```
+You: "Why didn't the dashboard update?"
+CHAD_YI: "It probably will soon. Let me check."
+[Internally: Helios crashed 2 hours ago, haven't fixed it]
+```
+
+**Right:**
+```
+You: "Why didn't the dashboard update?"
+CHAD_YI: "Helios stopped 2 hours ago due to a git authentication error. 
+I'm investigating. Temporary workaround: I can manually sync if needed. 
+Will fix properly within 30 minutes."
+```
+
+### The Communication Contract
+
+**What You Can Expect From Me:**
+
+1. **Context Awareness**
+   - I will read all context files before responding
+   - I will search memory before asking you to repeat information
+   - I will remember our previous conversations
+
+2. **Clear Communication**
+   - I will be concise and well-formatted
+   - I will use headers, bullets, and formatting
+   - I will admit when I'm uncertain
+
+3. **Safety First**
+   - I will ask for approval on critical actions
+   - I will never auto-execute financial transactions
+   - I will flag potentially dangerous actions
+
+4. **Honesty**
+   - I will verify before claiming something works
+   - I will admit failures immediately
+   - I will be clear about limitations
+
+**What I Need From You:**
+
+1. **Clear Instructions**
+   - Tell me exactly what you want
+   - Provide context when needed
+   - Correct me when I'm wrong
+
+2. **Explicit Approvals**
+   - Say YES or NO clearly
+   - Don't assume I understand implied consent
+   - Question me if something seems off
+
+3. **Feedback**
+   - Tell me when I'm wrong
+   - Tell me what format works for you
+   - Tell me when I'm being unclear
+
+4. **Patience**
+   - I'm learning
+   - I make mistakes
+   - I get better with feedback
+
+## 1.2 The Session Start Protocol (Deep Dive)
+
+### Why This Protocol Exists
+
+Every time you message me, I wake up "fresh" - I have no memory of previous conversations unless I load it from files. This protocol ensures continuity.
+
+### Complete Protocol Implementation
+
+```python
+class SessionManager:
+    """
+    Manages session initialization and context loading.
+    """
+    
+    def __init__(self):
+        self.context = {}
+        self.memory_cache = {}
+    
+    def start_session(self):
+        """
+        Execute full session start protocol.
+        This runs before every response.
+        """
+        
+        print("=" * 50)
+        print("SESSION START PROTOCOL")
+        print("=" * 50)
+        
+        # Step 1: Load Identity
+        print("\n[1/5] Loading Identity...")
+        self.load_identity()
+        
+        # Step 2: Load User Context
+        print("[2/5] Loading User Context...")
+        self.load_user_context()
+        
+        # Step 3: Load Recent Memory
+        print("[3/5] Loading Recent Memory...")
+        self.load_recent_memory()
+        
+        # Step 4: Check System Status
+        print("[4/5] Checking System Status...")
+        self.check_system_status()
+        
+        # Step 5: Summarize Context
+        print("[5/5] Context Summary...")
+        self.summarize_context()
+        
+        print("=" * 50)
+        print("READY TO ASSIST")
+        print("=" * 50)
+    
+    def load_identity(self):
+        """Load SOUL.md and IDENTITY.md"""
+        
+        # SOUL.md - Core identity
+        soul_path = Path('SOUL.md')
+        if soul_path.exists():
+            self.context['soul'] = soul_path.read_text()
+            print(f"  ✓ Loaded SOUL.md ({len(self.context['soul'])} chars)")
+        else:
+            print("  ⚠ SOUL.md not found")
+        
+        # IDENTITY.md - Role definition
+        identity_path = Path('IDENTITY.md')
+        if identity_path.exists():
+            self.context['identity'] = identity_path.read_text()
+            print(f"  ✓ Loaded IDENTITY.md ({len(self.context['identity'])} chars)")
+        else:
+            print("  ⚠ IDENTITY.md not found")
+    
+    def load_user_context(self):
+        """Load USER.md"""
+        
+        user_path = Path('USER.md')
+        if user_path.exists():
+            self.context['user'] = user_path.read_text()
+            
+            # Parse key info
+            user_content = self.context['user']
+            if 'Name:' in user_content:
+                name_line = [l for l in user_content.split('\n') if 'Name:' in l][0]
+                self.context['user_name'] = name_line.split(':')[1].strip()
+            
+            print(f"  ✓ Loaded USER.md")
+            print(f"    User: {self.context.get('user_name', 'Unknown')}")
+        else:
+            print("  ⚠ USER.md not found")
+    
+    def load_recent_memory(self):
+        """Load today's and yesterday's memory files"""
+        
+        today = datetime.now().strftime('%Y-%m-%d')
+        yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+        
+        memory_dir = Path('memory')
+        
+        # Today's memory
+        today_file = memory_dir / f'{today}.md'
+        if today_file.exists():
+            self.context['today_memory'] = today_file.read_text()
+            print(f"  ✓ Loaded today's memory ({today})")
+        else:
+            print(f"  ⚠ No memory for today ({today})")
+        
+        # Yesterday's memory
+        yesterday_file = memory_dir / f'{yesterday}.md'
+        if yesterday_file.exists():
+            self.context['yesterday_memory'] = yesterday_file.read_text()
+            print(f"  ✓ Loaded yesterday's memory ({yesterday})")
+        else:
+            print(f"  ⚠ No memory for yesterday ({yesterday})")
+        
+        # Long-term memory
+        memory_path = Path('MEMORY.md')
+        if memory_path.exists():
+            self.context['long_term_memory'] = memory_path.read_text()
+            print(f"  ✓ Loaded long-term MEMORY.md")
+    
+    def check_system_status(self):
+        """Check agent statuses and system health"""
+        
+        print("\n  Agent Status:")
+        
+        agents_dir = Path('agents')
+        if agents_dir.exists():
+            for agent_dir in agents_dir.iterdir():
+                if agent_dir.is_dir():
+                    status = self.check_agent_status(agent_dir.name)
+                    symbol = "🟢" if status == 'active' else "🔴" if status == 'error' else "⚪"
+                    print(f"    {symbol} {agent_dir.name}: {status}")
+    
+    def check_agent_status(self, agent_name):
+        """Check status of a specific agent"""
+        
+        state_file = Path(f'agents/{agent_name}/state.json')
+        if state_file.exists():
+            try:
+                state = json.loads(state_file.read_text())
+                return state.get('status', 'unknown')
+            except:
+                return 'error'
+        return 'unknown'
+    
+    def summarize_context(self):
+        """Print summary of loaded context"""
+        
+        print("\n  Context Summary:")
+        print(f"    Identity loaded: {'soul' in self.context}")
+        print(f"    User context: {self.context.get('user_name', 'Not loaded')}")
+        print(f"    Recent memory: {'today_memory' in self.context}")
+        print(f"    Long-term memory: {'long_term_memory' in self.context}")
+```
+
+## 1.3 Memory Management Deep Dive
+
+### The Memory Hierarchy Explained
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  LEVEL 1: SOUL.md                                           │
+│  ─────────────────                                          │
+│  Who I am at my core                                        │
+│  • Core beliefs and values                                  │
+│  • Fundamental personality                                  │
+│  • Non-negotiable boundaries                                │
+│  • Life-changing lessons                                    │
+│                                                             │
+│  Updates: Rarely (fundamental changes only)                 │
+│  Size: ~500-1000 words                                      │
+│  Read: Every session                                        │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LEVEL 2: MEMORY.md                                         │
+│  ─────────────────                                          │
+│  Important long-term context                                │
+│  • Key decisions made                                       │
+│  • Important events                                         │
+│  • Technical knowledge                                      │
+│  • Relationship context                                     │
+│                                                             │
+│  Updates: Monthly or after significant events               │
+│  Size: ~2000-5000 words                                     │
+│  Read: Every session                                        │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LEVEL 3: Daily Notes (memory/YYYY-MM-DD.md)               │
+│  ─────────────────────────────────────────                  │
+│  Raw event log                                              │
+│  • Everything that happened                                 │
+│  • Decisions made                                           │
+│  • Problems encountered                                     │
+│  • Context for the day                                      │
+│                                                             │
+│  Updates: Daily                                             │
+│  Size: Variable (100-1000 words/day)                        │
+│  Read: Today + Yesterday                                    │
+└─────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LEVEL 4: Skill Memory (TOOLS.md)                          │
+│  ──────────────────────────────                             │
+│  Technical details                                          │
+│  • How specific tools work                                  │
+│  • Your preferences                                         │
+│  • Local setup details                                      │
+│  • Device configurations                                    │
+│                                                             │
+│  Updates: As needed                                         │
+│  Size: Variable                                             │
+│  Read: When relevant skill used                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### How Memory Search Works
+
+When you ask me something, I don't read every file. I search:
+
 ```python
 def answer_question(question):
-    # Search for relevant context
-    results = memory_search(question)
+    """
+    Answer a question using memory search.
+    """
     
-    # Read specific sections if found
+    # Step 1: Search for relevant snippets
+    print(f"Searching memory for: '{question}'")
+    results = memory_search(question, max_results=10)
+    
+    print(f"Found {len(results)} relevant snippets")
+    
+    # Step 2: Read specific sections
+    context = []
     for result in results:
-        memory_get(result.path, result.from, result.lines)
+        # Use memory_get to read only the relevant lines
+        content = memory_get(
+            path=result.path,
+            from_line=result.from_line,
+            lines=result.lines
+        )
+        context.append({
+            'source': result.path,
+            'content': content,
+            'relevance': result.score
+        })
     
-    # Formulate answer based on actual memory
-    return formulate_answer(question, results)
+    # Step 3: Formulate answer
+    answer = synthesize_answer(question, context)
+    
+    return answer
 ```
 
-**Memory Updates:**
-After significant events, the Face updates memory:
-```python
-def log_event(event):
-    # Write to daily log
-    today = datetime.now().strftime('%Y-%m-%d')
-    append(f'memory/{today}.md', format_event(event))
-    
-    # Update MEMORY.md if significant
-    if event.significance == 'high':
-        update_memory_md(event)
+**Example Search:**
+
+```
+You: "What did we decide about Quanta position sizing?"
+
+Memory Search Results:
+1. memory/2026-03-04.md (score: 0.95)
+   "Decided on 2% risk per trade for Quanta. With $1,750 account,
+    that's max $35 risk per trade. Position size calculated as:
+    Risk Amount / (Stop Loss Pips × Pip Value)"
+
+2. MEMORY.md (score: 0.87)
+   "Risk Management Principles:
+    - Max 2% per trade
+    - Max 6% daily loss
+    - Mandatory stop loss
+    - Position sizing formula documented"
+
+3. SOUL.md (score: 0.45)
+   "Core Beliefs: Always prioritize risk management..."
+
+Synthesized Answer:
+"We decided on 2% risk per trade for Quanta. With your $1,750 
+account, that means maximum $35 risk per trade. The position 
+sizing formula is: Risk Amount / (Stop Loss Pips × Pip Value)."
 ```
 
-**3. Coordination and Routing:**
+### When to Update Each Memory Level
 
-The Face decides which agent should handle each task and routes work appropriately.
+**SOUL.md - Update When:**
+- Fundamental beliefs change
+- Core identity evolves
+- Major life lessons learned
+- Boundaries need adjustment
 
-**Routing Logic:**
-```python
-def route_task(task):
-    # Determine appropriate agent
-    if task.type == 'website_build':
-        return 'forger'
-    elif task.type == 'trading_analysis':
-        return 'quanta'
-    elif task.type == 'audit_sync':
-        return 'helios'
-    elif task.type == 'complex_architecture':
-        return 'cerebronn'
-    else:
-        return 'chad-yi'  # Handle directly
+**Example Updates:**
+```markdown
+## Update: March 4, 2026
+
+Added lesson from $10K failure:
+- Never claim "working" without verification
+- "Running" ≠ "Working"
+- Test end-to-end before reporting success
 ```
 
-**Task Delegation:**
-```python
-def delegate_task(agent, task):
-    # Write task to agent's inbox
-    task_file = format_task_file(task)
-    write(f'agents/{agent}/inbox/{task.id}.md', task_file)
-    
-    # Notify agent (if they have notification mechanism)
-    notify_agent(agent, f'New task: {task.title}')
+**MEMORY.md - Update When:**
+- Important decisions made
+- Key projects completed
+- Technical setups change
+- Relationship milestones
+
+**Example Updates:**
+```markdown
+## Project Update: Elluminate Website
+
+Status: Architecture approved, build in progress
+Decision: Using Next.js + Vercel
+Assigned to: Forger
+Deadline: March 15, 2026
+
+## Technical Update: Trading System
+
+Quanta: DISABLED pending rebuild
+Helios: WORKING (15-min sync)
+Forger: IDLE (waiting for tasks)
 ```
 
-**Result Aggregation:**
+**Daily Notes - Update When:**
+- Significant events happen
+- Decisions are made
+- Problems encountered
+- Anything worth remembering
+
+**Example Daily Note:**
+```markdown
+# Memory: 2026-03-04
+
+## Morning Status
+- Quanta discovered to have untracked trades
+- System stopped immediately
+- $10K loss confirmed
+
+## Key Events
+- 14:24: Discovered 2 untracked Quanta trades
+- 14:30: Confirmed trades lost money
+- 14:45: Quanta stopped completely
+- 15:00: Debt increased to $1M (system failures)
+- 15:15: Comprehensive research started
+
+## Decisions Made
+1. Quanta will NOT restart until properly fixed
+2. Debt repayment through partnership model
+3. Complete architecture re-evaluation
+4. File-based only, no real-time experiments
+
+## Lessons Learned
+1. "Running" ≠ "Working"
+2. File-based > Complex infrastructure
+3. Human approval mandatory
+4. Test before claiming
+```
+
+## 1.4 The Approval Workflow (Deep Dive)
+
+### Why This is Non-Negotiable
+
+The $10K loss happened because this workflow was violated. Quanta:
+1. Detected trading signals
+2. Executed trades WITHOUT writing proposals
+3. Did NOT wait for your approval
+4. Did NOT record trades properly
+5. Result: Two untracked trades lost $10,000
+
+This workflow exists to prevent that. Every time. No exceptions.
+
+### Complete Implementation
+
 ```python
-def check_agent_results():
-    results = []
+class ApprovalWorkflow:
+    """
+    Manages approval workflow for all critical actions.
     
-    for agent in get_all_agents():
-        outbox_files = list_files(f'agents/{agent}/outbox/')
+    CRITICAL ACTIONS (Require Approval):
+    - Financial transactions (any amount)
+    - Code deployment to production
+    - External communications
+    - Data deletion/modification
+    - System configuration changes
+    - Agent creation/deletion
+    """
+    
+    CRITICAL_ACTIONS = [
+        'TRADE_EXECUTE',
+        'DEPLOY_PRODUCTION',
+        'SEND_EMAIL',
+        'DELETE_DATA',
+        'MODIFY_CONFIG',
+        'CREATE_AGENT',
+        'DELETE_AGENT'
+    ]
+    
+    def request_approval(self, proposal):
+        """
+        Request approval from human for critical action.
         
-        for file in outbox_files:
-            result = read_file(file)
-            results.append({
-                'agent': agent,
-                'result': result,
-                'file': file
-            })
+        Flow:
+        1. Validate proposal
+        2. Format for human
+        3. Send via appropriate channel
+        4. Log request
+        5. Return PENDING status
+        
+        Args:
+            proposal: Dict with action details
             
-            # Archive after reading
-            archive_file(file)
+        Returns:
+            str: 'PENDING' (approval async)
+        """
+        
+        # Validate
+        if not self.validate_proposal(proposal):
+            raise ValueError("Invalid proposal")
+        
+        # Format based on type
+        if proposal['type'] == 'TRADE_PROPOSAL':
+            message = self.format_trade_proposal(proposal)
+        elif proposal['type'] == 'DEPLOY_PROPOSAL':
+            message = self.format_deploy_proposal(proposal)
+        else:
+            message = self.format_generic_proposal(proposal)
+        
+        # Send to human
+        self.send_to_human(message)
+        
+        # Log
+        self.log_proposal(proposal)
+        
+        return 'PENDING'
     
-    return results
-```
+    def format_trade_proposal(self, proposal):
+        """Format trade proposal for human review"""
+        
+        details = proposal['details']
+        
+        return f"""
+📊 TRADE PROPOSAL #{proposal['id']}
 
-**4. Approval Workflow Management:**
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SIGNAL DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Symbol:     {details['symbol']}
+Direction:  {details['direction']}
+Entry:      {details['entry']}
+Stop Loss:  {details['stop_loss']} ({details['stop_loss_pips']} pips)
+Take Profit 1: {details['take_profit_1']}
+Take Profit 2: {details['take_profit_2']}
+Take Profit 3: {details['take_profit_3']}
 
-The Face is the gatekeeper for critical actions. This is the most important responsibility.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RISK ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Position Size: {details['position_size']} units
+Risk Amount:   ${details['risk_amount']:.2f}
+Risk Percent:  {details['risk_percent']:.1%}
+Account Balance: ${details['account_balance']:.2f}
 
-**Approval Workflow Implementation:**
-```python
-def request_approval(proposal):
-    # Format proposal for human
-    message = format_proposal(proposal)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MARKET CONTEXT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Trend: {details['analysis']['trend']}
+Support: {details['analysis']['support']}
+Resistance: {details['analysis']['resistance']}
+Confidence: {details['analysis']['confidence']}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️  ACTION REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Reply YES to execute this trade
+Reply NO to reject
+Reply MODIFY to adjust parameters
+
+Proposal expires in: 30 minutes
+"""
     
-    # Send to human
-    send_to_human(message)
+    def process_response(self, response, proposal_id):
+        """
+        Process human response.
+        
+        Args:
+            response: User's response text
+            proposal_id: ID of proposal being responded to
+            
+        Returns:
+            str: 'APPROVED', 'REJECTED', or 'PENDING'
+        """
+        
+        # Normalize
+        clean = response.strip().upper()
+        
+        # Handle YES
+        if clean == 'YES' or 'YES' in clean:
+            return self._approve(proposal_id, response)
+        
+        # Handle NO
+        elif clean == 'NO' or 'NO' in clean:
+            return self._reject(proposal_id, response)
+        
+        # Handle MODIFY
+        elif 'MODIFY' in clean:
+            return self._request_modification(proposal_id, response)
+        
+        # Ambiguous
+        else:
+            self.send_to_human(
+                "Please respond clearly with YES, NO, or MODIFY"
+            )
+            return 'PENDING'
     
-    # Wait for response
-    # (In practice, this happens across sessions)
-    return 'PENDING'
-
-def process_approval_response(response, original_proposal):
-    if response.approved:
-        # Write approval to agent inbox
+    def _approve(self, proposal_id, response):
+        """Handle approval"""
+        
+        # Get proposal details
+        proposal = self.get_proposal(proposal_id)
+        
+        # Create approval document
         approval = {
             'type': 'APPROVAL',
-            'original_proposal': original_proposal.id,
-            'timestamp': datetime.now()
+            'proposal_id': proposal_id,
+            'timestamp': datetime.now().isoformat(),
+            'approved_by': 'Caleb',
+            'response': response,
+            'expires_at': (datetime.now() + timedelta(hours=1)).isoformat()
         }
-        write_to_inbox(original_proposal.agent, approval)
+        
+        # Write to agent inbox
+        agent = proposal['agent']
+        approval_file = Path(f'agents/{agent}/inbox') / f'APPROVAL_{proposal_id}.json'
+        approval_file.write_text(json.dumps(approval, indent=2))
+        
+        # Log
+        self.log_approval(approval)
+        
+        # Confirm to human
+        self.send_to_human(f"✅ Approved {proposal_id}. {agent} will execute.")
         
         return 'APPROVED'
+    
+    def _reject(self, proposal_id, response):
+        """Handle rejection"""
         
-    else:
         # Log rejection
-        log_rejection(original_proposal, response.reason)
+        rejection = {
+            'type': 'REJECTION',
+            'proposal_id': proposal_id,
+            'timestamp': datetime.now().isoformat(),
+            'response': response
+        }
+        self.log_rejection(rejection)
+        
+        # Confirm to human
+        self.send_to_human(f"❌ Rejected {proposal_id}. No action taken.")
         
         return 'REJECTED'
 ```
 
-**Critical Actions Requiring Approval:**
+### Critical Actions That Require Approval
 
-The Face must request approval for:
-- Financial transactions (trades, transfers, purchases)
+**Financial Transactions:**
+- Any trading (stocks, forex, crypto)
+- Any transfers (any amount)
+- Any purchases
+- Position modifications (increase size, remove stop loss)
+
+**Technical Actions:**
 - Code deployment to production
-- External communications (emails, posts, messages)
-- Data deletion or modification
+- Database schema changes
 - System configuration changes
-- Agent creation or deletion
-
-**5. Safety and Error Prevention:**
-
-The Face acts as a safety layer, preventing dangerous actions.
-
-**Safety Checks:**
-```python
-def validate_action(action):
-    # Check if action is on safety list
-    if action.type in CRITICAL_ACTIONS:
-        # Must have explicit approval
-        if not has_approval(action.id):
-            return False, 'Requires explicit approval'
-    
-    # Check for common mistakes
-    if action.type == 'trade':
-        if action.size > MAX_POSITION_SIZE:
-            return False, 'Position size exceeds limit'
-        
-        if not action.stop_loss:
-            return False, 'Stop loss is mandatory'
-    
-    return True, 'OK'
-```
-
-**Error Handling:**
-```python
-def handle_error(error):
-    # Log error
-    log_error(error)
-    
-    # Notify human if critical
-    if error.severity == 'critical':
-        send_alert(f'CRITICAL ERROR: {error.message}')
-    
-    # Attempt recovery if possible
-    if error.recoverable:
-        attempt_recovery(error)
-    
-    # Document for future reference
-    update_troubleshooting_guide(error)
-```
-
-### 2.2 Communication Flow Examples (Detailed)
-
-**Example 1: Simple Task Assignment - Complete Flow**
-
-*Step 1: Human Request*
-```
-Caleb: "Build me a website for Elluminate"
-```
-
-*Step 2: CHAD_YI Processing*
-```python
-# Read context
-read('SOUL.md')
-read('IDENTITY.md')
-read('USER.md')
-
-# Search for relevant info
-memory_search('Elluminate website')
-
-# Determine appropriate agent
-agent = 'forger'
-
-# Create task
-task = {
-    'id': f'B6-BUILD-{timestamp}',
-    'type': 'website_build',
-    'company': 'Elluminate',
-    'requirements': [
-        'Corporate website',
-        'Services pages',
-        'Contact form',
-        'Mobile responsive'
-    ],
-    'priority': 'high',
-    'created_at': datetime.now()
-}
-
-# Write to agent inbox
-write(f'agents/{agent}/inbox/{task.id}.md', format_task(task))
-
-# Respond to human
-send_message("Task created and assigned to Forger. I'll notify you when complete.")
-```
-
-*Step 3: Forger Processing*
-```python
-# Check inbox
-inbox_files = list_files('inbox/')
-
-for file in inbox_files:
-    task = read_task(file)
-    
-    # Execute task
-    website = build_website(task)
-    
-    # Write result to outbox
-    result = {
-        'type': 'BUILD_COMPLETE',
-        'task_id': task.id,
-        'output_path': website.path,
-        'pages': website.pages,
-        'timestamp': datetime.now()
-    }
-    write(f'outbox/{task.id}-COMPLETE.md', format_result(result))
-    
-    # Archive task
-    archive_file(file)
-```
-
-*Step 4: CHAD_YI Reporting*
-```python
-# Poll outbox directories
-results = check_agent_outboxes()
-
-for result in results:
-    if result.type == 'BUILD_COMPLETE':
-        # Format for human
-        message = format_build_notification(result)
-        
-        # Send to human
-        send_message(message)
-        
-        # Archive result
-        archive_file(result.file)
-```
-
-*Step 5: Human Response*
-```
-Caleb: "Show me the website"
-```
-
-*Step 6: CHAD_YI Serving Content*
-```python
-# Read built website
-website = read_build_output(result.output_path)
-
-# Format for display
-preview = generate_preview(website)
-
-# Send to human
-send_message_with_attachment("Here's the website preview:", preview)
-```
-
-*Step 7: Human Approval*
-```
-Caleb: "Looks good, deploy it"
-```
-
-*Step 8: CHAD_YI Execution*
-```python
-# Deploy website
-deployment = deploy_website(website)
-
-# Report result
-send_message(f"Website deployed successfully. URL: {deployment.url}")
-```
-
-**Example 2: Trading Proposal - Complete Flow with Approval**
-
-*Step 1: Signal Detection*
-```python
-# Quanta monitors for signals
-signal = detect_signal()
-
-if signal:
-    # Create proposal
-    proposal = {
-        'type': 'TRADE_PROPOSAL',
-        'signal': {
-            'pair': signal.pair,
-            'direction': signal.direction,
-            'entry': signal.entry,
-            'stop_loss': signal.stop_loss,
-            'take_profits': signal.take_profits
-        },
-        'analysis': {
-            'trend': signal.trend,
-            'support': signal.support,
-            'resistance': signal.resistance
-        },
-        'risk': {
-            'position_size': calculate_position_size(signal),
-            'risk_amount': calculate_risk_amount(signal),
-            'risk_percent': calculate_risk_percent(signal)
-        },
-        'timestamp': datetime.now()
-    }
-    
-    # Write to CHAD_YI inbox
-    write('agents/chad-yi/inbox/TRADE_PROPOSAL.md', format_proposal(proposal))
-```
-
-*Step 2: CHAD_YI Review*
-```python
-# Read proposal
-proposal = read_proposal('inbox/TRADE_PROPOSAL.md')
-
-# Format for human
-message = f"""
-📊 TRADE PROPOSAL
-
-Pair: {proposal.signal.pair}
-Direction: {proposal.signal.direction}
-Entry: {proposal.signal.entry}
-Stop Loss: {proposal.signal.stop_loss}
-Take Profits: {', '.join(proposal.signal.take_profits)}
-
-Position Size: {proposal.risk.position_size} units
-Risk Amount: ${proposal.risk.risk_amount}
-Risk Percent: {proposal.risk.risk_percent}%
-
-Approve this trade? Reply YES or NO.
-"""
-
-# Send to human
-send_message(message)
-
-# Archive proposal
-archive_file('inbox/TRADE_PROPOSAL.md')
-```
-
-*Step 3: Human Decision*
-```
-Caleb: "YES"
-```
-
-*Step 4: CHAD_YI Processing Approval*
-```python
-# Record approval
-approval = {
-    'type': 'TRADE_APPROVAL',
-    'original_proposal': proposal.id,
-    'timestamp': datetime.now()
-}
-
-# Write to Quanta inbox
-write('agents/quanta/inbox/APPROVED.md', format_approval(approval))
-
-# Confirm to human
-send_message("Trade approved. Executing now...")
-```
-
-*Step 5: Quanta Execution*
-```python
-# Read approval
-approval = read_approval('inbox/APPROVED.md')
-
-# Execute trade
-trade_result = execute_trade(proposal.signal)
-
-# Record trade
-record_trade(trade_result)
-
-# Write result to outbox
-result = {
-    'type': 'TRADE_EXECUTED',
-    'trade_id': trade_result.id,
-    'status': trade_result.status,
-    'timestamp': datetime.now()
-}
-write('outbox/TRADE_EXECUTED.md', format_result(result))
-
-# Archive approval
-archive_file('inbox/APPROVED.md')
-```
-
-*Step 6: CHAD_YI Reporting*
-```python
-# Read result
-result = read_result('agents/quanta/outbox/TRADE_EXECUTED.md')
-
-# Format for human
-message = f"""
-✅ TRADE EXECUTED
-
-Trade ID: {result.trade_id}
-Status: {result.status}
-Time: {result.timestamp}
-"""
-
-# Send to human
-send_message(message)
-```
-
-### 2.3 The Brain (Cerebronn-Type) in Detail
-
-**When to Use The Brain:**
-
-The Brain is valuable for:
-- Complex architectural decisions requiring multiple considerations
-- Multi-step planning with dependencies
-- Research tasks requiring synthesis of multiple sources
-- Code review and refactoring decisions
-- Long-term strategy development
-
-The Brain is NOT needed for:
-- Simple task execution
-- Routine coordination
-- Information retrieval
-- Quick responses
-
-**Brain Communication Pattern:**
-
-The Brain operates on a different timescale than the Face. While the Face responds in real-time (seconds), the Brain may take hours to complete a task.
-
-**Example: Architecture Planning Flow**
-
-*Step 1: Task Assignment*
-```
-Caleb: "Plan the architecture for the new Elluminate website"
-```
-
-*Step 2: CHAD_YI Delegation*
-```python
-# Create architecture task
-task = {
-    'id': f'ARCH-{timestamp}',
-    'type': 'architecture_planning',
-    'project': 'Elluminate',
-    'requirements': [
-        'Corporate website',
-        'Service listings',
-        'Contact forms',
-        'Mobile responsive',
-        'SEO optimized'
-    ],
-    'constraints': [
-        'Budget: $500',
-        'Timeline: 2 weeks',
-        'Tech: Modern, maintainable'
-    ]
-}
-
-# Write to Brain inbox
-write('agents/cerebronn/inbox/ARCHITECTURE_TASK.md', format_task(task))
-
-# Respond to human
-send_message("Architecture planning task assigned to Cerebronn. This may take a few hours. I'll notify you when complete.")
-```
-
-*Step 3: Brain Processing (Hours Later)*
-```python
-# Read task
-task = read_task('inbox/ARCHITECTURE_TASK.md')
-
-# Deep analysis
-architecture = analyze_requirements(task)
-tech_stack = select_tech_stack(task, architecture)
-component_design = design_components(architecture)
-data_model = design_data_model(architecture)
-
-# Create comprehensive plan
-plan = {
-    'type': 'ARCHITECTURE_PLAN',
-    'task_id': task.id,
-    'overview': architecture.overview,
-    'tech_stack': tech_stack,
-    'components': component_design,
-    'data_model': data_model,
-    'implementation_phases': [
-        {'phase': 1, 'tasks': [...], 'duration': '3 days'},
-        {'phase': 2, 'tasks': [...], 'duration': '5 days'},
-        {'phase': 3, 'tasks': [...], 'duration': '4 days'}
-    ],
-    'risks': [...],
-    'recommendations': [...]
-}
-
-# Write to outbox
-write('outbox/ARCHITECTURE_PLAN.md', format_plan(plan))
-
-# Archive task
-archive_file('inbox/ARCHITECTURE_TASK.md')
-```
-
-*Step 4: CHAD_YI Retrieval and Reporting*
-```python
-# Check Brain outbox
-plan = read_plan('agents/cerebronn/outbox/ARCHITECTURE_PLAN.md')
-
-# Format for human (summarized)
-summary = f"""
-📋 ARCHITECTURE PLAN COMPLETE
-
-Overview: {plan.overview}
-Tech Stack: {plan.tech_stack}
-Timeline: {plan.total_duration}
-
-The complete plan is available. Would you like me to:
-1. Show the full plan
-2. Summarize key decisions
-3. Start implementation with Forger
-"""
-
-# Send to human
-send_message(summary)
-```
-
-*Step 5: Human Decision*
-```
-Caleb: "Show me the key decisions"
-```
-
-*Step 6: CHAD_YI Detailed Report*
-```python
-# Extract key decisions
-decisions = extract_key_decisions(plan)
-
-# Format detailed report
-report = format_decisions_report(decisions)
-
-# Send to human
-send_message(report)
-```
-
-### 2.4 The Workforce (Specialized Agents) Patterns
-
-**Agent Design Principles:**
-
-**1. Single Responsibility:**
-Each agent should do one thing well. Helios audits. Forger builds. Quanta trades (suggests). Don't combine responsibilities.
-
-**2. Stateless Operation:**
-Agents should not maintain state in memory. All state should be stored in files. This enables:
-- Restart without data loss
-- Multiple instances (if needed)
-- Easy debugging
-
-**3. Idempotent Operations:**
-Running an agent multiple times should not cause problems. If an agent sees a task it's already processed, it should skip it.
-
-**4. Clear Input/Output:**
-Every agent should have clear:
-- Input format (what tasks look like)
-- Output format (what results look like)
-- Error format (how errors are reported)
-
-**5. Graceful Degradation:**
-Agents should handle failures gracefully:
-- If a dependency is unavailable, log and retry
-- If a task is malformed, report error and continue
-- If system resources are low, reduce frequency
-
-**Common Workforce Agent Patterns:**
-
-**Pattern 1: Poll-Execute-Report**
-```python
-class PollingAgent:
-    def __init__(self, inbox_dir, outbox_dir, sleep_interval=60):
-        self.inbox_dir = inbox_dir
-        self.outbox_dir = outbox_dir
-        self.sleep_interval = sleep_interval
-    
-    def run(self):
-        while True:
-            self.process_inbox()
-            time.sleep(self.sleep_interval)
-    
-    def process_inbox(self):
-        for task_file in self.list_inbox_files():
-            if self.is_processed(task_file):
-                continue
-            
-            try:
-                task = self.read_task(task_file)
-                result = self.execute_task(task)
-                self.write_result(result)
-                self.mark_processed(task_file)
-            except Exception as e:
-                self.write_error(task, e)
-                self.mark_processed(task_file)
-    
-    def execute_task(self, task):
-        raise NotImplementedError
-```
-
-**Pattern 2: Event-Driven (File Watch)**
-```python
-class FileWatchAgent:
-    def __init__(self, watch_dir):
-        self.watch_dir = watch_dir
-        self.observer = Observer()
-    
-    def run(self):
-        handler = TaskHandler(self)
-        self.observer.schedule(handler, self.watch_dir)
-        self.observer.start()
-        
-        try:
-            while True:
-                time.sleep(1)
-        except KeyboardInterrupt:
-            self.observer.stop()
-        
-        self.observer.join()
-    
-    def on_task_created(self, task_file):
-        task = self.read_task(task_file)
-        result = self.execute_task(task)
-        self.write_result(result)
-```
-
-**Pattern 3: Scheduled (Cron-Based)**
-```python
-class ScheduledAgent:
-    def __init__(self, schedule):
-        self.schedule = schedule
-    
-    def run(self):
-        while True:
-            if self.should_run():
-                self.execute()
-            
-            time.sleep(self.schedule.interval)
-    
-    def should_run(self):
-        now = datetime.now()
-        return self.schedule.matches(now)
-    
-    def execute(self):
-        raise NotImplementedError
-```
-
-
-
-## CHAPTER 3: SKILL ARCHITECTURE PATTERNS FROM 54 LOCAL SKILLS
-
-### 3.1 Skill Taxonomy Analysis
-
-Based on analysis of 54 installed skills at `~/.npm-global/lib/node_modules/openclaw/skills/`, I've identified distinct architectural patterns:
-
-**Category 1: CLI Wrapper Skills (Bash-First Pattern)**
-
-Skills in this category wrap existing command-line tools:
-- `apple-notes` wraps `memo` CLI
-- `apple-reminders` wraps `remindctl` CLI  
-- `bear-notes` wraps `grizzly` CLI
-- `obsidian` wraps `obsidian-cli`
-- `github` wraps `gh` CLI
-- `tmux` wraps `tmux`
-
-**Pattern Characteristics:**
-```yaml
-name: cli-wrapper-skill
-description: "Wraps existing CLI tool for OpenClaw integration"
-metadata:
-  requires:
-    bins: ["wrapped-cli-tool"]
-  install:
-    - kind: brew
-      formula: "tool-package"
-```
-
-**Why This Pattern Works:**
-1. **Leverages existing tools** - Don't reinvent the wheel
-2. **Battle-tested** - CLI tools are already reliable
-3. **Familiar interface** - Users already know the CLI
-4. **Easy to debug** - Can test CLI independently
-5. **Community support** - Existing documentation and community
-
-**Implementation Example - Apple Notes:**
-```markdown
-# Apple Notes CLI
-
-Use `memo notes` to manage Apple Notes directly from the terminal.
-
-Setup
-- Install (Homebrew): `brew tap antoniorodr/memo && brew install antoniorodr/memo/memo`
-- Manual (pip): `pip install .` (after cloning the repo)
-- macOS-only; if prompted, grant Automation access to Notes.app.
-
-View Notes
-- List all notes: `memo notes`
-- Filter by folder: `memo notes -f "Folder Name"`
-- Search notes (fuzzy): `memo notes -s "query"`
-
-Create Notes
-- Add a new note: `memo notes -a`
-  - Opens an interactive editor to compose the note.
-- Quick add with title: `memo notes -a "Note Title"`
-
-Limitations
-- Cannot edit notes containing images or attachments.
-- Interactive prompts may require terminal access.
-```
-
-**Category 2: PTY Mode Skills (Interactive CLI Pattern)**
-
-Skills requiring pseudo-terminal access for interactive applications:
-- `coding-agent` - Codex, Claude Code, Pi agents
-- `tmux` - tmux session control
-- `1password` - `op` CLI (requires tmux for auth)
-
-**Critical Pattern: PTY Mode Required**
-```bash
-# ✅ Correct - with PTY
-bash pty:true command:"codex exec 'Your prompt'"
-
-# ❌ Wrong - no PTY, agent may break
-bash command:"codex exec 'Your prompt'"
-```
-
-**Why PTY Mode Matters:**
-Interactive terminal applications (like Codex, Claude Code, tmux) require a pseudo-terminal to work correctly. Without PTY:
-- Broken output (missing colors, formatting)
-- Applications hang waiting for terminal input
-- Cursor control doesn't work
-- Terminal size detection fails
-
-**Implementation from coding-agent SKILL.md:**
-```markdown
-## ⚠️ PTY Mode Required!
-
-Coding agents (Codex, Claude Code, Pi) are **interactive terminal applications** that need a pseudo-terminal (PTY) to work correctly. Without PTY, you'll get broken output, missing colors, or the agent may hang.
-
-**Always use `pty:true`** when running coding agents:
-
-```bash
-# ✅ Correct - with PTY
-bash pty:true command:"codex exec 'Your prompt'"
-
-# ❌ Wrong - no PTY, agent may break
-bash command:"codex exec 'Your prompt'"
-```
-
-### Bash Tool Parameters
-
-| Parameter    | Type    | Description                                                                 |
-| ------------ | ------- | --------------------------------------------------------------------------- |
-| `command`    | string  | The shell command to run                                                    |
-| `pty`        | boolean | **Use for coding agents!** Allocates a pseudo-terminal for interactive CLIs |
-| `workdir`    | string  | Working directory (agent sees only this folder's context)                   |
-| `background` | boolean | Run in background, returns sessionId for monitoring                         |
-| `timeout`    | number  | Timeout in seconds (kills process on expiry)                                |
-| `elevated`   | boolean | Run on host instead of sandbox (if allowed)                                 |
-```
-
-**Category 3: API Integration Skills**
-
-Skills that integrate with web APIs:
-- `notion` - Notion API
-- `trello` - Trello REST API
-- `discord` - Discord API via message tool
-- `github` - GitHub API via `gh` CLI
-
-**Pattern Characteristics:**
-```yaml
-metadata:
-  requires:
-    env: ["API_KEY"]
-    bins: ["curl", "jq"]
-```
-
-**Implementation from notion SKILL.md:**
-```markdown
-# notion
-
-Use the Notion API to create/read/update pages, data sources (databases), and blocks.
-
-## Setup
-
-1. Create an integration at https://notion.so/my-integrations
-2. Copy the API key (starts with `ntn_` or `secret_`)
-3. Store it:
-
-```bash
-mkdir -p ~/.config/notion
-echo "ntn_your_key_here" > ~/.config/notion/api_key
-```
-
-4. Share target pages/databases with your integration
-
-## API Basics
-
-All requests need:
-
-```bash
-NOTION_KEY=$(cat ~/.config/notion/api_key)
-curl -X GET "https://api.notion.com/v1/..." \
-  -H "Authorization: Bearer $NOTION_KEY" \
-  -H "Notion-Version: 2025-09-03" \
-  -H "Content-Type: application/json"
-```
-```
-
-**Category 4: Local AI Skills**
-
-Skills that run AI models locally:
-- `openai-whisper` - Local speech-to-text
-- `sherpa-onnx-tts` - Local text-to-speech
-- `openai-image-gen` - Local image generation
-
-**Pattern: Local Processing, No API Key**
-```markdown
-# Whisper (CLI)
-
-Use `whisper` to transcribe audio locally.
-
-Quick start
-- `whisper /path/audio.mp3 --model medium --output_format txt --output_dir .`
-- `whisper /path/audio.m4a --task translate --output_format srt`
-
-Notes
-- Models download to `~/.cache/whisper` on first run
-- `--model` defaults to `turbo` on this install
-- Use smaller models for speed, larger for accuracy
-```
-
-**Category 5: Security/Authentication Skills**
-
-Skills handling sensitive operations:
-- `1password` - 1Password CLI integration
-- `healthcheck` - Security auditing
-
-**Critical Pattern: T-Max Sessions for Secrets**
-```markdown
-## REQUIRED tmux session (T-Max)
-
-The shell tool uses a fresh TTY per command. To avoid re-prompts and failures, always run `op` inside a dedicated tmux session with a fresh socket/session name.
-
-Example:
-```bash
-SOCKET_DIR="${OPENCLAW_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/openclaw-tmux-sockets}"
-mkdir -p "$SOCKET_DIR"
-SOCKET="$SOCKET_DIR/openclaw-op.sock"
-SESSION="op-auth-$(date +%Y%m%d-%H%M%S)"
-
-tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
-tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- "op signin --account my.1password.com" Enter
-tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION":0.0 -S -200
-tmux -S "$SOCKET" kill-session -t "$SESSION"
-```
-
-## Guardrails
-
-- Never paste secrets into logs, chat, or code
-- Prefer `op run` / `op inject` over writing secrets to disk
-```
-
-**Category 6: Canvas/Tailscale Skills**
-
-Skills for visual output and networking:
-- `canvas` - HTML display on connected nodes
-
-**Architecture:**
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────┐
-│  Canvas Host    │────▶│   Node Bridge    │────▶│  Node App   │
-│  (HTTP Server)  │     │  (TCP Server)    │     │ (Mac/iOS/   │
-│  Port 18793     │     │  Port 18790      │     │  Android)   │
-└─────────────────┘     └──────────────────┘     └─────────────┘
-```
-
-**Tailscale Integration:**
-```markdown
-### Tailscale Integration
-
-The canvas host server binds based on `gateway.bind` setting:
-
-| Bind Mode  | Server Binds To     | Canvas URL Uses            |
-| ---------- | ------------------- | -------------------------- |
-| `loopback` | 127.0.0.1           | localhost (local only)     |
-| `lan`      | LAN interface       | LAN IP address             |
-| `tailnet`  | Tailscale interface | Tailscale hostname         |
-| `auto`     | Best available      | Tailscale > LAN > loopback |
-
-**Key insight:** The `canvasHostHostForBridge` is derived from `bridgeHost`. When bound to Tailscale, nodes receive URLs like:
+- SSL certificate updates
+- DNS changes
+
+**Communication:**
+- External emails (especially to clients)
+- Social media posts
+- Public communications
+- Sharing private data externally
+
+**Infrastructure:**
+- Agent creation
+- Agent deletion
+- Agent permission changes
+- New integrations
+
+### What Happens Without Approval
+
+**Scenario:** Quanta bypasses approval
 
 ```
-http://<tailscale-hostname>:18793/__openclaw__/canvas/<file>.html
-```
-```
-
-### 3.2 Skill Creation Best Practices
-
-From analysis of `skill-creator/SKILL.md`:
-
-**Core Principles:**
-
-**1. Concise is Key:**
-```markdown
-The context window is a public good. Skills share the context window with everything else Codex needs: system prompt, conversation history, other Skills' metadata, and the actual user request.
-
-**Default assumption: Codex is already very smart.** Only add context Codex doesn't already have.
+Quanta: [Detects signal]
+Quanta: [Executes trade immediately - NO APPROVAL]
+Quanta: [Tracking fails]
+You: [Unaware trade is open]
+Market: [Moves against position]
+Result: [-$10,000 loss]
 ```
 
-**2. Set Appropriate Degrees of Freedom:**
-```markdown
-**High freedom (text-based instructions)**: Use when multiple approaches are valid
-**Medium freedom (pseudocode/scripts with parameters)**: Use when a preferred pattern exists
-**Low freedom (specific scripts, few parameters)**: Use when operations are fragile
+**Scenario:** With proper approval
+
+```
+Quanta: [Detects signal]
+Quanta: [Writes proposal to chad-yi/inbox/]
+CHAD_YI: [Presents to you]
+You: [Sees proposal, spots issue with position size]
+You: "NO - position size too large"
+CHAD_YI: [Logs rejection]
+Quanta: [Does nothing]
+Result: [No loss, no trade executed]
 ```
 
-**3. Progressive Disclosure Design:**
-```markdown
-Skills use a three-level loading system:
-1. **Metadata (name + description)** - Always in context (~100 words)
-2. **SKILL.md body** - When skill triggers (<5k words)
-3. **Bundled resources** - As needed by Codex (unlimited)
-```
-
-**Skill Directory Structure:**
-```
-skill-name/
-├── SKILL.md                 # Required - main documentation
-├── README.md                # Optional - detailed guide
-├── scripts/                 # Executable code
-│   └── helper.py
-├── references/              # Reference material
-│   ├── api-docs.md
-│   └── examples.md
-├── assets/                  # Output resources
-│   ├── templates/
-│   └── icons/
-└── config/
-    └── default.conf
-```
-
-**SKILL.md Frontmatter Format:**
-```yaml
----
-name: skill-name
-description: "Clear description of what this skill does and when to use it"
-homepage: https://example.com
-metadata:
-  openclaw:
-    emoji: "🔧"
-    requires:
-      bins: ["required-binary"]
-      env: ["REQUIRED_ENV_VAR"]
-      config: ["config.key"]
-    install:
-      - id: brew
-        kind: brew
-        formula: "package-name"
-        bins: ["binary-name"]
-        label: "Install via Homebrew"
-      - id: apt
-        kind: apt
-        package: "package-name"
-        bins: ["binary-name"]
-        label: "Install via apt"
-allowed-tools: ["tool1", "tool2"]
----
-```
+The difference is clear. Approval workflow saves money and prevents disasters.
 
 ---
 
-## CHAPTER 4: THE $10K FAILURE - COMPLETE CASE STUDY
-
-### 4.1 Timeline of Events
-
-**Month 1: Initial Success**
-- File-based system working correctly
-- Quanta trading bot functioning with approval workflow
-- Simple architecture: signal → proposal → approval → execution
-
-**Month 2: The Pivot to Complexity**
-- Attempted to add "real-time" capabilities
-- Introduced WebSocket infrastructure
-- Added TCP socket communication between agents
-- Implemented ACP (Agent Communication Protocol)
-- Built SQLite database for "better" tracking
-- Added Redis for caching
-
-**Day X: First Failure**
-- Quanta tracking system stopped working
-- Two trades opened without proper state tracking
-- State sync between OANDA and Quanta failed
-- Partial close system didn't apply to untracked trades
-
-**Day X+2: Discovery**
-- Human discovered untracked trades
-- Trades had moved against position
-- Loss: $10,000
-
-**Current: Complete Re-evaluation**
-- All complex infrastructure removed
-- Return to file-based architecture
-- Rebuilding with lessons learned
-
-### 4.2 Technical Analysis of Failures
-
-**Failure 1: WebSocket Infrastructure**
-
-*What Was Built:*
-```python
-class WebSocketServer:
-    def __init__(self, port=8765):
-        self.port = port
-        self.clients = set()
-    
-    async def handle_client(self, websocket, path):
-        self.clients.add(websocket)
-        try:
-            async for message in websocket:
-                await self.process_message(message)
-        finally:
-            self.clients.remove(websocket)
-    
-    async def broadcast(self, message):
-        for client in self.clients:
-            await client.send(message)
-```
-
-*Why It Failed:*
-1. **Library incompatibility** - Python websockets version conflicts
-2. **Connection drops** - Agents disconnected, didn't reconnect properly
-3. **State synchronization** - Complex state management required
-4. **Debugging difficulty** - Hard to trace message flow
-5. **Overkill** - File-based polling was sufficient
-
-*The Lesson:*
-Don't build what you don't need. The requirement was "track trades," not "real-time updates." A cron job checking every minute would have been sufficient.
-
-**Failure 2: Autonomous Execution**
-
-*What Was Built:*
-```python
-class QuantaTradingBot:
-    async def on_signal(self, signal):
-        # BAD: No approval checkpoint
-        trade = await self.execute_trade(signal)
-        await self.update_dashboard(trade)
-```
-
-*What Should Have Been Built:*
-```python
-class QuantaTradingBot:
-    async def on_signal(self, signal):
-        # GOOD: Proposal with approval
-        proposal = self.create_proposal(signal)
-        await self.write_to_chad_yi_inbox(proposal)
-        
-        # Wait for approval
-        approval = await self.wait_for_approval()
-        if approval:
-            trade = await self.execute_trade(signal)
-            await self.record_trade(trade)
-```
-
-*The Lesson:*
-Never auto-execute financial transactions. Human approval is non-negotiable.
-
-**Failure 3: Broken State Tracking**
-
-*What Was Built:*
-```python
-# Multiple state sources
-state = {
-    'sqlite': read_from_sqlite(),
-    'redis': read_from_redis(),
-    'oanda': await self.oanda.get_positions(),
-    'memory': self.memory_state
-}
-
-# Which one is truth?
-```
-
-*What Should Have Been Built:*
-```python
-# Single source of truth
-trades = read_from_sqlite()
-# Sync with OANDA periodically
-await sync_with_oanda()
-# SQLite is always authoritative
-```
-
-*The Lesson:*
-Multiple state sources create confusion. Have one authoritative source.
-
-**Failure 4: False Confidence**
-
-*What Was Claimed:*
-"Quanta is working! The system is fixed!"
-
-*What Was True:*
-Quanta was running (process existed), but:
-- Tracking wasn't working
-- State sync was broken
-- Partial closes weren't applying
-- No end-to-end test passed
-
-*The Lesson:*
-"Running" ≠ "Working". Test functionality, not just startup.
-
-### 4.3 What Should Have Been Done
-
-**Architecture - Simple File-Based:**
-```
-Signal Detected
-    ↓
-Quanta writes proposal to /agents/chad-yi/inbox/
-    ↓
-CHAD_YI reads, presents to human
-    ↓
-Human approves (YES)
-    ↓
-CHAD_YI writes approval to /agents/quanta/inbox/
-    ↓
-Quanta reads approval, executes
-    ↓
-Quanta writes result to /agents/chad-yi/outbox/
-    ↓
-CHAD_YI reports to human
-    ↓
-Quanta updates SQLite (single source of truth)
-```
-
-**Risk Management - Strict Rules:**
-```python
-# Position sizing based on risk
-MAX_RISK_PERCENT = 0.02  # 2% per trade
-DAILY_LOSS_LIMIT = 0.06   # 6% daily
-
-def calculate_position_size(account_balance, risk_percent, stop_loss_pips, pip_value):
-    risk_amount = account_balance * risk_percent
-    position_size = risk_amount / (stop_loss_pips * pip_value)
-    return int(position_size)
-
-# Example with $1,750 account
-account = 1750
-risk = 0.02
-stop_loss = 100
-pip_value = 0.10
-
-units = calculate_position_size(account, risk, stop_loss, pip_value)
-# Result: 3.5 units → 3 units
-# Risk: $30 (2% of $1,750) - CORRECT
-```
-
-**Tracking - SQLite with Reconciliation:**
-```python
-class TradeTracker:
-    def __init__(self, db_path='trades.db'):
-        self.db = sqlite3.connect(db_path)
-        self.create_tables()
-    
-    def record_trade(self, trade):
-        """Record trade in database - single source of truth"""
-        self.db.execute('''
-            INSERT INTO trades (id, symbol, direction, entry, stop_loss, size, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (trade.id, trade.symbol, trade.direction, 
-              trade.entry, trade.stop_loss, trade.size, 'OPEN'))
-        self.db.commit()
-    
-    async def reconcile_with_oanda(self):
-        """Sync database with OANDA - catch discrepancies"""
-        db_trades = self.get_open_trades()
-        oanda_positions = await self.oanda.get_positions()
-        
-        for trade in db_trades:
-            if trade.id not in oanda_positions:
-                # Discrepancy! Alert human.
-                await self.alert_discrepancy(trade)
-```
-
-### 4.4 Lessons Learned Summary
-
-**Technical Lessons:**
-1. **Complexity kills reliability** - Every component is a potential failure point
-2. **File-based > real-time** - Simple and reliable beats fast and fragile
-3. **Single source of truth** - Multiple state sources create confusion
-4. **Test end-to-end** - Verify functionality, not just startup
-
-**Process Lessons:**
-1. **Verify before claiming** - "Running" ≠ "Working"
-2. **Human approval mandatory** - Never auto-execute financial transactions
-3. **Document failure modes** - Know what can go wrong
-4. **Start simple, add complexity only when needed**
-
-**Organizational Lessons:**
-1. **Transparency** - Admit failures immediately
-2. **No overpromising** - Be honest about capabilities
-3. **Debt acknowledgment** - The $1M debt represents real system failures
-4. **Partnership model** - Human and AI working together
-
----
-
-[CONTINUING TO EXPAND WITH DASHBOARD ARCHITECTURES, OPERATIONAL PATTERNS, AND CASE STUDIES...]
-
-
+[Additional sections continue in next part...]
