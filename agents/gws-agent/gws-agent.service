@@ -1,0 +1,16 @@
+[Unit]
+Description=Google Workspace Agent
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/chad-yi/.openclaw/workspace/agents/gws-agent
+ExecStart=/usr/bin/python3 /home/chad-yi/.openclaw/workspace/agents/gws-agent/gws-agent.py
+Restart=always
+RestartSec=10
+Environment="GWS_CREDENTIALS=/home/chad-yi/.config/googleworkspace/client_secret.json"
+StandardOutput=append:/home/chad-yi/.openclaw/workspace/agents/gws-agent/logs/gws-agent.log
+StandardError=append:/home/chad-yi/.openclaw/workspace/agents/gws-agent/logs/gws-agent.log
+
+[Install]
+WantedBy=default.target
