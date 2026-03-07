@@ -4313,3 +4313,802 @@ fatal: unable to access 'https://github.com/chadyi-king/mission-control-dashboar
 [2026-03-06T22:56:33] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
 [2026-03-06T22:56:33] INFO   [sync] data.json written — 2026-03-06T22:56:33.290334+08:00
 [2026-03-06T22:56:34] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-06T23:11:35] INFO Running audit...
+[2026-03-06T23:11:35] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-06T23:11:35] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-06T23:11:35] INFO + Helios API heartbeat accepted
+[2026-03-06T23:11:35] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-06T23:11:35] INFO   [sync] data.json written — 2026-03-06T23:11:35.410914+08:00
+[2026-03-06T23:11:36] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-06T23:26:37] INFO Running audit...
+[2026-03-06T23:26:37] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-06T23:26:37] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-06T23:26:37] INFO + Helios API heartbeat accepted
+[2026-03-06T23:26:37] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-06T23:26:37] INFO   [sync] data.json written — 2026-03-06T23:26:37.570485+08:00
+[2026-03-06T23:26:38] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-06T23:26:38] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-06T23:26:38] INFO   Cerebronn report: helios-report-1772810798.json
+[2026-03-06T23:26:38] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-06T23:31:39] INFO   [inbox] Processing: cerebronn-urgent-1772811061611.md
+[2026-03-06T23:31:39] INFO   [inbox] Acked: cerebronn-urgent-1772811061611.md
+[2026-03-06T23:31:39] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772811099138.md
+[2026-03-06T23:41:39] INFO Running audit...
+[2026-03-06T23:41:39] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-06T23:41:39] INFO + Helios API heartbeat accepted
+[2026-03-06T23:41:39] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-06T23:41:39] INFO   [sync] data.json written — 2026-03-06T23:41:39.927158+08:00
+[2026-03-06T23:41:41] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-06T23:56:41] INFO Running audit...
+[2026-03-06T23:56:42] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-06T23:56:42] INFO + Helios API heartbeat accepted
+[2026-03-06T23:56:42] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-06T23:56:42] INFO   [sync] data.json written — 2026-03-06T23:56:42.314187+08:00
+[2026-03-06T23:56:43] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T00:11:44] INFO Running audit...
+[2026-03-07T00:11:44] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T00:11:44] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T00:11:44] INFO + Helios API heartbeat accepted
+[2026-03-07T00:11:44] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T00:11:44] INFO   [sync] data.json written — 2026-03-07T00:11:44.579299+08:00
+[2026-03-07T00:11:45] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T00:26:46] INFO Running audit...
+[2026-03-07T00:26:46] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T00:26:46] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T00:26:46] INFO + Helios API heartbeat accepted
+[2026-03-07T00:26:47] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T00:26:47] INFO   [sync] data.json written — 2026-03-07T00:26:47.043394+08:00
+[2026-03-07T00:26:48] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T00:26:48] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T00:26:48] INFO   Cerebronn report: helios-report-1772814408.json
+[2026-03-07T00:26:48] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T00:31:48] INFO   [inbox] Processing: cerebronn-urgent-1772814663688.md
+[2026-03-07T00:31:48] INFO   [inbox] Acked: cerebronn-urgent-1772814663688.md
+[2026-03-07T00:31:48] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772814708851.md
+[2026-03-07T00:41:49] INFO Running audit...
+[2026-03-07T00:41:49] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T00:41:49] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T00:41:49] INFO + Helios API heartbeat accepted
+[2026-03-07T00:41:49] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T00:41:49] INFO   [sync] data.json written — 2026-03-07T00:41:49.719922+08:00
+[2026-03-07T00:41:51] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T00:56:51] INFO Running audit...
+[2026-03-07T00:56:51] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T00:56:51] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T00:56:51] INFO + Helios API heartbeat accepted
+[2026-03-07T00:56:52] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T00:56:52] INFO   [sync] data.json written — 2026-03-07T00:56:52.043880+08:00
+[2026-03-07T00:56:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T01:11:54] INFO Running audit...
+[2026-03-07T01:11:54] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T01:11:54] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T01:11:54] INFO + Helios API heartbeat accepted
+[2026-03-07T01:11:54] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T01:11:54] INFO   [sync] data.json written — 2026-03-07T01:11:54.404212+08:00
+[2026-03-07T01:11:55] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T01:26:56] INFO Running audit...
+[2026-03-07T01:26:56] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T01:26:56] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T01:26:56] INFO + Helios API heartbeat accepted
+[2026-03-07T01:26:57] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T01:26:57] INFO   [sync] data.json written — 2026-03-07T01:26:57.002284+08:00
+[2026-03-07T01:26:58] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T01:26:58] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T01:26:58] INFO   Cerebronn report: helios-report-1772818018.json
+[2026-03-07T01:26:58] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T01:31:58] INFO   [inbox] Processing: cerebronn-urgent-1772818266075.md
+[2026-03-07T01:31:58] INFO   [inbox] Acked: cerebronn-urgent-1772818266075.md
+[2026-03-07T01:31:58] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772818318455.md
+[2026-03-07T01:41:58] INFO Running audit...
+[2026-03-07T01:41:58] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T01:41:59] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T01:41:59] INFO + Helios API heartbeat accepted
+[2026-03-07T01:41:59] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T01:41:59] INFO   [sync] data.json written — 2026-03-07T01:41:59.211059+08:00
+[2026-03-07T01:42:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T01:42:00] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T01:57:01] INFO Running audit...
+[2026-03-07T01:57:01] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T01:57:01] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T01:57:01] INFO + Helios API heartbeat accepted
+[2026-03-07T01:57:01] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T01:57:01] INFO   [sync] data.json written — 2026-03-07T01:57:01.647023+08:00
+[2026-03-07T01:57:02] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T02:12:04] INFO Running audit...
+[2026-03-07T02:12:04] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T02:12:04] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T02:12:04] INFO + Helios API heartbeat accepted
+[2026-03-07T02:12:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T02:12:04] INFO   [sync] data.json written — 2026-03-07T02:12:04.515455+08:00
+[2026-03-07T02:12:05] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T02:27:07] INFO Running audit...
+[2026-03-07T02:27:07] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T02:27:07] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T02:27:08] INFO + Helios API heartbeat accepted
+[2026-03-07T02:27:08] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T02:27:08] INFO   [sync] data.json written — 2026-03-07T02:27:08.148121+08:00
+[2026-03-07T02:27:09] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T02:27:09] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T02:27:09] INFO   Cerebronn report: helios-report-1772821629.json
+[2026-03-07T02:27:09] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T02:32:13] INFO   [inbox] Processing: cerebronn-urgent-1772821872742.md
+[2026-03-07T02:32:13] INFO   [inbox] Acked: cerebronn-urgent-1772821872742.md
+[2026-03-07T02:32:13] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772821933100.md
+[2026-03-07T02:42:20] INFO Running audit...
+[2026-03-07T02:42:20] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T02:42:21] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T02:42:21] INFO + Helios API heartbeat accepted
+[2026-03-07T02:42:21] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T02:42:21] INFO   [sync] data.json written — 2026-03-07T02:42:21.239610+08:00
+[2026-03-07T02:42:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T02:57:37] INFO Running audit...
+[2026-03-07T02:57:37] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T02:57:37] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T02:57:37] INFO + Helios API heartbeat accepted
+[2026-03-07T02:57:37] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T02:57:37] INFO   [sync] data.json written — 2026-03-07T02:57:37.879557+08:00
+[2026-03-07T02:57:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T03:12:55] INFO Running audit...
+[2026-03-07T03:12:55] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T03:12:55] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T03:12:55] INFO + Helios API heartbeat accepted
+[2026-03-07T03:12:55] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T03:12:55] INFO   [sync] data.json written — 2026-03-07T03:12:55.507050+08:00
+[2026-03-07T03:12:56] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T03:28:06] INFO Running audit...
+[2026-03-07T03:28:06] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T03:28:06] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T03:28:06] INFO + Helios API heartbeat accepted
+[2026-03-07T03:28:06] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T03:28:06] INFO   [sync] data.json written — 2026-03-07T03:28:06.978782+08:00
+[2026-03-07T03:28:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T03:28:08] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T03:28:08] INFO   Cerebronn report: helios-report-1772825288.json
+[2026-03-07T03:28:08] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T03:32:12] INFO   [inbox] Processing: cerebronn-urgent-1772825526273.md
+[2026-03-07T03:32:12] INFO   [inbox] Acked: cerebronn-urgent-1772825526273.md
+[2026-03-07T03:32:12] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772825532443.md
+[2026-03-07T03:43:26] INFO Running audit...
+[2026-03-07T03:43:26] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T03:43:27] INFO + Helios API heartbeat accepted
+[2026-03-07T03:43:27] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T03:43:27] INFO   [sync] data.json written — 2026-03-07T03:43:27.071623+08:00
+[2026-03-07T03:43:28] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T03:58:43] INFO Running audit...
+[2026-03-07T03:58:43] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T03:58:43] INFO + Helios API heartbeat accepted
+[2026-03-07T03:58:43] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T03:58:43] INFO   [sync] data.json written — 2026-03-07T03:58:43.511610+08:00
+[2026-03-07T03:58:44] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T04:14:03] INFO Running audit...
+[2026-03-07T04:14:03] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T04:14:04] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T04:14:04] INFO + Helios API heartbeat accepted
+[2026-03-07T04:14:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T04:14:04] INFO   [sync] data.json written — 2026-03-07T04:14:04.288814+08:00
+[2026-03-07T04:14:05] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T04:29:27] INFO Running audit...
+[2026-03-07T04:29:27] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T04:29:27] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T04:29:27] INFO + Helios API heartbeat accepted
+[2026-03-07T04:29:27] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T04:29:27] INFO   [sync] data.json written — 2026-03-07T04:29:27.642418+08:00
+[2026-03-07T04:29:28] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T04:29:28] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T04:29:28] INFO   Cerebronn report: helios-report-1772828968.json
+[2026-03-07T04:29:28] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T04:33:34] INFO   [inbox] Processing: cerebronn-urgent-1772829201279.md
+[2026-03-07T04:33:34] INFO   [inbox] Acked: cerebronn-urgent-1772829201279.md
+[2026-03-07T04:33:34] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772829214489.md
+[2026-03-07T04:44:52] INFO Running audit...
+[2026-03-07T04:44:52] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T04:44:52] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T04:44:52] INFO + Helios API heartbeat accepted
+[2026-03-07T04:44:52] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T04:44:52] INFO   [sync] data.json written — 2026-03-07T04:44:52.564000+08:00
+[2026-03-07T04:44:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T05:00:17] INFO Running audit...
+[2026-03-07T05:00:17] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T05:00:17] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T05:00:17] INFO + Helios API heartbeat accepted
+[2026-03-07T05:00:17] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T05:00:17] INFO   [sync] data.json written — 2026-03-07T05:00:17.527870+08:00
+[2026-03-07T05:00:18] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T05:15:43] INFO Running audit...
+[2026-03-07T05:15:43] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T05:15:43] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T05:15:43] INFO + Helios API heartbeat accepted
+[2026-03-07T05:15:43] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T05:15:43] INFO   [sync] data.json written — 2026-03-07T05:15:43.712325+08:00
+[2026-03-07T05:15:44] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T05:31:10] INFO Running audit...
+[2026-03-07T05:31:10] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T05:31:10] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T05:31:10] INFO + Helios API heartbeat accepted
+[2026-03-07T05:31:10] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T05:31:10] INFO   [sync] data.json written — 2026-03-07T05:31:10.325168+08:00
+[2026-03-07T05:31:11] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T05:31:11] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T05:31:11] INFO   Cerebronn report: helios-report-1772832671.json
+[2026-03-07T05:31:11] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T05:35:17] INFO   [inbox] Processing: cerebronn-urgent-1772832897301.md
+[2026-03-07T05:35:17] INFO   [inbox] Acked: cerebronn-urgent-1772832897301.md
+[2026-03-07T05:35:17] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772832917912.md
+[2026-03-07T05:46:37] INFO Running audit...
+[2026-03-07T05:46:37] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T05:46:37] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T05:46:37] INFO + Helios API heartbeat accepted
+[2026-03-07T05:46:37] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T05:46:37] INFO   [sync] data.json written — 2026-03-07T05:46:37.970454+08:00
+[2026-03-07T05:46:39] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T05:46:39] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T06:02:06] INFO Running audit...
+[2026-03-07T06:02:06] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T06:02:06] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T06:02:06] INFO + Helios API heartbeat accepted
+[2026-03-07T06:02:06] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T06:02:06] INFO   [sync] data.json written — 2026-03-07T06:02:06.391242+08:00
+[2026-03-07T06:02:07] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T06:17:36] INFO Running audit...
+[2026-03-07T06:17:36] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T06:17:36] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T06:17:36] INFO + Helios API heartbeat accepted
+[2026-03-07T06:17:36] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T06:17:36] INFO   [sync] data.json written — 2026-03-07T06:17:36.571529+08:00
+[2026-03-07T06:17:37] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T06:33:07] INFO Running audit...
+[2026-03-07T06:33:07] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T06:33:07] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T06:33:07] INFO + Helios API heartbeat accepted
+[2026-03-07T06:33:07] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T06:33:07] INFO   [sync] data.json written — 2026-03-07T06:33:07.646657+08:00
+[2026-03-07T06:33:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T06:33:09] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T06:33:09] INFO   Cerebronn report: helios-report-1772836388.json
+[2026-03-07T06:33:09] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T06:37:17] INFO   [inbox] Processing: cerebronn-urgent-1772836608624.md
+[2026-03-07T06:37:17] INFO   [inbox] Acked: cerebronn-urgent-1772836608624.md
+[2026-03-07T06:37:17] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772836637633.md
+[2026-03-07T06:48:39] INFO Running audit...
+[2026-03-07T06:48:39] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T06:48:39] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T06:48:39] INFO + Helios API heartbeat accepted
+[2026-03-07T06:48:39] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T06:48:39] INFO   [sync] data.json written — 2026-03-07T06:48:39.979235+08:00
+[2026-03-07T06:48:41] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T07:04:12] INFO Running audit...
+[2026-03-07T07:04:12] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T07:04:12] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T07:04:12] INFO + Helios API heartbeat accepted
+[2026-03-07T07:04:12] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T07:04:12] INFO   [sync] data.json written — 2026-03-07T07:04:12.529572+08:00
+[2026-03-07T07:04:13] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T07:19:45] INFO Running audit...
+[2026-03-07T07:19:45] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T07:19:45] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T07:19:45] INFO + Helios API heartbeat accepted
+[2026-03-07T07:19:45] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T07:19:45] INFO   [sync] data.json written — 2026-03-07T07:19:45.417756+08:00
+[2026-03-07T07:19:46] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T07:35:18] INFO Running audit...
+[2026-03-07T07:35:18] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T07:35:18] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T07:35:18] INFO + Helios API heartbeat accepted
+[2026-03-07T07:35:18] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T07:35:18] INFO   [sync] data.json written — 2026-03-07T07:35:18.833979+08:00
+[2026-03-07T07:35:19] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T07:35:20] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T07:35:20] INFO   Cerebronn report: helios-report-1772840119.json
+[2026-03-07T07:35:20] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T07:39:29] INFO   [inbox] Processing: cerebronn-urgent-1772840332127.md
+[2026-03-07T07:39:29] INFO   [inbox] Acked: cerebronn-urgent-1772840332127.md
+[2026-03-07T07:39:29] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772840369292.md
+[2026-03-07T07:50:53] INFO Running audit...
+[2026-03-07T07:50:53] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T07:50:53] INFO + Helios API heartbeat accepted
+[2026-03-07T07:50:53] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T07:50:53] INFO   [sync] data.json written — 2026-03-07T07:50:53.341290+08:00
+[2026-03-07T07:50:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T08:06:27] INFO Running audit...
+[2026-03-07T08:06:27] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T08:06:27] INFO + Helios API heartbeat accepted
+[2026-03-07T08:06:27] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T08:06:27] INFO   [sync] data.json written — 2026-03-07T08:06:27.994477+08:00
+[2026-03-07T08:06:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T08:22:02] INFO Running audit...
+[2026-03-07T08:22:02] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T08:22:02] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T08:22:02] INFO + Helios API heartbeat accepted
+[2026-03-07T08:22:02] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T08:22:02] INFO   [sync] data.json written — 2026-03-07T08:22:02.981608+08:00
+[2026-03-07T08:22:04] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T08:37:38] INFO Running audit...
+[2026-03-07T08:37:38] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T08:37:38] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T08:37:38] INFO + Helios API heartbeat accepted
+[2026-03-07T08:37:38] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T08:37:38] INFO   [sync] data.json written — 2026-03-07T08:37:38.892282+08:00
+[2026-03-07T08:37:40] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T08:37:40] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T08:37:40] INFO   Cerebronn report: helios-report-1772843860.json
+[2026-03-07T08:37:40] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T08:41:49] INFO   [inbox] Processing: cerebronn-urgent-1772844065566.md
+[2026-03-07T08:41:49] INFO   [inbox] Acked: cerebronn-urgent-1772844065566.md
+[2026-03-07T08:41:49] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772844109009.md
+[2026-03-07T08:53:15] INFO Running audit...
+[2026-03-07T08:53:15] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T08:53:15] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T08:53:15] INFO + Helios API heartbeat accepted
+[2026-03-07T08:53:15] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T08:53:15] INFO   [sync] data.json written — 2026-03-07T08:53:15.962958+08:00
+[2026-03-07T08:53:17] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T09:00:33] INFO Sending morning briefing...
+[2026-03-07T09:00:33] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T09:00:34] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:00:34] INFO   Digest sent to chad-yi inbox: Morning Briefing
+[2026-03-07T09:08:53] INFO Running audit...
+[2026-03-07T09:08:53] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T09:08:53] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T09:08:53] INFO + Helios API heartbeat accepted
+[2026-03-07T09:08:53] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:08:53] INFO   [sync] data.json written — 2026-03-07T09:08:53.839023+08:00
+[2026-03-07T09:08:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T09:24:32] INFO Running audit...
+[2026-03-07T09:24:32] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T09:24:32] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T09:24:32] INFO + Helios API heartbeat accepted
+[2026-03-07T09:24:32] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:24:32] INFO   [sync] data.json written — 2026-03-07T09:24:32.659217+08:00
+[2026-03-07T09:24:33] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T09:40:12] INFO Running audit...
+[2026-03-07T09:40:12] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T09:40:12] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T09:40:12] INFO + Helios API heartbeat accepted
+[2026-03-07T09:40:12] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:40:12] INFO   [sync] data.json written — 2026-03-07T09:40:12.385386+08:00
+[2026-03-07T09:40:13] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T09:40:13] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T09:40:13] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:40:13] INFO   Cerebronn report: helios-report-1772847613.json
+[2026-03-07T09:40:13] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T09:44:23] INFO   [inbox] Processing: cerebronn-urgent-1772847812737.md
+[2026-03-07T09:44:23] INFO   [inbox] Acked: cerebronn-urgent-1772847812737.md
+[2026-03-07T09:44:23] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772847863263.md
+[2026-03-07T09:55:52] INFO Running audit...
+[2026-03-07T09:55:52] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T09:55:52] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T09:55:52] INFO + Helios API heartbeat accepted
+[2026-03-07T09:55:53] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T09:55:53] INFO   [sync] data.json written — 2026-03-07T09:55:53.047266+08:00
+[2026-03-07T09:55:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T10:00:03] INFO   [chad-outbox] Reading: report-heartbeat-20260307-1000.md
+[2026-03-07T10:00:03] INFO   [chad-outbox] Processed: report-heartbeat-20260307-1000.md
+[2026-03-07T10:11:33] INFO Running audit...
+[2026-03-07T10:11:33] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T10:11:34] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T10:11:34] INFO + Helios API heartbeat accepted
+[2026-03-07T10:11:34] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T10:11:34] INFO   [sync] data.json written — 2026-03-07T10:11:34.271434+08:00
+[2026-03-07T10:11:35] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T10:27:15] INFO Running audit...
+[2026-03-07T10:27:15] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T10:27:15] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T10:27:15] INFO + Helios API heartbeat accepted
+[2026-03-07T10:27:15] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T10:27:15] INFO   [sync] data.json written — 2026-03-07T10:27:15.931987+08:00
+[2026-03-07T10:27:17] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T10:42:50] INFO Running audit...
+[2026-03-07T10:42:50] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T10:42:50] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T10:42:50] INFO + Helios API heartbeat accepted
+[2026-03-07T10:42:50] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T10:42:50] INFO   [sync] data.json written — 2026-03-07T10:42:50.425538+08:00
+[2026-03-07T10:42:51] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T10:42:51] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T10:42:51] INFO   Cerebronn report: helios-report-1772851371.json
+[2026-03-07T10:42:51] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T10:46:59] INFO   [inbox] Processing: cerebronn-urgent-1772851560992.md
+[2026-03-07T10:46:59] INFO   [inbox] Acked: cerebronn-urgent-1772851560992.md
+[2026-03-07T10:46:59] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772851619153.md
+[2026-03-07T10:58:25] INFO Running audit...
+[2026-03-07T10:58:25] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T10:58:25] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T10:58:25] INFO + Helios API heartbeat accepted
+[2026-03-07T10:58:25] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T10:58:25] INFO   [sync] data.json written — 2026-03-07T10:58:25.492732+08:00
+[2026-03-07T10:58:26] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T11:14:06] INFO Running audit...
+[2026-03-07T11:14:06] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T11:14:06] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T11:14:06] INFO + Helios API heartbeat accepted
+[2026-03-07T11:14:06] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T11:14:06] INFO   [sync] data.json written — 2026-03-07T11:14:06.749429+08:00
+[2026-03-07T11:14:07] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T11:29:48] INFO Running audit...
+[2026-03-07T11:29:48] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T11:29:48] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T11:29:48] INFO + Helios API heartbeat accepted
+[2026-03-07T11:29:48] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T11:29:48] INFO   [sync] data.json written — 2026-03-07T11:29:48.499358+08:00
+[2026-03-07T11:29:49] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T11:45:32] INFO Running audit...
+[2026-03-07T11:45:32] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T11:45:32] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T11:45:33] INFO + Helios API heartbeat accepted
+[2026-03-07T11:45:33] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T11:45:33] INFO   [sync] data.json written — 2026-03-07T11:45:33.141599+08:00
+[2026-03-07T11:45:34] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T11:45:34] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T11:45:34] INFO   Cerebronn report: helios-report-1772855134.json
+[2026-03-07T11:45:34] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T11:48:42] INFO   [inbox] Processing: cerebronn-urgent-1772855319155.md
+[2026-03-07T11:48:42] INFO   [inbox] Acked: cerebronn-urgent-1772855319155.md
+[2026-03-07T11:48:42] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772855322218.md
+[2026-03-07T12:00:15] INFO   [chad-outbox] Reading: report-heartbeat-20260307-1200.md
+[2026-03-07T12:00:15] INFO   [chad-outbox] Processed: report-heartbeat-20260307-1200.md
+[2026-03-07T12:01:18] INFO Running audit...
+[2026-03-07T12:01:18] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T12:01:18] INFO + Helios API heartbeat accepted
+[2026-03-07T12:01:18] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T12:01:18] INFO   [sync] data.json written — 2026-03-07T12:01:18.902503+08:00
+[2026-03-07T12:01:20] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T12:17:04] INFO Running audit...
+[2026-03-07T12:17:04] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T12:17:04] INFO + Helios API heartbeat accepted
+[2026-03-07T12:17:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T12:17:04] INFO   [sync] data.json written — 2026-03-07T12:17:04.802311+08:00
+[2026-03-07T12:17:05] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T12:32:51] INFO Running audit...
+[2026-03-07T12:32:51] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T12:32:51] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T12:32:51] INFO + Helios API heartbeat accepted
+[2026-03-07T12:32:51] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T12:32:51] INFO   [sync] data.json written — 2026-03-07T12:32:51.888455+08:00
+[2026-03-07T12:32:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T12:48:39] INFO Running audit...
+[2026-03-07T12:48:39] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T12:48:39] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T12:48:39] INFO + Helios API heartbeat accepted
+[2026-03-07T12:48:39] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T12:48:39] INFO   [sync] data.json written — 2026-03-07T12:48:39.468123+08:00
+[2026-03-07T12:48:40] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T12:48:40] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T12:48:40] INFO   Cerebronn report: helios-report-1772858920.json
+[2026-03-07T12:48:40] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T12:51:49] INFO   [inbox] Processing: cerebronn-urgent-1772859099545.md
+[2026-03-07T12:51:49] INFO   [inbox] Acked: cerebronn-urgent-1772859099545.md
+[2026-03-07T12:51:49] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772859109470.md
+[2026-03-07T13:04:28] INFO Running audit...
+[2026-03-07T13:04:28] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T13:04:28] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T13:04:28] INFO + Helios API heartbeat accepted
+[2026-03-07T13:04:29] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T13:04:29] INFO   [sync] data.json written — 2026-03-07T13:04:29.053741+08:00
+[2026-03-07T13:04:30] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T13:20:16] INFO Running audit...
+[2026-03-07T13:20:16] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T13:20:16] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T13:20:16] INFO + Helios API heartbeat accepted
+[2026-03-07T13:20:16] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T13:20:16] INFO   [sync] data.json written — 2026-03-07T13:20:16.638317+08:00
+[2026-03-07T13:20:19] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T13:36:05] INFO Running audit...
+[2026-03-07T13:36:05] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T13:36:05] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T13:36:06] INFO + Helios API heartbeat accepted
+[2026-03-07T13:36:06] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T13:36:06] INFO   [sync] data.json written — 2026-03-07T13:36:06.165765+08:00
+[2026-03-07T13:36:07] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T13:51:56] INFO Running audit...
+[2026-03-07T13:51:56] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T13:51:56] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T13:51:56] INFO + Helios API heartbeat accepted
+[2026-03-07T13:51:56] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T13:51:56] INFO   [sync] data.json written — 2026-03-07T13:51:56.273304+08:00
+[2026-03-07T13:51:57] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T13:51:57] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T13:51:57] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T13:51:57] INFO   Cerebronn report: helios-report-1772862717.json
+[2026-03-07T13:51:57] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T13:55:08] INFO   [inbox] Processing: cerebronn-urgent-1772862892042.md
+[2026-03-07T13:55:08] INFO   [inbox] Acked: cerebronn-urgent-1772862892042.md
+[2026-03-07T13:55:08] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772862908544.md
+[2026-03-07T14:07:47] INFO Running audit...
+[2026-03-07T14:07:47] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T14:07:47] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T14:07:47] INFO + Helios API heartbeat accepted
+[2026-03-07T14:07:48] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T14:07:48] INFO   [sync] data.json written — 2026-03-07T14:07:48.078845+08:00
+[2026-03-07T14:07:49] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T14:23:39] INFO Running audit...
+[2026-03-07T14:23:39] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T14:23:40] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T14:23:40] INFO + Helios API heartbeat accepted
+[2026-03-07T14:23:40] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T14:23:40] INFO   [sync] data.json written — 2026-03-07T14:23:40.191976+08:00
+[2026-03-07T14:23:41] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T14:39:32] INFO Running audit...
+[2026-03-07T14:39:32] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T14:39:32] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T14:39:32] INFO + Helios API heartbeat accepted
+[2026-03-07T14:39:32] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T14:39:32] INFO   [sync] data.json written — 2026-03-07T14:39:32.434222+08:00
+[2026-03-07T14:39:33] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T14:55:21] INFO Running audit...
+[2026-03-07T14:55:21] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T14:55:22] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T14:55:22] INFO + Helios API heartbeat accepted
+[2026-03-07T14:55:22] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T14:55:22] INFO   [sync] data.json written — 2026-03-07T14:55:22.197424+08:00
+[2026-03-07T14:55:23] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T14:55:23] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T14:55:23] INFO   Cerebronn report: helios-report-1772866523.json
+[2026-03-07T14:55:23] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T14:58:34] INFO   [inbox] Processing: cerebronn-urgent-1772866689724.md
+[2026-03-07T14:58:34] INFO   [inbox] Acked: cerebronn-urgent-1772866689724.md
+[2026-03-07T14:58:34] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772866714779.md
+[2026-03-07T15:11:15] INFO Running audit...
+[2026-03-07T15:11:15] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T15:11:15] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T15:11:15] INFO + Helios API heartbeat accepted
+[2026-03-07T15:11:15] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T15:11:15] INFO   [sync] data.json written — 2026-03-07T15:11:15.766934+08:00
+[2026-03-07T15:11:16] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T15:27:09] INFO Running audit...
+[2026-03-07T15:27:09] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T15:27:09] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T15:27:10] INFO + Helios API heartbeat accepted
+[2026-03-07T15:27:10] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T15:27:10] INFO   [sync] data.json written — 2026-03-07T15:27:10.134791+08:00
+[2026-03-07T15:27:11] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T15:43:04] INFO Running audit...
+[2026-03-07T15:43:04] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T15:43:04] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T15:43:04] INFO + Helios API heartbeat accepted
+[2026-03-07T15:43:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T15:43:04] INFO   [sync] data.json written — 2026-03-07T15:43:04.351639+08:00
+[2026-03-07T15:43:05] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T15:58:58] INFO Running audit...
+[2026-03-07T15:58:58] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T15:58:58] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T15:58:58] INFO + Helios API heartbeat accepted
+[2026-03-07T15:58:58] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T15:58:58] INFO   [sync] data.json written — 2026-03-07T15:58:58.841062+08:00
+[2026-03-07T15:59:00] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T15:59:00] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T15:59:00] INFO   Cerebronn report: helios-report-1772870340.json
+[2026-03-07T15:59:00] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T16:02:11] INFO   [inbox] Processing: cerebronn-urgent-1772870499642.md
+[2026-03-07T16:02:11] INFO   [inbox] Acked: cerebronn-urgent-1772870499642.md
+[2026-03-07T16:02:11] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772870531511.md
+[2026-03-07T16:14:53] INFO Running audit...
+[2026-03-07T16:14:53] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T16:14:53] INFO + Helios API heartbeat accepted
+[2026-03-07T16:14:53] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T16:14:53] INFO   [sync] data.json written — 2026-03-07T16:14:53.361150+08:00
+[2026-03-07T16:14:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T16:30:50] INFO Running audit...
+[2026-03-07T16:30:50] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T16:30:50] INFO + Helios API heartbeat accepted
+[2026-03-07T16:30:50] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T16:30:50] INFO   [sync] data.json written — 2026-03-07T16:30:50.373536+08:00
+[2026-03-07T16:30:51] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T16:46:46] INFO Running audit...
+[2026-03-07T16:46:46] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T16:46:46] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T16:46:46] INFO + Helios API heartbeat accepted
+[2026-03-07T16:46:46] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T16:46:46] INFO   [sync] data.json written — 2026-03-07T16:46:46.906150+08:00
+[2026-03-07T16:46:48] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T17:02:44] INFO Running audit...
+[2026-03-07T17:02:44] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T17:02:44] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T17:02:44] INFO + Helios API heartbeat accepted
+[2026-03-07T17:02:44] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T17:02:44] INFO   [sync] data.json written — 2026-03-07T17:02:44.610302+08:00
+[2026-03-07T17:02:45] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T17:02:45] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T17:02:45] INFO   Cerebronn report: helios-report-1772874165.json
+[2026-03-07T17:02:45] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T17:05:57] INFO   [inbox] Processing: cerebronn-urgent-1772874319305.md
+[2026-03-07T17:05:57] INFO   [inbox] Acked: cerebronn-urgent-1772874319305.md
+[2026-03-07T17:05:57] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772874357984.md
+[2026-03-07T17:18:44] INFO Running audit...
+[2026-03-07T17:18:44] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T17:18:44] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T17:18:44] INFO + Helios API heartbeat accepted
+[2026-03-07T17:18:44] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T17:18:44] INFO   [sync] data.json written — 2026-03-07T17:18:44.711536+08:00
+[2026-03-07T17:18:45] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T17:34:47] INFO Running audit...
+[2026-03-07T17:34:47] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T17:34:47] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T17:34:47] INFO + Helios API heartbeat accepted
+[2026-03-07T17:34:47] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T17:34:47] INFO   [sync] data.json written — 2026-03-07T17:34:47.380359+08:00
+[2026-03-07T17:34:48] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T17:50:47] INFO Running audit...
+[2026-03-07T17:50:47] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T17:50:47] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T17:50:47] INFO + Helios API heartbeat accepted
+[2026-03-07T17:50:47] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T17:50:47] INFO   [sync] data.json written — 2026-03-07T17:50:47.544269+08:00
+[2026-03-07T17:50:48] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T18:00:20] INFO   [chad-outbox] Reading: report-heartbeat-20260307-1800.md
+[2026-03-07T18:00:20] INFO   [chad-outbox] Processed: report-heartbeat-20260307-1800.md
+[2026-03-07T18:06:47] INFO Running audit...
+[2026-03-07T18:06:47] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T18:06:47] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T18:06:47] INFO + Helios API heartbeat accepted
+[2026-03-07T18:06:47] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T18:06:47] INFO   [sync] data.json written — 2026-03-07T18:06:47.806682+08:00
+[2026-03-07T18:06:48] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T18:06:48] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T18:06:49] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T18:06:49] INFO   Cerebronn report: helios-report-1772878008.json
+[2026-03-07T18:06:49] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T18:10:00] INFO   [inbox] Processing: cerebronn-urgent-1772878154846.md
+[2026-03-07T18:10:00] INFO   [inbox] Acked: cerebronn-urgent-1772878154846.md
+[2026-03-07T18:10:00] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772878200320.md
+[2026-03-07T18:22:52] INFO Running audit...
+[2026-03-07T18:22:52] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T18:22:52] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T18:22:52] INFO + Helios API heartbeat accepted
+[2026-03-07T18:22:52] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T18:22:52] INFO   [sync] data.json written — 2026-03-07T18:22:52.306968+08:00
+[2026-03-07T18:22:53] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T18:38:48] INFO Running audit...
+[2026-03-07T18:38:48] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T18:38:50] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T18:38:50] INFO + Helios API heartbeat accepted
+[2026-03-07T18:38:50] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T18:38:50] INFO   [sync] data.json written — 2026-03-07T18:38:50.485726+08:00
+[2026-03-07T18:38:51] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T18:53:50] INFO Running audit...
+[2026-03-07T18:53:50] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T18:53:50] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T18:53:50] INFO + Helios API heartbeat accepted
+[2026-03-07T18:53:50] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T18:53:50] INFO   [sync] data.json written — 2026-03-07T18:53:50.952708+08:00
+[2026-03-07T18:53:52] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T19:09:55] INFO Running audit...
+[2026-03-07T19:09:55] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T19:09:55] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T19:09:55] INFO + Helios API heartbeat accepted
+[2026-03-07T19:09:55] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T19:09:55] INFO   [sync] data.json written — 2026-03-07T19:09:55.471168+08:00
+[2026-03-07T19:09:56] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T19:09:56] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T19:09:56] INFO   Cerebronn report: helios-report-1772881796.json
+[2026-03-07T19:09:56] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T19:14:12] INFO   [inbox] Processing: cerebronn-urgent-1772882000107.md
+[2026-03-07T19:14:12] INFO   [inbox] Acked: cerebronn-urgent-1772882000107.md
+[2026-03-07T19:14:12] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772882052726.md
+[2026-03-07T19:24:55] INFO Running audit...
+[2026-03-07T19:24:55] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T19:24:55] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T19:24:55] INFO + Helios API heartbeat accepted
+[2026-03-07T19:24:55] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T19:24:55] INFO   [sync] data.json written — 2026-03-07T19:24:55.662364+08:00
+[2026-03-07T19:24:56] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T19:40:57] INFO Running audit...
+[2026-03-07T19:40:57] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T19:40:57] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T19:40:57] INFO + Helios API heartbeat accepted
+[2026-03-07T19:40:57] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T19:40:57] INFO   [sync] data.json written — 2026-03-07T19:40:57.980682+08:00
+[2026-03-07T19:40:59] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T19:57:01] INFO Running audit...
+[2026-03-07T19:57:01] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T19:57:01] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T19:57:01] INFO + Helios API heartbeat accepted
+[2026-03-07T19:57:01] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T19:57:01] INFO   [sync] data.json written — 2026-03-07T19:57:01.555327+08:00
+[2026-03-07T19:57:02] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T20:00:13] INFO   [chad-outbox] Reading: report-heartbeat-20260307-2000.md
+[2026-03-07T20:00:13] INFO   [chad-outbox] Processed: report-heartbeat-20260307-2000.md
+[2026-03-07T20:12:02] INFO Running audit...
+[2026-03-07T20:12:02] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T20:12:02] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T20:12:02] INFO + Helios API heartbeat accepted
+[2026-03-07T20:12:02] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T20:12:02] INFO   [sync] data.json written — 2026-03-07T20:12:02.789129+08:00
+[2026-03-07T20:12:03] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T20:12:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T20:12:04] INFO   Cerebronn report: helios-report-1772885523.json
+[2026-03-07T20:12:04] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T20:13:08] INFO   [inbox] Processing: cerebronn-urgent-1772885527215.md
+[2026-03-07T20:13:08] INFO   [inbox] Acked: cerebronn-urgent-1772885527215.md
+[2026-03-07T20:13:08] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772885588674.md
+[2026-03-07T20:27:04] INFO Running audit...
+[2026-03-07T20:27:04] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T20:27:04] INFO + Helios API heartbeat accepted
+[2026-03-07T20:27:04] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T20:27:04] INFO   [sync] data.json written — 2026-03-07T20:27:04.915869+08:00
+[2026-03-07T20:27:06] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T20:42:04] INFO Running audit...
+[2026-03-07T20:42:05] INFO   2 active, 0 idle, 0 silent. Alerts: 0.
+[2026-03-07T20:42:05] INFO + Helios API heartbeat accepted
+[2026-03-07T20:42:05] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T20:42:05] INFO   [sync] data.json written — 2026-03-07T20:42:05.185692+08:00
+[2026-03-07T20:42:06] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T20:57:07] INFO Running audit...
+[2026-03-07T20:57:07] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T20:57:07] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T20:57:07] INFO + Helios API heartbeat accepted
+[2026-03-07T20:57:07] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T20:57:07] INFO   [sync] data.json written — 2026-03-07T20:57:07.586131+08:00
+[2026-03-07T20:57:08] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T21:12:53] INFO Running audit...
+[2026-03-07T21:12:53] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T21:12:53] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T21:12:53] INFO + Helios API heartbeat accepted
+[2026-03-07T21:12:53] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T21:12:53] INFO   [sync] data.json written — 2026-03-07T21:12:53.828717+08:00
+[2026-03-07T21:12:54] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T21:12:54] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T21:12:54] INFO   Cerebronn report: helios-report-1772889174.json
+[2026-03-07T21:12:54] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T21:15:59] INFO   [inbox] Processing: cerebronn-urgent-1772889355956.md
+[2026-03-07T21:15:59] INFO   [inbox] Acked: cerebronn-urgent-1772889355956.md
+[2026-03-07T21:15:59] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772889359441.md
+[2026-03-07T21:28:15] INFO Running audit...
+[2026-03-07T21:28:15] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T21:28:15] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T21:28:15] INFO + Helios API heartbeat accepted
+[2026-03-07T21:28:15] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T21:28:15] INFO   [sync] data.json written — 2026-03-07T21:28:15.435268+08:00
+[2026-03-07T21:28:16] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T21:43:21] INFO Running audit...
+[2026-03-07T21:43:21] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T21:43:21] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T21:43:21] INFO + Helios API heartbeat accepted
+[2026-03-07T21:43:21] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T21:43:21] INFO   [sync] data.json written — 2026-03-07T21:43:21.347825+08:00
+[2026-03-07T21:43:22] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T21:58:23] INFO Running audit...
+[2026-03-07T21:58:23] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T21:58:23] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T21:58:23] INFO + Helios API heartbeat accepted
+[2026-03-07T21:58:23] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T21:58:23] INFO   [sync] data.json written — 2026-03-07T21:58:23.449061+08:00
+[2026-03-07T21:58:24] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T22:00:24] INFO Sending evening digest...
+[2026-03-07T22:00:24] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T22:00:24] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:00:24] INFO   Digest sent to chad-yi inbox: Evening Digest
+[2026-03-07T22:13:25] INFO Running audit...
+[2026-03-07T22:13:25] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T22:13:25] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T22:13:25] INFO + Helios API heartbeat accepted
+[2026-03-07T22:13:25] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:13:25] INFO   [sync] data.json written — 2026-03-07T22:13:25.792295+08:00
+[2026-03-07T22:13:26] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T22:13:26] INFO   [alert] Written to chad-yi inbox — silent agent: cerebronn
+[2026-03-07T22:13:27] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:13:27] INFO   Cerebronn report: helios-report-1772892806.json
+[2026-03-07T22:13:27] INFO   [briefing] Skipped — Cerebronn owns briefing.md
+[2026-03-07T22:16:27] INFO   [inbox] Processing: cerebronn-urgent-1772892976797.md
+[2026-03-07T22:16:27] INFO   [inbox] Acked: cerebronn-urgent-1772892976797.md
+[2026-03-07T22:16:27] INFO   [inbox] Wrote ack to chad-yi inbox: helios-ack-1772892987156.md
+[2026-03-07T22:28:27] INFO Running audit...
+[2026-03-07T22:28:27] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T22:28:27] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T22:28:28] INFO + Helios API heartbeat accepted
+[2026-03-07T22:28:28] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:28:28] INFO   [sync] data.json written — 2026-03-07T22:28:28.096097+08:00
+[2026-03-07T22:28:29] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T22:43:30] INFO Running audit...
+[2026-03-07T22:43:30] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T22:43:30] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T22:43:30] INFO + Helios API heartbeat accepted
+[2026-03-07T22:43:30] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:43:30] INFO   [sync] data.json written — 2026-03-07T22:43:30.306080+08:00
+[2026-03-07T22:43:31] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
+[2026-03-07T22:58:32] INFO Running audit...
+[2026-03-07T22:58:32] INFO   Nudge sent -> cerebronn: No activity in outbox for >30 min
+[2026-03-07T22:58:32] INFO   1 active, 0 idle, 1 silent. Alerts: 1.
+[2026-03-07T22:58:32] INFO + Helios API heartbeat accepted
+[2026-03-07T22:58:32] INFO   [active.md] 23 tasks — 3 critical, 2 urgent, 5 blocked
+[2026-03-07T22:58:32] INFO   [sync] data.json written — 2026-03-07T22:58:32.437974+08:00
+[2026-03-07T22:58:33] INFO   [sync] PUSHED to GitHub — Render deploying dashboard
