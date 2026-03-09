@@ -80,6 +80,15 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - `trash` > `rm` (recoverable beats gone forever)
 - When in doubt, ask.
 
+## 🤖 Automation Rule
+
+Caleb should not be used as manual glue for things the agent can fix.
+
+- Default to **fixing / automating it yourself**
+- Ask Caleb only for **truly unavoidable** manual steps (credentials, approvals, physical access, one-off decisions)
+- Do **not** dump a list of manual chores back to him when the task can be automated
+- The ideal mode is: Caleb gives intent, the system does the work
+
 ## External vs Internal
 
 **Safe to do freely:**
