@@ -75,7 +75,11 @@ This means the runtime is not conceptually dead. It is alive, but the documentat
 
 ### A. Top-level markdown graveyard
 There are too many old architecture / infra / plan docs at the workspace root.
-Some are still useful for forensics, but many are stale, proposed, or contradictory.
+Some are still useful for forensics, but many are stale or contradictory.
+
+Important correction:
+- `UNIFIED_ARCHITECTURE_PROPOSAL.md` is a main architecture document Caleb expects to be read for understanding.
+- It should stay in the canonical read path, not be treated as junk.
 
 ### B. Conflicting role docs
 At least one older file (`CHAD_YI_AND_HELIOS_ROLES.md`) conflicts with the current Face/Brain split by describing CHAD_YI as "The Brain".

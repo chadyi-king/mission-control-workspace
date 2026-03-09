@@ -17,6 +17,7 @@ Read these first. Ignore the graveyard unless needed for forensics.
 
 ## Current architecture
 - `CURRENT_INFRASTRUCTURE_STATE.md`
+- `UNIFIED_ARCHITECTURE_PROPOSAL.md`
 - `CEREBRONN.md`
 - `~/.openclaw/agents/cerebronn/memory/company-vision.md`
 - `~/.openclaw/agents/cerebronn/memory/briefing.md`
@@ -25,7 +26,6 @@ Read these first. Ignore the graveyard unless needed for forensics.
 - `CHAD_YI_AND_HELIOS_ROLES.md` *(conflicts with Face/Brain split)*
 - `AGENT_ROSTER.md` *(older roster / spawn-order planning)*
 - `INFRASTRUCTURE_STATUS.md` *(old status snapshot)*
-- `UNIFIED_ARCHITECTURE_PROPOSAL.md` *(proposal, not canonical state)*
 
 ## Agent-specific (only when working on that agent)
 ### CHAD
