@@ -15,6 +15,11 @@ bash /home/chad-yi/.openclaw/workspace/scripts/infra_audit_snapshot.sh
 - keep it short
 - include the exact failing component
 - if Quanta is involved, mention `dry_run` and `open_trades`
+4. If active infrastructure cleanup is in progress, use the heartbeat as a hard self-check:
+- continue the cleanup work
+- do not drift to side quests
+- if more than ~45 minutes have passed since the last meaningful Caleb update and there is real progress or a blocker, send a concise checkpoint
+- do not send filler just to satisfy the timer
 
 ## What matters most
 - `openclaw-gateway` up
