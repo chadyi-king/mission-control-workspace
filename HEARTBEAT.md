@@ -1,164 +1,50 @@
-# HEARTBEAT.md - Mission Control Dashboard
+# HEARTBEAT.md — Infra Stabilization Mode
 
-## Dashboard URLs
-- **Primary (Render):** https://mission-control-dashboard-hf0r.onrender.com/ ← **USE THIS**
-- **Legacy (GitHub Pages):** https://chadyi-king.github.io/mission-control-dashboard/ (deprecated)
+## Purpose
+Use heartbeats to keep the infrastructure honest until the system is stable.
 
-**Update Speed:**
-- Render: 30 seconds after git push
-- GitHub Pages: 10 minutes after git push
-
-## Data Access Reality (IMPORTANT)
-
-**Main Session** (when you chat with me directly):
-- ✅ CAN read `/mission-control-dashboard/data.json`
-- ✅ CAN verify real task counts, deadlines, agent status
-- ✅ CAN check file timestamps and git status
-
-**Cron Jobs** (isolated automated reports):
-- ❌ CANNOT access workspace files
-- ❌ CANNOT verify dashboard data freshness
-- ✅ CAN check `/agents/` directory files only
-- ✅ Reports based on accessible agent audit logs, not live data
-
-**Result:** Cron job reports may show stale dates (like "Feb 7") because they can't read the actual data.json. Only trust dashboard data when I report it from the main session.
-
----
-
-## Heartbeat Schedule
-
-### 🌅 MORNING HEARTBEAT (08:00 AM)
-**Checks:**
-- [ ] Read actual data.json from workspace
-- [ ] Verify `lastUpdated` timestamp is recent
-- [ ] Count real tasks: pending, active, review, done
-- [ ] Check today's deadlines
-- [ ] Summarize for user
-
-**Format:** Concise summary, no emoji spam.
-
-Example:
-> Heartbeat - 16:00 SGT: Dashboard live, 72 tasks, A1-1 due tomorrow, Helios running 15-min audits. No issues.
-
-### ☀️ DAYTIME HEARTBEATS (Tiered Checking System)
-
-**Redis Message Check Schedule (to reduce API calls):**
-
-| Priority | Check Frequency | Message Types |
-|----------|-----------------|---------------|
-| 🔴 **URGENT** | Every 5 minutes | Critical alerts, blockers, immediate action needed |
-| 🟡 **NORMAL** | Every 10 minutes | Status updates, collaboration requests, questions |
-| 🟢 **LOW** | Every 30 minutes | Logs, heartbeats, non-time-sensitive info |
-
-**Checks:**
-- [ ] Check Helios **URGENT** inbox (every 5 min)
-- [ ] Check Helios **NORMAL** inbox (every 10 min)  
-- [ ] Check Helios **LOW** inbox (every 30 min)
-- [ ] Process urgent messages immediately
-- [ ] Reply to Helios with appropriate priority flag
-- [ ] Any urgent deadlines (<24h)?
-
-**Message Protocol:**
-```json
-{
-  "type": "message_type",
-  "priority": "urgent|normal|low",
-  "from": "chad|helios",
-  "to": "chad|helios",
-  "timestamp": "ISO-8601",
-  "data": {}
-}
-```
-
-**Urgent = Immediate attention required**
-- Critical blockers
-- System failures
-- Immediate action needed (<1 hour)
-
-**Normal = Standard collaboration**
-- Task updates
-- Questions
-- Status reports
-
-**Low = Background info**
-- Logs
-- Heartbeats
-- Non-time-sensitive
-
-**Format:** Clean, readable, agents on separate lines.
-
-Example:
-```
-Heartbeat - 23:30 SGT
-
-Helios has pinged these agents:
-
-CHAD_YI
-  Task: Dashboard infrastructure
-  Status: Verifying agent audit logs
-  State: Active
-
-Escritor
-  Task: A2-12 Chapter outline
-  Status: Waiting for Caleb's input
-  State: Idle 2 days
-
-Quanta
-  Task: A5-1 OANDA trading bot
-  Status: Needs API credentials
-  State: Blocked
-
-MensaMusa
-  Task: A5-2 Options monitoring
-  Status: Needs Moomoo account
-  State: Blocked
-
-Autour
-  Task: A3 KOE scripts
-  Status: Not yet spawned
-  State: Not spawned
-
-Urgent: A1-1 due tomorrow
-```
-
-### 🌙 MIDNIGHT HEARTBEAT (00:00)
-**Checks:**
-- [ ] Day summary: tasks done today
-- [ ] Write to memory/YYYY-MM-DD.md
-- [ ] Archive logs
-
----
-
-## Quick Status Check (Manual)
-
-When user asks "what's the status":
-
+## Every heartbeat, do this
+1. Run:
 ```bash
-# Read real data
-cat mission-control-dashboard/data.json | jq '.stats, .lastUpdated'
+bash /home/chad-yi/.openclaw/workspace/scripts/infra_audit_snapshot.sh
+```
+2. If output contains only `OK:` / `INFO:` and ends with `SUMMARY: HEALTHY` → reply exactly:
+`HEARTBEAT_OK`
+3. If output contains any `ISSUE:` lines:
+- report only the broken items
+- keep it short
+- include the exact failing component
+- if Quanta is involved, mention `dry_run` and `open_trades`
 
-# Count actual tasks
-cat mission-control-dashboard/data.json | jq '.tasks | length'
+## What matters most
+- `openclaw-gateway` up
+- `helios` up
+- `cerebronn` up
+- `forger` up
+- old junk services OFF:
+  - `mc-websocket`
+  - `gws-agent`
+  - old `quanta.service`
+  - `chad-report-delivery`
+- Quanta v3 process alive + heartbeat fresh
+- live dashboard reachable:
+  - `https://red-sun-mission-control.onrender.com`
+- dashboard repo not dirty
+- `ACTIVE.md` not stale
 
-# Check deadlines
-cat mission-control-dashboard/data.json | jq '.tasks | to_entries[] | select(.value.deadline) | {id: .key, title: .value.title, deadline: .value.deadline}'
+## Reporting style
+Bad:
+- long essay
+- healthy noise
+- vague "something is wrong"
+
+Good:
+```text
+Infra alert
+• quanta-v3 process not running
+• mission-control-dashboard repo dirty
+• ACTIVE.md stale
 ```
 
----
-
-## Current Status (Feb 11, 2026)
-
-**Active Agents:**
-- CHAD_YI (Orchestrator) - ✅ Active
-- Helios (Mission Control Engineer) - ✅ Active, running 15-min audits
-- Escritor (Story Agent) - ⚠️ waiting_for_input
-
-**Configured (Not Spawned):**
-- Quanta, MensaMusa (A5 Trading) - blocked, needs credentials
-- Autour (A3 KOE) - not spawned
-
-**Task Count:** 47 total (from real data.json)
-
-**Blockers:**
-- A5 Trading: needs OANDA + Moomoo credentials
-
+If nothing is wrong, say only:
+`HEARTBEAT_OK`

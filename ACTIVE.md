@@ -1,8 +1,10 @@
 # ACTIVE.md - Currently Active Tasks
 
 **Source of Truth for Mission Control Dashboard**
-**Last Updated:** 2026-03-02 02:50 SGT
+**Last Updated:** 2026-03-09 21:36 SGT
 **Updated By:** CHAD_YI
+
+> ⚠️ Infra stabilization in progress. This file was stale and is being re-grounded against live services, Quanta runtime, and the Render dashboard pipeline.
 
 > ⚠️ **EDIT THIS FILE** to update tasks. Helios reads this every 15 min → updates data.json → pushes to GitHub → Render deploys → Dashboard updates.
 > 
