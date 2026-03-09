@@ -11,6 +11,9 @@ This file is the current human-readable bridge between:
 
 ## 1. Canonical roles
 
+### System-wide rule
+- Every agent, including CHAD_YI, should have ACP capability in the final architecture.
+
 ### CHAD_YI = The Face
 - human-facing interface
 - receives Caleb's instructions
@@ -25,7 +28,6 @@ This file is the current human-readable bridge between:
 
 ### Helios = The Spine / Auditor
 - should run on a free local model (for example Qwen 3.5 via Ollama)
-- should also have ACP capability in the final setup
 - audits/pokes all agents every 15 minutes
 - checks what is actually running
 - audits agents and truth surfaces
