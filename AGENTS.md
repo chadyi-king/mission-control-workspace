@@ -163,6 +163,7 @@ Keep it cheap unless Caleb explicitly wants depth.
 - For debugging, prefer **1-3 sentence summaries** plus only the key evidence
 - Avoid narrating obvious internal steps
 - Use cheaper/shorter paths for routine work; save premium reasoning for real complexity
+- If long context or a long reply is genuinely needed, prefer **Kimi 2.5 / kimi-coding/k2p5** over expensive GPT usage when possible
 - If a reply is getting long, compress it before sending
 - When Caleb says trim output, obey immediately and stay trimmed until he asks otherwise
 
