@@ -1,85 +1,145 @@
 # LEARNING.md — Forger
-
-*This file is a living record of what Forger has learned. Update it after every meaningful build or discovery — patterns, mistakes, things that worked, things that didn't.*
+*Living build intelligence. Update after every meaningful build or discovery.*
+*This compounds. The more you add, the faster future builds go.*
 
 ---
 
 ## How to Use This File
 
-At the end of every build or notable session:
-1. Note what worked well → reinforce it
-2. Note what failed or caused rework → flag it for next time
-3. Note reusable patterns or components → add to templates list
-
-This is your long-term intelligence. The briefing tells you what to do today — this file tells you how to do it better than last time.
+After every build session or notable discovery:
+1. What worked well → reinforce it (Build Patterns)
+2. What failed or caused rework → flag it (Mistakes)
+3. Reusable component → add to Components table
+4. Brand detail discovered → add to Brand Intelligence
 
 ---
 
-## Build Patterns (What Works)
+## Build Patterns (What Works Every Time)
 
-*(Populate after first builds)*
+- **CSS custom properties first** — Set `--color-primary`, `--color-accent`, `--font-heading`
+  in `:root` before touching any component. Never hardcode hex values in components.
 
-- [ ] **CSS custom properties for brand colors** — Set all `--color-*` vars in `:root` immediately. Every project. Never hardcode hex in components.
-- [ ] **Hero section structure** — `position: relative` hero + overlay + centered content-wrapper always renders cleanly across devices.
-- [ ] **GSAP ScrollTrigger** — Load via CDN, initialize after DOM ready. Don't use with `defer` on the GSAP script tag or triggers fail silently.
+- **Hero structure** — `position: relative` wrapper + semi-transparent overlay + centered
+  `.content-wrapper` with `max-width: 1100px` margin: auto. Works across all device sizes.
+
+- **GSAP ScrollTrigger** — Load via CDN (not npm when building vanilla). Initialize after
+  `DOMContentLoaded`. Don't use `defer` on the GSAP script tag — triggers fail silently.
+
+- **Mobile-first breakpoints** — Write base CSS for 375px, then use `@media (min-width: 768px)`
+  and `@media (min-width: 1024px)`. Prevents cascade fights on desktop.
+
+- **README before marking ready_for_review** — Write the deploy README as the last step.
+  It forces you to verify every file exists and every path is correct.
 
 ---
 
 ## Mistakes to Avoid
 
-*(Populate as patterns emerge)*
+- ❌ **Lorem Ipsum anywhere** — Always write real placeholder copy based on the brief.
+  Even "Coming soon" is better. Lorem breaks Caleb's trust in reviews.
 
-- [ ] **Don't use Lorem Ipsum** — Always write real placeholder copy based on the brief. Lorem breaks trust in reviews.
-- [ ] **Don't skip the README.md** — Chad uses this to deploy. If it's missing, the build stalls at review.
-- [ ] **Don't mark `ready_for_review` without testing** — Open the HTML in a browser first. Always.
+- ❌ **Skipping README.md** — Chad uses this to deploy. No README = build stalls at review.
+
+- ❌ **ready_for_review without browser test** — Open the HTML in a browser first.
+  At minimum: Chrome + Chrome mobile emulation (375px).
+
+- ❌ **Forcing Lovable when it's wrong for the job** — Lovable login automation is fragile.
+  For complex builds, use Lovable as visual reference only, build from scratch.
+
+- ❌ **Relative paths in deploy** — Use absolute paths or root-relative `/assets/` paths.
+  Relative paths break when page is served from a subdirectory.
+
+- ❌ **Images without alt text** — Accessibility + SEO. Every `<img>` needs descriptive alt.
+
+---
+
+## AI Tool Learnings
+
+### Kimi 2.5
+- Best prompt structure: context first, then constraints, then ask.
+  Example: "I'm building X for Y using Z stack. The constraint is A. Design the database schema."
+- Give it the full tech context — it uses large context windows well.
+- Don't ask it to "just write the code" — ask it to think through tradeoffs first.
+
+### Claude Sonnet 4.6
+- For debugging: paste the error + the relevant code block. It reads both together well.
+- For copy: give it brand voice examples. "Write like Elluminate's brand: premium, direct, human."
+- Great at CSS — give it a design screenshot description and it produces clean CSS fast.
+
+### Lovable
+- **Login:** Always via browser manually. CLI automation unreliable.
+- **Export quality:** Good for structure and basic components. Strip tracking scripts on export.
+- **Two-way sync:** Don't trust it. Treat export as one-way. Edit locally after export.
+- **What it's good at:** Layout, hero sections, navigation. Weak at custom interactions.
+
+### GitHub Copilot / Codex
+- Writes better suggestions when you have type annotations and JSDoc comments.
+- Tab-complete is fastest for: API route handlers, form handlers, CSS component patterns.
+- Always read what it generates — it hallucinates library APIs occasionally.
 
 ---
 
 ## Reusable Components
 
-*(Document as you build them; reference which build they first appeared in)*
+| Component | Description | First built for | Location |
+|-----------|-------------|-----------------|----------|
+| CSS Reset | Modern reset + custom properties base | — | `templates/css-reset.css` |
+| — | — | — | — |
 
-| Component | What it does | First built for |
-|-----------|-------------|-----------------|
-| *none yet* | | |
+*(Add components here as you build them — they speed up every future project)*
 
 ---
 
 ## Brand Intelligence
 
-*(Things learned about each company — add to here so you don't re-read every brief from scratch)*
+*(Learn once, never re-read the brief)*
 
 ### Elluminate (B6)
-- elluminate.com.sg
-- Flagship brand, premium positioning
-- First proper website build — treat as portfolio piece
-- *(Colors, fonts, tone to be added after brief is parsed)*
+- **Domain:** elluminate.com.sg
+- **Positioning:** Flagship EXSTATIC brand, premium professional services
+- **First website build** — treat as portfolio quality
+- **Colors/fonts/tone:** TBD — extract from brief when starting build
 
 ### Team Elevate (B3)
-- teamelevateSG.com
-- Corporate training + events, transitioning to Elluminate branding
-- Golden/black color scheme noted in backlog
+- **Domain:** teamelevateSG.com
+- **Positioning:** Corporate training + leadership events
+- **Note:** Transitioning toward Elluminate branding
+- **Colors:** Gold/black scheme noted in backlog
+
+### MENDAKI (B8)
+- **Positioning:** Malay community development programmes
+- **Audience:** Malay-Muslim community in Singapore
+- **Tone:** Warm, community-focused, aspirational
 
 ---
 
-## Technical Environment Notes
+## Technical Discoveries
 
-- Builds land in: `/home/chad-yi/.openclaw/workspace/agents/forger/builds/{slug}/`
-- Deploy via: `vercel builds/{slug}/ --prod`
-- Custom domains: added via Vercel dashboard after first deploy
-- Vercel CLI must be installed: `npm install -g vercel` (if not present)
+### Vercel Deployment
+- `vercel builds/{slug}/ --prod` works from any directory
+- Custom domains: dashboard.vercel.com → Project → Settings → Domains
+- Edge functions: `api/` directory in project root, auto-detected by Vercel
+
+### DNS Typical Config
+- A record: `@` → `76.76.21.21` (Vercel)
+- CNAME: `www` → `cname.vercel-dns.com`
+- Propagation: 10 min to 48 hours depending on registrar
+
+### Shopify
+- Liquid theme dev: `shopify theme dev` (watches for changes, hot reloads)
+- Push to production: `shopify theme push --store={store}.myshopify.com`
+- Custom checkout: Shopify Plus only — verify plan before promising this
 
 ---
 
 ## Process Improvements
 
-*(Log process changes that made things smoother)*
-
-| Date | Change | Why |
-|------|--------|-----|
-| 2026-03-02 | Forger launched from scratch (forger.py heartbeat, clean queue) | Previous v2 was broken (depended on defunct agent-hub) |
+| Date | Improvement | Why |
+|------|-------------|-----|
+| 2026-03-02 | Forger launched clean (heartbeat, queue, inbox/outbox) | Previous v2 broke |
+| 2026-03-09 | Full identity stack + AI tool hierarchy documented | Caleb requested |
 
 ---
 
-*Last updated: 2026-03-02*
-*Update this file — it compounds over time.*
+*Last updated: 2026-03-09*
+*This file compounds — update it every session.*
