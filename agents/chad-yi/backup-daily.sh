@@ -26,7 +26,7 @@ cp /home/chad-yi/.openclaw/workspace/agents/chad-yi/REPORTING_PROTOCOL.md "$BACK
 cp /home/chad-yi/.openclaw/workspace/MEMORY.md "$BACKUP_DIR/" 2>/dev/null
 
 # Backup ACTIVE.md (task source of truth)
-cp /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md "$BACKUP_DIR/" 2>/dev/null
+cp /home/chad-yi/mission-control-workspace/ACTIVE.md "$BACKUP_DIR/" 2>/dev/null
 
 # Backup USER.md (who Caleb is)
 cp /home/chad-yi/.openclaw/workspace/USER.md "$BACKUP_DIR/" 2>/dev/null

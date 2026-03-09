@@ -55,4 +55,4 @@ echo ""
 
 # Priority tasks
 echo "🔴 PRIORITY TASKS"
-grep -E "^\| 🔴\|^\| 🟡" /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md 2>/dev/null | head -3 || echo "  Check ACTIVE.md for details"
+grep -E "^\| 🔴\|^\| 🟡" /home/chad-yi/mission-control-workspace/ACTIVE.md 2>/dev/null | head -3 || echo "  Check ACTIVE.md for details"

@@ -632,7 +632,7 @@ def rewrite_briefing(state: dict):
 1. Read inbox messages above (urgent first).
 2. Address Tier 3 items — these need Caleb.
 3. Review agent silences before delegating.
-4. Edit tasks: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md
+4. Edit tasks: /home/chad-yi/mission-control-workspace/ACTIVE.md
 """
     write_file(BRIEFING_FILE, content)
     log.info("[briefing] Rewritten")
