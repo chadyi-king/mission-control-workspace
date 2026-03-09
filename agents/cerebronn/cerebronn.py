@@ -64,9 +64,8 @@ PATTERNS_FILE   = MEMORY / "decisions" / "patterns.md"
 SLEEP_INTERVAL  = 5 * 60   # 5 minutes (increased frequency per Caleb request)
 MAX_ARCHIVE_AGE_DAYS = 90    # purge archives older than 90 days
 
-# OpenClaw Gateway API (Kimi 2.5) for architectural thinking
-# Changed from Ollama to OpenClaw API per Caleb request
-THINK_MODEL  = "kimi-coding/k2p5"   # Uses OpenClaw Gateway API
+# Local LLM (Ollama) for architectural thinking — headless daemon, no token cost
+THINK_MODEL  = "llama3.1:8b"    # fast, locally installed; upgrade to qwen3:latest for deeper reasoning
 FORGER_INBOX = WORKSPACE / "agents" / "forger" / "inbox"
 
 # How long before Cerebronn re-thinks the same task (avoid spam)
@@ -772,53 +771,63 @@ def build_search_index():
 
 
 # ---------------------------------------------------------------------------
-# OpenClaw Thinking Engine (Kimi 2.5) — architecture planning, gap analysis, routing
+# Thinking Engine — local Ollama (headless) + OpenClaw gateway fallback
 # ---------------------------------------------------------------------------
 
-def call_ollama(prompt: str, timeout: int = 90) -> str | None:
-    """Call OpenClaw API (Kimi 2.5) for architectural reasoning. Returns None on failure."""
-    if not HAS_REQUESTS:
-        log.warning("[think] requests not installed — cannot call API")
-        return None
-    
-    # OpenClaw Gateway API (Kimi 2.5)
-    # Try multiple possible endpoints
-    gateway_port = os.environ.get("OPENCLAW_GATEWAY_PORT", "18789")
-    gateway_token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "")
-    
-    endpoints = [
-        f"http://localhost:{gateway_port}/v1/chat/completions",
-        f"http://127.0.0.1:{gateway_port}/v1/chat/completions",
-        "http://localhost:8080/v1/chat/completions",  # fallback
-    ]
-    
-    headers = {"Authorization": f"Bearer {gateway_token}"} if gateway_token else {}
-    
-    for url in endpoints:
-        try:
-            r = _requests.post(
-                url,
-                headers=headers,
-                json={
-                    "model": "kimi-coding/k2p5",
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0.7,
-                    "max_tokens": 2000
-                },
-                timeout=timeout,
-            )
-            if r.ok:
-                result = r.json()
-                content = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
-                log.info(f"[think] OpenClaw/Kimi response received ({len(content)} chars)")
-                return content
-        except Exception as e:
-            log.debug(f"[think] Endpoint {url} failed: {e}")
-            continue
-    
-    # All endpoints failed - return error message so Cerebronn continues
-    log.warning("[think] All OpenClaw endpoints failed - using fallback")
-    return "[OpenClaw API unavailable - architectural decision queued for manual review]"
+def call_ollama(prompt: str, timeout: int = 120) -> str | None:
+    """Call local Ollama via CLI subprocess (works headlessly, auto-starts).
+    Falls back to OpenClaw gateway if Ollama CLI fails.
+    Returns None only if both fail."""
+
+    # ── Primary: ollama run via subprocess (no server needed, always available)
+    try:
+        result = subprocess.run(
+            ["ollama", "run", THINK_MODEL],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            response = result.stdout.strip()
+            log.info(f"[think] Ollama ({THINK_MODEL}) responded ({len(response)} chars)")
+            return response
+        else:
+            log.warning(f"[think] ollama run failed (rc={result.returncode}): {result.stderr[:100]}")
+    except FileNotFoundError:
+        log.warning("[think] ollama CLI not found in PATH")
+    except subprocess.TimeoutExpired:
+        log.warning(f"[think] ollama run timed out after {timeout}s")
+    except Exception as e:
+        log.warning(f"[think] ollama run error: {e}")
+
+    # ── Fallback: OpenClaw gateway (only available when VS Code is open)
+    if HAS_REQUESTS:
+        gateway_port = os.environ.get("OPENCLAW_GATEWAY_PORT", "18789")
+        gateway_token = os.environ.get("OPENCLAW_GATEWAY_TOKEN", "")
+        headers = {"Authorization": f"Bearer {gateway_token}"} if gateway_token else {}
+        for url in [
+            f"http://localhost:{gateway_port}/v1/chat/completions",
+            "http://localhost:8080/v1/chat/completions",
+        ]:
+            try:
+                r = _requests.post(
+                    url, headers=headers,
+                    json={"model": "kimi-coding/k2p5",
+                          "messages": [{"role": "user", "content": prompt}],
+                          "temperature": 0.7, "max_tokens": 2000},
+                    timeout=30,
+                )
+                if r.ok:
+                    content = r.json().get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+                    if content:
+                        log.info(f"[think] OpenClaw gateway responded ({len(content)} chars)")
+                        return content
+            except Exception:
+                continue
+
+    log.warning("[think] Both Ollama and OpenClaw gateway unavailable — plan deferred")
+    return None
 
 
 def build_think_context(state: dict) -> str:
