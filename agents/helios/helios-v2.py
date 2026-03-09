@@ -54,7 +54,7 @@ CHAD_INBOX       = AGENTS_DIR / "chad-yi" / "inbox"
 HELIOS_INBOX     = AGENTS_DIR / "helios" / "inbox"
 DASHBOARD_REPO   = WORKSPACE / "mission-control-dashboard"
 DASHBOARD_DATA   = DASHBOARD_REPO / "data.json"
-ACTIVE_MD        = WORKSPACE / "mission-control-workspace" / "ACTIVE.md"
+ACTIVE_MD        = WORKSPACE / "ACTIVE.md"
 HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onrender.com")
 
 # chad-yi is the OpenClaw gateway (not a file-writing process) — excluded from silent alerts
@@ -143,7 +143,11 @@ def parse_active_md() -> dict:
             in_task_table = False
             current_section = ""
             continue
-            
+
+        # Any other heading ends agent-table parsing
+        if line.startswith("#") and in_agent_table and "AGENT STATUS" not in upper:
+            in_agent_table = False
+
         # Detect task tables (sections with task rows)
         if current_section and not in_agent_table:
             # Check if next lines contain task-like rows

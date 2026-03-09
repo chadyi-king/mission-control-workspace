@@ -10,7 +10,6 @@ Restart=always
 RestartSec=30
 StandardOutput=append:/home/chad-yi/.openclaw/workspace/agents/helios/helios.log
 StandardError=append:/home/chad-yi/.openclaw/workspace/agents/helios/helios.log
-Environment=PYTHONPATH=/home/chad-yi/.openclaw/workspace
 
 [Install]
 WantedBy=default.target
