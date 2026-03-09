@@ -43,3 +43,9 @@ agents/helios/inbox/processed-*.md
 
 # Local cleanup archives
 archive/cleanup-*/
+
+# Repetitive agent-planning / alert noise
+agents/cerebronn/outbox/cerebronn-plan-*.md
+agents/chad-yi/inbox/cerebronn-*.md
+agents/chad-yi/inbox/helios-alert-*.md
+agents/chad-yi/inbox/quanta-tp1-*.md

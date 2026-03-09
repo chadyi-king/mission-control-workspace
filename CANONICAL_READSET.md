@@ -16,11 +16,16 @@ Read these first. Ignore the graveyard unless needed for forensics.
 - `HEARTBEAT.md`
 
 ## Current architecture
+- `CURRENT_INFRASTRUCTURE_STATE.md`
 - `CEREBRONN.md`
-- `CHAD_YI_AND_HELIOS_ROLES.md`
-- `AGENT_ROSTER.md`
 - `~/.openclaw/agents/cerebronn/memory/company-vision.md`
 - `~/.openclaw/agents/cerebronn/memory/briefing.md`
+
+## Historical / forensics only (do not read first)
+- `CHAD_YI_AND_HELIOS_ROLES.md` *(conflicts with Face/Brain split)*
+- `AGENT_ROSTER.md` *(older roster / spawn-order planning)*
+- `INFRASTRUCTURE_STATUS.md` *(old status snapshot)*
+- `UNIFIED_ARCHITECTURE_PROPOSAL.md` *(proposal, not canonical state)*
 
 ## Agent-specific (only when working on that agent)
 ### CHAD
