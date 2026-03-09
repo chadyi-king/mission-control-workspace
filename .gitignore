@@ -25,3 +25,21 @@ runtime-logs/
 
 # Cerebronn runtime log
 agents/cerebronn/cerebronn.log
+
+# Python/runtime noise
+**/__pycache__/
+*.pyc
+*.pyo
+*.session
+*.session-journal
+*.bak
+*.bak.*
+
+# Operational inbox/outbox/memory noise
+agents/chad-yi/memory/processed/
+agents/chad-yi/sent/
+agents/helios/outbox/audit-*.json
+agents/helios/inbox/processed-*.md
+
+# Local cleanup archives
+archive/cleanup-*/
