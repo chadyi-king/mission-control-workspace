@@ -449,7 +449,7 @@ Message received. Helios is running. Next audit in <15 min.
 System status:
 - Helios: RUNNING
 - Dashboard: https://red-sun-mission-control.onrender.com (updates every 15 min)
-- Edit tasks at: /home/chad-yi/.openclaw/workspace/mission-control-workspace/ACTIVE.md
+- Edit tasks at: /home/chad-yi/mission-control-workspace/ACTIVE.md
 
 - Helios
 """)
