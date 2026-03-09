@@ -53,6 +53,7 @@
 ---
 
 **Dashboard Hosting:** GitHub Pages → Render.com (30s updates vs 10min)
+**Current live dashboard:** https://red-sun-mission-control.onrender.com
 
 **Agent Status:**
 - Active: CHAD_YI, Helios
