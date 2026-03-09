@@ -24,9 +24,12 @@ This file is the current human-readable bridge between:
 - should produce executable plans and real builds
 
 ### Helios = The Spine / Auditor
+- should run on a free local model (for example Qwen 3.5 via Ollama)
+- audits/pokes all agents every 15 minutes
 - checks what is actually running
 - audits agents and truth surfaces
 - detects drift between dashboard, files, and runtime
+- reports issues to CHAD_YI
 - pokes the system to keep it honest
 
 ### Specialists
