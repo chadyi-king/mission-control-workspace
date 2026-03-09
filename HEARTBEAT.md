@@ -18,8 +18,16 @@ bash /home/chad-yi/.openclaw/workspace/scripts/infra_audit_snapshot.sh
 4. If active infrastructure cleanup is in progress, use the heartbeat as a hard self-check:
 - continue the cleanup work
 - do not drift to side quests
+- do not wait for Caleb to manually prompt again
+- resume the next unresolved infra blocker automatically
 - if more than ~45 minutes have passed since the last meaningful Caleb update and there is real progress or a blocker, send a concise checkpoint
 - do not send filler just to satisfy the timer
+
+### Current auto-resume order
+1. Wire Helios to the existing local Ollama/Qwen setup
+2. Keep Helios + dashboard agent syncing dynamic and correct
+3. Collapse duplicate dashboard data paths toward one canonical live path
+4. Reduce remaining runtime/doc drift that causes wrong assumptions
 
 ## What matters most
 - `openclaw-gateway` up
