@@ -57,14 +57,9 @@ DASHBOARD_DATA   = DASHBOARD_REPO / "data.json"
 ACTIVE_MD        = WORKSPACE / "ACTIVE.md"
 HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onrender.com")
 
-# chad-yi is the OpenClaw gateway (not a file-writing process) — excluded from silent alerts
-# CURRENT ACTIVE AGENTS: Only 3 core agents exist right now
-# - chad-yi (The Face) - OpenClaw interface
-# - helios (The Spine) - This agent, coordinator
-# - cerebronn (The Brain) - VS Code/Claude, being built
-# - forger (The Builder) - Website builder agent
-# OTHER AGENTS (quanta, escritor, autour, mensamusa) - NOT ACTIVE YET
-WATCH_AGENTS     = ["cerebronn", "forger"]
+# Fallback list only. Real watched agents should be derived dynamically from ACTIVE.md
+# and the actual agent directories so the infrastructure scales when new agents are added.
+DEFAULT_WATCH_AGENTS = ["cerebronn", "forger"]
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8693482792:AAGNa21qo-fNGuPSDE5j5-828QAn7JSubdU")
 TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "8583017204")
@@ -245,10 +240,29 @@ def parse_active_md() -> dict:
     return result
 
 
-def read_agent_outboxes() -> dict:
+def get_watch_agents(active_data: dict | None = None) -> list[str]:
+    """Derive watched agents dynamically from ACTIVE.md + real directories."""
+    if active_data is None:
+        active_data = parse_active_md()
+
+    watched: list[str] = []
+    for name in active_data.get("agents", {}).keys():
+        agent_name = name.strip().lower()
+        if agent_name in {"helios", "metric", "summary"}:
+            continue
+        if (AGENTS_DIR / agent_name).exists():
+            watched.append(agent_name)
+
+    if not watched:
+        watched = [n for n in DEFAULT_WATCH_AGENTS if (AGENTS_DIR / n).exists()]
+
+    return sorted(set(watched))
+
+
+def read_agent_outboxes(active_data: dict | None = None) -> dict:
     """Return latest outbox snippet for each watched agent."""
     outboxes: dict = {}
-    for name in WATCH_AGENTS + ["helios"]:
+    for name in get_watch_agents(active_data) + ["helios"]:
         outbox = AGENTS_DIR / name / "outbox"
         if not outbox.exists():
             continue
@@ -477,15 +491,19 @@ System status:
 # ---------------------------------------------------------------------------
 
 def build_agent_report() -> dict:
+    active_data = parse_active_md()
+    watched_agents = get_watch_agents(active_data)
+
     report = {
         "generated_at": now_iso(),
         "generated_by": "helios-v2",
+        "watched_agents": watched_agents,
         "agents": {},
         "alerts": [],
         "summary": "",
     }
 
-    for name in WATCH_AGENTS:
+    for name in watched_agents:
         status = check_agent(name)
         report["agents"][name] = status
         if status["health"] == "silent":
@@ -542,13 +560,6 @@ def sync_dashboard_data(report: dict) -> None:
                 data["tasks"][task_id]["status"] = task_info["status"]
         data["taskSummary"] = active_data["summary"]
 
-    agent_map = {
-        "chad-yi":   "chad-yi",
-        "escritor":  "escritor",
-        "quanta":    "quanta",
-        "mensamusa": "mensamusa",
-        "autour":    "autour",
-    }
     health_to_status = {
         "active":  "active",
         "idle":    "idle",
@@ -559,15 +570,19 @@ def sync_dashboard_data(report: dict) -> None:
     if "agents" not in data:
         data["agents"] = {}
 
-    for helios_name, data_key in agent_map.items():
-        agent_info = report["agents"].get(helios_name, {})
+    agent_names = set(report["agents"].keys()) | set(active_data.get("agents", {}).keys())
+    agent_names.discard("helios")
+
+    for agent_name in sorted(agent_names):
+        agent_info = report["agents"].get(agent_name, {})
+        declared_status = active_data.get("agents", {}).get(agent_name, {}).get("status")
         health = agent_info.get("health", "unknown")
         last_activity = agent_info.get("last_activity")
-        if data_key not in data["agents"]:
-            data["agents"][data_key] = {}
-        data["agents"][data_key]["status"] = health_to_status.get(health, "offline")
+        if agent_name not in data["agents"]:
+            data["agents"][agent_name] = {}
+        data["agents"][agent_name]["status"] = declared_status or health_to_status.get(health, "offline")
         if last_activity:
-            data["agents"][data_key]["lastActive"] = last_activity
+            data["agents"][agent_name]["lastActive"] = last_activity
 
     if "helios" not in data["agents"]:
         data["agents"]["helios"] = {}
