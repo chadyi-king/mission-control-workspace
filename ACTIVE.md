@@ -120,4 +120,4 @@ _No pending tasks_
 - **4 agents not yet built**: Escritor, MensaMusa, Autour, Forger
 - Next priority: Stabilize Quanta, then build Forger
 - Helios auto-syncs every 15 minutes
-- Data flows: ACTIVE.md → Helios → data.json → Dashboard
+- Data flows: ACTIVE.md → Helios → mission-control-dashboard/data.json → Dashboard

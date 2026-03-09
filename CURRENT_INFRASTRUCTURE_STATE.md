@@ -61,6 +61,7 @@ This means the runtime is not conceptually dead. It is alive, but the documentat
 
 ### Human / dashboard truth
 - `ACTIVE.md` = declared source of truth for dashboard tasks
+- operative dashboard JSON path = `mission-control-dashboard/data.json`
 - live dashboard = `https://red-sun-mission-control.onrender.com`
 - pinned messages = authoritative dashboard reference context when Caleb refers to "the main dashboard"
 
@@ -86,7 +87,11 @@ These are not the same file and do not currently match:
 - `/home/chad-yi/.openclaw/workspace/DATA/data.json`
 - `/home/chad-yi/.openclaw/workspace/mission-control-dashboard/data.json`
 
-This is a major reverse-engineering problem because different docs and code paths refer to different JSON surfaces.
+Current best read of reality:
+- `mission-control-dashboard/data.json` is the **operative live dashboard path** used by Helios state, audits, and dashboard update scripts
+- root `data.json` and `DATA/data.json` are **legacy/confusing surfaces** until explicitly consolidated
+
+This is still a reverse-engineering problem because old docs and old scripts refer to different JSON paths.
 
 ### D. Incomplete consolidation
 Still unresolved:
