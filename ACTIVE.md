@@ -121,3 +121,5 @@ _No pending tasks_
 - Next priority: Stabilize Quanta, then build Forger
 - Helios auto-syncs every 15 minutes
 - Data flows: ACTIVE.md → Helios → mission-control-dashboard/data.json → Dashboard
+- Canonical live dashboard JSON: `mission-control-dashboard/data.json`
+- Legacy workspace paths `data.json` and `DATA/data.json` are symlinked mirrors to the canonical file to prevent split-brain
