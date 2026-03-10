@@ -29,12 +29,17 @@ check_inactive gws-agent
 check_inactive quanta
 check_inactive chad-report-delivery
 
-# Quanta v3 manual runtime
-QPID="$(pgrep -f '/home/chad-yi/.venv/bin/python main.py --role all' || true)"
-if [ -n "$QPID" ]; then
-  ok "quanta-v3 process running pid=$QPID"
+# Quanta v3 runtime (prefer systemd-owned PID, fall back to legacy manual PID)
+QPID="$(systemctl --user show quanta-v3.service -p MainPID --value 2>/dev/null || true)"
+if [ -n "$QPID" ] && [ "$QPID" != "0" ] && kill -0 "$QPID" 2>/dev/null; then
+  ok "quanta-v3 process running pid=$QPID (systemd)"
 else
-  issue "quanta-v3 process not running"
+  QPID="$(pgrep -f '/home/chad-yi/.venv/bin/python3? main.py --role all|/home/chad-yi/.venv/bin/python main.py --role all|main.py --role all' || true)"
+  if [ -n "$QPID" ]; then
+    ok "quanta-v3 process running pid=$QPID (manual)"
+  else
+    issue "quanta-v3 process not running"
+  fi
 fi
 
 HB="$QUANTA/heartbeat.json"
