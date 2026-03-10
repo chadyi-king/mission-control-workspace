@@ -70,6 +70,8 @@ AUDIT_INTERVAL      = 15 * 60    # 15 minutes
 REPORT_INTERVAL     = 60 * 60    # 1 hour
 SILENCE_LIMIT       = 30 * 60    # 30 min = nudge threshold
 SILENCE_ALERT_LIMIT = 2 * 60 * 60  # 2 hours = Telegram alert threshold
+TASK_FOLLOWUP_INTERVAL = 45 * 60   # 45 min between task follow-up nudges
+HELIOS_RUNTIME_STATE = AGENTS_DIR / "helios" / "runtime-state.json"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -99,6 +101,36 @@ def write_md(path: Path, content: str) -> None:
 
 def ms() -> int:
     return int(time.time() * 1000)
+
+
+def load_runtime_state() -> dict:
+    if HELIOS_RUNTIME_STATE.exists():
+        try:
+            return json.loads(HELIOS_RUNTIME_STATE.read_text())
+        except Exception:
+            pass
+    return {"task_followups": {}}
+
+
+def save_runtime_state(state: dict) -> None:
+    write_json(HELIOS_RUNTIME_STATE, state)
+
+
+def normalize_agent_name(owner: str) -> str:
+    raw = (owner or "").strip().lower().replace("_", "-").replace(" ", "-")
+    aliases = {
+        "chad-yi": "chad-yi",
+        "chadyi": "chad-yi",
+        "helios": "helios",
+        "cerebronn": "cerebronn",
+        "quanta": "quanta",
+        "quanta-v3": "quanta",
+        "forger": "forger",
+        "escritor": "escritor",
+        "mensamusa": "mensamusa",
+        "autour": "autour",
+    }
+    return aliases.get(raw, raw)
 
 # ---------------------------------------------------------------------------
 # ACTIVE.md parser
@@ -474,6 +506,66 @@ Update your outbox with a status report when done.
 """)
     log.info(f"  Nudge sent -> {name}: {reason}")
 
+
+def enforce_task_completion_loop(report: dict, active_data: dict) -> None:
+    """Keep unfinished tasks alive until an owner actually pushes them to completion."""
+    state = load_runtime_state()
+    followups = state.setdefault("task_followups", {})
+    now_ts = time.time()
+    active_task_ids: set[str] = set()
+
+    for task_id, task in active_data.get("tasks", {}).items():
+        if task.get("status") == "done":
+            continue
+
+        owner = normalize_agent_name(task.get("agent", ""))
+        if not owner or not (AGENTS_DIR / owner).exists() or owner == "helios":
+            continue
+
+        active_task_ids.add(task_id)
+        last_nudge_ts = float(followups.get(task_id, 0) or 0)
+        if now_ts - last_nudge_ts < TASK_FOLLOWUP_INTERVAL:
+            continue
+
+        agent_status = report.get("agents", {}).get(owner, {})
+        last_activity_iso = agent_status.get("last_activity")
+        silence_secs = None
+        if last_activity_iso:
+            try:
+                last_dt = datetime.fromisoformat(last_activity_iso)
+                silence_secs = (datetime.now(timezone.utc) - last_dt).total_seconds()
+            except Exception:
+                silence_secs = None
+
+        should_nudge = False
+        if silence_secs is None or silence_secs >= SILENCE_LIMIT:
+            should_nudge = True
+        elif task.get("priority") in {"critical", "urgent"}:
+            should_nudge = True
+
+        if not should_nudge:
+            continue
+
+        reason = (
+            f"Task {task_id} still {task.get('status')} ({task.get('priority')}) — "
+            f"{task.get('title')}. Continue until done or report a blocker."
+        )
+        nudge_agent(owner, reason)
+        followups[task_id] = now_ts
+        report.setdefault("alerts", []).append({
+            "type": "task_followup",
+            "task_id": task_id,
+            "owner": owner,
+            "task_status": task.get("status"),
+            "priority": task.get("priority"),
+        })
+
+    for task_id in list(followups.keys()):
+        if task_id not in active_task_ids:
+            followups.pop(task_id, None)
+
+    save_runtime_state(state)
+
 # ---------------------------------------------------------------------------
 # Inbox reader - Chad/Cerebronn can talk to Helios
 # ---------------------------------------------------------------------------
@@ -595,6 +687,8 @@ def build_agent_report() -> dict:
                 "silence_hours": round(silence_secs / 3600, 1),
                 "needs_telegram_alert": silence_secs >= SILENCE_ALERT_LIMIT,
             })
+
+    enforce_task_completion_loop(report, active_data)
 
     active = [n for n, s in report["agents"].items() if s["health"] == "active"]
     idle   = [n for n, s in report["agents"].items() if s["health"] == "idle"]
