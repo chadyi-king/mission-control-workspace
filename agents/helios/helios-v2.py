@@ -56,6 +56,8 @@ DASHBOARD_REPO   = WORKSPACE / "mission-control-dashboard"
 DASHBOARD_DATA   = DASHBOARD_REPO / "data.json"
 ACTIVE_MD        = WORKSPACE / "ACTIVE.md"
 HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onrender.com")
+OLLAMA_HOST      = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+OLLAMA_MODEL     = os.environ.get("HELIOS_LOCAL_MODEL", "qwen3:latest")
 
 # Fallback list only. Real watched agents should be derived dynamically from ACTIVE.md
 # and the actual agent directories so the infrastructure scales when new agents are added.
@@ -277,6 +279,74 @@ def read_agent_outboxes(active_data: dict | None = None) -> dict:
             except Exception:
                 pass
     return outboxes
+
+
+def get_local_model_status() -> dict:
+    status = {
+        "host": OLLAMA_HOST,
+        "model": OLLAMA_MODEL,
+        "available": False,
+        "enabled": HAS_REQUESTS,
+    }
+    if not HAS_REQUESTS:
+        return status
+    try:
+        r = requests.get(f"{OLLAMA_HOST}/api/tags", timeout=10)
+        if r.status_code != 200:
+            return status
+        data = r.json()
+        names = [m.get("name", "") for m in data.get("models", [])]
+        status["available_models"] = names
+        status["available"] = OLLAMA_MODEL in names
+        return status
+    except Exception as e:
+        status["error"] = str(e)
+        return status
+
+
+def generate_local_reasoning_summary(report: dict, active_data: dict) -> str:
+    """Use local Ollama to produce a short audit summary when available."""
+    model_status = report.get("local_model", {})
+    if not HAS_REQUESTS or not model_status.get("available"):
+        return ""
+
+    task_lines = []
+    for task_id, task in list(active_data.get("tasks", {}).items())[:5]:
+        task_lines.append(f"- {task_id}: {task.get('status')} | {task.get('priority')} | {task.get('agent')} | {task.get('title')}")
+
+    agent_lines = []
+    for name, status in report.get("agents", {}).items():
+        agent_lines.append(f"- {name}: {status.get('health')} | inbox={status.get('inbox_pending', 0)} | outbox={status.get('outbox_files', 0)}")
+
+    prompt = (
+        "You are Helios, a local mission-control auditor. "
+        "Write a blunt operational summary in 3 short bullet lines max. "
+        "Focus only on what matters right now: active agents, broken/silent agents, blocked/urgent tasks. "
+        "Do not add fluff.\n\n"
+        f"Agent summary: {report.get('summary', '')}\n"
+        f"Agents:\n" + "\n".join(agent_lines) + "\n\n"
+        f"Tasks:\n" + "\n".join(task_lines)
+    )
+
+    try:
+        r = requests.post(
+            f"{OLLAMA_HOST}/api/generate",
+            json={
+                "model": OLLAMA_MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "think": False,
+                "options": {"temperature": 0.1, "num_predict": 120}
+            },
+            timeout=20,
+        )
+        if r.status_code != 200:
+            return ""
+        data = r.json()
+        text = (data.get("response") or "").strip()
+        return text[:1200]
+    except Exception:
+        return ""
 
 
 # ---------------------------------------------------------------------------
@@ -501,6 +571,8 @@ def build_agent_report() -> dict:
         "agents": {},
         "alerts": [],
         "summary": "",
+        "local_model": get_local_model_status(),
+        "reasoning_summary": "",
     }
 
     for name in watched_agents:
@@ -531,6 +603,7 @@ def build_agent_report() -> dict:
         f"{len(active)} active, {len(idle)} idle, {len(silent)} silent. "
         f"Alerts: {len(report['alerts'])}."
     )
+    report["reasoning_summary"] = generate_local_reasoning_summary(report, active_data)
     return report
 
 # ---------------------------------------------------------------------------
@@ -653,7 +726,7 @@ def build_digest_text(label: str) -> tuple:
     """Build digest as (telegram_short, full_md)."""
     report = build_agent_report()
     active_data = parse_active_md()
-    outboxes = read_agent_outboxes()
+    outboxes = read_agent_outboxes(active_data)
     sgt = now_sgt()
     date_str = sgt.strftime("%Y-%m-%d")
     time_str = sgt.strftime("%H:%M SGT")
@@ -686,12 +759,14 @@ def build_digest_text(label: str) -> tuple:
     summary_line = (f"{sm.get('critical',0)} crit, {sm.get('urgent',0)} urgent, "
                     f"{sm.get('active',0)} active, {sm.get('blocked',0)} blocked")
 
+    local_summary = report.get("reasoning_summary", "").strip()
     tg_text = (
         f"{'🌞' if 'Morning' in label else '🌙'} *{label} — {date_str}*\n"
         f"_{time_str}_\n\n"
         f"*Agents:*\n{tg_agents}\n"
         f"*Tasks:* {summary_line}\n"
         + (f"\n*Needs attention:*\n{tg_needs_attention}" if tg_needs_attention else "") +
+        (f"\n\n*Helios local summary:*\n{local_summary}" if local_summary else "") +
         f"\nDashboard: https://red-sun-mission-control.onrender.com"
     )
 
@@ -708,6 +783,14 @@ Generated: {time_str} by Helios
 | # | Title | Owner | Status |
 |---|-------|-------|--------|
 {task_md_rows.rstrip() or "| — | No tasks parsed | — | — |"}
+
+## Local model
+- Host: {report.get('local_model', {}).get('host', OLLAMA_HOST)}
+- Model: {report.get('local_model', {}).get('model', OLLAMA_MODEL)}
+- Available: {report.get('local_model', {}).get('available', False)}
+
+## Helios local summary
+{report.get('reasoning_summary', '').strip() or '- unavailable'}
 
 Dashboard: https://red-sun-mission-control.onrender.com
 Edit tasks: {ACTIVE_MD}
