@@ -24,10 +24,11 @@ bash /home/chad-yi/.openclaw/workspace/scripts/infra_audit_snapshot.sh
 - do not send filler just to satisfy the timer
 
 ### Current auto-resume order
-1. Wire Helios to the existing local Ollama/Qwen setup
-2. Keep Helios + dashboard agent syncing dynamic and correct
-3. Collapse duplicate dashboard data paths toward one canonical live path
-4. Reduce remaining runtime/doc drift that causes wrong assumptions
+1. Keep the new Helios completion loop enforcing unfinished owned tasks until they move
+2. Tighten the Helios → CHAD_YI escalation/reporting loop so unfinished work stays visible and actionable
+3. Reduce remaining runtime/doc drift in live files/services only (ignore archived noise)
+4. Validate the end-to-end loop: `ACTIVE.md` → Helios follow-up/escalation → `mission-control-dashboard/data.json` → live dashboard
+5. Do not stop at status reports; only count a blocker as done when runtime behavior is corrected
 
 ## What matters most
 - `openclaw-gateway` up
