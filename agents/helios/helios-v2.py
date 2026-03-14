@@ -58,6 +58,7 @@ ACTIVE_MD        = WORKSPACE / "ACTIVE.md"
 HELIOS_API       = os.environ.get("HELIOS_API_URL", "https://helios-api-xfvi.onrender.com")
 OLLAMA_HOST      = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
 OLLAMA_MODEL     = os.environ.get("HELIOS_LOCAL_MODEL", "qwen3:latest")
+DISABLE_DASHBOARD_SYNC = os.environ.get("HELIOS_DISABLE_DASHBOARD_SYNC", "").lower() in {"1", "true", "yes", "on"}
 
 # Fallback list only. Real watched agents should be derived dynamically from ACTIVE.md
 # and the actual agent directories so the infrastructure scales when new agents are added.
@@ -705,6 +706,10 @@ def build_agent_report() -> dict:
 # ---------------------------------------------------------------------------
 
 def sync_dashboard_data(report: dict) -> None:
+    if DISABLE_DASHBOARD_SYNC:
+        log.warning("  [sync] Dashboard sync disabled by HELIOS_DISABLE_DASHBOARD_SYNC")
+        return
+
     if not DASHBOARD_DATA.exists():
         log.warning(f"  [sync] data.json not found at {DASHBOARD_DATA}")
         return
